@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { LocateFixed, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -88,7 +88,10 @@ function PageRecherche() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
-      <div className="flex justify-end pt-4">
+      <div className="flex items-center justify-between pt-4">
+        <Link to="/pro" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
+          Espace pro
+        </Link>
         <BasculeTheme />
       </div>
 
