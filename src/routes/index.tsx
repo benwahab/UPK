@@ -5,6 +5,7 @@ import { LocateFixed, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { CarteLieu } from "@/components/upk/CarteLieu";
+import { BasculeTheme } from "@/components/upk/BasculeTheme";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { listerCategories, rechercherLieux } from "@/lib/places.functions";
@@ -48,6 +49,11 @@ function PageRecherche() {
     staleTime: 1000 * 60 * 30,
   });
 
+  // Une recherche n'est "active" que si l'utilisateur a tapé quelque chose
+  // ou choisi une catégorie — l'écran d'accueil reste volontairement vide
+  // tant qu'aucune intention n'a été exprimée.
+  const rechercheActive = saisie.trim().length > 0 || categorieSlug !== null;
+
   const resultats = useQuery({
     queryKey: ["lieux", requete, categorieSlug, position?.lat ?? null, position?.lng ?? null],
     queryFn: () =>
@@ -59,6 +65,7 @@ function PageRecherche() {
           lng: position?.lng ?? null,
         },
       }),
+    enabled: rechercheActive,
   });
 
   const lieux = useMemo(() => resultats.data ?? [], [resultats.data]);
@@ -81,10 +88,24 @@ function PageRecherche() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
-      <header className="pt-8 pb-5">
-        <p className="text-3xl font-extrabold tracking-tight text-primary">UPK</p>
-        <h1 className="mt-1 font-display text-xl leading-snug font-semibold text-foreground">
-          Dis-moi ce que tu cherches. UPK trouve où le trouver.
+      <div className="flex justify-end pt-4">
+        <BasculeTheme />
+      </div>
+
+      <header
+        className={
+          rechercheActive
+            ? "pt-4 pb-5 text-center transition-all"
+            : "flex min-h-[38vh] flex-col items-center justify-center pt-4 pb-5 text-center transition-all"
+        }
+      >
+        <img
+          src="/logo/upk-logo.png"
+          alt="UPK"
+          className={rechercheActive ? "h-16 w-16" : "h-28 w-28"}
+        />
+        <h1 className="mt-3 font-display text-lg leading-snug font-semibold text-foreground">
+          Votre guide local
         </h1>
       </header>
 
@@ -94,7 +115,11 @@ function PageRecherche() {
           setRequete(saisie);
         }}
         role="search"
-        className="sticky top-0 z-10 -mx-4 bg-background/95 px-4 py-3 backdrop-blur"
+        className={
+          rechercheActive
+            ? "sticky top-0 z-10 -mx-4 bg-background/95 px-4 py-3 backdrop-blur"
+            : "px-0 py-3"
+        }
       >
         <label htmlFor="recherche" className="sr-only">
           Que recherchez-vous ?
@@ -116,80 +141,84 @@ function PageRecherche() {
         </div>
       </form>
 
-      <section className="mt-1" aria-label="Position">
-        {etatGeo !== "ok" ? (
-          <div className="rounded-xl border border-dashed border-border bg-card p-3">
-            <p className="text-sm text-muted-foreground">
-              Autorisez la localisation pour trier les résultats du plus proche au plus loin. Sans
-              position, aucune distance n'est affichée.
-            </p>
-            <Button
-              type="button"
-              variant="terrain"
-              size="sm"
-              className="mt-2"
-              onClick={demanderPosition}
-              disabled={etatGeo === "chargement"}
-            >
-              <LocateFixed className="size-4" aria-hidden />
-              {etatGeo === "chargement" ? "Localisation…" : "Utiliser ma position"}
-            </Button>
-            {etatGeo === "refuse" ? (
-              <p className="mt-2 text-xs text-muted-foreground">
-                Position indisponible. Les résultats restent consultables, sans distance.
+      {rechercheActive ? (
+        <>
+          <section className="mt-1" aria-label="Position">
+            {etatGeo !== "ok" ? (
+              <div className="rounded-xl border border-dashed border-border bg-card p-3">
+                <p className="text-sm text-muted-foreground">
+                  Autorisez la localisation pour trier les résultats du plus proche au plus loin.
+                  Sans position, aucune distance n'est affichée.
+                </p>
+                <Button
+                  type="button"
+                  variant="terrain"
+                  size="sm"
+                  className="mt-2"
+                  onClick={demanderPosition}
+                  disabled={etatGeo === "chargement"}
+                >
+                  <LocateFixed className="size-4" aria-hidden />
+                  {etatGeo === "chargement" ? "Localisation…" : "Utiliser ma position"}
+                </Button>
+                {etatGeo === "refuse" ? (
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    Position indisponible. Les résultats restent consultables, sans distance.
+                  </p>
+                ) : null}
+              </div>
+            ) : (
+              <p className="text-xs text-muted-foreground">
+                Position activée — résultats triés par proximité.
               </p>
-            ) : null}
-          </div>
-        ) : (
-          <p className="text-xs text-muted-foreground">
-            Position активée — résultats triés par proximité.
-          </p>
-        )}
-      </section>
+            )}
+          </section>
 
-      <nav aria-label="Filtrer par catégorie" className="mt-4 -mx-4 overflow-x-auto px-4">
-        <ul className="flex w-max gap-2 pb-1">
-          <li>
-            <FiltreBouton
-              actif={categorieSlug === null}
-              onClick={() => setCategorieSlug(null)}
-              libelle="Tout"
-            />
-          </li>
-          {(categories.data ?? []).map((c) => (
-            <li key={c.id}>
-              <FiltreBouton
-                actif={categorieSlug === c.slug}
-                onClick={() => setCategorieSlug(c.slug)}
-                libelle={c.nom}
-              />
-            </li>
-          ))}
-        </ul>
-      </nav>
+          <nav aria-label="Filtrer par catégorie" className="mt-4 -mx-4 overflow-x-auto px-4">
+            <ul className="flex w-max gap-2 pb-1">
+              <li>
+                <FiltreBouton
+                  actif={categorieSlug === null}
+                  onClick={() => setCategorieSlug(null)}
+                  libelle="Tout"
+                />
+              </li>
+              {(categories.data ?? []).map((c) => (
+                <li key={c.id}>
+                  <FiltreBouton
+                    actif={categorieSlug === c.slug}
+                    onClick={() => setCategorieSlug(c.slug)}
+                    libelle={c.nom}
+                  />
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-      <section className="mt-4 space-y-3" aria-live="polite">
-        {resultats.isPending ? (
-          <p className="py-8 text-center text-sm text-muted-foreground">Recherche en cours…</p>
-        ) : resultats.isError ? (
-          <p className="py-8 text-center text-sm text-destructive">
-            La recherche a échoué. Vérifiez votre connexion et réessayez.
-          </p>
-        ) : lieux.length === 0 ? (
-          <p className="py-8 text-center text-sm text-muted-foreground">
-            Aucun lieu trouvé pour cette recherche.
-          </p>
-        ) : (
-          <>
-            <p className="text-xs text-muted-foreground">
-              {lieux.length} résultat{lieux.length > 1 ? "s" : ""}
-            </p>
-            {lieux.map((lieu) => (
-              <CarteLieu key={lieu.id} lieu={lieu} />
-            ))}
-          </>
-        )}
-      </section>
+          <section className="mt-4 space-y-3" aria-live="polite">
+            {resultats.isPending ? (
+              <p className="py-8 text-center text-sm text-muted-foreground">Recherche en cours…</p>
+            ) : resultats.isError ? (
+              <p className="py-8 text-center text-sm text-destructive">
+                La recherche a échoué. Vérifiez votre connexion et réessayez.
+              </p>
+            ) : lieux.length === 0 ? (
+              <p className="py-8 text-center text-sm text-muted-foreground">
+                Aucun lieu trouvé pour cette recherche.
+              </p>
+            ) : (
+              <>
+                <p className="text-xs text-muted-foreground">
+                  {lieux.length} résultat{lieux.length > 1 ? "s" : ""}
+                </p>
+                {lieux.map((lieu) => (
+                  <CarteLieu key={lieu.id} lieu={lieu} />
+                ))}
+              </>
+            )}
+          </section>
+        </>
+      ) : null}
     </main>
   );
 }
