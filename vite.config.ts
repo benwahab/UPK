@@ -27,7 +27,7 @@ export default defineConfig({
         workbox: {
           // No build-time precache manifest (SSR app): caching is runtime-only.
           globPatterns: [],
-          navigateFallback: undefined,
+          navigateFallback: null,
           cleanupOutdatedCaches: true,
           clientsClaim: true,
           skipWaiting: true,
