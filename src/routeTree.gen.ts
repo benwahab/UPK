@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as InscriptionRouteImport } from './routes/inscription'
+import { Route as ProposerRouteImport } from './routes/proposer'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
 import { Route as ProIndexRouteImport } from './routes/pro/index'
 import { Route as ProIdRouteImport } from './routes/pro/$id'
@@ -30,6 +32,16 @@ const ConnexionRoute = ConnexionRouteImport.update({
 const InscriptionRoute = InscriptionRouteImport.update({
   id: '/inscription',
   path: '/inscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProposerRoute = ProposerRouteImport.update({
+  id: '/proposer',
+  path: '/proposer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LieuIdRoute = LieuIdRouteImport.update({
@@ -57,18 +69,22 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
   '/inscription': typeof InscriptionRoute
+  '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRoute
   '/pro/nouveau': typeof ProNouveauRoute
+  '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
   '/inscription': typeof InscriptionRoute
+  '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRoute
   '/pro/nouveau': typeof ProNouveauRoute
+  '/admin': typeof AdminIndexRoute
   '/pro': typeof ProIndexRoute
 }
 export interface FileRoutesById {
@@ -76,9 +92,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
   '/inscription': typeof InscriptionRoute
+  '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRoute
   '/pro/nouveau': typeof ProNouveauRoute
+  '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,27 +105,33 @@ export interface FileRouteTypes {
     | '/'
     | '/connexion'
     | '/inscription'
+    | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/nouveau'
+    | '/admin/'
     | '/pro/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/connexion'
     | '/inscription'
+    | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/nouveau'
+    | '/admin'
     | '/pro'
   id:
     | '__root__'
     | '/'
     | '/connexion'
     | '/inscription'
+    | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/nouveau'
+    | '/admin/'
     | '/pro/'
   fileRoutesById: FileRoutesById
 }
@@ -115,9 +139,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConnexionRoute: typeof ConnexionRoute
   InscriptionRoute: typeof InscriptionRoute
+  ProposerRoute: typeof ProposerRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRoute
   ProNouveauRoute: typeof ProNouveauRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   ProIndexRoute: typeof ProIndexRoute
 }
 
@@ -142,6 +168,20 @@ declare module '@tanstack/react-router' {
       path: '/inscription'
       fullPath: '/inscription'
       preLoaderRoute: typeof InscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proposer': {
+      id: '/proposer'
+      path: '/proposer'
+      fullPath: '/proposer'
+      preLoaderRoute: typeof ProposerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lieu/$id': {
@@ -179,9 +219,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConnexionRoute: ConnexionRoute,
   InscriptionRoute: InscriptionRoute,
+  ProposerRoute: ProposerRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRoute,
   ProNouveauRoute: ProNouveauRoute,
+  AdminIndexRoute: AdminIndexRoute,
   ProIndexRoute: ProIndexRoute,
 }
 export const routeTree = rootRouteImport

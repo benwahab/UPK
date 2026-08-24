@@ -89,9 +89,14 @@ function PageRecherche() {
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
       <div className="flex items-center justify-between pt-4">
-        <Link to="/pro" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
-          Espace pro
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link to="/pro" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
+            Espace pro
+          </Link>
+          <Link to="/proposer" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
+            Proposer un lieu
+          </Link>
+        </div>
         <BasculeTheme />
       </div>
 

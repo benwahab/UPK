@@ -49,10 +49,13 @@ export function FormulaireLieu({
   valeursInitiales = VALEURS_VIDES,
   onEnregistrer,
   libelleBouton = "Publier mon établissement",
+  apresEnregistrement,
 }: {
   valeursInitiales?: ValeursFormulaireLieu;
   onEnregistrer: (valeurs: ValeursFormulaireLieu) => Promise<void>;
   libelleBouton?: string;
+  /** Appelé après un enregistrement réussi. Par défaut, retourne vers /pro. */
+  apresEnregistrement?: () => void;
 }) {
   const navigate = useNavigate();
   const chargerCategories = useServerFn(listerCategories);
@@ -104,7 +107,8 @@ export function FormulaireLieu({
     setEnCours(true);
     try {
       await onEnregistrer(valeurs);
-      navigate({ to: "/pro" });
+      if (apresEnregistrement) apresEnregistrement();
+      else navigate({ to: "/pro" });
     } catch {
       setErreur("Impossible d'enregistrer. Vérifiez les champs et réessayez.");
     } finally {
