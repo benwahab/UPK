@@ -101,6 +101,7 @@ export type Database = {
           longitude: number
           metadata: Json
           nom: string
+          owner_id: string | null
           quartier: string | null
           site_web: string | null
           source: Database["public"]["Enums"]["place_source"]
@@ -122,6 +123,7 @@ export type Database = {
           longitude: number
           metadata?: Json
           nom: string
+          owner_id?: string | null
           quartier?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
@@ -143,6 +145,7 @@ export type Database = {
           longitude?: number
           metadata?: Json
           nom?: string
+          owner_id?: string | null
           quartier?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
@@ -160,6 +163,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          nom_complet: string | null
+          telephone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          nom_complet?: string | null
+          telephone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nom_complet?: string | null
+          telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
       }
       spatial_ref_sys: {
         Row: {
