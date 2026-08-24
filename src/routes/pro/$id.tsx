@@ -93,6 +93,15 @@ function PageModifierLieu() {
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
         Modifier {lieu.data.nom}
       </h1>
+      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug === "pharmacie" ? (
+        <Link
+          to="/pro/$id/pharmacie"
+          params={{ id }}
+          className="mt-3 inline-flex h-10 items-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-foreground"
+        >
+          Gérer mon stock et mes gardes
+        </Link>
+      ) : null}
       <FormulaireLieu
         valeursInitiales={valeursInitiales}
         onEnregistrer={onEnregistrer}

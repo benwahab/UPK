@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConnexionRouteImport } from './routes/connexion'
+import { Route as GardeRouteImport } from './routes/garde'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
@@ -18,6 +19,7 @@ import { Route as LieuIdRouteImport } from './routes/lieu.$id'
 import { Route as ProIndexRouteImport } from './routes/pro/index'
 import { Route as ProIdRouteImport } from './routes/pro/$id'
 import { Route as ProNouveauRouteImport } from './routes/pro/nouveau'
+import { Route as ProIdPharmacieRouteImport } from './routes/pro/$id/pharmacie'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -27,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const ConnexionRoute = ConnexionRouteImport.update({
   id: '/connexion',
   path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GardeRoute = GardeRouteImport.update({
+  id: '/garde',
+  path: '/garde',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InscriptionRoute = InscriptionRouteImport.update({
@@ -64,46 +71,58 @@ const ProNouveauRoute = ProNouveauRouteImport.update({
   path: '/pro/nouveau',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProIdPharmacieRoute = ProIdPharmacieRouteImport.update({
+  id: '/pharmacie',
+  path: '/pharmacie',
+  getParentRoute: () => ProIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
+  '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
-  '/pro/$id': typeof ProIdRoute
+  '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
+  '/pro/$id/pharmacie': typeof ProIdPharmacieRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
+  '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
-  '/pro/$id': typeof ProIdRoute
+  '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin': typeof AdminIndexRoute
   '/pro': typeof ProIndexRoute
+  '/pro/$id/pharmacie': typeof ProIdPharmacieRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
+  '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
-  '/pro/$id': typeof ProIdRoute
+  '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
+  '/pro/$id/pharmacie': typeof ProIdPharmacieRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/connexion'
+    | '/garde'
     | '/inscription'
     | '/proposer'
     | '/lieu/$id'
@@ -111,10 +130,12 @@ export interface FileRouteTypes {
     | '/pro/nouveau'
     | '/admin/'
     | '/pro/'
+    | '/pro/$id/pharmacie'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/connexion'
+    | '/garde'
     | '/inscription'
     | '/proposer'
     | '/lieu/$id'
@@ -122,10 +143,12 @@ export interface FileRouteTypes {
     | '/pro/nouveau'
     | '/admin'
     | '/pro'
+    | '/pro/$id/pharmacie'
   id:
     | '__root__'
     | '/'
     | '/connexion'
+    | '/garde'
     | '/inscription'
     | '/proposer'
     | '/lieu/$id'
@@ -133,15 +156,17 @@ export interface FileRouteTypes {
     | '/pro/nouveau'
     | '/admin/'
     | '/pro/'
+    | '/pro/$id/pharmacie'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConnexionRoute: typeof ConnexionRoute
+  GardeRoute: typeof GardeRoute
   InscriptionRoute: typeof InscriptionRoute
   ProposerRoute: typeof ProposerRoute
   LieuIdRoute: typeof LieuIdRoute
-  ProIdRoute: typeof ProIdRoute
+  ProIdRoute: typeof ProIdRouteWithChildren
   ProNouveauRoute: typeof ProNouveauRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ProIndexRoute: typeof ProIndexRoute
@@ -161,6 +186,13 @@ declare module '@tanstack/react-router' {
       path: '/connexion'
       fullPath: '/connexion'
       preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/garde': {
+      id: '/garde'
+      path: '/garde'
+      fullPath: '/garde'
+      preLoaderRoute: typeof GardeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inscription': {
@@ -212,16 +244,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProNouveauRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pro/$id/pharmacie': {
+      id: '/pro/$id/pharmacie'
+      path: '/pharmacie'
+      fullPath: '/pro/$id/pharmacie'
+      preLoaderRoute: typeof ProIdPharmacieRouteImport
+      parentRoute: typeof ProIdRoute
+    }
   }
 }
+
+interface ProIdRouteChildren {
+  ProIdPharmacieRoute: typeof ProIdPharmacieRoute
+}
+
+const ProIdRouteChildren: ProIdRouteChildren = {
+  ProIdPharmacieRoute: ProIdPharmacieRoute,
+}
+
+const ProIdRouteWithChildren = ProIdRoute._addFileChildren(ProIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConnexionRoute: ConnexionRoute,
+  GardeRoute: GardeRoute,
   InscriptionRoute: InscriptionRoute,
   ProposerRoute: ProposerRoute,
   LieuIdRoute: LieuIdRoute,
-  ProIdRoute: ProIdRoute,
+  ProIdRoute: ProIdRouteWithChildren,
   ProNouveauRoute: ProNouveauRoute,
   AdminIndexRoute: AdminIndexRoute,
   ProIndexRoute: ProIndexRoute,

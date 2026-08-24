@@ -104,7 +104,7 @@ export const obtenirMonLieu = createServerFn({ method: "GET" })
     const { data: lieu, error } = await context.supabase
       .from("places")
       .select(
-        "id, nom, description, category_id, adresse, quartier, latitude, longitude, telephone, whatsapp, horaires, site_web, statut_verification, actif",
+        "id, nom, description, category_id, adresse, quartier, latitude, longitude, telephone, whatsapp, horaires, site_web, statut_verification, actif, categories(slug)",
       )
       .eq("id", data.id)
       .eq("owner_id", context.userId)

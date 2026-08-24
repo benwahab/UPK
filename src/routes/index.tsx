@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { LocateFixed, Search } from "lucide-react";
+import { LocateFixed, Mic, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { CarteLieu } from "@/components/upk/CarteLieu";
@@ -9,6 +9,7 @@ import { BasculeTheme } from "@/components/upk/BasculeTheme";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { listerCategories, rechercherLieux } from "@/lib/places.functions";
+import { useRechercheVocale } from "@/lib/useRechercheVocale";
 
 const TITRE = "UPK — Recherche locale au Niger";
 const DESCRIPTION =
@@ -30,6 +31,10 @@ type Position = { lat: number; lng: number };
 
 function PageRecherche() {
   const [saisie, setSaisie] = useState("");
+  const rechercheVocale = useRechercheVocale((texte) => {
+    setSaisie(texte);
+    setRequete(texte);
+  });
   const [requete, setRequete] = useState("");
   const [categorieSlug, setCategorieSlug] = useState<string | null>(null);
   const [position, setPosition] = useState<Position | null>(null);
@@ -96,6 +101,9 @@ function PageRecherche() {
           <Link to="/proposer" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
             Proposer un lieu
           </Link>
+          <Link to="/garde" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
+            Pharmacies de garde
+          </Link>
         </div>
         <BasculeTheme />
       </div>
@@ -144,9 +152,27 @@ function PageRecherche() {
             placeholder="Que recherchez-vous ?"
             inputMode="search"
             autoComplete="off"
-            className="h-13 rounded-xl pl-10 text-base"
+            className={rechercheVocale.disponible ? "h-13 rounded-xl pr-12 pl-10 text-base" : "h-13 rounded-xl pl-10 text-base"}
           />
+          {rechercheVocale.disponible ? (
+            <button
+              type="button"
+              onClick={rechercheVocale.enEcoute ? rechercheVocale.arreter : rechercheVocale.demarrer}
+              aria-label={rechercheVocale.enEcoute ? "Arrêter l'écoute" : "Rechercher à la voix"}
+              aria-pressed={rechercheVocale.enEcoute}
+              className={
+                rechercheVocale.enEcoute
+                  ? "absolute top-1/2 right-2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-destructive text-destructive-foreground"
+                  : "absolute top-1/2 right-2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              }
+            >
+              <Mic className="size-4" aria-hidden />
+            </button>
+          ) : null}
         </div>
+        {rechercheVocale.enEcoute ? (
+          <p className="mt-1.5 text-xs text-muted-foreground">Je vous écoute…</p>
+        ) : null}
       </form>
 
       {rechercheActive ? (

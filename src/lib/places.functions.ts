@@ -76,3 +76,97 @@ export const obtenirLieu = createServerFn({ method: "GET" })
       photos: (photos ?? []) as { id: string; url: string }[],
     };
   });
+
+export type ResultatMedicament = {
+  place_id: string;
+  place_nom: string;
+  quartier: string | null;
+  telephone: string | null;
+  nom_commercial: string;
+  molecule: string | null;
+  dosage: string | null;
+  prix_vente: number | null;
+};
+
+/** "Où trouver X ?" — cherche par nom commercial OU molécule, pharmacies actives uniquement. */
+export const chercherMedicament = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => z.object({ requete: z.string().trim().min(2).max(120) }).parse(data))
+  .handler(async ({ data }): Promise<ResultatMedicament[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data: rows, error } = await clientPublic()
+      .from("medicaments")
+      .select("nom_commercial, molecule, dosage, prix_vente, places(id, nom, quartier, telephone, actif)")
+      .eq("disponible", true)
+      .or(`nom_commercial.ilike.%${data.requete}%,molecule.ilike.%${data.requete}%`)
+      .limit(30);
+    if (error) throw new Error(error.message);
+
+    return (rows ?? [])
+      .map((r) => {
+        const lieu = (r as unknown as { places: { id: string; nom: string; quartier: string | null; telephone: string | null; actif: boolean } | null }).places;
+        if (!lieu || !lieu.actif) return null;
+        return {
+          place_id: lieu.id,
+          place_nom: lieu.nom,
+          quartier: lieu.quartier,
+          telephone: lieu.telephone,
+          nom_commercial: (r as { nom_commercial: string }).nom_commercial,
+          molecule: (r as { molecule: string | null }).molecule,
+          dosage: (r as { dosage: string | null }).dosage,
+          prix_vente: (r as { prix_vente: number | null }).prix_vente,
+        };
+      })
+      .filter((r): r is ResultatMedicament => r !== null);
+  });
+
+export type PharmacieDeGarde = {
+  place_id: string;
+  nom: string;
+  quartier: string | null;
+  telephone: string | null;
+  latitude: number;
+  longitude: number;
+  horaires: string | null;
+};
+
+/** Pharmacies de garde aujourd'hui, pharmacies actives uniquement. */
+export const listerPharmaciesDeGarde = createServerFn({ method: "GET" }).handler(
+  async (): Promise<PharmacieDeGarde[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const aujourdhui = new Date().toISOString().slice(0, 10);
+    const { data: rows, error } = await clientPublic()
+      .from("pharmacie_gardes")
+      .select("horaires, places(id, nom, quartier, telephone, latitude, longitude, actif)")
+      .eq("date_garde", aujourdhui);
+    if (error) throw new Error(error.message);
+
+    return (rows ?? [])
+      .map((r) => {
+        const lieu = (
+          r as unknown as {
+            places: {
+              id: string;
+              nom: string;
+              quartier: string | null;
+              telephone: string | null;
+              latitude: number;
+              longitude: number;
+              actif: boolean;
+            } | null;
+          }
+        ).places;
+        if (!lieu || !lieu.actif) return null;
+        return {
+          place_id: lieu.id,
+          nom: lieu.nom,
+          quartier: lieu.quartier,
+          telephone: lieu.telephone,
+          latitude: lieu.latitude,
+          longitude: lieu.longitude,
+          horaires: (r as { horaires: string | null }).horaires,
+        };
+      })
+      .filter((r): r is PharmacieDeGarde => r !== null);
+  },
+);
+
