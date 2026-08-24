@@ -55,6 +55,88 @@ export type Database = {
           },
         ]
       }
+      medicaments: {
+        Row: {
+          conditionnement: string | null
+          created_at: string
+          disponible: boolean
+          dosage: string | null
+          forme: string | null
+          id: string
+          molecule: string | null
+          nom_commercial: string
+          place_id: string
+          prix_vente: number | null
+          updated_at: string
+        }
+        Insert: {
+          conditionnement?: string | null
+          created_at?: string
+          disponible?: boolean
+          dosage?: string | null
+          forme?: string | null
+          id?: string
+          molecule?: string | null
+          nom_commercial: string
+          place_id: string
+          prix_vente?: number | null
+          updated_at?: string
+        }
+        Update: {
+          conditionnement?: string | null
+          created_at?: string
+          disponible?: boolean
+          dosage?: string | null
+          forme?: string | null
+          id?: string
+          molecule?: string | null
+          nom_commercial?: string
+          place_id?: string
+          prix_vente?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "medicaments_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pharmacie_gardes: {
+        Row: {
+          created_at: string
+          date_garde: string
+          horaires: string | null
+          id: string
+          place_id: string
+        }
+        Insert: {
+          created_at?: string
+          date_garde: string
+          horaires?: string | null
+          id?: string
+          place_id: string
+        }
+        Update: {
+          created_at?: string
+          date_garde?: string
+          horaires?: string | null
+          id?: string
+          place_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pharmacie_gardes_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       place_photos: {
         Row: {
           created_at: string
@@ -101,10 +183,12 @@ export type Database = {
           longitude: number
           metadata: Json
           nom: string
+          owner_id: string | null
           quartier: string | null
           site_web: string | null
           source: Database["public"]["Enums"]["place_source"]
           statut_verification: Database["public"]["Enums"]["verification_status"]
+          submitted_by: string | null
           telephone: string | null
           updated_at: string
           whatsapp: string | null
@@ -122,10 +206,12 @@ export type Database = {
           longitude: number
           metadata?: Json
           nom: string
+          owner_id?: string | null
           quartier?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
           statut_verification?: Database["public"]["Enums"]["verification_status"]
+          submitted_by?: string | null
           telephone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -143,10 +229,12 @@ export type Database = {
           longitude?: number
           metadata?: Json
           nom?: string
+          owner_id?: string | null
           quartier?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
           statut_verification?: Database["public"]["Enums"]["verification_status"]
+          submitted_by?: string | null
           telephone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -160,6 +248,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          nom_complet: string | null
+          role: string
+          telephone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          nom_complet?: string | null
+          role?: string
+          telephone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nom_complet?: string | null
+          role?: string
+          telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
       }
       spatial_ref_sys: {
         Row: {
@@ -391,6 +506,7 @@ export type Database = {
         | { Args: { table_name: string }; Returns: string }
       enablelongtransactions: { Args: never; Returns: string }
       equals: { Args: { geom1: unknown; geom2: unknown }; Returns: boolean }
+      est_moderateur: { Args: { p_user_id: string }; Returns: boolean }
       geometry: { Args: { "": string }; Returns: unknown }
       geometry_above: {
         Args: { geom1: unknown; geom2: unknown }
