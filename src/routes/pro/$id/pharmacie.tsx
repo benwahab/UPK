@@ -123,9 +123,12 @@ function PagePharmacie() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
-      <div className="pt-6">
+      <div className="flex items-center gap-3 pt-6">
         <Link to="/pro/$id" params={{ id }} className="text-sm font-medium text-primary">
           ← Retour à la fiche
+        </Link>
+        <Link to="/" className="text-sm font-medium text-muted-foreground">
+          Accueil
         </Link>
       </div>
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">

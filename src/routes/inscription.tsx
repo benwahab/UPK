@@ -71,6 +71,9 @@ function PageInscription() {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center px-4 pb-16">
+      <Link to="/" className="mb-6 self-start text-sm font-medium text-primary">
+        ← Accueil
+      </Link>
       <h1 className="font-display text-xl font-semibold text-foreground">Créer un compte pro</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         Ajoutez et gérez votre établissement sur UPK.

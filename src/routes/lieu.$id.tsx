@@ -1,10 +1,10 @@
-import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
+import { useSuspenseQuery, useQuery, queryOptions } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Clock, Globe, MapPin, MessageCircle, Navigation, Phone } from "lucide-react";
+import { Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill } from "lucide-react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { Button } from "@/components/ui/button";
-import { obtenirLieu } from "@/lib/places.functions";
+import { listerMedicamentsDuLieu, obtenirLieu } from "@/lib/places.functions";
 import { lienItineraire, lienWhatsapp, telAffiche } from "@/lib/upk";
 
 const optionsLieu = (id: string) =>
@@ -62,6 +62,13 @@ function Message({ titre, texte }: { titre: string; texte: string }) {
 function PageLieu() {
   const { id } = Route.useParams();
   const { data: lieu } = useSuspenseQuery(optionsLieu(id));
+  const estPharmacie = lieu.categorie_slug === "pharmacie";
+
+  const medicaments = useQuery({
+    queryKey: ["medicaments-lieu", id],
+    queryFn: () => listerMedicamentsDuLieu({ data: { placeId: id } }),
+    enabled: estPharmacie,
+  });
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
@@ -145,6 +152,51 @@ function PageLieu() {
           )}
         </Ligne>
       </dl>
+
+      {estPharmacie ? (
+        <section className="mt-6">
+          <h2 className="flex items-center gap-1.5 font-display text-lg font-semibold text-foreground">
+            <Pill className="size-4" aria-hidden />
+            Médicaments disponibles
+          </h2>
+          {medicaments.isPending ? (
+            <p className="mt-2 text-sm text-muted-foreground">Chargement…</p>
+          ) : (medicaments.data ?? []).length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">
+              Aucun médicament renseigné pour l'instant par cette pharmacie.
+            </p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {(medicaments.data ?? []).map((m) => (
+                <li
+                  key={m.id}
+                  className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-card-foreground">
+                      {m.nom_commercial}
+                      {m.dosage ? ` — ${m.dosage}` : ""}
+                    </p>
+                    {m.molecule ? (
+                      <p className="text-xs text-muted-foreground">{m.molecule}</p>
+                    ) : null}
+                  </div>
+                  <div className="shrink-0 text-right">
+                    {m.prix_vente ? (
+                      <p className="text-sm font-medium text-card-foreground">
+                        {m.prix_vente} FCFA
+                      </p>
+                    ) : null}
+                    <p className={m.disponible ? "text-xs text-primary" : "text-xs text-destructive"}>
+                      {m.disponible ? "Disponible" : "Rupture"}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
 
       {lieu.photos.length > 0 ? (
         <section className="mt-6">

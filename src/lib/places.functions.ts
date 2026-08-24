@@ -77,6 +77,30 @@ export const obtenirLieu = createServerFn({ method: "GET" })
     };
   });
 
+export type MedicamentPublic = {
+  id: string;
+  nom_commercial: string;
+  molecule: string | null;
+  dosage: string | null;
+  conditionnement: string | null;
+  prix_vente: number | null;
+  disponible: boolean;
+};
+
+/** Stock affiché sur la fiche publique d'une pharmacie. */
+export const listerMedicamentsDuLieu = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => z.object({ placeId: z.string().uuid() }).parse(data))
+  .handler(async ({ data }): Promise<MedicamentPublic[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data: rows, error } = await clientPublic()
+      .from("medicaments")
+      .select("id, nom_commercial, molecule, dosage, conditionnement, prix_vente, disponible")
+      .eq("place_id", data.placeId)
+      .order("nom_commercial", { ascending: true });
+    if (error) throw new Error(error.message);
+    return (rows ?? []) as MedicamentPublic[];
+  });
+
 export type ResultatMedicament = {
   place_id: string;
   place_nom: string;

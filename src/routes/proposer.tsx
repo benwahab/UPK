@@ -1,10 +1,9 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
 import { FormulaireLieu, type ValeursFormulaireLieu } from "@/components/upk/FormulaireLieu";
 import { proposerLieu } from "@/lib/moderation.functions";
-import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/proposer")({
   head: () => ({ meta: [{ title: "Proposer un lieu — UPK" }] }),
@@ -12,29 +11,8 @@ export const Route = createFileRoute("/proposer")({
 });
 
 function PageProposerLieu() {
-  const { utilisateur, chargement } = useSession();
   const proposer = useServerFn(proposerLieu);
   const [envoye, setEnvoye] = useState(false);
-
-  if (chargement) return null;
-
-  if (!utilisateur) {
-    return (
-      <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col items-center justify-center px-4 text-center">
-        <h1 className="font-display text-xl font-semibold text-foreground">Proposer un lieu</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Connectez-vous pour proposer un lieu — ça évite les faux ajouts et permet de vous
-          recontacter si besoin.
-        </p>
-        <Link
-          to="/connexion"
-          className="mt-4 inline-flex h-10 items-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-foreground"
-        >
-          Se connecter
-        </Link>
-      </main>
-    );
-  }
 
   if (envoye) {
     return (

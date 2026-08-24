@@ -42,7 +42,12 @@ function PageDashboardPro() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
-      <div className="flex items-center justify-between pt-6">
+      <div className="pt-6">
+        <Link to="/" className="text-sm font-medium text-primary">
+          ← Accueil
+        </Link>
+      </div>
+      <div className="flex items-center justify-between pt-3">
         <div>
           <p className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
             UPK Business

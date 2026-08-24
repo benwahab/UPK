@@ -19,11 +19,16 @@ const champsPropositionSchema = z.object({
 });
 
 /** Un utilisateur (pas forcément le propriétaire) propose un lieu qu'il connaît. */
+/**
+ * Un utilisateur — connecté ou non, sur demande explicite — propose un lieu
+ * qu'il ne possède pas. Toujours a_verifier, jamais de owner_id (ça, c'est
+ * réservé au flux "Espace pro" où le propriétaire prouve son identité).
+ */
 export const proposerLieu = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => champsPropositionSchema.parse(data))
-  .handler(async ({ context, data }): Promise<{ id: string }> => {
-    const { data: cree, error } = await context.supabase
+  .handler(async ({ data }): Promise<{ id: string }> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data: cree, error } = await clientPublic()
       .from("places")
       .insert({
         nom: data.nom,
@@ -37,7 +42,7 @@ export const proposerLieu = createServerFn({ method: "POST" })
         whatsapp: data.whatsapp || null,
         horaires: data.horaires || null,
         site_web: data.siteWeb || null,
-        submitted_by: context.userId,
+        submitted_by: null,
         owner_id: null,
         source: "soumission_utilisateur",
         statut_verification: "a_verifier",

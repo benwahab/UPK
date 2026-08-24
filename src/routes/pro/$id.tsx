@@ -43,9 +43,14 @@ function PageModifierLieu() {
         <p className="text-sm text-muted-foreground">
           Cet établissement n'existe pas ou ne vous appartient pas.
         </p>
-        <Link to="/pro" className="mt-4 inline-block text-sm font-medium text-primary">
-          ← Mes établissements
-        </Link>
+        <div className="mt-4 flex justify-center gap-3">
+          <Link to="/pro" className="text-sm font-medium text-primary">
+            ← Mes établissements
+          </Link>
+          <Link to="/" className="text-sm font-medium text-muted-foreground">
+            Accueil
+          </Link>
+        </div>
       </main>
     );
   }
@@ -85,9 +90,12 @@ function PageModifierLieu() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
-      <div className="pt-6">
+      <div className="flex items-center gap-3 pt-6">
         <Link to="/pro" className="text-sm font-medium text-primary">
           ← Mes établissements
+        </Link>
+        <Link to="/" className="text-sm font-medium text-muted-foreground">
+          Accueil
         </Link>
       </div>
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
