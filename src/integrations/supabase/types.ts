@@ -106,6 +106,7 @@ export type Database = {
           site_web: string | null
           source: Database["public"]["Enums"]["place_source"]
           statut_verification: Database["public"]["Enums"]["verification_status"]
+          submitted_by: string | null
           telephone: string | null
           updated_at: string
           whatsapp: string | null
@@ -128,6 +129,7 @@ export type Database = {
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
           statut_verification?: Database["public"]["Enums"]["verification_status"]
+          submitted_by?: string | null
           telephone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -150,6 +152,7 @@ export type Database = {
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
           statut_verification?: Database["public"]["Enums"]["verification_status"]
+          submitted_by?: string | null
           telephone?: string | null
           updated_at?: string
           whatsapp?: string | null
@@ -169,6 +172,7 @@ export type Database = {
           created_at: string
           id: string
           nom_complet: string | null
+          role: string
           telephone: string | null
           updated_at: string
         }
@@ -176,6 +180,7 @@ export type Database = {
           created_at?: string
           id: string
           nom_complet?: string | null
+          role?: string
           telephone?: string | null
           updated_at?: string
         }
@@ -183,6 +188,7 @@ export type Database = {
           created_at?: string
           id?: string
           nom_complet?: string | null
+          role?: string
           telephone?: string | null
           updated_at?: string
         }
@@ -418,6 +424,7 @@ export type Database = {
         | { Args: { table_name: string }; Returns: string }
       enablelongtransactions: { Args: never; Returns: string }
       equals: { Args: { geom1: unknown; geom2: unknown }; Returns: boolean }
+      est_moderateur: { Args: { p_user_id: string }; Returns: boolean }
       geometry: { Args: { "": string }; Returns: unknown }
       geometry_above: {
         Args: { geom1: unknown; geom2: unknown }
