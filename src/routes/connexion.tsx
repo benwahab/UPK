@@ -25,7 +25,13 @@ function PageConnexion() {
     const { error } = await supabase.auth.signInWithPassword({ email, password: motDePasse });
     setEnCours(false);
     if (error) {
-      setErreur("Email ou mot de passe incorrect.");
+      setErreur(
+        error.message.includes("Email not confirmed")
+          ? "Compte non confirmé. Vérifiez votre boîte mail (et les spams) pour le lien de confirmation."
+          : error.message.includes("Invalid login credentials")
+            ? "Email ou mot de passe incorrect."
+            : error.message,
+      );
       return;
     }
     navigate({ to: "/pro" });

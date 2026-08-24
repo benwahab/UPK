@@ -18,6 +18,7 @@ function PageInscription() {
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
+  const [confirmationRequise, setConfirmationRequise] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -27,7 +28,7 @@ function PageInscription() {
       return;
     }
     setEnCours(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password: motDePasse,
       options: { data: { nom_complet: nom } },
@@ -37,11 +38,35 @@ function PageInscription() {
       setErreur(
         error.message.includes("already registered")
           ? "Un compte existe déjà avec cet email."
-          : "Impossible de créer le compte. Réessayez.",
+          : error.message,
       );
       return;
     }
+    // Si Supabase exige une confirmation par email, signUp ne renvoie pas de
+    // session : on ne peut pas rediriger vers /pro (l'utilisateur n'est pas
+    // encore connecté), il faut d'abord qu'il clique le lien reçu par mail.
+    if (!data.session) {
+      setConfirmationRequise(true);
+      return;
+    }
     navigate({ to: "/pro" });
+  }
+
+  if (confirmationRequise) {
+    return (
+      <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col items-center justify-center px-4 text-center">
+        <h1 className="font-display text-xl font-semibold text-foreground">
+          Vérifiez votre boîte mail
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Un email de confirmation a été envoyé à {email}. Cliquez sur le lien qu'il contient,
+          puis connectez-vous.
+        </p>
+        <Link to="/connexion" className="mt-4 text-sm font-medium text-primary">
+          Aller à la connexion
+        </Link>
+      </main>
+    );
   }
 
   return (
