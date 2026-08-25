@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Flag, X } from "lucide-react";
-import { useEffect } from "react";
+import { Check, Copy, Flag, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,14 @@ import {
   rejeterLieu,
   validerLieu,
 } from "@/lib/moderation.functions";
-import { LIBELLES_TYPE_PROBLEME, listerSignalements, traiterSignalement } from "@/lib/signalements.functions";
+import {
+  LIBELLES_TYPE_PROBLEME,
+  listerSignalements,
+  traiterSignalement,
+  detecterDoublons,
+  type CandidatDoublon,
+} from "@/lib/signalements.functions";
+import type { Lieu } from "@/lib/upk";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/admin/")({
@@ -104,41 +111,12 @@ function PageModeration() {
           </p>
         ) : (
           lieux.map((lieu) => (
-            <div key={lieu.id} className="rounded-xl border border-border bg-card p-4">
-              <p className="font-medium text-card-foreground">{lieu.nom}</p>
-              <p className="text-sm text-muted-foreground">
-                {lieu.categorie_nom}
-                {lieu.quartier ? ` · ${lieu.quartier}` : ""}
-              </p>
-              {lieu.adresse ? (
-                <p className="mt-1 text-xs text-muted-foreground">{lieu.adresse}</p>
-              ) : null}
-              {lieu.telephone ? (
-                <p className="mt-1 text-xs text-muted-foreground">{lieu.telephone}</p>
-              ) : null}
-              <div className="mt-3 flex gap-2">
-                <Button
-                  type="button"
-                  variant="terrain"
-                  size="sm"
-                  className="flex-1"
-                  onClick={() => onValider(lieu.id)}
-                >
-                  <Check className="size-4" aria-hidden />
-                  Valider
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="flex-1"
-                  onClick={() => onRejeter(lieu.id)}
-                >
-                  <X className="size-4" aria-hidden />
-                  Rejeter
-                </Button>
-              </div>
-            </div>
+            <CarteFileAttente
+              key={lieu.id}
+              lieu={lieu}
+              onValider={() => onValider(lieu.id)}
+              onRejeter={() => onRejeter(lieu.id)}
+            />
           ))
         )}
       </section>
@@ -187,5 +165,85 @@ function PageModeration() {
         </div>
       </section>
     </main>
+  );
+}
+
+function CarteFileAttente({
+  lieu,
+  onValider,
+  onRejeter,
+}: {
+  lieu: Lieu;
+  onValider: () => void;
+  onRejeter: () => void;
+}) {
+  const detecter = useServerFn(detecterDoublons);
+  const [doublons, setDoublons] = useState<CandidatDoublon[] | null>(null);
+  const [recherche, setRecherche] = useState(false);
+
+  async function onVerifierDoublons() {
+    setRecherche(true);
+    try {
+      const resultat = await detecter({ data: { placeId: lieu.id } });
+      setDoublons(resultat);
+    } finally {
+      setRecherche(false);
+    }
+  }
+
+  return (
+    <div className="rounded-xl border border-border bg-card p-4">
+      <p className="font-medium text-card-foreground">{lieu.nom}</p>
+      <p className="text-sm text-muted-foreground">
+        {lieu.categorie_nom}
+        {lieu.quartier ? ` · ${lieu.quartier}` : ""}
+      </p>
+      {lieu.adresse ? <p className="mt-1 text-xs text-muted-foreground">{lieu.adresse}</p> : null}
+      {lieu.telephone ? <p className="mt-1 text-xs text-muted-foreground">{lieu.telephone}</p> : null}
+
+      <div className="mt-3 flex gap-2">
+        <Button type="button" variant="terrain" size="sm" className="flex-1" onClick={onValider}>
+          <Check className="size-4" aria-hidden />
+          Valider
+        </Button>
+        <Button type="button" variant="outline" size="sm" className="flex-1" onClick={onRejeter}>
+          <X className="size-4" aria-hidden />
+          Rejeter
+        </Button>
+      </div>
+
+      {doublons === null ? (
+        <button
+          type="button"
+          onClick={onVerifierDoublons}
+          disabled={recherche}
+          className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground underline-offset-2 hover:underline"
+        >
+          <Copy className="size-3.5" aria-hidden />
+          {recherche ? "Recherche…" : "Vérifier les doublons"}
+        </button>
+      ) : doublons.length === 0 ? (
+        <p className="mt-2 text-xs text-muted-foreground">Aucun doublon potentiel détecté.</p>
+      ) : (
+        <div className="mt-2 rounded-lg bg-secondary p-2.5">
+          <p className="text-xs font-medium text-secondary-foreground">
+            {doublons.length} doublon{doublons.length > 1 ? "s" : ""} potentiel
+            {doublons.length > 1 ? "s" : ""} :
+          </p>
+          <ul className="mt-1 space-y-1">
+            {doublons.map((d) => (
+              <li key={d.place_id} className="text-xs text-muted-foreground">
+                <Link to="/lieu/$id" params={{ id: d.place_id }} className="underline-offset-2 hover:underline">
+                  {d.nom}
+                </Link>
+                {d.quartier ? ` · ${d.quartier}` : ""}
+                {d.meme_telephone ? " · même téléphone" : ""}
+                {d.distance_m !== null ? ` · ${d.distance_m}m` : ""}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 }
