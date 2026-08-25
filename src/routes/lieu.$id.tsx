@@ -1,11 +1,11 @@
 import { useSuspenseQuery, useQuery, queryOptions } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill } from "lucide-react";
+import { Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill, UtensilsCrossed } from "lucide-react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
-import { listerMedicamentsDuLieu, obtenirLieu } from "@/lib/places.functions";
+import { listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
 import { lienItineraire, lienWhatsapp, telAffiche } from "@/lib/upk";
 
 const optionsLieu = (id: string) =>
@@ -64,11 +64,18 @@ function PageLieu() {
   const { id } = Route.useParams();
   const { data: lieu } = useSuspenseQuery(optionsLieu(id));
   const estPharmacie = lieu.categorie_slug === "pharmacie";
+  const estRestaurant = lieu.categorie_slug === "restaurant";
 
   const medicaments = useQuery({
     queryKey: ["medicaments-lieu", id],
     queryFn: () => listerMedicamentsDuLieu({ data: { placeId: id } }),
     enabled: estPharmacie,
+  });
+
+  const menu = useQuery({
+    queryKey: ["menu-lieu", id],
+    queryFn: () => listerMenuDuLieu({ data: { placeId: id } }),
+    enabled: estRestaurant,
   });
 
   return (
@@ -191,6 +198,46 @@ function PageLieu() {
                     <p className={m.disponible ? "text-xs text-primary" : "text-xs text-destructive"}>
                       {m.disponible ? "Disponible" : "Rupture"}
                     </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
+
+      {estRestaurant ? (
+        <section className="mt-6">
+          <h2 className="flex items-center gap-1.5 font-display text-lg font-semibold text-foreground">
+            <UtensilsCrossed className="size-4" aria-hidden />
+            Menu
+          </h2>
+          {menu.isPending ? (
+            <p className="mt-2 text-sm text-muted-foreground">Chargement…</p>
+          ) : (menu.data ?? []).length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">
+              Aucun plat renseigné pour l'instant par cet établissement.
+            </p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {(menu.data ?? []).map((p) => (
+                <li
+                  key={p.id}
+                  className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-card-foreground">{p.nom}</p>
+                    {p.categorie ? (
+                      <p className="text-xs text-muted-foreground">{p.categorie}</p>
+                    ) : null}
+                  </div>
+                  <div className="shrink-0 text-right">
+                    {p.prix ? (
+                      <p className="text-sm font-medium text-card-foreground">{p.prix} FCFA</p>
+                    ) : null}
+                    {!p.disponible ? (
+                      <p className="text-xs text-destructive">Indisponible</p>
+                    ) : null}
                   </div>
                 </li>
               ))}

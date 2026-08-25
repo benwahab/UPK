@@ -110,6 +110,15 @@ function PageModifierLieu() {
           Gérer mon stock et mes gardes
         </Link>
       ) : null}
+      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug === "restaurant" ? (
+        <Link
+          to="/pro/$id/menu"
+          params={{ id }}
+          className="mt-3 inline-flex h-10 items-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-foreground"
+        >
+          Gérer mon menu
+        </Link>
+      ) : null}
       <FormulaireLieu
         valeursInitiales={valeursInitiales}
         onEnregistrer={onEnregistrer}

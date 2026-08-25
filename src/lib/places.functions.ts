@@ -101,6 +101,30 @@ export const listerMedicamentsDuLieu = createServerFn({ method: "GET" })
     return (rows ?? []) as MedicamentPublic[];
   });
 
+export type PlatPublic = {
+  id: string;
+  nom: string;
+  description: string | null;
+  categorie: string | null;
+  prix: number | null;
+  disponible: boolean;
+};
+
+/** Menu affiché sur la fiche publique d'un restaurant. */
+export const listerMenuDuLieu = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => z.object({ placeId: z.string().uuid() }).parse(data))
+  .handler(async ({ data }): Promise<PlatPublic[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data: rows, error } = await clientPublic()
+      .from("plats")
+      .select("id, nom, description, categorie, prix, disponible")
+      .eq("place_id", data.placeId)
+      .order("ordre", { ascending: true })
+      .order("nom", { ascending: true });
+    if (error) throw new Error(error.message);
+    return (rows ?? []) as PlatPublic[];
+  });
+
 export type ResultatMedicament = {
   place_id: string;
   place_nom: string;

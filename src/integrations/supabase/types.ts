@@ -284,6 +284,53 @@ export type Database = {
           },
         ]
       }
+      plats: {
+        Row: {
+          categorie: string | null
+          created_at: string
+          description: string | null
+          disponible: boolean
+          id: string
+          nom: string
+          ordre: number
+          place_id: string
+          prix: number | null
+          updated_at: string
+        }
+        Insert: {
+          categorie?: string | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          id?: string
+          nom: string
+          ordre?: number
+          place_id: string
+          prix?: number | null
+          updated_at?: string
+        }
+        Update: {
+          categorie?: string | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          id?: string
+          nom?: string
+          ordre?: number
+          place_id?: string
+          prix?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plats_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
