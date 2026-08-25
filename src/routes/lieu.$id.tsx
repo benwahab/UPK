@@ -1,11 +1,14 @@
 import { useSuspenseQuery, useQuery, queryOptions } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { BedDouble, Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill, UtensilsCrossed } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
 import { listerChambresDuLieu, listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
+import { enregistrerEvenement } from "@/lib/statistiques.functions";
 import { lienItineraire, lienWhatsapp, telAffiche } from "@/lib/upk";
 
 const optionsLieu = (id: string) =>
@@ -85,6 +88,19 @@ function PageLieu() {
     enabled: estHotel,
   });
 
+  const enregistrer = useServerFn(enregistrerEvenement);
+  const vueDejaEnvoyee = useRef(false);
+  useEffect(() => {
+    if (vueDejaEnvoyee.current) return;
+    vueDejaEnvoyee.current = true;
+    enregistrer({ data: { placeId: id, typeEvenement: "vue" } }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  function suivre(typeEvenement: "appel" | "itineraire" | "site_web" | "whatsapp") {
+    enregistrer({ data: { placeId: id, typeEvenement } }).catch(() => {});
+  }
+
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
       <div className="pt-6">
@@ -112,14 +128,19 @@ function PageLieu() {
 
       <div className="mt-5 flex flex-wrap gap-2">
         <Button asChild variant="terrain" className="flex-1">
-          <a href={lienItineraire(lieu.latitude, lieu.longitude)} target="_blank" rel="noreferrer">
+          <a
+            href={lienItineraire(lieu.latitude, lieu.longitude)}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => suivre("itineraire")}
+          >
             <Navigation className="size-4" aria-hidden />
             Itinéraire
           </a>
         </Button>
         {lieu.telephone ? (
           <Button asChild variant="outline" className="flex-1">
-            <a href={`tel:${lieu.telephone}`}>
+            <a href={`tel:${lieu.telephone}`} onClick={() => suivre("appel")}>
               <Phone className="size-4" aria-hidden />
               Appeler
             </a>
@@ -136,7 +157,7 @@ function PageLieu() {
         </Ligne>
         <Ligne icone={<Phone className="size-4" aria-hidden />} intitule="Téléphone">
           {lieu.telephone ? (
-            <a href={`tel:${lieu.telephone}`} className="text-primary">
+            <a href={`tel:${lieu.telephone}`} className="text-primary" onClick={() => suivre("appel")}>
               {telAffiche(lieu.telephone)}
             </a>
           ) : (
@@ -150,6 +171,7 @@ function PageLieu() {
               target="_blank"
               rel="noreferrer"
               className="text-primary"
+              onClick={() => suivre("whatsapp")}
             >
               Écrire sur WhatsApp
             </a>
@@ -159,7 +181,13 @@ function PageLieu() {
         </Ligne>
         <Ligne icone={<Globe className="size-4" aria-hidden />} intitule="Site web">
           {lieu.site_web ? (
-            <a href={lieu.site_web} target="_blank" rel="noreferrer" className="text-primary">
+            <a
+              href={lieu.site_web}
+              target="_blank"
+              rel="noreferrer"
+              className="text-primary"
+              onClick={() => suivre("site_web")}
+            >
               {lieu.site_web.replace(/^https?:\/\//, "")}
             </a>
           ) : (

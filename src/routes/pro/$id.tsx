@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
+import { Eye, Navigation, Phone, MessageCircle, Globe } from "lucide-react";
 import { useEffect } from "react";
 
 import { FormulaireLieu, type ValeursFormulaireLieu } from "@/components/upk/FormulaireLieu";
 import { modifierMonLieu, obtenirMonLieu } from "@/lib/business.functions";
+import { obtenirStatistiques } from "@/lib/statistiques.functions";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/$id")({
@@ -18,6 +20,7 @@ function PageModifierLieu() {
   const { utilisateur, chargement } = useSession();
   const chercherLieu = useServerFn(obtenirMonLieu);
   const modifier = useServerFn(modifierMonLieu);
+  const chercherStats = useServerFn(obtenirStatistiques);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -26,6 +29,12 @@ function PageModifierLieu() {
   const lieu = useQuery({
     queryKey: ["mon-lieu", id],
     queryFn: () => chercherLieu({ data: { id } }),
+    enabled: !!utilisateur,
+  });
+
+  const stats = useQuery({
+    queryKey: ["stats-lieu", id],
+    queryFn: () => chercherStats({ data: { placeId: id } }),
     enabled: !!utilisateur,
   });
 
@@ -101,6 +110,28 @@ function PageModifierLieu() {
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
         Modifier {lieu.data.nom}
       </h1>
+
+      {stats.data ? (
+        <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
+          <StatPuce icone={<Eye className="size-4" aria-hidden />} valeur={stats.data.vue} libelle="Vues" />
+          <StatPuce icone={<Phone className="size-4" aria-hidden />} valeur={stats.data.appel} libelle="Appels" />
+          <StatPuce
+            icone={<Navigation className="size-4" aria-hidden />}
+            valeur={stats.data.itineraire}
+            libelle="Itinéraires"
+          />
+          <StatPuce
+            icone={<MessageCircle className="size-4" aria-hidden />}
+            valeur={stats.data.whatsapp}
+            libelle="WhatsApp"
+          />
+          <StatPuce
+            icone={<Globe className="size-4" aria-hidden />}
+            valeur={stats.data.site_web}
+            libelle="Site"
+          />
+        </div>
+      ) : null}
       {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug === "pharmacie" ? (
         <Link
           to="/pro/$id/pharmacie"
@@ -134,5 +165,23 @@ function PageModifierLieu() {
         libelleBouton="Enregistrer les modifications"
       />
     </main>
+  );
+}
+
+function StatPuce({
+  icone,
+  valeur,
+  libelle,
+}: {
+  icone: React.ReactNode;
+  valeur: number;
+  libelle: string;
+}) {
+  return (
+    <div className="flex flex-col items-center rounded-lg border border-border bg-card py-2.5">
+      <span className="text-muted-foreground">{icone}</span>
+      <p className="mt-1 text-sm font-semibold text-card-foreground">{valeur}</p>
+      <p className="text-[10px] text-muted-foreground">{libelle}</p>
+    </div>
   );
 }
