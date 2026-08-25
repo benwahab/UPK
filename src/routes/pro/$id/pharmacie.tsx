@@ -13,6 +13,7 @@ import {
   importerMedicaments,
   listerMesGardes,
   listerMonStock,
+  modifierMedicament,
   retirerGarde,
   supprimerMedicament,
 } from "@/lib/pharmacie.functions";
@@ -33,6 +34,7 @@ function PagePharmacie() {
   const chercherStock = useServerFn(listerMonStock);
   const ajouter = useServerFn(ajouterMedicament);
   const supprimer = useServerFn(supprimerMedicament);
+  const modifier = useServerFn(modifierMedicament);
   const importer = useServerFn(importerMedicaments);
   const chercherGardes = useServerFn(listerMesGardes);
   const ajouterUneGarde = useServerFn(ajouterGarde);
@@ -132,6 +134,30 @@ function PagePharmacie() {
 
   async function onSupprimerMedicament(medicamentId: string) {
     await supprimer({ data: { id: medicamentId, placeId: id } });
+    queryClient.invalidateQueries({ queryKey: ["mon-stock", id] });
+  }
+
+  async function onBasculerDisponibilite(m: {
+    id: string;
+    nom_commercial: string;
+    molecule: string | null;
+    dosage: string | null;
+    prix_vente: number | null;
+    disponible: boolean;
+  }) {
+    await modifier({
+      data: {
+        id: m.id,
+        placeId: id,
+        nomCommercial: m.nom_commercial,
+        molecule: m.molecule,
+        dosage: m.dosage,
+        forme: null,
+        conditionnement: null,
+        prixVente: m.prix_vente,
+        disponible: !m.disponible,
+      },
+    });
     queryClient.invalidateQueries({ queryKey: ["mon-stock", id] });
   }
 
@@ -292,14 +318,27 @@ function PagePharmacie() {
                   {m.prix_vente ? ` · ${m.prix_vente} FCFA` : ""}
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={() => onSupprimerMedicament(m.id)}
-                aria-label={`Retirer ${m.nom_commercial}`}
-                className="text-muted-foreground hover:text-destructive"
-              >
-                <Trash2 className="size-4" aria-hidden />
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => onBasculerDisponibilite(m)}
+                  className={
+                    m.disponible
+                      ? "rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground"
+                      : "rounded-full border border-destructive/40 px-2.5 py-1 text-xs font-medium text-destructive"
+                  }
+                >
+                  {m.disponible ? "Disponible" : "Rupture — remettre en stock"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onSupprimerMedicament(m.id)}
+                  aria-label={`Retirer ${m.nom_commercial}`}
+                  className="text-muted-foreground hover:text-destructive"
+                >
+                  <Trash2 className="size-4" aria-hidden />
+                </button>
+              </div>
             </li>
           ))}
           {stock.data?.length === 0 ? (

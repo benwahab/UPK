@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as GardeRouteImport } from './routes/garde'
 import { Route as InscriptionRouteImport } from './routes/inscription'
+import { Route as MesAlertesRouteImport } from './routes/mes-alertes'
 import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
@@ -41,6 +42,11 @@ const GardeRoute = GardeRouteImport.update({
 const InscriptionRoute = InscriptionRouteImport.update({
   id: '/inscription',
   path: '/inscription',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MesAlertesRoute = MesAlertesRouteImport.update({
+  id: '/mes-alertes',
+  path: '/mes-alertes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProposerRoute = ProposerRouteImport.update({
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/connexion': typeof ConnexionRoute
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
+  '/mes-alertes': typeof MesAlertesRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/connexion': typeof ConnexionRoute
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
+  '/mes-alertes': typeof MesAlertesRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/connexion': typeof ConnexionRoute
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
+  '/mes-alertes': typeof MesAlertesRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/connexion'
     | '/garde'
     | '/inscription'
+    | '/mes-alertes'
     | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/connexion'
     | '/garde'
     | '/inscription'
+    | '/mes-alertes'
     | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/connexion'
     | '/garde'
     | '/inscription'
+    | '/mes-alertes'
     | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
@@ -188,6 +200,7 @@ export interface RootRouteChildren {
   ConnexionRoute: typeof ConnexionRoute
   GardeRoute: typeof GardeRoute
   InscriptionRoute: typeof InscriptionRoute
+  MesAlertesRoute: typeof MesAlertesRoute
   ProposerRoute: typeof ProposerRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRouteWithChildren
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       path: '/inscription'
       fullPath: '/inscription'
       preLoaderRoute: typeof InscriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mes-alertes': {
+      id: '/mes-alertes'
+      path: '/mes-alertes'
+      fullPath: '/mes-alertes'
+      preLoaderRoute: typeof MesAlertesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/proposer': {
@@ -311,6 +331,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConnexionRoute: ConnexionRoute,
   GardeRoute: GardeRoute,
   InscriptionRoute: InscriptionRoute,
+  MesAlertesRoute: MesAlertesRoute,
   ProposerRoute: ProposerRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRouteWithChildren,

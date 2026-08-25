@@ -99,6 +99,17 @@ export const modifierMedicament = createServerFn({ method: "POST" })
       .eq("id", data.id)
       .eq("place_id", data.placeId);
     if (error) throw new Error(error.message);
+
+    // Remis en stock : on bascule les alertes en attente pour ce médicament.
+    // Notification interne à l'app (pas d'email/SMS) — l'utilisateur voit le
+    // statut en revenant sur /mes-alertes.
+    if (data.disponible) {
+      await context.supabase
+        .from("alertes_medicament")
+        .update({ notifie: true })
+        .eq("medicament_id", data.id)
+        .eq("notifie", false);
+    }
   });
 
 export const supprimerMedicament = createServerFn({ method: "POST" })

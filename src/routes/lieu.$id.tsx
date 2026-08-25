@@ -5,6 +5,7 @@ import { BedDouble, Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill
 import { useEffect, useRef } from "react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
+import { BoutonAlerteMedicament } from "@/components/upk/BoutonAlerteMedicament";
 import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
 import { listerChambresDuLieu, listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
@@ -211,29 +212,33 @@ function PageLieu() {
           ) : (
             <ul className="mt-3 space-y-2">
               {(medicaments.data ?? []).map((m) => (
-                <li
-                  key={m.id}
-                  className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-card-foreground">
-                      {m.nom_commercial}
-                      {m.dosage ? ` — ${m.dosage}` : ""}
-                    </p>
-                    {m.molecule ? (
-                      <p className="text-xs text-muted-foreground">{m.molecule}</p>
-                    ) : null}
-                  </div>
-                  <div className="shrink-0 text-right">
-                    {m.prix_vente ? (
-                      <p className="text-sm font-medium text-card-foreground">
-                        {m.prix_vente} FCFA
+                <li key={m.id} className="rounded-lg border border-border bg-card px-3 py-2">
+                  <div className="flex items-center justify-between">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium text-card-foreground">
+                        {m.nom_commercial}
+                        {m.dosage ? ` — ${m.dosage}` : ""}
                       </p>
-                    ) : null}
-                    <p className={m.disponible ? "text-xs text-primary" : "text-xs text-destructive"}>
-                      {m.disponible ? "Disponible" : "Rupture"}
-                    </p>
+                      {m.molecule ? (
+                        <p className="text-xs text-muted-foreground">{m.molecule}</p>
+                      ) : null}
+                    </div>
+                    <div className="shrink-0 text-right">
+                      {m.prix_vente ? (
+                        <p className="text-sm font-medium text-card-foreground">
+                          {m.prix_vente} FCFA
+                        </p>
+                      ) : null}
+                      <p className={m.disponible ? "text-xs text-primary" : "text-xs text-destructive"}>
+                        {m.disponible ? "Disponible" : "Rupture"}
+                      </p>
+                    </div>
                   </div>
+                  {!m.disponible ? (
+                    <div className="mt-1.5">
+                      <BoutonAlerteMedicament medicamentId={m.id} placeId={lieu.id} />
+                    </div>
+                  ) : null}
                 </li>
               ))}
             </ul>
