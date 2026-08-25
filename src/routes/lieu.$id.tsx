@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { BoutonAlerteMedicament } from "@/components/upk/BoutonAlerteMedicament";
+import { BoutonFavori } from "@/components/upk/BoutonFavori";
 import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
 import { listerChambresDuLieu, listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
@@ -115,9 +116,12 @@ function PageLieu() {
           {lieu.categorie_nom ?? "Lieu"}
           {lieu.quartier ? ` · ${lieu.quartier}` : ""}
         </p>
-        <h1 className="mt-1 font-display text-2xl leading-tight font-bold text-foreground">
-          {lieu.nom}
-        </h1>
+        <div className="mt-1 flex items-start justify-between gap-3">
+          <h1 className="font-display text-2xl leading-tight font-bold text-foreground">
+            {lieu.nom}
+          </h1>
+          <BoutonFavori placeId={lieu.id} />
+        </div>
         <div className="mt-3">
           <BadgeVerification statut={lieu.statut_verification} avecAide />
         </div>

@@ -14,6 +14,7 @@ import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as GardeRouteImport } from './routes/garde'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MesAlertesRouteImport } from './routes/mes-alertes'
+import { Route as MesFavorisRouteImport } from './routes/mes-favoris'
 import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
@@ -47,6 +48,11 @@ const InscriptionRoute = InscriptionRouteImport.update({
 const MesAlertesRoute = MesAlertesRouteImport.update({
   id: '/mes-alertes',
   path: '/mes-alertes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MesFavorisRoute = MesFavorisRouteImport.update({
+  id: '/mes-favoris',
+  path: '/mes-favoris',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProposerRoute = ProposerRouteImport.update({
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
+  '/mes-favoris': typeof MesFavorisRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -117,6 +124,7 @@ export interface FileRoutesByTo {
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
+  '/mes-favoris': typeof MesFavorisRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
+  '/mes-favoris': typeof MesFavorisRoute
   '/proposer': typeof ProposerRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/garde'
     | '/inscription'
     | '/mes-alertes'
+    | '/mes-favoris'
     | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
     | '/garde'
     | '/inscription'
     | '/mes-alertes'
+    | '/mes-favoris'
     | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
@@ -184,6 +195,7 @@ export interface FileRouteTypes {
     | '/garde'
     | '/inscription'
     | '/mes-alertes'
+    | '/mes-favoris'
     | '/proposer'
     | '/lieu/$id'
     | '/pro/$id'
@@ -201,6 +213,7 @@ export interface RootRouteChildren {
   GardeRoute: typeof GardeRoute
   InscriptionRoute: typeof InscriptionRoute
   MesAlertesRoute: typeof MesAlertesRoute
+  MesFavorisRoute: typeof MesFavorisRoute
   ProposerRoute: typeof ProposerRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRouteWithChildren
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       path: '/mes-alertes'
       fullPath: '/mes-alertes'
       preLoaderRoute: typeof MesAlertesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mes-favoris': {
+      id: '/mes-favoris'
+      path: '/mes-favoris'
+      fullPath: '/mes-favoris'
+      preLoaderRoute: typeof MesFavorisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/proposer': {
@@ -332,6 +352,7 @@ const rootRouteChildren: RootRouteChildren = {
   GardeRoute: GardeRoute,
   InscriptionRoute: InscriptionRoute,
   MesAlertesRoute: MesAlertesRoute,
+  MesFavorisRoute: MesFavorisRoute,
   ProposerRoute: ProposerRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRouteWithChildren,
