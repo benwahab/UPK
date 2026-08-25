@@ -417,35 +417,6 @@ export type Database = {
           },
         ]
       }
-      favoris: {
-        Row: {
-          created_at: string
-          id: string
-          place_id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          place_id: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          place_id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "favoris_place_id_fkey"
-            columns: ["place_id"]
-            isOneToOne: false
-            referencedRelation: "places"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       profiles: {
         Row: {
           created_at: string
