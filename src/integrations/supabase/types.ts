@@ -105,6 +105,35 @@ export type Database = {
           },
         ]
       }
+      evenements_lieu: {
+        Row: {
+          created_at: string
+          id: string
+          place_id: string
+          type_evenement: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          place_id: string
+          type_evenement: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          place_id?: string
+          type_evenement?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evenements_lieu_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       medicaments: {
         Row: {
           conditionnement: string | null
@@ -339,35 +368,6 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "plats_place_id_fkey"
-            columns: ["place_id"]
-            isOneToOne: false
-            referencedRelation: "places"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      evenements_lieu: {
-        Row: {
-          created_at: string
-          id: string
-          place_id: string
-          type_evenement: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          place_id: string
-          type_evenement: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          place_id?: string
-          type_evenement?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "evenements_lieu_place_id_fkey"
             columns: ["place_id"]
             isOneToOne: false
             referencedRelation: "places"
