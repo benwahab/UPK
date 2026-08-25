@@ -55,6 +55,56 @@ export type Database = {
           },
         ]
       }
+      chambres: {
+        Row: {
+          capacite: number | null
+          created_at: string
+          description: string | null
+          disponible: boolean
+          equipements: string | null
+          id: string
+          nombre: number
+          place_id: string
+          prix: number | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          capacite?: number | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          equipements?: string | null
+          id?: string
+          nombre?: number
+          place_id: string
+          prix?: number | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          capacite?: number | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          equipements?: string | null
+          id?: string
+          nombre?: number
+          place_id?: string
+          prix?: number | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chambres_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       medicaments: {
         Row: {
           conditionnement: string | null
@@ -249,6 +299,53 @@ export type Database = {
           },
         ]
       }
+      plats: {
+        Row: {
+          categorie: string | null
+          created_at: string
+          description: string | null
+          disponible: boolean
+          id: string
+          nom: string
+          ordre: number
+          place_id: string
+          prix: number | null
+          updated_at: string
+        }
+        Insert: {
+          categorie?: string | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          id?: string
+          nom: string
+          ordre?: number
+          place_id: string
+          prix?: number | null
+          updated_at?: string
+        }
+        Update: {
+          categorie?: string | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          id?: string
+          nom?: string
+          ordre?: number
+          place_id?: string
+          prix?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plats_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -275,6 +372,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      signalements: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          place_id: string
+          traite: boolean
+          type_probleme: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          place_id: string
+          traite?: boolean
+          type_probleme: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          place_id?: string
+          traite?: boolean
+          type_probleme?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signalements_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       spatial_ref_sys: {
         Row: {
