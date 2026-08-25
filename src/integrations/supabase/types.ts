@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      alertes_medicament: {
+        Row: {
+          created_at: string
+          id: string
+          medicament_id: string
+          notifie: boolean
+          place_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          medicament_id: string
+          notifie?: boolean
+          place_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          medicament_id?: string
+          notifie?: boolean
+          place_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alertes_medicament_medicament_id_fkey"
+            columns: ["medicament_id"]
+            isOneToOne: false
+            referencedRelation: "medicaments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alertes_medicament_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       categories: {
         Row: {
           created_at: string
@@ -368,48 +410,6 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "plats_place_id_fkey"
-            columns: ["place_id"]
-            isOneToOne: false
-            referencedRelation: "places"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      alertes_medicament: {
-        Row: {
-          created_at: string
-          id: string
-          medicament_id: string
-          notifie: boolean
-          place_id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          medicament_id: string
-          notifie?: boolean
-          place_id: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          medicament_id?: string
-          notifie?: boolean
-          place_id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "alertes_medicament_medicament_id_fkey"
-            columns: ["medicament_id"]
-            isOneToOne: false
-            referencedRelation: "medicaments"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "alertes_medicament_place_id_fkey"
             columns: ["place_id"]
             isOneToOne: false
             referencedRelation: "places"
