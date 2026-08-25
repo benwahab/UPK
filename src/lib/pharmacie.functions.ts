@@ -116,6 +116,45 @@ export const supprimerMedicament = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
   });
 
+export const importerMedicaments = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        placeId: z.string().uuid(),
+        lignes: z
+          .array(
+            z.object({
+              nomCommercial: z.string().trim().min(1).max(150),
+              molecule: z.string().trim().max(150).optional().nullable(),
+              dosage: z.string().trim().max(50).optional().nullable(),
+              prixVente: z.number().min(0).max(10_000_000).optional().nullable(),
+            }),
+          )
+          .min(1)
+          .max(500),
+      })
+      .parse(data),
+  )
+  .handler(async ({ context, data }): Promise<{ importes: number }> => {
+    await verifierProprietaire(context.supabase, data.placeId, context.userId);
+    const { error, count } = await context.supabase
+      .from("medicaments")
+      .insert(
+        data.lignes.map((l) => ({
+          place_id: data.placeId,
+          nom_commercial: l.nomCommercial,
+          molecule: l.molecule || null,
+          dosage: l.dosage || null,
+          prix_vente: l.prixVente ?? null,
+          disponible: true,
+        })),
+        { count: "exact" },
+      );
+    if (error) throw new Error(error.message);
+    return { importes: count ?? data.lignes.length };
+  });
+
 export type JourGarde = { id: string; date_garde: string; horaires: string | null };
 
 export const listerMesGardes = createServerFn({ method: "GET" })

@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Trash2, Upload } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,11 +10,13 @@ import { Label } from "@/components/ui/label";
 import {
   ajouterGarde,
   ajouterMedicament,
+  importerMedicaments,
   listerMesGardes,
   listerMonStock,
   retirerGarde,
   supprimerMedicament,
 } from "@/lib/pharmacie.functions";
+import { analyserCsvMedicaments } from "@/lib/parserCsv";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/$id/pharmacie")({
@@ -31,6 +33,7 @@ function PagePharmacie() {
   const chercherStock = useServerFn(listerMonStock);
   const ajouter = useServerFn(ajouterMedicament);
   const supprimer = useServerFn(supprimerMedicament);
+  const importer = useServerFn(importerMedicaments);
   const chercherGardes = useServerFn(listerMesGardes);
   const ajouterUneGarde = useServerFn(ajouterGarde);
   const retirerUneGarde = useServerFn(retirerGarde);
@@ -55,6 +58,43 @@ function PagePharmacie() {
   const [dosage, setDosage] = useState("");
   const [prixVente, setPrixVente] = useState("");
   const [erreurStock, setErreurStock] = useState<string | null>(null);
+
+  const inputFichierRef = useRef<HTMLInputElement>(null);
+  const [apercuImport, setApercuImport] = useState<
+    { nomCommercial: string; molecule: string | null; dosage: string | null; prixVente: number | null }[]
+  >([]);
+  const [erreursImport, setErreursImport] = useState<string[]>([]);
+  const [importEnCours, setImportEnCours] = useState(false);
+  const [importFait, setImportFait] = useState<number | null>(null);
+
+  function onFichierChoisi(e: React.ChangeEvent<HTMLInputElement>) {
+    const fichier = e.target.files?.[0];
+    if (!fichier) return;
+    setImportFait(null);
+    const lecteur = new FileReader();
+    lecteur.onload = () => {
+      const { lignes, erreurs } = analyserCsvMedicaments(String(lecteur.result));
+      setApercuImport(lignes);
+      setErreursImport(erreurs);
+    };
+    lecteur.readAsText(fichier);
+  }
+
+  async function onConfirmerImport() {
+    if (apercuImport.length === 0) return;
+    setImportEnCours(true);
+    try {
+      const { importes } = await importer({ data: { placeId: id, lignes: apercuImport } });
+      setImportFait(importes);
+      setApercuImport([]);
+      setErreursImport([]);
+      if (inputFichierRef.current) inputFichierRef.current.value = "";
+      queryClient.invalidateQueries({ queryKey: ["mon-stock", id] });
+    } finally {
+      setImportEnCours(false);
+    }
+  }
+
 
   const [dateGarde, setDateGarde] = useState("");
   const [horairesGarde, setHorairesGarde] = useState("");
@@ -173,6 +213,68 @@ function PagePharmacie() {
             Ajouter au stock
           </Button>
         </form>
+
+        <div className="mt-3 rounded-xl border border-dashed border-border bg-card p-4">
+          <p className="text-sm font-medium text-card-foreground">Importer un fichier CSV</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Colonnes reconnues : nom, molécule, dosage, prix (dans n'importe quel ordre).
+          </p>
+          <input
+            ref={inputFichierRef}
+            type="file"
+            accept=".csv,text/csv"
+            onChange={onFichierChoisi}
+            className="mt-2 block w-full text-sm text-muted-foreground file:mr-3 file:rounded-lg file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-accent-foreground"
+          />
+
+          {erreursImport.length > 0 ? (
+            <ul className="mt-2 space-y-0.5">
+              {erreursImport.map((e, i) => (
+                <li key={i} className="text-xs text-destructive">
+                  {e}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+
+          {apercuImport.length > 0 ? (
+            <div className="mt-3">
+              <p className="text-sm text-card-foreground">
+                {apercuImport.length} ligne{apercuImport.length > 1 ? "s" : ""} prête
+                {apercuImport.length > 1 ? "s" : ""} à importer :
+              </p>
+              <ul className="mt-2 max-h-40 space-y-1 overflow-y-auto">
+                {apercuImport.slice(0, 20).map((l, i) => (
+                  <li key={i} className="text-xs text-muted-foreground">
+                    {l.nomCommercial}
+                    {l.dosage ? ` — ${l.dosage}` : ""}
+                    {l.prixVente ? ` · ${l.prixVente} FCFA` : ""}
+                  </li>
+                ))}
+                {apercuImport.length > 20 ? (
+                  <li className="text-xs text-muted-foreground">
+                    … et {apercuImport.length - 20} de plus
+                  </li>
+                ) : null}
+              </ul>
+              <Button
+                type="button"
+                variant="terrain"
+                size="sm"
+                className="mt-3"
+                disabled={importEnCours}
+                onClick={onConfirmerImport}
+              >
+                <Upload className="size-4" aria-hidden />
+                {importEnCours ? "Import en cours…" : `Confirmer l'import (${apercuImport.length})`}
+              </Button>
+            </div>
+          ) : null}
+
+          {importFait !== null ? (
+            <p className="mt-3 text-sm text-primary">{importFait} médicament(s) importé(s).</p>
+          ) : null}
+        </div>
 
         <ul className="mt-3 space-y-2">
           {(stock.data ?? []).map((m) => (
