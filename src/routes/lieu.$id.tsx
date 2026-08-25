@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill } from "lucide-react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
+import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
 import { listerMedicamentsDuLieu, obtenirLieu } from "@/lib/places.functions";
 import { lienItineraire, lienWhatsapp, telAffiche } from "@/lib/upk";
@@ -215,6 +216,10 @@ function PageLieu() {
           </div>
         </section>
       ) : null}
+
+      <div className="mt-6 border-t border-border pt-4">
+        <SignalerProbleme placeId={lieu.id} />
+      </div>
     </main>
   );
 }

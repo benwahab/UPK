@@ -249,6 +249,41 @@ export type Database = {
           },
         ]
       }
+      signalements: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          place_id: string
+          traite: boolean
+          type_probleme: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          place_id: string
+          traite?: boolean
+          type_probleme: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          place_id?: string
+          traite?: boolean
+          type_probleme?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "signalements_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
