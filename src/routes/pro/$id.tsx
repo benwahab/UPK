@@ -119,6 +119,15 @@ function PageModifierLieu() {
           Gérer mon menu
         </Link>
       ) : null}
+      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug === "hotel" ? (
+        <Link
+          to="/pro/$id/chambres"
+          params={{ id }}
+          className="mt-3 inline-flex h-10 items-center rounded-lg bg-accent px-4 text-sm font-medium text-accent-foreground"
+        >
+          Gérer mes chambres
+        </Link>
+      ) : null}
       <FormulaireLieu
         valeursInitiales={valeursInitiales}
         onEnregistrer={onEnregistrer}

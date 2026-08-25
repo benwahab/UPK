@@ -331,6 +331,56 @@ export type Database = {
           },
         ]
       }
+      chambres: {
+        Row: {
+          capacite: number | null
+          created_at: string
+          description: string | null
+          disponible: boolean
+          equipements: string | null
+          id: string
+          nombre: number
+          place_id: string
+          prix: number | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          capacite?: number | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          equipements?: string | null
+          id?: string
+          nombre?: number
+          place_id: string
+          prix?: number | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          capacite?: number | null
+          created_at?: string
+          description?: string | null
+          disponible?: boolean
+          equipements?: string | null
+          id?: string
+          nombre?: number
+          place_id?: string
+          prix?: number | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chambres_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string

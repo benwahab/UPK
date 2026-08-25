@@ -19,6 +19,7 @@ import { Route as LieuIdRouteImport } from './routes/lieu.$id'
 import { Route as ProIndexRouteImport } from './routes/pro/index'
 import { Route as ProIdRouteImport } from './routes/pro/$id'
 import { Route as ProNouveauRouteImport } from './routes/pro/nouveau'
+import { Route as ProIdChambresRouteImport } from './routes/pro/$id/chambres'
 import { Route as ProIdMenuRouteImport } from './routes/pro/$id/menu'
 import { Route as ProIdPharmacieRouteImport } from './routes/pro/$id/pharmacie'
 
@@ -72,6 +73,11 @@ const ProNouveauRoute = ProNouveauRouteImport.update({
   path: '/pro/nouveau',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProIdChambresRoute = ProIdChambresRouteImport.update({
+  id: '/chambres',
+  path: '/chambres',
+  getParentRoute: () => ProIdRoute,
+} as any)
 const ProIdMenuRoute = ProIdMenuRouteImport.update({
   id: '/menu',
   path: '/menu',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
+  '/pro/$id/chambres': typeof ProIdChambresRoute
   '/pro/$id/menu': typeof ProIdMenuRoute
   '/pro/$id/pharmacie': typeof ProIdPharmacieRoute
 }
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin': typeof AdminIndexRoute
   '/pro': typeof ProIndexRoute
+  '/pro/$id/chambres': typeof ProIdChambresRoute
   '/pro/$id/menu': typeof ProIdMenuRoute
   '/pro/$id/pharmacie': typeof ProIdPharmacieRoute
 }
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
+  '/pro/$id/chambres': typeof ProIdChambresRoute
   '/pro/$id/menu': typeof ProIdMenuRoute
   '/pro/$id/pharmacie': typeof ProIdPharmacieRoute
 }
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/pro/nouveau'
     | '/admin/'
     | '/pro/'
+    | '/pro/$id/chambres'
     | '/pro/$id/menu'
     | '/pro/$id/pharmacie'
   fileRoutesByTo: FileRoutesByTo
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/pro/nouveau'
     | '/admin'
     | '/pro'
+    | '/pro/$id/chambres'
     | '/pro/$id/menu'
     | '/pro/$id/pharmacie'
   id:
@@ -167,6 +178,7 @@ export interface FileRouteTypes {
     | '/pro/nouveau'
     | '/admin/'
     | '/pro/'
+    | '/pro/$id/chambres'
     | '/pro/$id/menu'
     | '/pro/$id/pharmacie'
   fileRoutesById: FileRoutesById
@@ -256,6 +268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProNouveauRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pro/$id/chambres': {
+      id: '/pro/$id/chambres'
+      path: '/chambres'
+      fullPath: '/pro/$id/chambres'
+      preLoaderRoute: typeof ProIdChambresRouteImport
+      parentRoute: typeof ProIdRoute
+    }
     '/pro/$id/menu': {
       id: '/pro/$id/menu'
       path: '/menu'
@@ -274,11 +293,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface ProIdRouteChildren {
+  ProIdChambresRoute: typeof ProIdChambresRoute
   ProIdMenuRoute: typeof ProIdMenuRoute
   ProIdPharmacieRoute: typeof ProIdPharmacieRoute
 }
 
 const ProIdRouteChildren: ProIdRouteChildren = {
+  ProIdChambresRoute: ProIdChambresRoute,
   ProIdMenuRoute: ProIdMenuRoute,
   ProIdPharmacieRoute: ProIdPharmacieRoute,
 }

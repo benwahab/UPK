@@ -125,6 +125,31 @@ export const listerMenuDuLieu = createServerFn({ method: "GET" })
     return (rows ?? []) as PlatPublic[];
   });
 
+export type ChambrePublic = {
+  id: string;
+  type: string;
+  capacite: number | null;
+  nombre: number;
+  equipements: string | null;
+  prix: number | null;
+  description: string | null;
+  disponible: boolean;
+};
+
+/** Chambres affichées sur la fiche publique d'un hôtel. */
+export const listerChambresDuLieu = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => z.object({ placeId: z.string().uuid() }).parse(data))
+  .handler(async ({ data }): Promise<ChambrePublic[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data: rows, error } = await clientPublic()
+      .from("chambres")
+      .select("id, type, capacite, nombre, equipements, prix, description, disponible")
+      .eq("place_id", data.placeId)
+      .order("type", { ascending: true });
+    if (error) throw new Error(error.message);
+    return (rows ?? []) as ChambrePublic[];
+  });
+
 export type ResultatMedicament = {
   place_id: string;
   place_nom: string;

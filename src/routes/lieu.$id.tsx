@@ -1,11 +1,11 @@
 import { useSuspenseQuery, useQuery, queryOptions } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill, UtensilsCrossed } from "lucide-react";
+import { BedDouble, Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill, UtensilsCrossed } from "lucide-react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
-import { listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
+import { listerChambresDuLieu, listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
 import { lienItineraire, lienWhatsapp, telAffiche } from "@/lib/upk";
 
 const optionsLieu = (id: string) =>
@@ -65,6 +65,7 @@ function PageLieu() {
   const { data: lieu } = useSuspenseQuery(optionsLieu(id));
   const estPharmacie = lieu.categorie_slug === "pharmacie";
   const estRestaurant = lieu.categorie_slug === "restaurant";
+  const estHotel = lieu.categorie_slug === "hotel";
 
   const medicaments = useQuery({
     queryKey: ["medicaments-lieu", id],
@@ -76,6 +77,12 @@ function PageLieu() {
     queryKey: ["menu-lieu", id],
     queryFn: () => listerMenuDuLieu({ data: { placeId: id } }),
     enabled: estRestaurant,
+  });
+
+  const chambres = useQuery({
+    queryKey: ["chambres-lieu", id],
+    queryFn: () => listerChambresDuLieu({ data: { placeId: id } }),
+    enabled: estHotel,
   });
 
   return (
@@ -239,6 +246,46 @@ function PageLieu() {
                       <p className="text-xs text-destructive">Indisponible</p>
                     ) : null}
                   </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
+
+      {estHotel ? (
+        <section className="mt-6">
+          <h2 className="flex items-center gap-1.5 font-display text-lg font-semibold text-foreground">
+            <BedDouble className="size-4" aria-hidden />
+            Chambres
+          </h2>
+          {chambres.isPending ? (
+            <p className="mt-2 text-sm text-muted-foreground">Chargement…</p>
+          ) : (chambres.data ?? []).length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">
+              Aucune chambre renseignée pour l'instant par cet établissement.
+            </p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {(chambres.data ?? []).map((c) => (
+                <li key={c.id} className="rounded-lg border border-border bg-card px-3 py-2">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium text-card-foreground">
+                      {c.type}
+                      {c.capacite ? ` — ${c.capacite} pers.` : ""}
+                    </p>
+                    {c.prix ? (
+                      <p className="text-sm font-medium text-card-foreground">
+                        {c.prix} FCFA/nuit
+                      </p>
+                    ) : null}
+                  </div>
+                  {c.equipements ? (
+                    <p className="mt-0.5 text-xs text-muted-foreground">{c.equipements}</p>
+                  ) : null}
+                  {!c.disponible ? (
+                    <p className="mt-0.5 text-xs text-destructive">Complet</p>
+                  ) : null}
                 </li>
               ))}
             </ul>
