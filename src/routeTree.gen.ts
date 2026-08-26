@@ -17,6 +17,7 @@ import { Route as MesAlertesRouteImport } from './routes/mes-alertes'
 import { Route as MesFavorisRouteImport } from './routes/mes-favoris'
 import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
 import { Route as ProIndexRouteImport } from './routes/pro/index'
 import { Route as ProIdRouteImport } from './routes/pro/$id'
@@ -65,6 +66,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
+  id: '/admin/categories',
+  path: '/admin/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LieuIdRoute = LieuIdRouteImport.update({
   id: '/lieu/$id',
   path: '/lieu/$id',
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
   '/proposer': typeof ProposerRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/nouveau': typeof ProNouveauRoute
@@ -126,6 +133,7 @@ export interface FileRoutesByTo {
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
   '/proposer': typeof ProposerRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/nouveau': typeof ProNouveauRoute
@@ -144,6 +152,7 @@ export interface FileRoutesById {
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
   '/proposer': typeof ProposerRoute
+  '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/nouveau': typeof ProNouveauRoute
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/mes-alertes'
     | '/mes-favoris'
     | '/proposer'
+    | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/nouveau'
@@ -180,6 +190,7 @@ export interface FileRouteTypes {
     | '/mes-alertes'
     | '/mes-favoris'
     | '/proposer'
+    | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/nouveau'
@@ -197,6 +208,7 @@ export interface FileRouteTypes {
     | '/mes-alertes'
     | '/mes-favoris'
     | '/proposer'
+    | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/nouveau'
@@ -215,6 +227,7 @@ export interface RootRouteChildren {
   MesAlertesRoute: typeof MesAlertesRoute
   MesFavorisRoute: typeof MesFavorisRoute
   ProposerRoute: typeof ProposerRoute
+  AdminCategoriesRoute: typeof AdminCategoriesRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRouteWithChildren
   ProNouveauRoute: typeof ProNouveauRoute
@@ -278,6 +291,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/categories': {
+      id: '/admin/categories'
+      path: '/admin/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AdminCategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lieu/$id': {
@@ -354,6 +374,7 @@ const rootRouteChildren: RootRouteChildren = {
   MesAlertesRoute: MesAlertesRoute,
   MesFavorisRoute: MesFavorisRoute,
   ProposerRoute: ProposerRoute,
+  AdminCategoriesRoute: AdminCategoriesRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRouteWithChildren,
   ProNouveauRoute: ProNouveauRoute,

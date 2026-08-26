@@ -90,9 +90,12 @@ function PageModeration() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
-      <div className="pt-6">
+      <div className="flex items-center justify-between pt-6">
         <Link to="/" className="text-sm font-medium text-primary">
           ← Retour à la recherche
+        </Link>
+        <Link to="/admin/categories" className="text-sm font-medium text-muted-foreground">
+          Gérer les catégories
         </Link>
       </div>
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
