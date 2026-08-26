@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { LocateFixed, Mic, Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { CarteLieu } from "@/components/upk/CarteLieu";
 import { BasculeTheme } from "@/components/upk/BasculeTheme";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { trouverCategorieParBesoin } from "@/lib/besoins";
 import { listerCategories, rechercherLieux } from "@/lib/places.functions";
 import { useRechercheVocale } from "@/lib/useRechercheVocale";
 
@@ -36,17 +37,40 @@ function PageRecherche() {
     setRequete(texte);
   });
   const [requete, setRequete] = useState("");
-  const [categorieSlug, setCategorieSlug] = useState<string | null>(null);
+  const [categorieSlug, setCategorieSlugBrut] = useState<string | null>(null);
+  const [suggestionBesoin, setSuggestionBesoin] = useState<string | null>(null);
+  const categorieChoisieManuellement = useRef(false);
   const [position, setPosition] = useState<Position | null>(null);
   const [etatGeo, setEtatGeo] = useState<"inconnu" | "chargement" | "refuse" | "ok">("inconnu");
 
   const chargerCategories = useServerFn(listerCategories);
   const chercher = useServerFn(rechercherLieux);
 
+  // Choix manuel d'une catégorie (chip ou "Tout") : l'utilisateur reprend la
+  // main, on arrête de lui proposer des suggestions automatiques tant qu'il
+  // ne retape pas une nouvelle requête.
+  function setCategorieSlug(slug: string | null) {
+    categorieChoisieManuellement.current = true;
+    setSuggestionBesoin(null);
+    setCategorieSlugBrut(slug);
+  }
+
   useEffect(() => {
     const t = setTimeout(() => setRequete(saisie), 350);
+    if (saisie.trim() === "") categorieChoisieManuellement.current = false;
     return () => clearTimeout(t);
   }, [saisie]);
+
+  // Recherche par besoin (section 29) : si la requête ressemble à un besoin
+  // connu ("je veux manger", "voiture en panne"...), on suggère la
+  // catégorie correspondante — sauf si l'utilisateur a déjà choisi la
+  // sienne pour cette recherche.
+  useEffect(() => {
+    if (categorieChoisieManuellement.current) return;
+    const suggestion = trouverCategorieParBesoin(requete);
+    setSuggestionBesoin(suggestion);
+    setCategorieSlugBrut(suggestion);
+  }, [requete]);
 
   const categories = useQuery({
     queryKey: ["categories"],
@@ -60,11 +84,11 @@ function PageRecherche() {
   const rechercheActive = saisie.trim().length > 0 || categorieSlug !== null;
 
   const resultats = useQuery({
-    queryKey: ["lieux", requete, categorieSlug, position?.lat ?? null, position?.lng ?? null],
+    queryKey: ["lieux", requete, categorieSlug, suggestionBesoin, position?.lat ?? null, position?.lng ?? null],
     queryFn: () =>
       chercher({
         data: {
-          requete: requete || null,
+          requete: suggestionBesoin ? null : requete || null,
           categorieSlug,
           lat: position?.lat ?? null,
           lng: position?.lng ?? null,
@@ -207,6 +231,19 @@ function PageRecherche() {
               </p>
             )}
           </section>
+
+          {suggestionBesoin ? (
+            <p className="mt-3 text-xs text-muted-foreground">
+              Compris : recherche dans « {categories.data?.find((c) => c.slug === suggestionBesoin)?.nom ?? suggestionBesoin} ».{" "}
+              <button
+                type="button"
+                onClick={() => setCategorieSlug(null)}
+                className="font-medium text-primary underline-offset-2 hover:underline"
+              >
+                Chercher partout à la place
+              </button>
+            </p>
+          ) : null}
 
           <nav aria-label="Filtrer par catégorie" className="mt-4 -mx-4 overflow-x-auto px-4">
             <ul className="flex w-max gap-2 pb-1">
