@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Copy, Flag, X } from "lucide-react";
+import { Check, Copy, Flag, Store, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,11 @@ import {
   detecterDoublons,
   type CandidatDoublon,
 } from "@/lib/signalements.functions";
+import {
+  approuverRevendication,
+  listerRevendications,
+  rejeterRevendication,
+} from "@/lib/revendications.functions";
 import type { Lieu } from "@/lib/upk";
 import { useSession } from "@/lib/useSession";
 
@@ -36,6 +41,9 @@ function PageModeration() {
   const rejeter = useServerFn(rejeterLieu);
   const chercherSignalements = useServerFn(listerSignalements);
   const traiter = useServerFn(traiterSignalement);
+  const chercherRevendications = useServerFn(listerRevendications);
+  const approuver = useServerFn(approuverRevendication);
+  const rejeterClaim = useServerFn(rejeterRevendication);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -63,6 +71,12 @@ function PageModeration() {
     enabled: role.data === true,
   });
 
+  const revendications = useQuery({
+    queryKey: ["revendications"],
+    queryFn: () => chercherRevendications(),
+    enabled: role.data === true,
+  });
+
   async function onValider(id: string) {
     await valider({ data: { id } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
@@ -76,6 +90,16 @@ function PageModeration() {
   async function onTraiterSignalement(id: string) {
     await traiter({ data: { id } });
     queryClient.invalidateQueries({ queryKey: ["signalements"] });
+  }
+
+  async function onApprouverRevendication(id: string) {
+    await approuver({ data: { id } });
+    queryClient.invalidateQueries({ queryKey: ["revendications"] });
+  }
+
+  async function onRejeterRevendication(id: string) {
+    await rejeterClaim({ data: { id } });
+    queryClient.invalidateQueries({ queryKey: ["revendications"] });
   }
 
   if (chargement || !utilisateur || role.isPending || role.data !== true) {
@@ -160,6 +184,58 @@ function PageModeration() {
                     onClick={() => onTraiterSignalement(s.id)}
                   >
                     Marquer traité
+                  </Button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
+      <section className="mt-8" aria-live="polite">
+        <h2 className="flex items-center gap-1.5 font-display text-lg font-semibold text-foreground">
+          <Store className="size-4" aria-hidden />
+          Revendications ({(revendications.data ?? []).length})
+        </h2>
+        <div className="mt-3 space-y-3">
+          {revendications.isPending ? (
+            <p className="py-4 text-center text-sm text-muted-foreground">Chargement…</p>
+          ) : (revendications.data ?? []).length === 0 ? (
+            <p className="rounded-xl border border-dashed border-border bg-card p-6 text-center text-sm text-muted-foreground">
+              Aucune revendication en attente.
+            </p>
+          ) : (
+            (revendications.data ?? []).map((r) => (
+              <div key={r.id} className="rounded-xl border border-border bg-card p-4">
+                <p className="font-medium text-card-foreground">{r.places?.nom ?? "Lieu supprimé"}</p>
+                <p className="text-sm text-muted-foreground">{r.places?.quartier}</p>
+                <div className="mt-3 flex gap-2">
+                  <Link
+                    to="/lieu/$id"
+                    params={{ id: r.place_id }}
+                    className="inline-flex h-9 flex-1 items-center justify-center rounded-lg border border-border text-sm font-medium text-foreground"
+                  >
+                    Voir la fiche
+                  </Link>
+                  <Button
+                    type="button"
+                    variant="terrain"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => onApprouverRevendication(r.id)}
+                  >
+                    <Check className="size-4" aria-hidden />
+                    Approuver
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => onRejeterRevendication(r.id)}
+                  >
+                    <X className="size-4" aria-hidden />
+                    Rejeter
                   </Button>
                 </div>
               </div>

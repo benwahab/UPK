@@ -7,6 +7,7 @@ import { useEffect, useRef } from "react";
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { BoutonAlerteMedicament } from "@/components/upk/BoutonAlerteMedicament";
 import { BoutonFavori } from "@/components/upk/BoutonFavori";
+import { BoutonRevendiquer } from "@/components/upk/BoutonRevendiquer";
 import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
 import { listerChambresDuLieu, listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
@@ -348,7 +349,8 @@ function PageLieu() {
         </section>
       ) : null}
 
-      <div className="mt-6 border-t border-border pt-4">
+      <div className="mt-6 space-y-2 border-t border-border pt-4">
+        {lieu.revendicable ? <BoutonRevendiquer placeId={lieu.id} /> : null}
         <SignalerProbleme placeId={lieu.id} />
       </div>
     </main>

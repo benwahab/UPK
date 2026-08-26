@@ -27,7 +27,7 @@ export type Lieu = {
   distance_m: number | null;
 };
 
-export type LieuDetail = Lieu & { photos: { id: string; url: string }[] };
+export type LieuDetail = Lieu & { photos: { id: string; url: string }[]; revendicable: boolean };
 
 export const STATUTS: Record<StatutVerification, { label: string; puce: string; aide: string }> = {
   verifie: {
