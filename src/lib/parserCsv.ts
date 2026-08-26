@@ -100,3 +100,115 @@ export function analyserCsvMedicaments(texte: string): {
 
   return { lignes, erreurs };
 }
+
+/** Colonnes reconnues pour un menu : nom (obligatoire), categorie, prix. */
+export function analyserCsvPlats(texte: string): {
+  lignes: { nom: string; categorie: string | null; prix: number | null }[];
+  erreurs: string[];
+} {
+  const normaliser = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+
+  const table = parserCsv(texte);
+  if (table.length === 0) return { lignes: [], erreurs: ["Fichier vide."] };
+
+  const entetes = (table[0] ?? []).map(normaliser);
+  const indexNom = entetes.findIndex((h) => h.includes("nom") || h.includes("plat"));
+  const indexCategorie = entetes.findIndex((h) => h.includes("categorie"));
+  const indexPrix = entetes.findIndex((h) => h.includes("prix"));
+
+  if (indexNom === -1) {
+    return { lignes: [], erreurs: ["Aucune colonne 'nom' détectée dans l'en-tête du fichier."] };
+  }
+
+  const lignes: { nom: string; categorie: string | null; prix: number | null }[] = [];
+  const erreurs: string[] = [];
+
+  for (let i = 1; i < table.length; i++) {
+    const rangee = table[i] ?? [];
+    const nom = rangee[indexNom]?.trim();
+    if (!nom) {
+      erreurs.push(`Ligne ${i + 1} : nom manquant, ignorée.`);
+      continue;
+    }
+    const prixTexte = indexPrix >= 0 ? (rangee[indexPrix] ?? "").trim() : "";
+    const prix = prixTexte ? Number(prixTexte.replace(/[^\d.]/g, "")) : null;
+    lignes.push({
+      nom,
+      categorie: indexCategorie >= 0 ? (rangee[indexCategorie] ?? "").trim() || null : null,
+      prix: prix && !Number.isNaN(prix) ? prix : null,
+    });
+  }
+
+  return { lignes, erreurs };
+}
+
+/** Colonnes reconnues pour des chambres : type (obligatoire), capacite, nombre, prix, equipements. */
+export function analyserCsvChambres(texte: string): {
+  lignes: {
+    type: string;
+    capacite: number | null;
+    nombre: number;
+    prix: number | null;
+    equipements: string | null;
+  }[];
+  erreurs: string[];
+} {
+  const normaliser = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+
+  const table = parserCsv(texte);
+  if (table.length === 0) return { lignes: [], erreurs: ["Fichier vide."] };
+
+  const entetes = (table[0] ?? []).map(normaliser);
+  const indexType = entetes.findIndex((h) => h.includes("type"));
+  const indexCapacite = entetes.findIndex((h) => h.includes("capacite"));
+  const indexNombre = entetes.findIndex((h) => h.includes("nombre"));
+  const indexPrix = entetes.findIndex((h) => h.includes("prix"));
+  const indexEquipements = entetes.findIndex((h) => h.includes("equipement"));
+
+  if (indexType === -1) {
+    return { lignes: [], erreurs: ["Aucune colonne 'type' détectée dans l'en-tête du fichier."] };
+  }
+
+  const lignes: {
+    type: string;
+    capacite: number | null;
+    nombre: number;
+    prix: number | null;
+    equipements: string | null;
+  }[] = [];
+  const erreurs: string[] = [];
+
+  for (let i = 1; i < table.length; i++) {
+    const rangee = table[i] ?? [];
+    const type = rangee[indexType]?.trim();
+    if (!type) {
+      erreurs.push(`Ligne ${i + 1} : type manquant, ignorée.`);
+      continue;
+    }
+    const capaciteTexte = indexCapacite >= 0 ? (rangee[indexCapacite] ?? "").trim() : "";
+    const nombreTexte = indexNombre >= 0 ? (rangee[indexNombre] ?? "").trim() : "";
+    const prixTexte = indexPrix >= 0 ? (rangee[indexPrix] ?? "").trim() : "";
+    const capacite = capaciteTexte ? Number(capaciteTexte.replace(/[^\d]/g, "")) : null;
+    const nombre = nombreTexte ? Number(nombreTexte.replace(/[^\d]/g, "")) : 1;
+    const prix = prixTexte ? Number(prixTexte.replace(/[^\d.]/g, "")) : null;
+    lignes.push({
+      type,
+      capacite: capacite && !Number.isNaN(capacite) ? capacite : null,
+      nombre: nombre && !Number.isNaN(nombre) && nombre > 0 ? nombre : 1,
+      prix: prix && !Number.isNaN(prix) ? prix : null,
+      equipements: indexEquipements >= 0 ? (rangee[indexEquipements] ?? "").trim() || null : null,
+    });
+  }
+
+  return { lignes, erreurs };
+}

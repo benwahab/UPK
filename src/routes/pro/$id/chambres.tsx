@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ajouterChambre, listerMesChambres, supprimerChambre } from "@/lib/hotel.functions";
+import { ImporterCsv } from "@/components/upk/ImporterCsv";
+import { ajouterChambre, importerChambres, listerMesChambres, supprimerChambre } from "@/lib/hotel.functions";
+import { analyserCsvChambres } from "@/lib/parserCsv";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/$id/chambres")({
@@ -24,6 +26,7 @@ function PageChambres() {
   const chercherChambres = useServerFn(listerMesChambres);
   const ajouter = useServerFn(ajouterChambre);
   const supprimer = useServerFn(supprimerChambre);
+  const importer = useServerFn(importerChambres);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -150,6 +153,18 @@ function PageChambres() {
           Ajouter ce type de chambre
         </Button>
       </form>
+
+      <ImporterCsv
+        aideColonnes="Colonnes reconnues : type, capacité, nombre, prix, équipements (dans n'importe quel ordre)."
+        analyser={analyserCsvChambres}
+        rendreApercu={(l) =>
+          `${l.type}${l.capacite ? ` — ${l.capacite} pers.` : ""} · ${l.nombre} chambre${l.nombre > 1 ? "s" : ""}${l.prix ? ` · ${l.prix} FCFA` : ""}`
+        }
+        onConfirmer={async (lignes) => {
+          await importer({ data: { placeId: id, lignes } });
+          queryClient.invalidateQueries({ queryKey: ["mes-chambres", id] });
+        }}
+      />
 
       <ul className="mt-4 space-y-2">
         {(chambres.data ?? []).map((c) => (

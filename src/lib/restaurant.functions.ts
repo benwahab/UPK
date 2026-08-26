@@ -104,3 +104,40 @@ export const supprimerPlat = createServerFn({ method: "POST" })
       .eq("place_id", data.placeId);
     if (error) throw new Error(error.message);
   });
+
+export const importerPlats = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        placeId: z.string().uuid(),
+        lignes: z
+          .array(
+            z.object({
+              nom: z.string().trim().min(1).max(150),
+              categorie: z.string().trim().max(60).optional().nullable(),
+              prix: z.number().min(0).max(10_000_000).optional().nullable(),
+            }),
+          )
+          .min(1)
+          .max(500),
+      })
+      .parse(data),
+  )
+  .handler(async ({ context, data }): Promise<{ importes: number }> => {
+    await verifierProprietaire(context.supabase, data.placeId, context.userId);
+    const { error, count } = await context.supabase
+      .from("plats")
+      .insert(
+        data.lignes.map((l) => ({
+          place_id: data.placeId,
+          nom: l.nom,
+          categorie: l.categorie || null,
+          prix: l.prix ?? null,
+          disponible: true,
+        })),
+        { count: "exact" },
+      );
+    if (error) throw new Error(error.message);
+    return { importes: count ?? data.lignes.length };
+  });

@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ajouterPlat, listerMonMenu, supprimerPlat } from "@/lib/restaurant.functions";
+import { ImporterCsv } from "@/components/upk/ImporterCsv";
+import { ajouterPlat, importerPlats, listerMonMenu, supprimerPlat } from "@/lib/restaurant.functions";
+import { analyserCsvPlats } from "@/lib/parserCsv";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/$id/menu")({
@@ -24,6 +26,7 @@ function PageMenu() {
   const chercherMenu = useServerFn(listerMonMenu);
   const ajouter = useServerFn(ajouterPlat);
   const supprimer = useServerFn(supprimerPlat);
+  const importer = useServerFn(importerPlats);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -111,6 +114,16 @@ function PageMenu() {
           Ajouter au menu
         </Button>
       </form>
+
+      <ImporterCsv
+        aideColonnes="Colonnes reconnues : nom, catégorie, prix (dans n'importe quel ordre)."
+        analyser={analyserCsvPlats}
+        rendreApercu={(l) => `${l.nom}${l.categorie ? ` — ${l.categorie}` : ""}${l.prix ? ` · ${l.prix} FCFA` : ""}`}
+        onConfirmer={async (lignes) => {
+          await importer({ data: { placeId: id, lignes } });
+          queryClient.invalidateQueries({ queryKey: ["mon-menu", id] });
+        }}
+      />
 
       <ul className="mt-4 space-y-2">
         {(menu.data ?? []).map((p) => (
