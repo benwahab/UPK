@@ -116,7 +116,7 @@ function PageRecherche() {
   }
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
+    <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-4 pb-16">
       <div className="flex items-center justify-between pt-4">
         <div className="flex items-center gap-3">
           <Link to="/pro" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
@@ -290,6 +290,32 @@ function PageRecherche() {
           </section>
         </>
       ) : null}
+
+      <footer className="mt-auto border-t border-border pt-6 pb-2">
+        <nav aria-label="Liens du site" className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+          <Link to="/a-propos" className="text-xs text-muted-foreground hover:text-foreground hover:underline">
+            À propos
+          </Link>
+          <Link to="/contact" className="text-xs text-muted-foreground hover:text-foreground hover:underline">
+            Nous contacter
+          </Link>
+          <Link
+            to="/politique-confidentialite"
+            className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+          >
+            Politique de confidentialité
+          </Link>
+          <Link
+            to="/conditions-utilisation"
+            className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+          >
+            Conditions d'utilisation
+          </Link>
+        </nav>
+        <p className="mt-3 text-center text-[11px] text-muted-foreground">
+          © {new Date().getFullYear()} UPK — Votre guide local
+        </p>
+      </footer>
     </main>
   );
 }

@@ -10,12 +10,16 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AProposRouteImport } from './routes/a-propos'
+import { Route as ConditionsUtilisationRouteImport } from './routes/conditions-utilisation'
 import { Route as ConnexionRouteImport } from './routes/connexion'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as GardeRouteImport } from './routes/garde'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MesAlertesRouteImport } from './routes/mes-alertes'
 import { Route as MesFavorisRouteImport } from './routes/mes-favoris'
 import { Route as MotDePasseOublieRouteImport } from './routes/mot-de-passe-oublie'
+import { Route as PolitiqueConfidentialiteRouteImport } from './routes/politique-confidentialite'
 import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as ReinitialiserMotDePasseRouteImport } from './routes/reinitialiser-mot-de-passe'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
@@ -33,9 +37,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AProposRoute = AProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConditionsUtilisationRoute = ConditionsUtilisationRouteImport.update({
+  id: '/conditions-utilisation',
+  path: '/conditions-utilisation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConnexionRoute = ConnexionRouteImport.update({
   id: '/connexion',
   path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GardeRoute = GardeRouteImport.update({
@@ -63,6 +82,12 @@ const MotDePasseOublieRoute = MotDePasseOublieRouteImport.update({
   path: '/mot-de-passe-oublie',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PolitiqueConfidentialiteRoute =
+  PolitiqueConfidentialiteRouteImport.update({
+    id: '/politique-confidentialite',
+    path: '/politique-confidentialite',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ProposerRoute = ProposerRouteImport.update({
   id: '/proposer',
   path: '/proposer',
@@ -121,12 +146,16 @@ const ProIdPharmacieRoute = ProIdPharmacieRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/conditions-utilisation': typeof ConditionsUtilisationRoute
   '/connexion': typeof ConnexionRoute
+  '/contact': typeof ContactRoute
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
   '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -141,12 +170,16 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/conditions-utilisation': typeof ConditionsUtilisationRoute
   '/connexion': typeof ConnexionRoute
+  '/contact': typeof ContactRoute
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
   '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -162,12 +195,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/a-propos': typeof AProposRoute
+  '/conditions-utilisation': typeof ConditionsUtilisationRoute
   '/connexion': typeof ConnexionRoute
+  '/contact': typeof ContactRoute
   '/garde': typeof GardeRoute
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
   '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -184,12 +221,16 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/a-propos'
+    | '/conditions-utilisation'
     | '/connexion'
+    | '/contact'
     | '/garde'
     | '/inscription'
     | '/mes-alertes'
     | '/mes-favoris'
     | '/mot-de-passe-oublie'
+    | '/politique-confidentialite'
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
@@ -204,12 +245,16 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/a-propos'
+    | '/conditions-utilisation'
     | '/connexion'
+    | '/contact'
     | '/garde'
     | '/inscription'
     | '/mes-alertes'
     | '/mes-favoris'
     | '/mot-de-passe-oublie'
+    | '/politique-confidentialite'
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
@@ -224,12 +269,16 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/a-propos'
+    | '/conditions-utilisation'
     | '/connexion'
+    | '/contact'
     | '/garde'
     | '/inscription'
     | '/mes-alertes'
     | '/mes-favoris'
     | '/mot-de-passe-oublie'
+    | '/politique-confidentialite'
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
@@ -245,12 +294,16 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AProposRoute: typeof AProposRoute
+  ConditionsUtilisationRoute: typeof ConditionsUtilisationRoute
   ConnexionRoute: typeof ConnexionRoute
+  ContactRoute: typeof ContactRoute
   GardeRoute: typeof GardeRoute
   InscriptionRoute: typeof InscriptionRoute
   MesAlertesRoute: typeof MesAlertesRoute
   MesFavorisRoute: typeof MesFavorisRoute
   MotDePasseOublieRoute: typeof MotDePasseOublieRoute
+  PolitiqueConfidentialiteRoute: typeof PolitiqueConfidentialiteRoute
   ProposerRoute: typeof ProposerRoute
   ReinitialiserMotDePasseRoute: typeof ReinitialiserMotDePasseRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
@@ -270,11 +323,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/a-propos': {
+      id: '/a-propos'
+      path: '/a-propos'
+      fullPath: '/a-propos'
+      preLoaderRoute: typeof AProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conditions-utilisation': {
+      id: '/conditions-utilisation'
+      path: '/conditions-utilisation'
+      fullPath: '/conditions-utilisation'
+      preLoaderRoute: typeof ConditionsUtilisationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/connexion': {
       id: '/connexion'
       path: '/connexion'
       fullPath: '/connexion'
       preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/garde': {
@@ -310,6 +384,13 @@ declare module '@tanstack/react-router' {
       path: '/mot-de-passe-oublie'
       fullPath: '/mot-de-passe-oublie'
       preLoaderRoute: typeof MotDePasseOublieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politique-confidentialite': {
+      id: '/politique-confidentialite'
+      path: '/politique-confidentialite'
+      fullPath: '/politique-confidentialite'
+      preLoaderRoute: typeof PolitiqueConfidentialiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/proposer': {
@@ -408,12 +489,16 @@ const ProIdRouteWithChildren = ProIdRoute._addFileChildren(ProIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AProposRoute: AProposRoute,
+  ConditionsUtilisationRoute: ConditionsUtilisationRoute,
   ConnexionRoute: ConnexionRoute,
+  ContactRoute: ContactRoute,
   GardeRoute: GardeRoute,
   InscriptionRoute: InscriptionRoute,
   MesAlertesRoute: MesAlertesRoute,
   MesFavorisRoute: MesFavorisRoute,
   MotDePasseOublieRoute: MotDePasseOublieRoute,
+  PolitiqueConfidentialiteRoute: PolitiqueConfidentialiteRoute,
   ProposerRoute: ProposerRoute,
   ReinitialiserMotDePasseRoute: ReinitialiserMotDePasseRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
