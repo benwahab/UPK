@@ -5,6 +5,7 @@ import { Eye, Navigation, Phone, MessageCircle, Globe } from "lucide-react";
 import { useEffect } from "react";
 
 import { FormulaireLieu, type ValeursFormulaireLieu } from "@/components/upk/FormulaireLieu";
+import { GestionPhotos } from "@/components/upk/GestionPhotos";
 import { modifierMonLieu, obtenirMonLieu } from "@/lib/business.functions";
 import { obtenirStatistiques } from "@/lib/statistiques.functions";
 import { useSession } from "@/lib/useSession";
@@ -159,6 +160,9 @@ function PageModifierLieu() {
           Gérer mes chambres
         </Link>
       ) : null}
+
+      <GestionPhotos placeId={id} />
+
       <FormulaireLieu
         valeursInitiales={valeursInitiales}
         onEnregistrer={onEnregistrer}
