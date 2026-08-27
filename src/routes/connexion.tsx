@@ -69,6 +69,9 @@ function PageConnexion() {
             value={motDePasse}
             onChange={(e) => setMotDePasse(e.target.value)}
           />
+          <Link to="/mot-de-passe-oublie" className="text-xs text-muted-foreground underline-offset-2 hover:underline">
+            Mot de passe oublié ?
+          </Link>
         </div>
         {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
         <Button type="submit" variant="terrain" className="w-full" disabled={enCours}>

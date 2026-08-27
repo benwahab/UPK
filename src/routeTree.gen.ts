@@ -15,7 +15,9 @@ import { Route as GardeRouteImport } from './routes/garde'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as MesAlertesRouteImport } from './routes/mes-alertes'
 import { Route as MesFavorisRouteImport } from './routes/mes-favoris'
+import { Route as MotDePasseOublieRouteImport } from './routes/mot-de-passe-oublie'
 import { Route as ProposerRouteImport } from './routes/proposer'
+import { Route as ReinitialiserMotDePasseRouteImport } from './routes/reinitialiser-mot-de-passe'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
@@ -56,9 +58,19 @@ const MesFavorisRoute = MesFavorisRouteImport.update({
   path: '/mes-favoris',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MotDePasseOublieRoute = MotDePasseOublieRouteImport.update({
+  id: '/mot-de-passe-oublie',
+  path: '/mot-de-passe-oublie',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProposerRoute = ProposerRouteImport.update({
   id: '/proposer',
   path: '/proposer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReinitialiserMotDePasseRoute = ReinitialiserMotDePasseRouteImport.update({
+  id: '/reinitialiser-mot-de-passe',
+  path: '/reinitialiser-mot-de-passe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -114,7 +126,9 @@ export interface FileRoutesByFullPath {
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
   '/proposer': typeof ProposerRoute
+  '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -132,7 +146,9 @@ export interface FileRoutesByTo {
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
   '/proposer': typeof ProposerRoute
+  '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -151,7 +167,9 @@ export interface FileRoutesById {
   '/inscription': typeof InscriptionRoute
   '/mes-alertes': typeof MesAlertesRoute
   '/mes-favoris': typeof MesFavorisRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
   '/proposer': typeof ProposerRoute
+  '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
@@ -171,7 +189,9 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/mes-alertes'
     | '/mes-favoris'
+    | '/mot-de-passe-oublie'
     | '/proposer'
+    | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
@@ -189,7 +209,9 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/mes-alertes'
     | '/mes-favoris'
+    | '/mot-de-passe-oublie'
     | '/proposer'
+    | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
@@ -207,7 +229,9 @@ export interface FileRouteTypes {
     | '/inscription'
     | '/mes-alertes'
     | '/mes-favoris'
+    | '/mot-de-passe-oublie'
     | '/proposer'
+    | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
@@ -226,7 +250,9 @@ export interface RootRouteChildren {
   InscriptionRoute: typeof InscriptionRoute
   MesAlertesRoute: typeof MesAlertesRoute
   MesFavorisRoute: typeof MesFavorisRoute
+  MotDePasseOublieRoute: typeof MotDePasseOublieRoute
   ProposerRoute: typeof ProposerRoute
+  ReinitialiserMotDePasseRoute: typeof ReinitialiserMotDePasseRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRouteWithChildren
@@ -279,11 +305,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MesFavorisRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mot-de-passe-oublie': {
+      id: '/mot-de-passe-oublie'
+      path: '/mot-de-passe-oublie'
+      fullPath: '/mot-de-passe-oublie'
+      preLoaderRoute: typeof MotDePasseOublieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/proposer': {
       id: '/proposer'
       path: '/proposer'
       fullPath: '/proposer'
       preLoaderRoute: typeof ProposerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reinitialiser-mot-de-passe': {
+      id: '/reinitialiser-mot-de-passe'
+      path: '/reinitialiser-mot-de-passe'
+      fullPath: '/reinitialiser-mot-de-passe'
+      preLoaderRoute: typeof ReinitialiserMotDePasseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -373,7 +413,9 @@ const rootRouteChildren: RootRouteChildren = {
   InscriptionRoute: InscriptionRoute,
   MesAlertesRoute: MesAlertesRoute,
   MesFavorisRoute: MesFavorisRoute,
+  MotDePasseOublieRoute: MotDePasseOublieRoute,
   ProposerRoute: ProposerRoute,
+  ReinitialiserMotDePasseRoute: ReinitialiserMotDePasseRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRouteWithChildren,
