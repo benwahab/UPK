@@ -473,6 +473,38 @@ export type Database = {
         }
         Relationships: []
       }
+      revendications: {
+        Row: {
+          created_at: string
+          id: string
+          place_id: string
+          statut: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          place_id: string
+          statut?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          place_id?: string
+          statut?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "revendications_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       signalements: {
         Row: {
           created_at: string
