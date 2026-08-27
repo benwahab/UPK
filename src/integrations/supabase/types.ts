@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.15"
+    PostgrestVersion: "14.17"
   }
   public: {
     Tables: {
@@ -446,6 +446,33 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          nom_complet: string | null
+          role: string
+          telephone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          nom_complet?: string | null
+          role?: string
+          telephone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nom_complet?: string | null
+          role?: string
+          telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       revendications: {
         Row: {
           created_at: string
@@ -477,33 +504,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      profiles: {
-        Row: {
-          created_at: string
-          id: string
-          nom_complet: string | null
-          role: string
-          telephone: string | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          id: string
-          nom_complet?: string | null
-          role?: string
-          telephone?: string | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          nom_complet?: string | null
-          role?: string
-          telephone?: string | null
-          updated_at?: string
-        }
-        Relationships: []
       }
       signalements: {
         Row: {
