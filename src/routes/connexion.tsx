@@ -16,25 +16,36 @@ function PageConnexion() {
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
   const [erreur, setErreur] = useState<string | null>(null);
+  const [nonConfirme, setNonConfirme] = useState(false);
   const [enCours, setEnCours] = useState(false);
+  const [renvoiEnCours, setRenvoiEnCours] = useState(false);
+  const [renvoye, setRenvoye] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErreur(null);
+    setNonConfirme(false);
+    setRenvoye(false);
     setEnCours(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password: motDePasse });
     setEnCours(false);
     if (error) {
-      setErreur(
-        error.message.includes("Email not confirmed")
-          ? "Compte non confirmé. Vérifiez votre boîte mail (et les spams) pour le lien de confirmation."
-          : error.message.includes("Invalid login credentials")
-            ? "Email ou mot de passe incorrect."
-            : error.message,
-      );
+      if (error.message.includes("Email not confirmed")) {
+        setNonConfirme(true);
+        setErreur("Compte non confirmé. Vérifiez votre boîte mail (et les spams) pour le lien de confirmation.");
+      } else {
+        setErreur(error.message.includes("Invalid login credentials") ? "Email ou mot de passe incorrect." : error.message);
+      }
       return;
     }
     navigate({ to: "/pro" });
+  }
+
+  async function onRenvoyerConfirmation() {
+    setRenvoiEnCours(true);
+    const { error } = await supabase.auth.resend({ type: "signup", email });
+    setRenvoiEnCours(false);
+    if (!error) setRenvoye(true);
   }
 
   return (
@@ -74,6 +85,20 @@ function PageConnexion() {
           </Link>
         </div>
         {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
+        {nonConfirme ? (
+          renvoye ? (
+            <p className="text-sm text-primary">Email de confirmation renvoyé.</p>
+          ) : (
+            <button
+              type="button"
+              onClick={onRenvoyerConfirmation}
+              disabled={renvoiEnCours}
+              className="text-sm font-medium text-primary underline-offset-2 hover:underline"
+            >
+              {renvoiEnCours ? "Envoi…" : "Renvoyer l'email de confirmation"}
+            </button>
+          )
+        ) : null}
         <Button type="submit" variant="terrain" className="w-full" disabled={enCours}>
           {enCours ? "Connexion…" : "Se connecter"}
         </Button>
