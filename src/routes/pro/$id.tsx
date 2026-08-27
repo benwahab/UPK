@@ -80,7 +80,7 @@ function PageModifierLieu() {
   };
 
   async function onEnregistrer(valeurs: ValeursFormulaireLieu) {
-    await modifier({
+    return modifier({
       data: {
         id,
         nom: valeurs.nom,

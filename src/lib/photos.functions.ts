@@ -18,6 +18,42 @@ async function verifierProprietaire(
   if (!data) throw new Error("Cet établissement ne vous appartient pas.");
 }
 
+/**
+ * Enregistre une photo sur une proposition en attente, sans exiger de
+ * compte — cohérent avec /proposer qui n'en demande pas non plus. Le
+ * serveur revérifie que la fiche est bien non revendiquée et en attente
+ * (la RLS le garantit déjà, mais un message d'erreur clair vaut mieux
+ * qu'une erreur SQL brute si quelqu'un rappelle cette fonction plus tard).
+ */
+export const ajouterPhotoProposition = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) =>
+    z
+      .object({ placeId: z.string().uuid(), url: z.string().url(), ordre: z.number().int().min(0) })
+      .parse(data),
+  )
+  .handler(async ({ data }): Promise<{ id: string }> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const supabase = clientPublic();
+
+    const { data: lieu, error: erreurLieu } = await supabase
+      .from("places")
+      .select("id, owner_id, statut_verification")
+      .eq("id", data.placeId)
+      .maybeSingle();
+    if (erreurLieu) throw new Error(erreurLieu.message);
+    if (!lieu || lieu.owner_id || lieu.statut_verification !== "a_verifier") {
+      throw new Error("Cette fiche n'accepte plus de photo (déjà revendiquée ou déjà vérifiée).");
+    }
+
+    const { data: cree, error } = await supabase
+      .from("place_photos")
+      .insert({ place_id: data.placeId, url: data.url, ordre: data.ordre })
+      .select("id")
+      .single();
+    if (error) throw new Error(error.message);
+    return { id: cree.id as string };
+  });
+
 export type PhotoLieu = { id: string; url: string; ordre: number };
 
 export const listerMesPhotos = createServerFn({ method: "GET" })

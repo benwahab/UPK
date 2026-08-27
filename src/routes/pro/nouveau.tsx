@@ -1,9 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import { EtapePhotosObligatoires } from "@/components/upk/EtapePhotosObligatoires";
 import { FormulaireLieu, type ValeursFormulaireLieu } from "@/components/upk/FormulaireLieu";
 import { creerMonLieu } from "@/lib/business.functions";
+import { ajouterPhoto as ajouterPhotoOwnerFn } from "@/lib/photos.functions";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/nouveau")({
@@ -15,6 +17,9 @@ function PageNouveauLieu() {
   const navigate = useNavigate();
   const { utilisateur, chargement } = useSession();
   const creer = useServerFn(creerMonLieu);
+  const ajouterPhoto = useServerFn(ajouterPhotoOwnerFn);
+  const [placeId, setPlaceId] = useState<string | null>(null);
+  const [enCoursFinal, setEnCoursFinal] = useState(false);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -23,7 +28,7 @@ function PageNouveauLieu() {
   if (chargement || !utilisateur) return null;
 
   async function onEnregistrer(valeurs: ValeursFormulaireLieu) {
-    await creer({
+    return creer({
       data: {
         nom: valeurs.nom,
         description: valeurs.description || null,
@@ -40,6 +45,29 @@ function PageNouveauLieu() {
     });
   }
 
+  if (placeId) {
+    return (
+      <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
+        <div className="flex items-center gap-3 pt-6">
+          <Link to="/pro" className="text-sm font-medium text-primary">
+            ← Mes établissements
+          </Link>
+        </div>
+        <div className="mt-4">
+          <EtapePhotosObligatoires
+            placeId={placeId}
+            ajouterPhoto={(params) => ajouterPhoto({ data: params })}
+            enCoursFinal={enCoursFinal}
+            onTerminer={() => {
+              setEnCoursFinal(true);
+              navigate({ to: "/pro" });
+            }}
+          />
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
       <div className="flex items-center gap-3 pt-6">
@@ -54,9 +82,13 @@ function PageNouveauLieu() {
         Ajouter un établissement
       </h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Votre fiche sera visible immédiatement, avec le statut « À vérifier » jusqu'à validation.
+        Une photo vous sera ensuite demandée pour que la validation se fasse sans déplacement.
       </p>
-      <FormulaireLieu onEnregistrer={onEnregistrer} />
+      <FormulaireLieu
+        onEnregistrer={onEnregistrer}
+        libelleBouton="Continuer"
+        apresEnregistrement={(id) => setPlaceId(id)}
+      />
     </main>
   );
 }

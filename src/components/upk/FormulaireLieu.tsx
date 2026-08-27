@@ -58,10 +58,10 @@ export function FormulaireLieu({
   apresEnregistrement,
 }: {
   valeursInitiales?: ValeursFormulaireLieu;
-  onEnregistrer: (valeurs: ValeursFormulaireLieu) => Promise<void>;
+  onEnregistrer: (valeurs: ValeursFormulaireLieu) => Promise<{ id: string }>;
   libelleBouton?: string;
-  /** Appelé après un enregistrement réussi. Par défaut, retourne vers /pro. */
-  apresEnregistrement?: () => void;
+  /** Appelé avec l'id créé/modifié après un enregistrement réussi. Par défaut, retourne vers /pro. */
+  apresEnregistrement?: (id: string) => void;
 }) {
   const navigate = useNavigate();
   const chargerCategories = useServerFn(listerCategories);
@@ -115,8 +115,8 @@ export function FormulaireLieu({
     }
     setEnCours(true);
     try {
-      await onEnregistrer(valeurs);
-      if (apresEnregistrement) apresEnregistrement();
+      const { id } = await onEnregistrer(valeurs);
+      if (apresEnregistrement) apresEnregistrement(id);
       else navigate({ to: "/pro" });
     } catch {
       setErreur("Impossible d'enregistrer. Vérifiez les champs et réessayez.");
@@ -183,8 +183,8 @@ export function FormulaireLieu({
           </p>
         ) : null}
         <p className="mt-2 text-xs text-muted-foreground">
-          Fonctionne seulement si vous êtes sur place. Placer un repère sur une carte pour un
-          lieu où vous n'êtes pas physiquement n'est pas encore possible.
+          Fonctionne seulement si vous êtes sur place. Placer un repère sur une carte pour un lieu
+          où vous n'êtes pas physiquement n'est pas encore possible.
         </p>
       </div>
 
