@@ -7,7 +7,11 @@ async function verifierModerateur(
   supabase: import("@supabase/supabase-js").SupabaseClient,
   userId: string,
 ) {
-  const { data, error } = await supabase.from("profiles").select("role").eq("id", userId).maybeSingle();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", userId)
+    .maybeSingle();
   if (error) throw new Error(error.message);
   if (data?.role !== "moderator" && data?.role !== "admin") {
     throw new Error("Accès réservé aux modérateurs.");

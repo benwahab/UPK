@@ -23,7 +23,11 @@ export function BasculeTheme() {
       aria-label={theme === "dark" ? "Passer au thème clair" : "Passer au thème sombre"}
       className="inline-flex size-9 items-center justify-center rounded-full border border-border bg-card text-card-foreground transition-colors hover:bg-accent"
     >
-      {theme === "dark" ? <Sun className="size-4" aria-hidden /> : <Moon className="size-4" aria-hidden />}
+      {theme === "dark" ? (
+        <Sun className="size-4" aria-hidden />
+      ) : (
+        <Moon className="size-4" aria-hidden />
+      )}
     </button>
   );
 }

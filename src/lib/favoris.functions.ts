@@ -59,9 +59,16 @@ export const listerMesFavoris = createServerFn({ method: "GET" })
       .map((f) => (f as unknown as { places: Record<string, unknown> | null }).places)
       .filter((p): p is Record<string, unknown> => p !== null && p["actif"] === true)
       .map((p) => {
-        const categorie = p["categories"] as { nom: string; slug: string; icone: string | null } | null;
+        const categorie = p["categories"] as {
+          nom: string;
+          slug: string;
+          icone: string | null;
+        } | null;
         return {
-          ...(p as unknown as Omit<Lieu, "categorie_nom" | "categorie_slug" | "categorie_icone" | "distance_m">),
+          ...(p as unknown as Omit<
+            Lieu,
+            "categorie_nom" | "categorie_slug" | "categorie_icone" | "distance_m"
+          >),
           categorie_nom: categorie?.nom ?? null,
           categorie_slug: categorie?.slug ?? null,
           categorie_icone: categorie?.icone ?? null,

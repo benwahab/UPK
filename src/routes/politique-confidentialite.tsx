@@ -36,9 +36,9 @@ function PagePolitique() {
               d'établissement, photos, avis, signalements, favoris, alertes.
             </li>
             <li>
-              <span className="text-foreground">Statistiques d'usage</span> : pour les
-              propriétaires d'établissement, un nombre de vues/appels/itinéraires générés par leur
-              fiche — jamais qui a cliqué, seulement combien.
+              <span className="text-foreground">Statistiques d'usage</span> : pour les propriétaires
+              d'établissement, un nombre de vues/appels/itinéraires générés par leur fiche — jamais
+              qui a cliqué, seulement combien.
             </li>
           </ul>
         </section>
@@ -46,17 +46,17 @@ function PagePolitique() {
         <section>
           <h2 className="font-semibold text-foreground">2. Ce que nous ne faisons pas</h2>
           <p className="mt-2 text-muted-foreground">
-            Nous ne vendons aucune donnée personnelle à des tiers. Nous n'utilisons pas vos
-            données pour de la publicité ciblée. UPK n'affiche aucune publicité.
+            Nous ne vendons aucune donnée personnelle à des tiers. Nous n'utilisons pas vos données
+            pour de la publicité ciblée. UPK n'affiche aucune publicité.
           </p>
         </section>
 
         <section>
           <h2 className="font-semibold text-foreground">3. Pourquoi nous les collectons</h2>
           <p className="mt-2 text-muted-foreground">
-            Uniquement pour faire fonctionner le service : afficher les résultats les plus
-            proches, permettre à un établissement de gérer sa fiche, vous prévenir quand un
-            médicament redevient disponible, retrouver vos favoris.
+            Uniquement pour faire fonctionner le service : afficher les résultats les plus proches,
+            permettre à un établissement de gérer sa fiche, vous prévenir quand un médicament
+            redevient disponible, retrouver vos favoris.
           </p>
         </section>
 

@@ -32,9 +32,15 @@ function PageConnexion() {
     if (error) {
       if (error.message.includes("Email not confirmed")) {
         setNonConfirme(true);
-        setErreur("Compte non confirmé. Vérifiez votre boîte mail (et les spams) pour le lien de confirmation.");
+        setErreur(
+          "Compte non confirmé. Vérifiez votre boîte mail (et les spams) pour le lien de confirmation.",
+        );
       } else {
-        setErreur(error.message.includes("Invalid login credentials") ? "Email ou mot de passe incorrect." : error.message);
+        setErreur(
+          error.message.includes("Invalid login credentials")
+            ? "Email ou mot de passe incorrect."
+            : error.message,
+        );
       }
       return;
     }
@@ -54,9 +60,7 @@ function PageConnexion() {
         ← Accueil
       </Link>
       <h1 className="font-display text-xl font-semibold text-foreground">Connexion Espace pro</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        Gérez vos établissements sur UPK.
-      </p>
+      <p className="mt-1 text-sm text-muted-foreground">Gérez vos établissements sur UPK.</p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <div className="space-y-1.5">
@@ -80,7 +84,10 @@ function PageConnexion() {
             value={motDePasse}
             onChange={(e) => setMotDePasse(e.target.value)}
           />
-          <Link to="/mot-de-passe-oublie" className="text-xs text-muted-foreground underline-offset-2 hover:underline">
+          <Link
+            to="/mot-de-passe-oublie"
+            className="text-xs text-muted-foreground underline-offset-2 hover:underline"
+          >
             Mot de passe oublié ?
           </Link>
         </div>

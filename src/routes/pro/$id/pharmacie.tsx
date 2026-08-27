@@ -63,7 +63,12 @@ function PagePharmacie() {
 
   const inputFichierRef = useRef<HTMLInputElement>(null);
   const [apercuImport, setApercuImport] = useState<
-    { nomCommercial: string; molecule: string | null; dosage: string | null; prixVente: number | null }[]
+    {
+      nomCommercial: string;
+      molecule: string | null;
+      dosage: string | null;
+      prixVente: number | null;
+    }[]
   >([]);
   const [erreursImport, setErreursImport] = useState<string[]>([]);
   const [importEnCours, setImportEnCours] = useState(false);
@@ -96,7 +101,6 @@ function PagePharmacie() {
       setImportEnCours(false);
     }
   }
-
 
   const [dateGarde, setDateGarde] = useState("");
   const [horairesGarde, setHorairesGarde] = useState("");
@@ -197,13 +201,14 @@ function PagePharmacie() {
           Accueil
         </Link>
       </div>
-      <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
-        Stock et gardes
-      </h1>
+      <h1 className="mt-4 font-display text-xl font-semibold text-foreground">Stock et gardes</h1>
 
       <section className="mt-6">
         <h2 className="font-display text-lg font-semibold text-foreground">Médicaments</h2>
-        <form onSubmit={onAjouterMedicament} className="mt-3 space-y-3 rounded-xl border border-border bg-card p-4">
+        <form
+          onSubmit={onAjouterMedicament}
+          className="mt-3 space-y-3 rounded-xl border border-border bg-card p-4"
+        >
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
               <Label htmlFor="nom-commercial">Nom commercial</Label>
@@ -351,7 +356,10 @@ function PagePharmacie() {
         <h2 className="font-display text-lg font-semibold text-foreground">
           Jours de garde à venir
         </h2>
-        <form onSubmit={onAjouterGarde} className="mt-3 space-y-3 rounded-xl border border-border bg-card p-4">
+        <form
+          onSubmit={onAjouterGarde}
+          className="mt-3 space-y-3 rounded-xl border border-border bg-card p-4"
+        >
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
               <Label htmlFor="date-garde">Date</Label>

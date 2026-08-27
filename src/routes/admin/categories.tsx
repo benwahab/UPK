@@ -82,7 +82,11 @@ function PageCategories() {
   }
 
   async function onSupprimer(id: string, nom: string) {
-    if (!window.confirm(`Supprimer "${nom}" ? Les lieux existants ne seront pas supprimés, juste sans catégorie.`))
+    if (
+      !window.confirm(
+        `Supprimer "${nom}" ? Les lieux existants ne seront pas supprimés, juste sans catégorie.`,
+      )
+    )
       return;
     await supprimer({ data: { id } });
     queryClient.invalidateQueries({ queryKey: ["categories-admin"] });
@@ -109,11 +113,14 @@ function PageCategories() {
       </div>
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">Catégories</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Ajoute, renomme ou supprime une catégorie — aucun code à modifier, ça apparaît
-        immédiatement dans la recherche et les formulaires.
+        Ajoute, renomme ou supprime une catégorie — aucun code à modifier, ça apparaît immédiatement
+        dans la recherche et les formulaires.
       </p>
 
-      <form onSubmit={onCreer} className="mt-4 flex gap-2 rounded-xl border border-border bg-card p-4">
+      <form
+        onSubmit={onCreer}
+        className="mt-4 flex gap-2 rounded-xl border border-border bg-card p-4"
+      >
         <div className="flex-1 space-y-1.5">
           <Label htmlFor="nom-categorie">Nouvelle catégorie</Label>
           <Input

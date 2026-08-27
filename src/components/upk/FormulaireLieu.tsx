@@ -4,6 +4,12 @@ import { useServerFn } from "@tanstack/react-start";
 import { LocateFixed } from "lucide-react";
 import { useState } from "react";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -72,7 +78,10 @@ export function FormulaireLieu({
   const [erreur, setErreur] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
 
-  function majChamp<K extends keyof ValeursFormulaireLieu>(cle: K, valeur: ValeursFormulaireLieu[K]) {
+  function majChamp<K extends keyof ValeursFormulaireLieu>(
+    cle: K,
+    valeur: ValeursFormulaireLieu[K],
+  ) {
     setValeurs((v) => ({ ...v, [cle]: valeur }));
   }
 
@@ -118,6 +127,9 @@ export function FormulaireLieu({
 
   return (
     <form onSubmit={onSubmit} className="mt-6 space-y-5">
+      {/* Obligatoire d'abord, comme le formulaire "Ajouter un lieu manquant" de
+          Google Maps (nom, catégorie, position) — le reste est facultatif et
+          replié pour ne pas décourager une contribution rapide. */}
       <div className="space-y-1.5">
         <Label htmlFor="nom">Nom de l'établissement</Label>
         <Input
@@ -142,16 +154,6 @@ export function FormulaireLieu({
             ))}
           </SelectContent>
         </Select>
-      </div>
-
-      <div className="space-y-1.5">
-        <Label htmlFor="description">Description (facultatif)</Label>
-        <Textarea
-          id="description"
-          rows={3}
-          value={valeurs.description}
-          onChange={(e) => majChamp("description", e.target.value)}
-        />
       </div>
 
       <div className="rounded-xl border border-dashed border-border bg-card p-3">
@@ -180,67 +182,90 @@ export function FormulaireLieu({
             Position indisponible. Autorisez la géolocalisation puis réessayez.
           </p>
         ) : null}
+        <p className="mt-2 text-xs text-muted-foreground">
+          Fonctionne seulement si vous êtes sur place. Placer un repère sur une carte pour un
+          lieu où vous n'êtes pas physiquement n'est pas encore possible.
+        </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-1.5">
-          <Label htmlFor="quartier">Quartier</Label>
-          <Input
-            id="quartier"
-            value={valeurs.quartier}
-            onChange={(e) => majChamp("quartier", e.target.value)}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="adresse">Adresse</Label>
-          <Input
-            id="adresse"
-            value={valeurs.adresse}
-            onChange={(e) => majChamp("adresse", e.target.value)}
-          />
-        </div>
-      </div>
+      <Accordion type="single" collapsible>
+        <AccordionItem value="details" className="rounded-xl border border-border px-3">
+          <AccordionTrigger className="text-sm font-medium hover:no-underline">
+            Ajouter plus de détails (facultatif)
+          </AccordionTrigger>
+          <AccordionContent className="space-y-5 pt-2">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="quartier">Quartier</Label>
+                <Input
+                  id="quartier"
+                  value={valeurs.quartier}
+                  onChange={(e) => majChamp("quartier", e.target.value)}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="adresse">Adresse</Label>
+                <Input
+                  id="adresse"
+                  value={valeurs.adresse}
+                  onChange={(e) => majChamp("adresse", e.target.value)}
+                />
+              </div>
+            </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="telephone">Téléphone</Label>
-        <Input
-          id="telephone"
-          type="tel"
-          value={valeurs.telephone}
-          onChange={(e) => majChamp("telephone", e.target.value)}
-        />
-      </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="telephone">Téléphone</Label>
+              <Input
+                id="telephone"
+                type="tel"
+                value={valeurs.telephone}
+                onChange={(e) => majChamp("telephone", e.target.value)}
+              />
+            </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="whatsapp">WhatsApp (facultatif)</Label>
-        <Input
-          id="whatsapp"
-          type="tel"
-          value={valeurs.whatsapp}
-          onChange={(e) => majChamp("whatsapp", e.target.value)}
-        />
-      </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="whatsapp">WhatsApp</Label>
+              <Input
+                id="whatsapp"
+                type="tel"
+                value={valeurs.whatsapp}
+                onChange={(e) => majChamp("whatsapp", e.target.value)}
+              />
+            </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="horaires">Horaires</Label>
-        <Input
-          id="horaires"
-          placeholder="Ex : Lun-Sam 8h-20h"
-          value={valeurs.horaires}
-          onChange={(e) => majChamp("horaires", e.target.value)}
-        />
-      </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="horaires">Horaires</Label>
+              <Input
+                id="horaires"
+                placeholder="Ex : Lun-Sam 8h-20h"
+                value={valeurs.horaires}
+                onChange={(e) => majChamp("horaires", e.target.value)}
+              />
+            </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="site-web">Site web (facultatif)</Label>
-        <Input
-          id="site-web"
-          type="url"
-          placeholder="https://…"
-          value={valeurs.siteWeb}
-          onChange={(e) => majChamp("siteWeb", e.target.value)}
-        />
-      </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="site-web">Site web</Label>
+              <Input
+                id="site-web"
+                type="url"
+                placeholder="https://…"
+                value={valeurs.siteWeb}
+                onChange={(e) => majChamp("siteWeb", e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                rows={3}
+                value={valeurs.description}
+                onChange={(e) => majChamp("description", e.target.value)}
+              />
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
 
       {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
 

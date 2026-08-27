@@ -34,7 +34,9 @@ export const listerMesAlertes = createServerFn({ method: "GET" })
   .handler(async ({ context }): Promise<Alerte[]> => {
     const { data, error } = await context.supabase
       .from("alertes_medicament")
-      .select("id, notifie, created_at, medicaments(id, nom_commercial, disponible), places(id, nom, quartier)")
+      .select(
+        "id, notifie, created_at, medicaments(id, nom_commercial, disponible), places(id, nom, quartier)",
+      )
       .eq("user_id", context.userId)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);

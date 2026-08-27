@@ -82,10 +82,16 @@ export const listerFileAttente = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
 
     return (data ?? []).map((lieu) => {
-      const categorie = (lieu as unknown as { categories: { nom: string; slug: string; icone: string | null } | null })
-        .categories;
+      const categorie = (
+        lieu as unknown as {
+          categories: { nom: string; slug: string; icone: string | null } | null;
+        }
+      ).categories;
       return {
-        ...(lieu as unknown as Omit<Lieu, "categorie_nom" | "categorie_slug" | "categorie_icone" | "distance_m">),
+        ...(lieu as unknown as Omit<
+          Lieu,
+          "categorie_nom" | "categorie_slug" | "categorie_icone" | "distance_m"
+        >),
         categorie_nom: categorie?.nom ?? null,
         categorie_slug: categorie?.slug ?? null,
         categorie_icone: categorie?.icone ?? null,
@@ -109,6 +115,9 @@ export const rejeterLieu = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
   .handler(async ({ context, data }): Promise<void> => {
-    const { error } = await context.supabase.from("places").update({ actif: false }).eq("id", data.id);
+    const { error } = await context.supabase
+      .from("places")
+      .update({ actif: false })
+      .eq("id", data.id);
     if (error) throw new Error(error.message);
   });

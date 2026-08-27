@@ -54,8 +54,7 @@ function PageNouveauLieu() {
         Ajouter un établissement
       </h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Votre fiche sera visible immédiatement, avec le statut « À vérifier » jusqu'à
-        validation.
+        Votre fiche sera visible immédiatement, avec le statut « À vérifier » jusqu'à validation.
       </p>
       <FormulaireLieu onEnregistrer={onEnregistrer} />
     </main>

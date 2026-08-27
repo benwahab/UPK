@@ -73,8 +73,8 @@ export function ImporterCsv<T>({
       {apercu.length > 0 ? (
         <div className="mt-3">
           <p className="text-sm text-card-foreground">
-            {apercu.length} ligne{apercu.length > 1 ? "s" : ""} prête{apercu.length > 1 ? "s" : ""} à
-            importer :
+            {apercu.length} ligne{apercu.length > 1 ? "s" : ""} prête{apercu.length > 1 ? "s" : ""}{" "}
+            à importer :
           </p>
           <ul className="mt-2 max-h-40 space-y-1 overflow-y-auto">
             {apercu.slice(0, 20).map((l, i) => (
@@ -100,7 +100,9 @@ export function ImporterCsv<T>({
         </div>
       ) : null}
 
-      {fait !== null ? <p className="mt-3 text-sm text-primary">{fait} ligne(s) importée(s).</p> : null}
+      {fait !== null ? (
+        <p className="mt-3 text-sm text-primary">{fait} ligne(s) importée(s).</p>
+      ) : null}
     </div>
   );
 }

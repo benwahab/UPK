@@ -37,7 +37,9 @@ function PageMotDePasseOublie() {
   if (envoye) {
     return (
       <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col items-center justify-center px-4 text-center">
-        <h1 className="font-display text-xl font-semibold text-foreground">Vérifiez votre boîte mail</h1>
+        <h1 className="font-display text-xl font-semibold text-foreground">
+          Vérifiez votre boîte mail
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Si un compte existe avec {email}, un lien de réinitialisation vient d'être envoyé.
           Vérifiez aussi les spams.

@@ -114,8 +114,16 @@ function PageModifierLieu() {
 
       {stats.data ? (
         <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-5">
-          <StatPuce icone={<Eye className="size-4" aria-hidden />} valeur={stats.data.vue} libelle="Vues" />
-          <StatPuce icone={<Phone className="size-4" aria-hidden />} valeur={stats.data.appel} libelle="Appels" />
+          <StatPuce
+            icone={<Eye className="size-4" aria-hidden />}
+            valeur={stats.data.vue}
+            libelle="Vues"
+          />
+          <StatPuce
+            icone={<Phone className="size-4" aria-hidden />}
+            valeur={stats.data.appel}
+            libelle="Appels"
+          />
           <StatPuce
             icone={<Navigation className="size-4" aria-hidden />}
             valeur={stats.data.itineraire}
@@ -133,7 +141,8 @@ function PageModifierLieu() {
           />
         </div>
       ) : null}
-      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug === "pharmacie" ? (
+      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug ===
+      "pharmacie" ? (
         <Link
           to="/pro/$id/pharmacie"
           params={{ id }}
@@ -142,7 +151,8 @@ function PageModifierLieu() {
           Gérer mon stock et mes gardes
         </Link>
       ) : null}
-      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug === "restaurant" ? (
+      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug ===
+      "restaurant" ? (
         <Link
           to="/pro/$id/menu"
           params={{ id }}
@@ -151,7 +161,8 @@ function PageModifierLieu() {
           Gérer mon menu
         </Link>
       ) : null}
-      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug === "hotel" ? (
+      {(lieu.data as unknown as { categories: { slug: string } | null }).categories?.slug ===
+      "hotel" ? (
         <Link
           to="/pro/$id/chambres"
           params={{ id }}

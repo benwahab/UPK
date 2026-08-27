@@ -16,16 +16,15 @@ export function BoutonRevendiquer({ placeId }: { placeId: string }) {
   if (chargement) return null;
 
   if (envoye) {
-    return (
-      <p className="text-xs text-primary">
-        Demande envoyée — un modérateur va la vérifier.
-      </p>
-    );
+    return <p className="text-xs text-primary">Demande envoyée — un modérateur va la vérifier.</p>;
   }
 
   if (!utilisateur) {
     return (
-      <Link to="/connexion" className="text-xs text-muted-foreground underline-offset-2 hover:underline">
+      <Link
+        to="/connexion"
+        className="text-xs text-muted-foreground underline-offset-2 hover:underline"
+      >
         <Store className="mr-1 inline size-3.5" aria-hidden />
         Cet établissement est à vous ? Connectez-vous pour le revendiquer
       </Link>

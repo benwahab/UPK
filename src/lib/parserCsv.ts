@@ -54,7 +54,12 @@ export function parserCsv(texte: string): string[][] {
  * molecule, dosage, prix.
  */
 export function analyserCsvMedicaments(texte: string): {
-  lignes: { nomCommercial: string; molecule: string | null; dosage: string | null; prixVente: number | null }[];
+  lignes: {
+    nomCommercial: string;
+    molecule: string | null;
+    dosage: string | null;
+    prixVente: number | null;
+  }[];
   erreurs: string[];
 } {
   const normaliser = (s: string) =>
@@ -77,8 +82,12 @@ export function analyserCsvMedicaments(texte: string): {
     return { lignes: [], erreurs: ["Aucune colonne 'nom' détectée dans l'en-tête du fichier."] };
   }
 
-  const lignes: { nomCommercial: string; molecule: string | null; dosage: string | null; prixVente: number | null }[] =
-    [];
+  const lignes: {
+    nomCommercial: string;
+    molecule: string | null;
+    dosage: string | null;
+    prixVente: number | null;
+  }[] = [];
   const erreurs: string[] = [];
 
   for (let i = 1; i < table.length; i++) {

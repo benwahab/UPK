@@ -8,7 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ImporterCsv } from "@/components/upk/ImporterCsv";
-import { ajouterChambre, importerChambres, listerMesChambres, supprimerChambre } from "@/lib/hotel.functions";
+import {
+  ajouterChambre,
+  importerChambres,
+  listerMesChambres,
+  supprimerChambre,
+} from "@/lib/hotel.functions";
 import { analyserCsvChambres } from "@/lib/parserCsv";
 import { useSession } from "@/lib/useSession";
 
@@ -95,7 +100,10 @@ function PageChambres() {
       </div>
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">Mes chambres</h1>
 
-      <form onSubmit={onAjouter} className="mt-4 space-y-3 rounded-xl border border-border bg-card p-4">
+      <form
+        onSubmit={onAjouter}
+        className="mt-4 space-y-3 rounded-xl border border-border bg-card p-4"
+      >
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1.5">
             <Label htmlFor="type-chambre">Type de chambre</Label>

@@ -8,7 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ImporterCsv } from "@/components/upk/ImporterCsv";
-import { ajouterPlat, importerPlats, listerMonMenu, supprimerPlat } from "@/lib/restaurant.functions";
+import {
+  ajouterPlat,
+  importerPlats,
+  listerMonMenu,
+  supprimerPlat,
+} from "@/lib/restaurant.functions";
 import { analyserCsvPlats } from "@/lib/parserCsv";
 import { useSession } from "@/lib/useSession";
 
@@ -89,7 +94,10 @@ function PageMenu() {
       </div>
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">Mon menu</h1>
 
-      <form onSubmit={onAjouter} className="mt-4 space-y-3 rounded-xl border border-border bg-card p-4">
+      <form
+        onSubmit={onAjouter}
+        className="mt-4 space-y-3 rounded-xl border border-border bg-card p-4"
+      >
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1.5">
             <Label htmlFor="nom-plat">Nom du plat</Label>
@@ -107,7 +115,13 @@ function PageMenu() {
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="prix-plat">Prix (facultatif)</Label>
-          <Input id="prix-plat" type="number" min={0} value={prix} onChange={(e) => setPrix(e.target.value)} />
+          <Input
+            id="prix-plat"
+            type="number"
+            min={0}
+            value={prix}
+            onChange={(e) => setPrix(e.target.value)}
+          />
         </div>
         {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
         <Button type="submit" variant="terrain" size="sm">
@@ -118,7 +132,9 @@ function PageMenu() {
       <ImporterCsv
         aideColonnes="Colonnes reconnues : nom, catégorie, prix (dans n'importe quel ordre)."
         analyser={analyserCsvPlats}
-        rendreApercu={(l) => `${l.nom}${l.categorie ? ` — ${l.categorie}` : ""}${l.prix ? ` · ${l.prix} FCFA` : ""}`}
+        rendreApercu={(l) =>
+          `${l.nom}${l.categorie ? ` — ${l.categorie}` : ""}${l.prix ? ` · ${l.prix} FCFA` : ""}`
+        }
         onConfirmer={async (lignes) => {
           await importer({ data: { placeId: id, lignes } });
           queryClient.invalidateQueries({ queryKey: ["mon-menu", id] });

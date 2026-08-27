@@ -84,7 +84,14 @@ function PageRecherche() {
   const rechercheActive = saisie.trim().length > 0 || categorieSlug !== null;
 
   const resultats = useQuery({
-    queryKey: ["lieux", requete, categorieSlug, suggestionBesoin, position?.lat ?? null, position?.lng ?? null],
+    queryKey: [
+      "lieux",
+      requete,
+      categorieSlug,
+      suggestionBesoin,
+      position?.lat ?? null,
+      position?.lng ?? null,
+    ],
     queryFn: () =>
       chercher({
         data: {
@@ -119,13 +126,22 @@ function PageRecherche() {
     <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-4 pb-16">
       <div className="flex items-center justify-between pt-4">
         <div className="flex items-center gap-3">
-          <Link to="/pro" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
+          <Link
+            to="/pro"
+            className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline"
+          >
             Espace pro
           </Link>
-          <Link to="/proposer" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
+          <Link
+            to="/proposer"
+            className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline"
+          >
             Proposer un lieu
           </Link>
-          <Link to="/garde" className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline">
+          <Link
+            to="/garde"
+            className="text-xs font-medium text-muted-foreground underline-offset-2 hover:underline"
+          >
             Pharmacies de garde
           </Link>
         </div>
@@ -176,12 +192,18 @@ function PageRecherche() {
             placeholder="Que recherchez-vous ?"
             inputMode="search"
             autoComplete="off"
-            className={rechercheVocale.disponible ? "h-13 rounded-xl pr-12 pl-10 text-base" : "h-13 rounded-xl pl-10 text-base"}
+            className={
+              rechercheVocale.disponible
+                ? "h-13 rounded-xl pr-12 pl-10 text-base"
+                : "h-13 rounded-xl pl-10 text-base"
+            }
           />
           {rechercheVocale.disponible ? (
             <button
               type="button"
-              onClick={rechercheVocale.enEcoute ? rechercheVocale.arreter : rechercheVocale.demarrer}
+              onClick={
+                rechercheVocale.enEcoute ? rechercheVocale.arreter : rechercheVocale.demarrer
+              }
               aria-label={rechercheVocale.enEcoute ? "Arrêter l'écoute" : "Rechercher à la voix"}
               aria-pressed={rechercheVocale.enEcoute}
               className={
@@ -234,7 +256,9 @@ function PageRecherche() {
 
           {suggestionBesoin ? (
             <p className="mt-3 text-xs text-muted-foreground">
-              Compris : recherche dans « {categories.data?.find((c) => c.slug === suggestionBesoin)?.nom ?? suggestionBesoin} ».{" "}
+              Compris : recherche dans «{" "}
+              {categories.data?.find((c) => c.slug === suggestionBesoin)?.nom ?? suggestionBesoin}{" "}
+              ».{" "}
               <button
                 type="button"
                 onClick={() => setCategorieSlug(null)}
@@ -293,10 +317,16 @@ function PageRecherche() {
 
       <footer className="mt-auto border-t border-border pt-6 pb-2">
         <nav aria-label="Liens du site" className="flex flex-wrap justify-center gap-x-5 gap-y-2">
-          <Link to="/a-propos" className="text-xs text-muted-foreground hover:text-foreground hover:underline">
+          <Link
+            to="/a-propos"
+            className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+          >
             À propos
           </Link>
-          <Link to="/contact" className="text-xs text-muted-foreground hover:text-foreground hover:underline">
+          <Link
+            to="/contact"
+            className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+          >
             Nous contacter
           </Link>
           <Link

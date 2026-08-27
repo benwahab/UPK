@@ -59,8 +59,8 @@ function PageInscription() {
           Vérifiez votre boîte mail
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Un email de confirmation a été envoyé à {email}. Cliquez sur le lien qu'il contient,
-          puis connectez-vous.
+          Un email de confirmation a été envoyé à {email}. Cliquez sur le lien qu'il contient, puis
+          connectez-vous.
         </p>
         <Link to="/connexion" className="mt-4 text-sm font-medium text-primary">
           Aller à la connexion

@@ -8,7 +8,17 @@
  */
 const BESOINS: { motsClefs: string[]; categorieSlug: string }[] = [
   {
-    motsClefs: ["manger", "faim", "resto", "restaurant", "diner", "dejeuner", "glace", "cafe", "boire"],
+    motsClefs: [
+      "manger",
+      "faim",
+      "resto",
+      "restaurant",
+      "diner",
+      "dejeuner",
+      "glace",
+      "cafe",
+      "boire",
+    ],
     categorieSlug: "restaurant",
   },
   {

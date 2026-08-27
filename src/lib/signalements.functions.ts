@@ -33,11 +33,13 @@ export const signalerProbleme = createServerFn({ method: "POST" })
   )
   .handler(async ({ data }): Promise<void> => {
     const { clientPublic } = await import("./supabase-public.server");
-    const { error } = await clientPublic().from("signalements").insert({
-      place_id: data.placeId,
-      type_probleme: data.typeProbleme,
-      description: data.description || null,
-    });
+    const { error } = await clientPublic()
+      .from("signalements")
+      .insert({
+        place_id: data.placeId,
+        type_probleme: data.typeProbleme,
+        description: data.description || null,
+      });
     if (error) throw new Error(error.message);
   });
 
@@ -82,7 +84,12 @@ export const detecterDoublons = createServerFn({ method: "GET" })
     for (const autre of autres ?? []) {
       const telAutre = normaliserTelephone(autre.telephone);
       const memeTelephone = Boolean(telCible && telAutre && telCible === telAutre);
-      const distance = distanceMetres(cible.latitude, cible.longitude, autre.latitude, autre.longitude);
+      const distance = distanceMetres(
+        cible.latitude,
+        cible.longitude,
+        autre.latitude,
+        autre.longitude,
+      );
       const similarite = similariteNoms(cible.nom, autre.nom);
 
       // Doublon probable si même téléphone, OU (noms proches ET moins de 300m).
@@ -99,7 +106,10 @@ export const detecterDoublons = createServerFn({ method: "GET" })
       }
     }
 
-    return candidats.sort((a, b) => Number(b.meme_telephone) - Number(a.meme_telephone) || b.similarite_nom - a.similarite_nom);
+    return candidats.sort(
+      (a, b) =>
+        Number(b.meme_telephone) - Number(a.meme_telephone) || b.similarite_nom - a.similarite_nom,
+    );
   });
 
 export type Signalement = {

@@ -70,7 +70,12 @@ export const obtenirLieu = createServerFn({ method: "GET" })
     return {
       ...(lieuSansProprietaire as unknown as Omit<
         LieuDetail,
-        "categorie_nom" | "categorie_slug" | "categorie_icone" | "distance_m" | "photos" | "revendicable"
+        | "categorie_nom"
+        | "categorie_slug"
+        | "categorie_icone"
+        | "distance_m"
+        | "photos"
+        | "revendicable"
       >),
       categorie_nom: categorie?.nom ?? null,
       categorie_slug: categorie?.slug ?? null,
@@ -167,12 +172,16 @@ export type ResultatMedicament = {
 
 /** "Où trouver X ?" — cherche par nom commercial OU molécule, pharmacies actives uniquement. */
 export const chercherMedicament = createServerFn({ method: "GET" })
-  .inputValidator((data: unknown) => z.object({ requete: z.string().trim().min(2).max(120) }).parse(data))
+  .inputValidator((data: unknown) =>
+    z.object({ requete: z.string().trim().min(2).max(120) }).parse(data),
+  )
   .handler(async ({ data }): Promise<ResultatMedicament[]> => {
     const { clientPublic } = await import("./supabase-public.server");
     const { data: rows, error } = await clientPublic()
       .from("medicaments")
-      .select("nom_commercial, molecule, dosage, prix_vente, places(id, nom, quartier, telephone, actif)")
+      .select(
+        "nom_commercial, molecule, dosage, prix_vente, places(id, nom, quartier, telephone, actif)",
+      )
       .eq("disponible", true)
       .or(`nom_commercial.ilike.%${data.requete}%,molecule.ilike.%${data.requete}%`)
       .limit(30);
@@ -180,7 +189,17 @@ export const chercherMedicament = createServerFn({ method: "GET" })
 
     return (rows ?? [])
       .map((r) => {
-        const lieu = (r as unknown as { places: { id: string; nom: string; quartier: string | null; telephone: string | null; actif: boolean } | null }).places;
+        const lieu = (
+          r as unknown as {
+            places: {
+              id: string;
+              nom: string;
+              quartier: string | null;
+              telephone: string | null;
+              actif: boolean;
+            } | null;
+          }
+        ).places;
         if (!lieu || !lieu.actif) return null;
         return {
           place_id: lieu.id,
@@ -246,4 +265,3 @@ export const listerPharmaciesDeGarde = createServerFn({ method: "GET" }).handler
       .filter((r): r is PharmacieDeGarde => r !== null);
   },
 );
-

@@ -48,7 +48,9 @@ export const listerMonStock = createServerFn({ method: "GET" })
     await verifierProprietaire(context.supabase, data.placeId, context.userId);
     const { data: rows, error } = await context.supabase
       .from("medicaments")
-      .select("id, nom_commercial, molecule, dosage, forme, conditionnement, prix_vente, disponible")
+      .select(
+        "id, nom_commercial, molecule, dosage, forme, conditionnement, prix_vente, disponible",
+      )
       .eq("place_id", data.placeId)
       .order("nom_commercial", { ascending: true });
     if (error) throw new Error(error.message);
@@ -149,19 +151,17 @@ export const importerMedicaments = createServerFn({ method: "POST" })
   )
   .handler(async ({ context, data }): Promise<{ importes: number }> => {
     await verifierProprietaire(context.supabase, data.placeId, context.userId);
-    const { error, count } = await context.supabase
-      .from("medicaments")
-      .insert(
-        data.lignes.map((l) => ({
-          place_id: data.placeId,
-          nom_commercial: l.nomCommercial,
-          molecule: l.molecule || null,
-          dosage: l.dosage || null,
-          prix_vente: l.prixVente ?? null,
-          disponible: true,
-        })),
-        { count: "exact" },
-      );
+    const { error, count } = await context.supabase.from("medicaments").insert(
+      data.lignes.map((l) => ({
+        place_id: data.placeId,
+        nom_commercial: l.nomCommercial,
+        molecule: l.molecule || null,
+        dosage: l.dosage || null,
+        prix_vente: l.prixVente ?? null,
+        disponible: true,
+      })),
+      { count: "exact" },
+    );
     if (error) throw new Error(error.message);
     return { importes: count ?? data.lignes.length };
   });

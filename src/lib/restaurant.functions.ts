@@ -94,7 +94,9 @@ export const modifierPlat = createServerFn({ method: "POST" })
 
 export const supprimerPlat = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid(), placeId: z.string().uuid() }).parse(data))
+  .inputValidator((data: unknown) =>
+    z.object({ id: z.string().uuid(), placeId: z.string().uuid() }).parse(data),
+  )
   .handler(async ({ context, data }): Promise<void> => {
     await verifierProprietaire(context.supabase, data.placeId, context.userId);
     const { error } = await context.supabase
@@ -126,18 +128,16 @@ export const importerPlats = createServerFn({ method: "POST" })
   )
   .handler(async ({ context, data }): Promise<{ importes: number }> => {
     await verifierProprietaire(context.supabase, data.placeId, context.userId);
-    const { error, count } = await context.supabase
-      .from("plats")
-      .insert(
-        data.lignes.map((l) => ({
-          place_id: data.placeId,
-          nom: l.nom,
-          categorie: l.categorie || null,
-          prix: l.prix ?? null,
-          disponible: true,
-        })),
-        { count: "exact" },
-      );
+    const { error, count } = await context.supabase.from("plats").insert(
+      data.lignes.map((l) => ({
+        place_id: data.placeId,
+        nom: l.nom,
+        categorie: l.categorie || null,
+        prix: l.prix ?? null,
+        disponible: true,
+      })),
+      { count: "exact" },
+    );
     if (error) throw new Error(error.message);
     return { importes: count ?? data.lignes.length };
   });

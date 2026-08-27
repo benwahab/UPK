@@ -20,7 +20,9 @@ export function SignalerProbleme({ placeId }: { placeId: string }) {
   const [enCours, setEnCours] = useState(false);
 
   if (envoye) {
-    return <p className="text-sm text-muted-foreground">Merci, votre signalement a été transmis.</p>;
+    return (
+      <p className="text-sm text-muted-foreground">Merci, votre signalement a été transmis.</p>
+    );
   }
 
   if (!ouvert) {
@@ -72,7 +74,9 @@ export function SignalerProbleme({ placeId }: { placeId: string }) {
             if (!type) return;
             setEnCours(true);
             try {
-              await signaler({ data: { placeId, typeProbleme: type, description: description || null } });
+              await signaler({
+                data: { placeId, typeProbleme: type, description: description || null },
+              });
               setEnvoye(true);
             } finally {
               setEnCours(false);

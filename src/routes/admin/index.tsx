@@ -163,8 +163,12 @@ function PageModeration() {
           ) : (
             (signalements.data ?? []).map((s) => (
               <div key={s.id} className="rounded-xl border border-border bg-card p-4">
-                <p className="font-medium text-card-foreground">{s.places?.nom ?? "Lieu supprimé"}</p>
-                <p className="text-sm text-muted-foreground">{LIBELLES_TYPE_PROBLEME[s.type_probleme]}</p>
+                <p className="font-medium text-card-foreground">
+                  {s.places?.nom ?? "Lieu supprimé"}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {LIBELLES_TYPE_PROBLEME[s.type_probleme]}
+                </p>
                 {s.description ? (
                   <p className="mt-1 text-xs text-muted-foreground">{s.description}</p>
                 ) : null}
@@ -207,7 +211,9 @@ function PageModeration() {
           ) : (
             (revendications.data ?? []).map((r) => (
               <div key={r.id} className="rounded-xl border border-border bg-card p-4">
-                <p className="font-medium text-card-foreground">{r.places?.nom ?? "Lieu supprimé"}</p>
+                <p className="font-medium text-card-foreground">
+                  {r.places?.nom ?? "Lieu supprimé"}
+                </p>
                 <p className="text-sm text-muted-foreground">{r.places?.quartier}</p>
                 <div className="mt-3 flex gap-2">
                   <Link
@@ -278,7 +284,9 @@ function CarteFileAttente({
         {lieu.quartier ? ` · ${lieu.quartier}` : ""}
       </p>
       {lieu.adresse ? <p className="mt-1 text-xs text-muted-foreground">{lieu.adresse}</p> : null}
-      {lieu.telephone ? <p className="mt-1 text-xs text-muted-foreground">{lieu.telephone}</p> : null}
+      {lieu.telephone ? (
+        <p className="mt-1 text-xs text-muted-foreground">{lieu.telephone}</p>
+      ) : null}
 
       <div className="mt-3 flex gap-2">
         <Button type="button" variant="terrain" size="sm" className="flex-1" onClick={onValider}>
@@ -312,7 +320,11 @@ function CarteFileAttente({
           <ul className="mt-1 space-y-1">
             {doublons.map((d) => (
               <li key={d.place_id} className="text-xs text-muted-foreground">
-                <Link to="/lieu/$id" params={{ id: d.place_id }} className="underline-offset-2 hover:underline">
+                <Link
+                  to="/lieu/$id"
+                  params={{ id: d.place_id }}
+                  className="underline-offset-2 hover:underline"
+                >
                   {d.nom}
                 </Link>
                 {d.quartier ? ` · ${d.quartier}` : ""}

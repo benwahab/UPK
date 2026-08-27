@@ -1,7 +1,17 @@
 import { useSuspenseQuery, useQuery, queryOptions } from "@tanstack/react-query";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { BedDouble, Clock, Globe, MapPin, MessageCircle, Navigation, Phone, Pill, UtensilsCrossed } from "lucide-react";
+import {
+  BedDouble,
+  Clock,
+  Globe,
+  MapPin,
+  MessageCircle,
+  Navigation,
+  Phone,
+  Pill,
+  UtensilsCrossed,
+} from "lucide-react";
 import { useEffect, useRef } from "react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
@@ -10,7 +20,12 @@ import { BoutonFavori } from "@/components/upk/BoutonFavori";
 import { BoutonRevendiquer } from "@/components/upk/BoutonRevendiquer";
 import { SignalerProbleme } from "@/components/upk/SignalerProbleme";
 import { Button } from "@/components/ui/button";
-import { listerChambresDuLieu, listerMedicamentsDuLieu, listerMenuDuLieu, obtenirLieu } from "@/lib/places.functions";
+import {
+  listerChambresDuLieu,
+  listerMedicamentsDuLieu,
+  listerMenuDuLieu,
+  obtenirLieu,
+} from "@/lib/places.functions";
 import { enregistrerEvenement } from "@/lib/statistiques.functions";
 import { lienItineraire, lienWhatsapp, telAffiche } from "@/lib/upk";
 
@@ -163,7 +178,11 @@ function PageLieu() {
         </Ligne>
         <Ligne icone={<Phone className="size-4" aria-hidden />} intitule="Téléphone">
           {lieu.telephone ? (
-            <a href={`tel:${lieu.telephone}`} className="text-primary" onClick={() => suivre("appel")}>
+            <a
+              href={`tel:${lieu.telephone}`}
+              className="text-primary"
+              onClick={() => suivre("appel")}
+            >
               {telAffiche(lieu.telephone)}
             </a>
           ) : (
@@ -234,7 +253,11 @@ function PageLieu() {
                           {m.prix_vente} FCFA
                         </p>
                       ) : null}
-                      <p className={m.disponible ? "text-xs text-primary" : "text-xs text-destructive"}>
+                      <p
+                        className={
+                          m.disponible ? "text-xs text-primary" : "text-xs text-destructive"
+                        }
+                      >
                         {m.disponible ? "Disponible" : "Rupture"}
                       </p>
                     </div>
@@ -313,9 +336,7 @@ function PageLieu() {
                       {c.capacite ? ` — ${c.capacite} pers.` : ""}
                     </p>
                     {c.prix ? (
-                      <p className="text-sm font-medium text-card-foreground">
-                        {c.prix} FCFA/nuit
-                      </p>
+                      <p className="text-sm font-medium text-card-foreground">{c.prix} FCFA/nuit</p>
                     ) : null}
                   </div>
                   {c.equipements ? (

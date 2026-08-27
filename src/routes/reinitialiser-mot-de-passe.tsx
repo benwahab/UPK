@@ -59,7 +59,9 @@ function PageReinitialiser() {
   if (reussi) {
     return (
       <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col items-center justify-center px-4 text-center">
-        <h1 className="font-display text-xl font-semibold text-foreground">Mot de passe mis à jour</h1>
+        <h1 className="font-display text-xl font-semibold text-foreground">
+          Mot de passe mis à jour
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">Redirection…</p>
       </main>
     );

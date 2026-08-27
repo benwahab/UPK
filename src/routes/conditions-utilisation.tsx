@@ -24,8 +24,8 @@ function PageConditions() {
           <p className="mt-2 text-muted-foreground">
             UPK est un moteur de recherche local qui répertorie des lieux et établissements au
             Niger. L'accès à la recherche ne nécessite pas de compte ; certaines fonctionnalités
-            (gérer un établissement, proposer un lieu, favoris, alertes) demandent la création
-            d'un compte.
+            (gérer un établissement, proposer un lieu, favoris, alertes) demandent la création d'un
+            compte.
           </p>
         </section>
 
@@ -53,9 +53,8 @@ function PageConditions() {
         <section>
           <h2 className="font-semibold text-foreground">4. Revendication d'un établissement</h2>
           <p className="mt-2 text-muted-foreground">
-            Toute demande de revendication de fiche est vérifiée par une équipe de modération
-            avant d'être acceptée. Une revendication frauduleuse peut entraîner la suspension du
-            compte.
+            Toute demande de revendication de fiche est vérifiée par une équipe de modération avant
+            d'être acceptée. Une revendication frauduleuse peut entraîner la suspension du compte.
           </p>
         </section>
 
@@ -63,9 +62,8 @@ function PageConditions() {
           <h2 className="font-semibold text-foreground">5. Limitation de responsabilité</h2>
           <p className="mt-2 text-muted-foreground">
             UPK met en relation des utilisateurs et des établissements mais n'est partie à aucune
-            transaction entre eux. UPK ne peut être tenu responsable d'un préjudice résultant
-            d'une information erronée fournie par un tiers, ou de l'indisponibilité temporaire du
-            service.
+            transaction entre eux. UPK ne peut être tenu responsable d'un préjudice résultant d'une
+            information erronée fournie par un tiers, ou de l'indisponibilité temporaire du service.
           </p>
         </section>
 

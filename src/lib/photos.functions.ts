@@ -38,7 +38,9 @@ export const listerMesPhotos = createServerFn({ method: "GET" })
 export const ajouterPhoto = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
-    z.object({ placeId: z.string().uuid(), url: z.string().url(), ordre: z.number().int().min(0) }).parse(data),
+    z
+      .object({ placeId: z.string().uuid(), url: z.string().url(), ordre: z.number().int().min(0) })
+      .parse(data),
   )
   .handler(async ({ context, data }): Promise<{ id: string }> => {
     await verifierProprietaire(context.supabase, data.placeId, context.userId);
@@ -53,7 +55,9 @@ export const ajouterPhoto = createServerFn({ method: "POST" })
 
 export const supprimerPhoto = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid(), placeId: z.string().uuid() }).parse(data))
+  .inputValidator((data: unknown) =>
+    z.object({ id: z.string().uuid(), placeId: z.string().uuid() }).parse(data),
+  )
   .handler(async ({ context, data }): Promise<void> => {
     await verifierProprietaire(context.supabase, data.placeId, context.userId);
     const { error } = await context.supabase

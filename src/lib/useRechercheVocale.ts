@@ -34,8 +34,7 @@ export function useRechercheVocale(surResultat: (texte: string) => void) {
     if (typeof window === "undefined") return;
     const w = window as unknown as Record<string, unknown>;
     const Constructeur = (w["SpeechRecognition"] || w["webkitSpeechRecognition"]) as
-      | (new () => ReconnaissanceVocale)
-      | undefined;
+      (new () => ReconnaissanceVocale) | undefined;
     if (!Constructeur) return;
 
     const instance = new Constructeur();

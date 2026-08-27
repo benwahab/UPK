@@ -69,7 +69,11 @@ function PageMesAlertes() {
                     {a.places?.nom}
                     {a.places?.quartier ? ` · ${a.places.quartier}` : ""}
                   </p>
-                  <p className={a.notifie ? "mt-1 text-xs text-primary" : "mt-1 text-xs text-muted-foreground"}>
+                  <p
+                    className={
+                      a.notifie ? "mt-1 text-xs text-primary" : "mt-1 text-xs text-muted-foreground"
+                    }
+                  >
                     {a.notifie ? "✓ Disponible maintenant !" : "En attente de disponibilité"}
                   </p>
                 </div>
