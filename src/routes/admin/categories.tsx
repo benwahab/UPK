@@ -13,7 +13,7 @@ import {
   modifierCategorie,
   supprimerCategorie,
 } from "@/lib/categories.functions";
-import { estModerateur } from "@/lib/moderation.functions";
+import { estAdmin } from "@/lib/moderateurs.functions";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/admin/categories")({
@@ -25,7 +25,7 @@ function PageCategories() {
   const navigate = useNavigate();
   const { utilisateur, chargement } = useSession();
   const queryClient = useQueryClient();
-  const verifierRole = useServerFn(estModerateur);
+  const verifierRole = useServerFn(estAdmin);
   const chercherCategories = useServerFn(listerCategoriesAdmin);
   const creer = useServerFn(creerCategorie);
   const modifier = useServerFn(modifierCategorie);

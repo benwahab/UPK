@@ -1,13 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Plus } from "lucide-react";
+import { Plus, Shield } from "lucide-react";
 import { useEffect } from "react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { listerMesLieux } from "@/lib/business.functions";
+import { demanderModeration, monStatutModeration } from "@/lib/moderateurs.functions";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/")({
@@ -18,7 +19,10 @@ export const Route = createFileRoute("/pro/")({
 function PageDashboardPro() {
   const navigate = useNavigate();
   const { utilisateur, chargement } = useSession();
+  const queryClient = useQueryClient();
   const chercherMesLieux = useServerFn(listerMesLieux);
+  const chercherStatutModeration = useServerFn(monStatutModeration);
+  const demander = useServerFn(demanderModeration);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -29,6 +33,17 @@ function PageDashboardPro() {
     queryFn: () => chercherMesLieux(),
     enabled: !!utilisateur,
   });
+
+  const statutModeration = useQuery({
+    queryKey: ["mon-statut-moderation", utilisateur?.id],
+    queryFn: () => chercherStatutModeration(),
+    enabled: !!utilisateur,
+  });
+
+  async function onDemanderModeration() {
+    await demander();
+    queryClient.invalidateQueries({ queryKey: ["mon-statut-moderation"] });
+  }
 
   if (chargement || !utilisateur) {
     return (
@@ -73,6 +88,38 @@ function PageDashboardPro() {
           Ajouter un établissement
         </Link>
       </Button>
+
+      <div className="mt-3 rounded-xl border border-border bg-card p-4">
+        <div className="flex items-center gap-2">
+          <Shield className="size-4 text-muted-foreground" aria-hidden />
+          <p className="text-sm font-medium text-card-foreground">Vérification des lieux</p>
+        </div>
+        {statutModeration.data?.role === "moderator" || statutModeration.data?.role === "admin" ? (
+          <Link to="/pro/moderation" className="mt-2 inline-block text-sm font-medium text-primary">
+            Voir les lieux à vérifier →
+          </Link>
+        ) : statutModeration.data?.demandeEnAttente ? (
+          <p className="mt-2 text-sm text-muted-foreground">
+            Votre demande est en attente de validation par un administrateur.
+          </p>
+        ) : (
+          <>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Aidez à vérifier les lieux proposés sur UPK. Votre demande sera validée par un
+              administrateur.
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-2"
+              onClick={onDemanderModeration}
+            >
+              Devenir modérateur
+            </Button>
+          </>
+        )}
+      </div>
 
       <section className="mt-6 space-y-3" aria-live="polite">
         {mesLieux.isPending ? (

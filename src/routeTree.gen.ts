@@ -27,6 +27,7 @@ import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
 import { Route as ProIndexRouteImport } from './routes/pro/index'
 import { Route as ProIdRouteImport } from './routes/pro/$id'
+import { Route as ProModerationRouteImport } from './routes/pro/moderation'
 import { Route as ProNouveauRouteImport } from './routes/pro/nouveau'
 import { Route as ProIdChambresRouteImport } from './routes/pro/$id/chambres'
 import { Route as ProIdMenuRouteImport } from './routes/pro/$id/menu'
@@ -123,6 +124,11 @@ const ProIdRoute = ProIdRouteImport.update({
   path: '/pro/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProModerationRoute = ProModerationRouteImport.update({
+  id: '/pro/moderation',
+  path: '/pro/moderation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProNouveauRoute = ProNouveauRouteImport.update({
   id: '/pro/nouveau',
   path: '/pro/nouveau',
@@ -161,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
+  '/pro/moderation': typeof ProModerationRoute
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
@@ -185,6 +192,7 @@ export interface FileRoutesByTo {
   '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
+  '/pro/moderation': typeof ProModerationRoute
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin': typeof AdminIndexRoute
   '/pro': typeof ProIndexRoute
@@ -210,6 +218,7 @@ export interface FileRoutesById {
   '/admin/categories': typeof AdminCategoriesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
+  '/pro/moderation': typeof ProModerationRoute
   '/pro/nouveau': typeof ProNouveauRoute
   '/admin/': typeof AdminIndexRoute
   '/pro/': typeof ProIndexRoute
@@ -236,6 +245,7 @@ export interface FileRouteTypes {
     | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
+    | '/pro/moderation'
     | '/pro/nouveau'
     | '/admin/'
     | '/pro/'
@@ -260,6 +270,7 @@ export interface FileRouteTypes {
     | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
+    | '/pro/moderation'
     | '/pro/nouveau'
     | '/admin'
     | '/pro'
@@ -284,6 +295,7 @@ export interface FileRouteTypes {
     | '/admin/categories'
     | '/lieu/$id'
     | '/pro/$id'
+    | '/pro/moderation'
     | '/pro/nouveau'
     | '/admin/'
     | '/pro/'
@@ -309,6 +321,7 @@ export interface RootRouteChildren {
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRouteWithChildren
+  ProModerationRoute: typeof ProModerationRoute
   ProNouveauRoute: typeof ProNouveauRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ProIndexRoute: typeof ProIndexRoute
@@ -442,6 +455,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pro/moderation': {
+      id: '/pro/moderation'
+      path: '/pro/moderation'
+      fullPath: '/pro/moderation'
+      preLoaderRoute: typeof ProModerationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pro/nouveau': {
       id: '/pro/nouveau'
       path: '/pro/nouveau'
@@ -504,6 +524,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminCategoriesRoute: AdminCategoriesRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRouteWithChildren,
+  ProModerationRoute: ProModerationRoute,
   ProNouveauRoute: ProNouveauRoute,
   AdminIndexRoute: AdminIndexRoute,
   ProIndexRoute: ProIndexRoute,

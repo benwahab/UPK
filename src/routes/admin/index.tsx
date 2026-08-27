@@ -1,16 +1,11 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Copy, Flag, Store, X } from "lucide-react";
+import { Check, Copy, Flag, Shield, Store, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  estModerateur,
-  listerFileAttente,
-  rejeterLieu,
-  validerLieu,
-} from "@/lib/moderation.functions";
+import { listerFileAttente, rejeterLieu, validerLieu } from "@/lib/moderation.functions";
 import {
   LIBELLES_TYPE_PROBLEME,
   listerSignalements,
@@ -23,6 +18,14 @@ import {
   listerRevendications,
   rejeterRevendication,
 } from "@/lib/revendications.functions";
+import {
+  approuverDemandeModeration,
+  estAdmin,
+  listerDemandesModeration,
+  listerModerateurs,
+  rejeterDemandeModeration,
+  revoquerModerateur,
+} from "@/lib/moderateurs.functions";
 import type { Lieu } from "@/lib/upk";
 import { useSession } from "@/lib/useSession";
 
@@ -35,7 +38,7 @@ function PageModeration() {
   const navigate = useNavigate();
   const { utilisateur, chargement } = useSession();
   const queryClient = useQueryClient();
-  const verifierRole = useServerFn(estModerateur);
+  const verifierRole = useServerFn(estAdmin);
   const chercherFile = useServerFn(listerFileAttente);
   const valider = useServerFn(validerLieu);
   const rejeter = useServerFn(rejeterLieu);
@@ -44,6 +47,11 @@ function PageModeration() {
   const chercherRevendications = useServerFn(listerRevendications);
   const approuver = useServerFn(approuverRevendication);
   const rejeterClaim = useServerFn(rejeterRevendication);
+  const chercherDemandes = useServerFn(listerDemandesModeration);
+  const approuverDemande = useServerFn(approuverDemandeModeration);
+  const rejeterDemande = useServerFn(rejeterDemandeModeration);
+  const chercherModerateurs = useServerFn(listerModerateurs);
+  const revoquer = useServerFn(revoquerModerateur);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -77,6 +85,18 @@ function PageModeration() {
     enabled: role.data === true,
   });
 
+  const demandesModeration = useQuery({
+    queryKey: ["demandes-moderation"],
+    queryFn: () => chercherDemandes(),
+    enabled: role.data === true,
+  });
+
+  const moderateurs = useQuery({
+    queryKey: ["moderateurs"],
+    queryFn: () => chercherModerateurs(),
+    enabled: role.data === true,
+  });
+
   async function onValider(id: string) {
     await valider({ data: { id } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
@@ -100,6 +120,22 @@ function PageModeration() {
   async function onRejeterRevendication(id: string) {
     await rejeterClaim({ data: { id } });
     queryClient.invalidateQueries({ queryKey: ["revendications"] });
+  }
+
+  async function onApprouverDemande(id: string) {
+    await approuverDemande({ data: { id } });
+    queryClient.invalidateQueries({ queryKey: ["demandes-moderation"] });
+    queryClient.invalidateQueries({ queryKey: ["moderateurs"] });
+  }
+
+  async function onRejeterDemande(id: string) {
+    await rejeterDemande({ data: { id } });
+    queryClient.invalidateQueries({ queryKey: ["demandes-moderation"] });
+  }
+
+  async function onRevoquer(userId: string) {
+    await revoquer({ data: { userId } });
+    queryClient.invalidateQueries({ queryKey: ["moderateurs"] });
   }
 
   if (chargement || !utilisateur || role.isPending || role.data !== true) {
@@ -244,6 +280,78 @@ function PageModeration() {
                     Rejeter
                   </Button>
                 </div>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
+      <section className="mt-8" aria-live="polite">
+        <h2 className="flex items-center gap-1.5 font-display text-lg font-semibold text-foreground">
+          <Shield className="size-4" aria-hidden />
+          Modérateurs
+        </h2>
+
+        <p className="mt-3 text-sm font-medium text-muted-foreground">
+          Demandes en attente ({(demandesModeration.data ?? []).length})
+        </p>
+        <div className="mt-2 space-y-2">
+          {(demandesModeration.data ?? []).length === 0 ? (
+            <p className="rounded-xl border border-dashed border-border bg-card p-4 text-center text-sm text-muted-foreground">
+              Aucune demande en attente.
+            </p>
+          ) : (
+            (demandesModeration.data ?? []).map((d) => (
+              <div
+                key={d.id}
+                className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2"
+              >
+                <p className="text-sm text-card-foreground">
+                  {d.profiles?.nom_complet ?? "Compte sans nom"}
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="terrain"
+                    size="sm"
+                    onClick={() => onApprouverDemande(d.id)}
+                  >
+                    <Check className="size-4" aria-hidden />
+                    Approuver
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onRejeterDemande(d.id)}
+                  >
+                    <X className="size-4" aria-hidden />
+                    Rejeter
+                  </Button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        <p className="mt-5 text-sm font-medium text-muted-foreground">
+          Modérateurs actifs ({(moderateurs.data ?? []).length})
+        </p>
+        <div className="mt-2 space-y-2">
+          {(moderateurs.data ?? []).length === 0 ? (
+            <p className="rounded-xl border border-dashed border-border bg-card p-4 text-center text-sm text-muted-foreground">
+              Aucun modérateur pour l'instant.
+            </p>
+          ) : (
+            (moderateurs.data ?? []).map((m) => (
+              <div
+                key={m.id}
+                className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2"
+              >
+                <p className="text-sm text-card-foreground">{m.nom_complet ?? "Compte sans nom"}</p>
+                <Button type="button" variant="outline" size="sm" onClick={() => onRevoquer(m.id)}>
+                  Retirer
+                </Button>
               </div>
             ))
           )}
