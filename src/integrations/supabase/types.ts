@@ -147,6 +147,27 @@ export type Database = {
           },
         ]
       }
+      demandes_moderation: {
+        Row: {
+          created_at: string
+          id: string
+          statut: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          statut?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          statut?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       evenements_lieu: {
         Row: {
           created_at: string
@@ -737,6 +758,10 @@ export type Database = {
             }
             Returns: string
           }
+      approuver_moderateur: {
+        Args: { p_demande_id: string }
+        Returns: undefined
+      }
       disablelongtransactions: { Args: never; Returns: string }
       dropgeometrycolumn:
         | {
@@ -770,6 +795,7 @@ export type Database = {
         | { Args: { table_name: string }; Returns: string }
       enablelongtransactions: { Args: never; Returns: string }
       equals: { Args: { geom1: unknown; geom2: unknown }; Returns: boolean }
+      est_admin: { Args: { p_user_id: string }; Returns: boolean }
       est_moderateur: { Args: { p_user_id: string }; Returns: boolean }
       geometry: { Args: { "": string }; Returns: unknown }
       geometry_above: {
@@ -939,6 +965,11 @@ export type Database = {
           whatsapp: string
         }[]
       }
+      rejeter_demande_moderation: {
+        Args: { p_demande_id: string }
+        Returns: undefined
+      }
+      revoquer_moderateur: { Args: { p_user_id: string }; Returns: undefined }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
       st_3dclosestpoint: {
