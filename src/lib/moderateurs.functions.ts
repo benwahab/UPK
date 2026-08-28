@@ -91,6 +91,45 @@ export const rejeterDemandeModeration = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
   });
 
+export type StatistiqueModerateur = {
+  moderateur_id: string;
+  nom_complet: string | null;
+  validations: number;
+  rejets: number;
+};
+
+/** Nombre de lieux validés/rejetés par chaque modérateur (historique complet). */
+export const listerStatistiquesModerateurs = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<StatistiqueModerateur[]> => {
+    const { data, error } = await context.supabase
+      .from("actions_moderation")
+      .select("moderateur_id, action, profiles(nom_complet)");
+    if (error) throw new Error(error.message);
+
+    const parModerateur = new Map<string, StatistiqueModerateur>();
+    for (const ligne of data ?? []) {
+      const l = ligne as unknown as {
+        moderateur_id: string;
+        action: "validation" | "rejet";
+        profiles: { nom_complet: string | null } | null;
+      };
+      const existant = parModerateur.get(l.moderateur_id) ?? {
+        moderateur_id: l.moderateur_id,
+        nom_complet: l.profiles?.nom_complet ?? null,
+        validations: 0,
+        rejets: 0,
+      };
+      if (l.action === "validation") existant.validations += 1;
+      else existant.rejets += 1;
+      parModerateur.set(l.moderateur_id, existant);
+    }
+
+    return Array.from(parModerateur.values()).sort(
+      (a, b) => b.validations + b.rejets - (a.validations + a.rejets),
+    );
+  });
+
 export type Moderateur = { id: string; nom_complet: string | null };
 
 export const listerModerateurs = createServerFn({ method: "GET" })

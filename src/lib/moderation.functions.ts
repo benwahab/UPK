@@ -109,6 +109,16 @@ export const validerLieu = createServerFn({ method: "POST" })
       .update({ statut_verification: "verifie" })
       .eq("id", data.id);
     if (error) throw new Error(error.message);
+
+    // Journal (best-effort) : ne bloque jamais la validation elle-même si
+    // l'écriture du journal échoue pour une raison quelconque.
+    await context.supabase
+      .from("actions_moderation")
+      .insert({ place_id: data.id, moderateur_id: context.userId, action: "validation" })
+      .then(
+        () => {},
+        () => {},
+      );
   });
 
 export const rejeterLieu = createServerFn({ method: "POST" })
@@ -120,4 +130,12 @@ export const rejeterLieu = createServerFn({ method: "POST" })
       .update({ actif: false })
       .eq("id", data.id);
     if (error) throw new Error(error.message);
+
+    await context.supabase
+      .from("actions_moderation")
+      .insert({ place_id: data.id, moderateur_id: context.userId, action: "rejet" })
+      .then(
+        () => {},
+        () => {},
+      );
   });

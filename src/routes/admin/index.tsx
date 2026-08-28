@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Copy, Flag, Shield, Store, X } from "lucide-react";
+import { BarChart3, Check, Copy, Flag, Shield, Store, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,7 @@ import {
   estAdmin,
   listerDemandesModeration,
   listerModerateurs,
+  listerStatistiquesModerateurs,
   rejeterDemandeModeration,
   revoquerModerateur,
 } from "@/lib/moderateurs.functions";
@@ -51,6 +52,7 @@ function PageModeration() {
   const approuverDemande = useServerFn(approuverDemandeModeration);
   const rejeterDemande = useServerFn(rejeterDemandeModeration);
   const chercherModerateurs = useServerFn(listerModerateurs);
+  const chercherStatsModerateurs = useServerFn(listerStatistiquesModerateurs);
   const revoquer = useServerFn(revoquerModerateur);
 
   useEffect(() => {
@@ -94,6 +96,12 @@ function PageModeration() {
   const moderateurs = useQuery({
     queryKey: ["moderateurs"],
     queryFn: () => chercherModerateurs(),
+    enabled: role.data === true,
+  });
+
+  const statsModerateurs = useQuery({
+    queryKey: ["stats-moderateurs"],
+    queryFn: () => chercherStatsModerateurs(),
     enabled: role.data === true,
   });
 
@@ -356,6 +364,43 @@ function PageModeration() {
             ))
           )}
         </div>
+
+        <p className="mt-5 flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
+          <BarChart3 className="size-4" aria-hidden />
+          Lieux traités par modérateur
+        </p>
+        {(statsModerateurs.data ?? []).length === 0 ? (
+          <p className="mt-2 rounded-xl border border-dashed border-border bg-card p-4 text-center text-sm text-muted-foreground">
+            Aucune action de modération enregistrée pour l'instant.
+          </p>
+        ) : (
+          <div className="mt-2 overflow-hidden rounded-xl border border-border">
+            <table className="w-full text-sm">
+              <thead className="bg-secondary text-secondary-foreground">
+                <tr>
+                  <th className="px-3 py-2 text-left font-medium">Modérateur</th>
+                  <th className="px-3 py-2 text-right font-medium">Validés</th>
+                  <th className="px-3 py-2 text-right font-medium">Rejetés</th>
+                  <th className="px-3 py-2 text-right font-medium">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(statsModerateurs.data ?? []).map((s) => (
+                  <tr key={s.moderateur_id} className="border-t border-border bg-card">
+                    <td className="px-3 py-2 text-card-foreground">
+                      {s.nom_complet ?? "Compte sans nom"}
+                    </td>
+                    <td className="px-3 py-2 text-right text-card-foreground">{s.validations}</td>
+                    <td className="px-3 py-2 text-right text-card-foreground">{s.rejets}</td>
+                    <td className="px-3 py-2 text-right font-medium text-card-foreground">
+                      {s.validations + s.rejets}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
     </main>
   );
