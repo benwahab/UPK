@@ -14,6 +14,38 @@ export type Database = {
   }
   public: {
     Tables: {
+      actions_moderation: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          moderateur_id: string
+          place_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: string
+          moderateur_id: string
+          place_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          moderateur_id?: string
+          place_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "actions_moderation_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       alertes_medicament: {
         Row: {
           created_at: string
