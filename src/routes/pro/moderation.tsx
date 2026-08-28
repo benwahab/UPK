@@ -1,13 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Copy, X } from "lucide-react";
+import { Check, Copy, ShieldCheck, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { listerFileAttente, rejeterLieu, validerLieu } from "@/lib/moderation.functions";
 import { detecterDoublons, type CandidatDoublon } from "@/lib/signalements.functions";
-import { monStatutModeration } from "@/lib/moderateurs.functions";
+import { mesStatistiquesModeration, monStatutModeration } from "@/lib/moderateurs.functions";
 import type { Lieu } from "@/lib/upk";
 import { useSession } from "@/lib/useSession";
 
@@ -22,6 +22,7 @@ function PageModerationPro() {
   const queryClient = useQueryClient();
   const chercherStatut = useServerFn(monStatutModeration);
   const chercherFile = useServerFn(listerFileAttente);
+  const chercherMesStats = useServerFn(mesStatistiquesModeration);
   const valider = useServerFn(validerLieu);
   const rejeter = useServerFn(rejeterLieu);
 
@@ -47,14 +48,22 @@ function PageModerationPro() {
     enabled: statut.data?.role === "moderator" || statut.data?.role === "admin",
   });
 
+  const mesStats = useQuery({
+    queryKey: ["mes-stats-moderation", utilisateur?.id],
+    queryFn: () => chercherMesStats(),
+    enabled: statut.data?.role === "moderator" || statut.data?.role === "admin",
+  });
+
   async function onValider(id: string) {
     await valider({ data: { id } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
+    queryClient.invalidateQueries({ queryKey: ["mes-stats-moderation"] });
   }
 
   async function onRejeter(id: string) {
     await rejeter({ data: { id } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
+    queryClient.invalidateQueries({ queryKey: ["mes-stats-moderation"] });
   }
 
   const autorise = statut.data?.role === "moderator" || statut.data?.role === "admin";
@@ -83,6 +92,16 @@ function PageModerationPro() {
       <p className="mt-1 text-sm text-muted-foreground">
         {lieux.length} lieu{lieux.length > 1 ? "x" : ""} en attente de validation.
       </p>
+
+      {mesStats.data ? (
+        <div className="mt-3 flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm text-card-foreground">
+          <ShieldCheck className="size-4 text-primary" aria-hidden />
+          Vous avez traité {mesStats.data.validations + mesStats.data.rejets} lieu
+          {mesStats.data.validations + mesStats.data.rejets > 1 ? "x" : ""} au total (
+          {mesStats.data.validations} validé{mesStats.data.validations > 1 ? "s" : ""},{" "}
+          {mesStats.data.rejets} rejeté{mesStats.data.rejets > 1 ? "s" : ""}).
+        </div>
+      ) : null}
 
       <section className="mt-5 space-y-3" aria-live="polite">
         {file.isPending ? (

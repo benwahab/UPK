@@ -91,6 +91,27 @@ export const rejeterDemandeModeration = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
   });
 
+export type MesStatsModeration = { validations: number; rejets: number };
+
+/** Compteur personnel du modérateur connecté (pas les autres). */
+export const mesStatistiquesModeration = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<MesStatsModeration> => {
+    const { data, error } = await context.supabase
+      .from("actions_moderation")
+      .select("action")
+      .eq("moderateur_id", context.userId);
+    if (error) throw new Error(error.message);
+
+    let validations = 0;
+    let rejets = 0;
+    for (const ligne of data ?? []) {
+      if (ligne.action === "validation") validations += 1;
+      else rejets += 1;
+    }
+    return { validations, rejets };
+  });
+
 export type StatistiqueModerateur = {
   moderateur_id: string;
   nom_complet: string | null;
