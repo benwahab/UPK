@@ -15,6 +15,13 @@
       "when": 1787937535740,
       "tag": "0001_stats_moderateur_personnel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787985034755,
+      "tag": "0002_profil_moderateur_et_gps",
+      "breakpoints": true
     }
   ]
 }

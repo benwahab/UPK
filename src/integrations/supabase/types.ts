@@ -504,6 +504,7 @@ export type Database = {
           created_at: string
           id: string
           nom_complet: string | null
+          prenom: string | null
           role: string
           telephone: string | null
           updated_at: string
@@ -512,6 +513,7 @@ export type Database = {
           created_at?: string
           id: string
           nom_complet?: string | null
+          prenom?: string | null
           role?: string
           telephone?: string | null
           updated_at?: string
@@ -520,6 +522,7 @@ export type Database = {
           created_at?: string
           id?: string
           nom_complet?: string | null
+          prenom?: string | null
           role?: string
           telephone?: string | null
           updated_at?: string
