@@ -10,7 +10,7 @@ import { lienItineraire } from "@/lib/upk";
 // Doit correspondre au seuil serveur (moderation.functions.ts) — la valeur
 // affichée ici n'est qu'une prévisualisation ; c'est le serveur qui
 // tranche réellement, pour ne pas pouvoir être contourné.
-const DISTANCE_MAX_METRES = 50;
+const DISTANCE_MAX_METRES = 20;
 
 function distanceMetres(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371000;

@@ -102,11 +102,10 @@ export const listerFileAttente = createServerFn({ method: "GET" })
 
 // Seuil de tolérance pour la vérification de proximité (mètres). Un GPS de
 // smartphone a une précision typique de 5 à 20 m (souvent pire en ville,
-// près de bâtiments hauts) : une exigence "au mètre près" rendrait la
-// validation quasiment impossible en pratique. 50 m est un compromis
-// raisonnable entre "le modérateur est vraiment sur place" et une
-// tolérance à l'imprécision GPS réelle.
-const DISTANCE_MAX_METRES = 50;
+// près de bâtiments hauts). 20 m est volontairement strict — un modérateur
+// devra parfois réessayer sa localisation si la précision GPS du moment
+// est mauvaise, mais garantit une présence quasi certaine sur place.
+const DISTANCE_MAX_METRES = 20;
 
 function distanceMetres(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371000;
