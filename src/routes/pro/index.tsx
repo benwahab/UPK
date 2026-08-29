@@ -2,13 +2,20 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Plus, Shield } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { listerMesLieux } from "@/lib/business.functions";
-import { demanderModeration, monStatutModeration } from "@/lib/moderateurs.functions";
+import {
+  completerProfilModeration,
+  demanderModeration,
+  monProfil,
+  monStatutModeration,
+} from "@/lib/moderateurs.functions";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/")({
@@ -22,7 +29,16 @@ function PageDashboardPro() {
   const queryClient = useQueryClient();
   const chercherMesLieux = useServerFn(listerMesLieux);
   const chercherStatutModeration = useServerFn(monStatutModeration);
+  const chercherMonProfil = useServerFn(monProfil);
+  const completerProfil = useServerFn(completerProfilModeration);
   const demander = useServerFn(demanderModeration);
+
+  const [formulaireOuvert, setFormulaireOuvert] = useState(false);
+  const [prenom, setPrenom] = useState("");
+  const [nom, setNom] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [erreur, setErreur] = useState<string | null>(null);
+  const [envoiEnCours, setEnvoiEnCours] = useState(false);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -40,9 +56,36 @@ function PageDashboardPro() {
     enabled: !!utilisateur,
   });
 
-  async function onDemanderModeration() {
-    await demander();
-    queryClient.invalidateQueries({ queryKey: ["mon-statut-moderation"] });
+  function ouvrirFormulaire() {
+    setErreur(null);
+    chercherMonProfil().then((profil) => {
+      setPrenom(profil.prenom ?? "");
+      setNom(profil.nomComplet ?? "");
+      setTelephone(profil.telephone ?? "");
+    });
+    setFormulaireOuvert(true);
+  }
+
+  async function onEnvoyerDemande(e: React.FormEvent) {
+    e.preventDefault();
+    setErreur(null);
+    if (!prenom.trim() || !nom.trim() || !telephone.trim()) {
+      setErreur("Prénom, nom et téléphone sont tous les trois obligatoires.");
+      return;
+    }
+    setEnvoiEnCours(true);
+    try {
+      await completerProfil({
+        data: { prenom: prenom.trim(), nom: nom.trim(), telephone: telephone.trim() },
+      });
+      await demander();
+      setFormulaireOuvert(false);
+      queryClient.invalidateQueries({ queryKey: ["mon-statut-moderation"] });
+    } catch {
+      setErreur("Impossible d'envoyer la demande. Réessayez.");
+    } finally {
+      setEnvoiEnCours(false);
+    }
   }
 
   if (chargement || !utilisateur) {
@@ -102,6 +145,46 @@ function PageDashboardPro() {
           <p className="mt-2 text-sm text-muted-foreground">
             Votre demande est en attente de validation par un administrateur.
           </p>
+        ) : formulaireOuvert ? (
+          <form onSubmit={onEnvoyerDemande} className="mt-3 space-y-3">
+            <p className="text-xs text-muted-foreground">
+              Prénom, nom et téléphone sont nécessaires pour qu'un administrateur puisse vous
+              identifier et vous contacter.
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-1">
+                <Label htmlFor="prenom-mod">Prénom</Label>
+                <Input id="prenom-mod" value={prenom} onChange={(e) => setPrenom(e.target.value)} />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="nom-mod">Nom</Label>
+                <Input id="nom-mod" value={nom} onChange={(e) => setNom(e.target.value)} />
+              </div>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="telephone-mod">Téléphone</Label>
+              <Input
+                id="telephone-mod"
+                type="tel"
+                value={telephone}
+                onChange={(e) => setTelephone(e.target.value)}
+              />
+            </div>
+            {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
+            <div className="flex gap-2">
+              <Button type="submit" variant="terrain" size="sm" disabled={envoiEnCours}>
+                {envoiEnCours ? "Envoi…" : "Envoyer la demande"}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => setFormulaireOuvert(false)}
+              >
+                Annuler
+              </Button>
+            </div>
+          </form>
         ) : (
           <>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -113,7 +196,7 @@ function PageDashboardPro() {
               variant="outline"
               size="sm"
               className="mt-2"
-              onClick={onDemanderModeration}
+              onClick={ouvrirFormulaire}
             >
               Devenir modérateur
             </Button>

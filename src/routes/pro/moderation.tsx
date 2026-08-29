@@ -1,14 +1,13 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Check, Copy, ShieldCheck, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ShieldCheck } from "lucide-react";
+import { useEffect } from "react";
 
-import { Button } from "@/components/ui/button";
+import { CarteLieuAVerifier } from "@/components/upk/CarteLieuAVerifier";
 import { listerFileAttente, rejeterLieu, validerLieu } from "@/lib/moderation.functions";
-import { detecterDoublons, type CandidatDoublon } from "@/lib/signalements.functions";
+import { detecterDoublons } from "@/lib/signalements.functions";
 import { mesStatistiquesModeration, monStatutModeration } from "@/lib/moderateurs.functions";
-import type { Lieu } from "@/lib/upk";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/moderation")({
@@ -25,6 +24,7 @@ function PageModerationPro() {
   const chercherMesStats = useServerFn(mesStatistiquesModeration);
   const valider = useServerFn(validerLieu);
   const rejeter = useServerFn(rejeterLieu);
+  const detecter = useServerFn(detecterDoublons);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -54,14 +54,14 @@ function PageModerationPro() {
     enabled: statut.data?.role === "moderator" || statut.data?.role === "admin",
   });
 
-  async function onValider(id: string) {
-    await valider({ data: { id } });
+  async function onValider(id: string, coords: { latitude: number; longitude: number }) {
+    await valider({ data: { id, ...coords } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
     queryClient.invalidateQueries({ queryKey: ["mes-stats-moderation"] });
   }
 
-  async function onRejeter(id: string) {
-    await rejeter({ data: { id } });
+  async function onRejeter(id: string, coords: { latitude: number; longitude: number }) {
+    await rejeter({ data: { id, ...coords } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
     queryClient.invalidateQueries({ queryKey: ["mes-stats-moderation"] });
   }
@@ -112,108 +112,16 @@ function PageModerationPro() {
           </p>
         ) : (
           lieux.map((lieu) => (
-            <CarteAVerifier
+            <CarteLieuAVerifier
               key={lieu.id}
               lieu={lieu}
-              onValider={() => onValider(lieu.id)}
-              onRejeter={() => onRejeter(lieu.id)}
+              onValider={(coords) => onValider(lieu.id, coords)}
+              onRejeter={(coords) => onRejeter(lieu.id, coords)}
+              chercherDoublons={(placeId) => detecter({ data: { placeId } })}
             />
           ))
         )}
       </section>
     </main>
-  );
-}
-
-function CarteAVerifier({
-  lieu,
-  onValider,
-  onRejeter,
-}: {
-  lieu: Lieu;
-  onValider: () => void;
-  onRejeter: () => void;
-}) {
-  const detecter = useServerFn(detecterDoublons);
-  const [doublons, setDoublons] = useState<CandidatDoublon[] | null>(null);
-  const [recherche, setRecherche] = useState(false);
-
-  async function onVerifierDoublons() {
-    setRecherche(true);
-    try {
-      setDoublons(await detecter({ data: { placeId: lieu.id } }));
-    } finally {
-      setRecherche(false);
-    }
-  }
-
-  return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <p className="font-medium text-card-foreground">{lieu.nom}</p>
-      <p className="text-sm text-muted-foreground">
-        {lieu.categorie_nom}
-        {lieu.quartier ? ` · ${lieu.quartier}` : ""}
-      </p>
-      {lieu.adresse ? <p className="mt-1 text-xs text-muted-foreground">{lieu.adresse}</p> : null}
-      {lieu.telephone ? (
-        <p className="mt-1 text-xs text-muted-foreground">{lieu.telephone}</p>
-      ) : null}
-
-      <Link
-        to="/lieu/$id"
-        params={{ id: lieu.id }}
-        className="mt-2 inline-block text-xs font-medium text-primary underline-offset-2 hover:underline"
-      >
-        Voir la fiche et les photos
-      </Link>
-
-      <div className="mt-3 flex gap-2">
-        <Button type="button" variant="terrain" size="sm" className="flex-1" onClick={onValider}>
-          <Check className="size-4" aria-hidden />
-          Valider
-        </Button>
-        <Button type="button" variant="outline" size="sm" className="flex-1" onClick={onRejeter}>
-          <X className="size-4" aria-hidden />
-          Rejeter
-        </Button>
-      </div>
-
-      {doublons === null ? (
-        <button
-          type="button"
-          onClick={onVerifierDoublons}
-          disabled={recherche}
-          className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground underline-offset-2 hover:underline"
-        >
-          <Copy className="size-3.5" aria-hidden />
-          {recherche ? "Recherche…" : "Vérifier les doublons"}
-        </button>
-      ) : doublons.length === 0 ? (
-        <p className="mt-2 text-xs text-muted-foreground">Aucun doublon potentiel détecté.</p>
-      ) : (
-        <div className="mt-2 rounded-lg bg-secondary p-2.5">
-          <p className="text-xs font-medium text-secondary-foreground">
-            {doublons.length} doublon{doublons.length > 1 ? "s" : ""} potentiel
-            {doublons.length > 1 ? "s" : ""} :
-          </p>
-          <ul className="mt-1 space-y-1">
-            {doublons.map((d) => (
-              <li key={d.place_id} className="text-xs text-muted-foreground">
-                <Link
-                  to="/lieu/$id"
-                  params={{ id: d.place_id }}
-                  className="underline-offset-2 hover:underline"
-                >
-                  {d.nom}
-                </Link>
-                {d.quartier ? ` · ${d.quartier}` : ""}
-                {d.meme_telephone ? " · même téléphone" : ""}
-                {d.distance_m !== null ? ` · ${d.distance_m}m` : ""}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
   );
 }

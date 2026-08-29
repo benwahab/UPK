@@ -45,6 +45,52 @@ export const monStatutModeration = createServerFn({ method: "GET" })
     };
   });
 
+export type MonProfil = {
+  prenom: string | null;
+  nomComplet: string | null;
+  telephone: string | null;
+};
+
+export const monProfil = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<MonProfil> => {
+    const { data, error } = await context.supabase
+      .from("profiles")
+      .select("prenom, nom_complet, telephone")
+      .eq("id", context.userId)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    return {
+      prenom: data?.prenom ?? null,
+      nomComplet: data?.nom_complet ?? null,
+      telephone: data?.telephone ?? null,
+    };
+  });
+
+/**
+ * Complète le profil (prénom, nom, téléphone) — exigé avant de pouvoir
+ * demander à devenir modérateur, pour que l'admin puisse identifier et
+ * contacter la personne.
+ */
+export const completerProfilModeration = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z
+      .object({
+        prenom: z.string().trim().min(1).max(80),
+        nom: z.string().trim().min(1).max(80),
+        telephone: z.string().trim().min(6).max(30),
+      })
+      .parse(data),
+  )
+  .handler(async ({ context, data }): Promise<void> => {
+    const { error } = await context.supabase
+      .from("profiles")
+      .update({ prenom: data.prenom, nom_complet: data.nom, telephone: data.telephone })
+      .eq("id", context.userId);
+    if (error) throw new Error(error.message);
+  });
+
 export const demanderModeration = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<void> => {
@@ -58,7 +104,7 @@ export type DemandeModeration = {
   id: string;
   user_id: string;
   created_at: string;
-  profiles: { nom_complet: string | null } | null;
+  profiles: { nom_complet: string | null; prenom: string | null; telephone: string | null } | null;
 };
 
 export const listerDemandesModeration = createServerFn({ method: "GET" })
@@ -66,7 +112,7 @@ export const listerDemandesModeration = createServerFn({ method: "GET" })
   .handler(async ({ context }): Promise<DemandeModeration[]> => {
     const { data, error } = await context.supabase
       .from("demandes_moderation")
-      .select("id, user_id, created_at, profiles(nom_complet)")
+      .select("id, user_id, created_at, profiles(nom_complet, prenom, telephone)")
       .eq("statut", "en_attente")
       .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
@@ -151,14 +197,19 @@ export const listerStatistiquesModerateurs = createServerFn({ method: "GET" })
     );
   });
 
-export type Moderateur = { id: string; nom_complet: string | null };
+export type Moderateur = {
+  id: string;
+  nom_complet: string | null;
+  prenom: string | null;
+  telephone: string | null;
+};
 
 export const listerModerateurs = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<Moderateur[]> => {
     const { data, error } = await context.supabase
       .from("profiles")
-      .select("id, nom_complet")
+      .select("id, nom_complet, prenom, telephone")
       .eq("role", "moderator")
       .order("nom_complet", { ascending: true });
     if (error) throw new Error(error.message);

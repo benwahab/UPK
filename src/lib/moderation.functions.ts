@@ -100,10 +100,64 @@ export const listerFileAttente = createServerFn({ method: "GET" })
     });
   });
 
+// Seuil de tolérance pour la vérification de proximité (mètres). Un GPS de
+// smartphone a une précision typique de 5 à 20 m (souvent pire en ville,
+// près de bâtiments hauts) : une exigence "au mètre près" rendrait la
+// validation quasiment impossible en pratique. 50 m est un compromis
+// raisonnable entre "le modérateur est vraiment sur place" et une
+// tolérance à l'imprécision GPS réelle.
+const DISTANCE_MAX_METRES = 50;
+
+function distanceMetres(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371000;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+const champsVerificationSchema = z.object({
+  id: z.string().uuid(),
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
+});
+
+/**
+ * Vérifie côté serveur (donc infalsifiable) que le modérateur se trouve
+ * physiquement à proximité du lieu avant d'autoriser une validation ou un
+ * rejet. Un contrôle uniquement côté client serait contournable via les
+ * outils de développement du navigateur.
+ */
+async function verifierProximite(
+  supabase: import("@supabase/supabase-js").SupabaseClient,
+  placeId: string,
+  latModerateur: number,
+  lngModerateur: number,
+) {
+  const { data: lieu, error } = await supabase
+    .from("places")
+    .select("latitude, longitude")
+    .eq("id", placeId)
+    .single();
+  if (error) throw new Error(error.message);
+
+  const distance = distanceMetres(latModerateur, lngModerateur, lieu.latitude, lieu.longitude);
+  if (distance > DISTANCE_MAX_METRES) {
+    throw new Error(
+      `Vous êtes à ${Math.round(distance)} m du lieu (${DISTANCE_MAX_METRES} m maximum). Rapprochez-vous pour valider ou rejeter.`,
+    );
+  }
+}
+
 export const validerLieu = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .inputValidator((data: unknown) => champsVerificationSchema.parse(data))
   .handler(async ({ context, data }): Promise<void> => {
+    await verifierProximite(context.supabase, data.id, data.latitude, data.longitude);
+
     const { error } = await context.supabase
       .from("places")
       .update({ statut_verification: "verifie" })
@@ -123,8 +177,10 @@ export const validerLieu = createServerFn({ method: "POST" })
 
 export const rejeterLieu = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .inputValidator((data: unknown) => champsVerificationSchema.parse(data))
   .handler(async ({ context, data }): Promise<void> => {
+    await verifierProximite(context.supabase, data.id, data.latitude, data.longitude);
+
     const { error } = await context.supabase
       .from("places")
       .update({ actif: false })

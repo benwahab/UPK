@@ -5,6 +5,7 @@ import { BarChart3, Check, Copy, Flag, Shield, Store, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { CarteLieuAVerifier } from "@/components/upk/CarteLieuAVerifier";
 import { listerFileAttente, rejeterLieu, validerLieu } from "@/lib/moderation.functions";
 import {
   LIBELLES_TYPE_PROBLEME,
@@ -46,6 +47,7 @@ function PageModeration() {
   const chercherSignalements = useServerFn(listerSignalements);
   const traiter = useServerFn(traiterSignalement);
   const chercherRevendications = useServerFn(listerRevendications);
+  const detecter = useServerFn(detecterDoublons);
   const approuver = useServerFn(approuverRevendication);
   const rejeterClaim = useServerFn(rejeterRevendication);
   const chercherDemandes = useServerFn(listerDemandesModeration);
@@ -105,13 +107,13 @@ function PageModeration() {
     enabled: role.data === true,
   });
 
-  async function onValider(id: string) {
-    await valider({ data: { id } });
+  async function onValider(id: string, coords: { latitude: number; longitude: number }) {
+    await valider({ data: { id, ...coords } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
   }
 
-  async function onRejeter(id: string) {
-    await rejeter({ data: { id } });
+  async function onRejeter(id: string, coords: { latitude: number; longitude: number }) {
+    await rejeter({ data: { id, ...coords } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
   }
 
@@ -182,11 +184,12 @@ function PageModeration() {
           </p>
         ) : (
           lieux.map((lieu) => (
-            <CarteFileAttente
+            <CarteLieuAVerifier
               key={lieu.id}
               lieu={lieu}
-              onValider={() => onValider(lieu.id)}
-              onRejeter={() => onRejeter(lieu.id)}
+              onValider={(coords) => onValider(lieu.id, coords)}
+              onRejeter={(coords) => onRejeter(lieu.id, coords)}
+              chercherDoublons={(placeId) => detecter({ data: { placeId } })}
             />
           ))
         )}
@@ -314,9 +317,14 @@ function PageModeration() {
                 key={d.id}
                 className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2"
               >
-                <p className="text-sm text-card-foreground">
-                  {d.profiles?.nom_complet ?? "Compte sans nom"}
-                </p>
+                <div>
+                  <p className="text-sm text-card-foreground">
+                    {d.profiles?.prenom ?? ""} {d.profiles?.nom_complet ?? "Compte sans nom"}
+                  </p>
+                  {d.profiles?.telephone ? (
+                    <p className="text-xs text-muted-foreground">{d.profiles.telephone}</p>
+                  ) : null}
+                </div>
                 <div className="flex gap-2">
                   <Button
                     type="button"
@@ -356,7 +364,14 @@ function PageModeration() {
                 key={m.id}
                 className="flex items-center justify-between rounded-lg border border-border bg-card px-3 py-2"
               >
-                <p className="text-sm text-card-foreground">{m.nom_complet ?? "Compte sans nom"}</p>
+                <div>
+                  <p className="text-sm text-card-foreground">
+                    {m.prenom ?? ""} {m.nom_complet ?? "Compte sans nom"}
+                  </p>
+                  {m.telephone ? (
+                    <p className="text-xs text-muted-foreground">{m.telephone}</p>
+                  ) : null}
+                </div>
                 <Button type="button" variant="outline" size="sm" onClick={() => onRevoquer(m.id)}>
                   Retirer
                 </Button>
@@ -403,91 +418,5 @@ function PageModeration() {
         )}
       </section>
     </main>
-  );
-}
-
-function CarteFileAttente({
-  lieu,
-  onValider,
-  onRejeter,
-}: {
-  lieu: Lieu;
-  onValider: () => void;
-  onRejeter: () => void;
-}) {
-  const detecter = useServerFn(detecterDoublons);
-  const [doublons, setDoublons] = useState<CandidatDoublon[] | null>(null);
-  const [recherche, setRecherche] = useState(false);
-
-  async function onVerifierDoublons() {
-    setRecherche(true);
-    try {
-      const resultat = await detecter({ data: { placeId: lieu.id } });
-      setDoublons(resultat);
-    } finally {
-      setRecherche(false);
-    }
-  }
-
-  return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <p className="font-medium text-card-foreground">{lieu.nom}</p>
-      <p className="text-sm text-muted-foreground">
-        {lieu.categorie_nom}
-        {lieu.quartier ? ` · ${lieu.quartier}` : ""}
-      </p>
-      {lieu.adresse ? <p className="mt-1 text-xs text-muted-foreground">{lieu.adresse}</p> : null}
-      {lieu.telephone ? (
-        <p className="mt-1 text-xs text-muted-foreground">{lieu.telephone}</p>
-      ) : null}
-
-      <div className="mt-3 flex gap-2">
-        <Button type="button" variant="terrain" size="sm" className="flex-1" onClick={onValider}>
-          <Check className="size-4" aria-hidden />
-          Valider
-        </Button>
-        <Button type="button" variant="outline" size="sm" className="flex-1" onClick={onRejeter}>
-          <X className="size-4" aria-hidden />
-          Rejeter
-        </Button>
-      </div>
-
-      {doublons === null ? (
-        <button
-          type="button"
-          onClick={onVerifierDoublons}
-          disabled={recherche}
-          className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground underline-offset-2 hover:underline"
-        >
-          <Copy className="size-3.5" aria-hidden />
-          {recherche ? "Recherche…" : "Vérifier les doublons"}
-        </button>
-      ) : doublons.length === 0 ? (
-        <p className="mt-2 text-xs text-muted-foreground">Aucun doublon potentiel détecté.</p>
-      ) : (
-        <div className="mt-2 rounded-lg bg-secondary p-2.5">
-          <p className="text-xs font-medium text-secondary-foreground">
-            {doublons.length} doublon{doublons.length > 1 ? "s" : ""} potentiel
-            {doublons.length > 1 ? "s" : ""} :
-          </p>
-          <ul className="mt-1 space-y-1">
-            {doublons.map((d) => (
-              <li key={d.place_id} className="text-xs text-muted-foreground">
-                <Link
-                  to="/lieu/$id"
-                  params={{ id: d.place_id }}
-                  className="underline-offset-2 hover:underline"
-                >
-                  {d.nom}
-                </Link>
-                {d.quartier ? ` · ${d.quartier}` : ""}
-                {d.meme_telephone ? " · même téléphone" : ""}
-                {d.distance_m !== null ? ` · ${d.distance_m}m` : ""}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
   );
 }
