@@ -187,10 +187,21 @@ function PageDashboardPro() {
           </form>
         ) : (
           <>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Aidez à vérifier les lieux proposés sur UPK. Votre demande sera validée par un
-              administrateur.
-            </p>
+            <div className="mt-1 space-y-1.5 text-sm text-muted-foreground">
+              <p>Ce que fait un modérateur sur UPK :</p>
+              <ul className="list-disc space-y-1 pl-5">
+                <li>Voir la liste des lieux proposés en attente de vérification</li>
+                <li>
+                  Se déplacer physiquement sur place — la validation n'est possible qu'une fois
+                  votre position confirmée à moins de 20 m du lieu (vérifié par GPS)
+                </li>
+                <li>Valider le lieu s'il existe bien, ou le rejeter sinon</li>
+              </ul>
+              <p>
+                Votre demande sera examinée par un administrateur, qui peut aussi retirer ce rôle à
+                tout moment.
+              </p>
+            </div>
             <Button
               type="button"
               variant="outline"

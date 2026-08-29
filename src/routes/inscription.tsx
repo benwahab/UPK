@@ -76,7 +76,9 @@ function PageInscription() {
       </Link>
       <h1 className="font-display text-xl font-semibold text-foreground">Créer un compte pro</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Ajoutez et gérez votre établissement sur UPK.
+        L'espace pro sert à deux choses : gérer la fiche de votre établissement sur UPK (infos,
+        horaires, photos, stock, statistiques de fréquentation), et — si vous le souhaitez — devenir
+        modérateur pour aider à vérifier les lieux proposés par d'autres utilisateurs.
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
