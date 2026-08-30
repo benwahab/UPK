@@ -18,6 +18,7 @@ import {
   ajouterMembreGroupe,
   assignerPeriodeGardeGroupe,
   creerGroupeGarde,
+  listerCalendrierGroupe,
   listerGroupesGarde,
   listerMembresGroupe,
   listerToutesLesPharmacies,
@@ -181,6 +182,7 @@ function DetailGroupe({
 }) {
   const queryClient = useQueryClient();
   const chercherMembres = useServerFn(listerMembresGroupe);
+  const chercherCalendrier = useServerFn(listerCalendrierGroupe);
   const ajouter = useServerFn(ajouterMembreGroupe);
   const retirer = useServerFn(retirerMembreGroupe);
   const assigner = useServerFn(assignerPeriodeGardeGroupe);
@@ -188,6 +190,11 @@ function DetailGroupe({
   const membres = useQuery({
     queryKey: ["membres-groupe", groupeId],
     queryFn: () => chercherMembres({ data: { groupeId } }),
+  });
+
+  const calendrier = useQuery({
+    queryKey: ["calendrier-groupe", groupeId],
+    queryFn: () => chercherCalendrier({ data: { groupeId } }),
   });
 
   const [pharmacieChoisie, setPharmacieChoisie] = useState("");
@@ -220,6 +227,7 @@ function DetailGroupe({
         data: { groupeId, dateDebut, dateFin, horaires: horaires.trim() || null },
       });
       setResultat(`${creees} garde(s) enregistrée(s) pour le groupe.`);
+      queryClient.invalidateQueries({ queryKey: ["calendrier-groupe", groupeId] });
     } finally {
       setEnCours(false);
     }
@@ -277,6 +285,33 @@ function DetailGroupe({
           Ajouter
         </Button>
       </div>
+
+      <p className="mt-4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
+        Calendrier déjà assigné (à venir)
+      </p>
+      {(calendrier.data ?? []).length === 0 ? (
+        <p className="mt-1 text-sm text-muted-foreground">Aucune garde à venir pour ce groupe.</p>
+      ) : (
+        <ul className="mt-1 max-h-40 space-y-1 overflow-y-auto text-sm text-card-foreground">
+          {Object.entries(
+            (calendrier.data ?? []).reduce<Record<string, string[]>>((acc, g) => {
+              (acc[g.date_garde] ??= []).push(g.nom_pharmacie);
+              return acc;
+            }, {}),
+          ).map(([date, noms]) => (
+            <li key={date}>
+              <span className="font-medium">
+                {new Date(date).toLocaleDateString("fr-FR", {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                })}
+              </span>{" "}
+              — {noms.join(", ")}
+            </li>
+          ))}
+        </ul>
+      )}
 
       <p className="mt-4 text-xs font-medium tracking-wide text-muted-foreground uppercase">
         Assigner une période de garde

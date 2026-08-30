@@ -139,6 +139,59 @@ export const retirerMembreGroupe = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
   });
 
+export type JourCalendrierGroupe = {
+  place_id: string;
+  nom_pharmacie: string;
+  date_garde: string;
+  horaires: string | null;
+};
+
+/**
+ * Calendrier à venir pour tout un groupe (toutes les gardes déjà assignées,
+ * futures uniquement), pour éviter d'assigner une nouvelle période à
+ * l'aveugle. Lecture seule — pharmacie_gardes est déjà public en select
+ * (Lot 5), pas besoin de droit supplémentaire ici.
+ */
+export const listerCalendrierGroupe = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ groupeId: z.string().uuid() }).parse(data))
+  .handler(async ({ context, data }): Promise<JourCalendrierGroupe[]> => {
+    await verifierAdmin(context.supabase, context.userId);
+
+    const { data: membres, error: erreurMembres } = await context.supabase
+      .from("groupe_garde_membres")
+      .select("place_id")
+      .eq("groupe_id", data.groupeId);
+    if (erreurMembres) throw new Error(erreurMembres.message);
+
+    const idsPlaces = (membres ?? []).map((m) => m.place_id);
+    if (idsPlaces.length === 0) return [];
+
+    const aujourdhui = new Date().toISOString().slice(0, 10);
+    const { data: gardes, error } = await context.supabase
+      .from("pharmacie_gardes")
+      .select("place_id, date_garde, horaires, places(nom)")
+      .in("place_id", idsPlaces)
+      .gte("date_garde", aujourdhui)
+      .order("date_garde", { ascending: true });
+    if (error) throw new Error(error.message);
+
+    return (gardes ?? []).map((g) => {
+      const ligne = g as unknown as {
+        place_id: string;
+        date_garde: string;
+        horaires: string | null;
+        places: { nom: string } | null;
+      };
+      return {
+        place_id: ligne.place_id,
+        nom_pharmacie: ligne.places?.nom ?? "Pharmacie",
+        date_garde: ligne.date_garde,
+        horaires: ligne.horaires,
+      };
+    });
+  });
+
 export const assignerPeriodeGardeGroupe = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) =>
