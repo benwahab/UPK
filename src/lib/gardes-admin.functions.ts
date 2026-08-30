@@ -156,7 +156,7 @@ export const assignerPeriodeGardeGroupe = createServerFn({ method: "POST" })
       p_groupe_id: data.groupeId,
       p_date_debut: data.dateDebut,
       p_date_fin: data.dateFin,
-      p_horaires: data.horaires || undefined,
+      ...(data.horaires ? { p_horaires: data.horaires } : {}),
     });
     if (error) throw new Error(error.message);
     return { creees: (nombre as number) ?? 0 };
