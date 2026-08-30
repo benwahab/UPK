@@ -164,9 +164,14 @@ function PageModeration() {
         <Link to="/" className="text-sm font-medium text-primary">
           ← Retour à la recherche
         </Link>
-        <Link to="/admin/categories" className="text-sm font-medium text-muted-foreground">
-          Gérer les catégories
-        </Link>
+        <div className="flex gap-3">
+          <Link to="/admin/gardes" className="text-sm font-medium text-muted-foreground">
+            Groupes de garde
+          </Link>
+          <Link to="/admin/categories" className="text-sm font-medium text-muted-foreground">
+            Gérer les catégories
+          </Link>
+        </div>
       </div>
       <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
         Modération — À vérifier

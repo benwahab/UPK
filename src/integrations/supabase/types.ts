@@ -493,6 +493,60 @@ export type Database = {
           },
         ];
       };
+      groupes_garde: {
+        Row: {
+          created_at: string;
+          id: string;
+          nom: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          nom: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          nom?: string;
+        };
+        Relationships: [];
+      };
+      groupe_garde_membres: {
+        Row: {
+          created_at: string;
+          groupe_id: string;
+          id: string;
+          place_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          groupe_id: string;
+          id?: string;
+          place_id: string;
+        };
+        Update: {
+          created_at?: string;
+          groupe_id?: string;
+          id?: string;
+          place_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "groupe_garde_membres_groupe_id_fkey";
+            columns: ["groupe_id"];
+            isOneToOne: false;
+            referencedRelation: "groupes_garde";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "groupe_garde_membres_place_id_fkey";
+            columns: ["place_id"];
+            isOneToOne: false;
+            referencedRelation: "places";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       profiles: {
         Row: {
           created_at: string;
@@ -787,6 +841,15 @@ export type Database = {
             };
             Returns: string;
           };
+      assigner_periode_garde_groupe: {
+        Args: {
+          p_groupe_id: string;
+          p_date_debut: string;
+          p_date_fin: string;
+          p_horaires?: string | null;
+        };
+        Returns: number;
+      };
       approuver_moderateur: {
         Args: { p_demande_id: string };
         Returns: undefined;

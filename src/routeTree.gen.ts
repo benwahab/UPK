@@ -24,6 +24,7 @@ import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as ReinitialiserMotDePasseRouteImport } from './routes/reinitialiser-mot-de-passe'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
+import { Route as AdminGardesRouteImport } from './routes/admin/gardes'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
 import { Route as ProIndexRouteImport } from './routes/pro/index'
 import { Route as ProIdRouteImport } from './routes/pro/$id'
@@ -109,6 +110,11 @@ const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
   path: '/admin/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminGardesRoute = AdminGardesRouteImport.update({
+  id: '/admin/gardes',
+  path: '/admin/gardes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LieuIdRoute = LieuIdRouteImport.update({
   id: '/lieu/$id',
   path: '/lieu/$id',
@@ -165,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/gardes': typeof AdminGardesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/moderation': typeof ProModerationRoute
@@ -190,6 +197,7 @@ export interface FileRoutesByTo {
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/gardes': typeof AdminGardesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/moderation': typeof ProModerationRoute
@@ -216,6 +224,7 @@ export interface FileRoutesById {
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/gardes': typeof AdminGardesRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/moderation': typeof ProModerationRoute
@@ -243,6 +252,7 @@ export interface FileRouteTypes {
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
+    | '/admin/gardes'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/moderation'
@@ -268,6 +278,7 @@ export interface FileRouteTypes {
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
+    | '/admin/gardes'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/moderation'
@@ -293,6 +304,7 @@ export interface FileRouteTypes {
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
+    | '/admin/gardes'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/moderation'
@@ -319,6 +331,7 @@ export interface RootRouteChildren {
   ProposerRoute: typeof ProposerRoute
   ReinitialiserMotDePasseRoute: typeof ReinitialiserMotDePasseRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminGardesRoute: typeof AdminGardesRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRouteWithChildren
   ProModerationRoute: typeof ProModerationRoute
@@ -434,6 +447,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/gardes': {
+      id: '/admin/gardes'
+      path: '/admin/gardes'
+      fullPath: '/admin/gardes'
+      preLoaderRoute: typeof AdminGardesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lieu/$id': {
       id: '/lieu/$id'
       path: '/lieu/$id'
@@ -522,6 +542,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProposerRoute: ProposerRoute,
   ReinitialiserMotDePasseRoute: ReinitialiserMotDePasseRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminGardesRoute: AdminGardesRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRouteWithChildren,
   ProModerationRoute: ProModerationRoute,
