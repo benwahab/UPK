@@ -22,6 +22,13 @@
       "when": 1787985034755,
       "tag": "0002_profil_moderateur_et_gps",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1788089173908,
+      "tag": "0003_groupes_garde",
+      "breakpoints": true
     }
   ]
 }

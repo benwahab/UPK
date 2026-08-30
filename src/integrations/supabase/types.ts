@@ -258,6 +258,60 @@ export type Database = {
           },
         ]
       }
+      groupe_garde_membres: {
+        Row: {
+          created_at: string
+          groupe_id: string
+          id: string
+          place_id: string
+        }
+        Insert: {
+          created_at?: string
+          groupe_id: string
+          id?: string
+          place_id: string
+        }
+        Update: {
+          created_at?: string
+          groupe_id?: string
+          id?: string
+          place_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groupe_garde_membres_groupe_id_fkey"
+            columns: ["groupe_id"]
+            isOneToOne: false
+            referencedRelation: "groupes_garde"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "groupe_garde_membres_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groupes_garde: {
+        Row: {
+          created_at: string
+          id: string
+          nom: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          nom: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nom?: string
+        }
+        Relationships: []
+      }
       medicaments: {
         Row: {
           conditionnement: string | null
@@ -796,6 +850,15 @@ export type Database = {
       approuver_moderateur: {
         Args: { p_demande_id: string }
         Returns: undefined
+      }
+      assigner_periode_garde_groupe: {
+        Args: {
+          p_date_debut: string
+          p_date_fin: string
+          p_groupe_id: string
+          p_horaires?: string
+        }
+        Returns: number
       }
       disablelongtransactions: { Args: never; Returns: string }
       dropgeometrycolumn:
