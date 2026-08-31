@@ -28,11 +28,14 @@ export function CarteLieuAVerifier({
   onValider,
   onRejeter,
   chercherDoublons,
+  onFusionner,
 }: {
   lieu: Lieu;
   onValider: (coords: { latitude: number; longitude: number }) => Promise<void> | void;
   onRejeter: (coords: { latitude: number; longitude: number }) => Promise<void> | void;
   chercherDoublons?: (placeId: string) => Promise<CandidatDoublon[]>;
+  /** Réservé à l'admin : fusionne ce lieu (le gagnant) avec le doublon cliqué (le perdant). */
+  onFusionner?: (idPerdant: string) => void;
 }) {
   const [etatGeo, setEtatGeo] = useState<"inconnu" | "chargement" | "refuse" | "trop_loin" | "ok">(
     "inconnu",
@@ -199,17 +202,31 @@ export function CarteLieuAVerifier({
             </p>
             <ul className="mt-1 space-y-1">
               {doublons.map((d) => (
-                <li key={d.place_id} className="text-xs text-muted-foreground">
-                  <Link
-                    to="/lieu/$id"
-                    params={{ id: d.place_id }}
-                    className="underline-offset-2 hover:underline"
-                  >
-                    {d.nom}
-                  </Link>
-                  {d.quartier ? ` · ${d.quartier}` : ""}
-                  {d.meme_telephone ? " · même téléphone" : ""}
-                  {d.distance_m !== null ? ` · ${d.distance_m}m` : ""}
+                <li
+                  key={d.place_id}
+                  className="flex items-center justify-between gap-2 text-xs text-muted-foreground"
+                >
+                  <span>
+                    <Link
+                      to="/lieu/$id"
+                      params={{ id: d.place_id }}
+                      className="underline-offset-2 hover:underline"
+                    >
+                      {d.nom}
+                    </Link>
+                    {d.quartier ? ` · ${d.quartier}` : ""}
+                    {d.meme_telephone ? " · même téléphone" : ""}
+                    {d.distance_m !== null ? ` · ${d.distance_m}m` : ""}
+                  </span>
+                  {onFusionner ? (
+                    <button
+                      type="button"
+                      onClick={() => onFusionner(d.place_id)}
+                      className="shrink-0 font-medium text-primary underline-offset-2 hover:underline"
+                    >
+                      Fusionner
+                    </button>
+                  ) : null}
                 </li>
               ))}
             </ul>

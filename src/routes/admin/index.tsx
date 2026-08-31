@@ -12,6 +12,7 @@ import {
   listerSignalements,
   traiterSignalement,
   detecterDoublons,
+  fusionnerLieux,
   type CandidatDoublon,
 } from "@/lib/signalements.functions";
 import {
@@ -48,6 +49,7 @@ function PageModeration() {
   const traiter = useServerFn(traiterSignalement);
   const chercherRevendications = useServerFn(listerRevendications);
   const detecter = useServerFn(detecterDoublons);
+  const fusionner = useServerFn(fusionnerLieux);
   const approuver = useServerFn(approuverRevendication);
   const rejeterClaim = useServerFn(rejeterRevendication);
   const chercherDemandes = useServerFn(listerDemandesModeration);
@@ -114,6 +116,17 @@ function PageModeration() {
 
   async function onRejeter(id: string, coords: { latitude: number; longitude: number }) {
     await rejeter({ data: { id, ...coords } });
+    queryClient.invalidateQueries({ queryKey: ["file-attente"] });
+  }
+
+  async function onFusionnerLieux(garderId: string, retirerId: string) {
+    if (
+      !window.confirm(
+        "Fusionner ces deux fiches ? Le doublon sera désactivé, son contenu réattaché à celle-ci.",
+      )
+    )
+      return;
+    await fusionner({ data: { garderId, retirerId } });
     queryClient.invalidateQueries({ queryKey: ["file-attente"] });
   }
 
@@ -195,6 +208,7 @@ function PageModeration() {
               onValider={(coords) => onValider(lieu.id, coords)}
               onRejeter={(coords) => onRejeter(lieu.id, coords)}
               chercherDoublons={(placeId) => detecter({ data: { placeId } })}
+              onFusionner={(idPerdant) => onFusionnerLieux(lieu.id, idPerdant)}
             />
           ))
         )}

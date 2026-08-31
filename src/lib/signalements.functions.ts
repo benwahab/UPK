@@ -112,6 +112,25 @@ export const detecterDoublons = createServerFn({ method: "GET" })
     );
   });
 
+/**
+ * Fusionne deux fiches (contenu du perdant réattaché au gagnant, perdant
+ * désactivé jamais supprimé). Réservé aux admins — la fonction SQL
+ * sous-jacente (SECURITY DEFINER) revérifie explicitement est_admin()
+ * avant toute écriture, indépendamment de ce contrôle côté serveur.
+ */
+export const fusionnerLieux = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({ garderId: z.string().uuid(), retirerId: z.string().uuid() }).parse(data),
+  )
+  .handler(async ({ context, data }): Promise<void> => {
+    const { error } = await context.supabase.rpc("fusionner_lieux", {
+      p_garder_id: data.garderId,
+      p_retirer_id: data.retirerId,
+    });
+    if (error) throw new Error(error.message);
+  });
+
 export type Signalement = {
   id: string;
   place_id: string;

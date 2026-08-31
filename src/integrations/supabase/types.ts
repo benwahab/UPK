@@ -427,13 +427,18 @@ export type Database = {
           category_id: string | null;
           created_at: string;
           description: string | null;
+          derniere_sync: string | null;
           horaires: string | null;
           id: string;
+          importe_le: string | null;
           latitude: number;
+          licence_source: string | null;
           location: unknown;
           longitude: number;
           metadata: Json;
           nom: string;
+          osm_id: string | null;
+          osm_type: string | null;
           owner_id: string | null;
           quartier: string | null;
           site_web: string | null;
@@ -450,13 +455,18 @@ export type Database = {
           category_id?: string | null;
           created_at?: string;
           description?: string | null;
+          derniere_sync?: string | null;
           horaires?: string | null;
           id?: string;
+          importe_le?: string | null;
           latitude: number;
+          licence_source?: string | null;
           location?: unknown;
           longitude: number;
           metadata?: Json;
           nom: string;
+          osm_id?: string | null;
+          osm_type?: string | null;
           owner_id?: string | null;
           quartier?: string | null;
           site_web?: string | null;
@@ -473,13 +483,18 @@ export type Database = {
           category_id?: string | null;
           created_at?: string;
           description?: string | null;
+          derniere_sync?: string | null;
           horaires?: string | null;
           id?: string;
+          importe_le?: string | null;
           latitude?: number;
+          licence_source?: string | null;
           location?: unknown;
           longitude?: number;
           metadata?: Json;
           nom?: string;
+          osm_id?: string | null;
+          osm_type?: string | null;
           owner_id?: string | null;
           quartier?: string | null;
           site_web?: string | null;
@@ -843,6 +858,10 @@ export type Database = {
           };
       approuver_moderateur: {
         Args: { p_demande_id: string };
+        Returns: undefined;
+      };
+      fusionner_lieux: {
+        Args: { p_garder_id: string; p_retirer_id: string };
         Returns: undefined;
       };
       assigner_periode_garde_groupe: {
