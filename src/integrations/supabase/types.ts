@@ -432,14 +432,19 @@ export type Database = {
           adresse: string | null
           category_id: string | null
           created_at: string
+          derniere_sync: string | null
           description: string | null
           horaires: string | null
           id: string
+          importe_le: string | null
           latitude: number
+          licence_source: string | null
           location: unknown
           longitude: number
           metadata: Json
           nom: string
+          osm_id: string | null
+          osm_type: string | null
           owner_id: string | null
           quartier: string | null
           site_web: string | null
@@ -455,14 +460,19 @@ export type Database = {
           adresse?: string | null
           category_id?: string | null
           created_at?: string
+          derniere_sync?: string | null
           description?: string | null
           horaires?: string | null
           id?: string
+          importe_le?: string | null
           latitude: number
+          licence_source?: string | null
           location?: unknown
           longitude: number
           metadata?: Json
           nom: string
+          osm_id?: string | null
+          osm_type?: string | null
           owner_id?: string | null
           quartier?: string | null
           site_web?: string | null
@@ -478,14 +488,19 @@ export type Database = {
           adresse?: string | null
           category_id?: string | null
           created_at?: string
+          derniere_sync?: string | null
           description?: string | null
           horaires?: string | null
           id?: string
+          importe_le?: string | null
           latitude?: number
+          licence_source?: string | null
           location?: unknown
           longitude?: number
           metadata?: Json
           nom?: string
+          osm_id?: string | null
+          osm_type?: string | null
           owner_id?: string | null
           quartier?: string | null
           site_web?: string | null
@@ -895,6 +910,10 @@ export type Database = {
       equals: { Args: { geom1: unknown; geom2: unknown }; Returns: boolean }
       est_admin: { Args: { p_user_id: string }; Returns: boolean }
       est_moderateur: { Args: { p_user_id: string }; Returns: boolean }
+      fusionner_lieux: {
+        Args: { p_garder_id: string; p_retirer_id: string }
+        Returns: undefined
+      }
       geometry: { Args: { "": string }; Returns: unknown }
       geometry_above: {
         Args: { geom1: unknown; geom2: unknown }
