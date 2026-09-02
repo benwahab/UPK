@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ChampMotDePasse } from "@/components/upk/ChampMotDePasse";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,6 +17,7 @@ function PageInscription() {
   const [nom, setNom] = useState("");
   const [email, setEmail] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
+  const [confirmation, setConfirmation] = useState("");
   const [erreur, setErreur] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [confirmationRequise, setConfirmationRequise] = useState(false);
@@ -25,6 +27,10 @@ function PageInscription() {
     setErreur(null);
     if (motDePasse.length < 8) {
       setErreur("Le mot de passe doit contenir au moins 8 caractères.");
+      return;
+    }
+    if (motDePasse !== confirmation) {
+      setErreur("Les deux mots de passe ne correspondent pas.");
       return;
     }
     setEnCours(true);
@@ -99,16 +105,25 @@ function PageInscription() {
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="mot-de-passe">Mot de passe</Label>
-          <Input
+          <ChampMotDePasse
             id="mot-de-passe"
-            type="password"
             required
             minLength={8}
             autoComplete="new-password"
             value={motDePasse}
-            onChange={(e) => setMotDePasse(e.target.value)}
+            onChange={setMotDePasse}
           />
           <p className="text-xs text-muted-foreground">8 caractères minimum.</p>
+        </div>
+        <div className="space-y-1.5">
+          <Label htmlFor="confirmation-mot-de-passe">Confirmer le mot de passe</Label>
+          <ChampMotDePasse
+            id="confirmation-mot-de-passe"
+            required
+            autoComplete="new-password"
+            value={confirmation}
+            onChange={setConfirmation}
+          />
         </div>
         {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
         <Button type="submit" variant="terrain" className="w-full" disabled={enCours}>

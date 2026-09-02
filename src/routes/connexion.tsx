@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ChampMotDePasse } from "@/components/upk/ChampMotDePasse";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
@@ -76,13 +77,12 @@ function PageConnexion() {
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="mot-de-passe">Mot de passe</Label>
-          <Input
+          <ChampMotDePasse
             id="mot-de-passe"
-            type="password"
             required
             autoComplete="current-password"
             value={motDePasse}
-            onChange={(e) => setMotDePasse(e.target.value)}
+            onChange={setMotDePasse}
           />
           <Link
             to="/mot-de-passe-oublie"

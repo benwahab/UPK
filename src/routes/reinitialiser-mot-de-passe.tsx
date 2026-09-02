@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ChampMotDePasse } from "@/components/upk/ChampMotDePasse";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
@@ -88,25 +89,23 @@ function PageReinitialiser() {
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <div className="space-y-1.5">
           <Label htmlFor="mot-de-passe">Nouveau mot de passe</Label>
-          <Input
+          <ChampMotDePasse
             id="mot-de-passe"
-            type="password"
             required
             minLength={8}
             autoComplete="new-password"
             value={motDePasse}
-            onChange={(e) => setMotDePasse(e.target.value)}
+            onChange={setMotDePasse}
           />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="confirmation">Confirmer le mot de passe</Label>
-          <Input
+          <ChampMotDePasse
             id="confirmation"
-            type="password"
             required
             autoComplete="new-password"
             value={confirmation}
-            onChange={(e) => setConfirmation(e.target.value)}
+            onChange={setConfirmation}
           />
         </div>
         {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
