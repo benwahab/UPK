@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Plus, Shield } from "lucide-react";
+import { Check, Plus, Shield, Store } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { BadgeVerification } from "@/components/upk/BadgeVerification";
@@ -22,6 +22,17 @@ export const Route = createFileRoute("/pro/")({
   head: () => ({ meta: [{ title: "Mes établissements — UPK Business" }] }),
   component: PageDashboardPro,
 });
+
+function PointCle({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-2">
+      <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+        <Check className="size-3" aria-hidden />
+      </span>
+      <span>{children}</span>
+    </li>
+  );
+}
 
 function PageDashboardPro() {
   const navigate = useNavigate();
@@ -125,17 +136,38 @@ function PageDashboardPro() {
         </Button>
       </div>
 
-      <Button asChild variant="terrain" className="mt-5 w-full">
-        <Link to="/pro/nouveau">
-          <Plus className="size-4" aria-hidden />
-          Ajouter un établissement
-        </Link>
-      </Button>
-
-      <div className="mt-3 rounded-xl border border-border bg-card p-4">
+      <div className="mt-5 rounded-xl border border-border bg-card p-4">
         <div className="flex items-center gap-2">
-          <Shield className="size-4 text-muted-foreground" aria-hidden />
-          <p className="text-sm font-medium text-card-foreground">Vérification des lieux</p>
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+            <Store className="size-4" aria-hidden />
+          </span>
+          <p className="font-display text-base font-semibold text-card-foreground">
+            Gérer mon établissement
+          </p>
+        </div>
+        <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+          <PointCle>Créez et gérez la fiche de votre établissement sur UPK</PointCle>
+          <PointCle>
+            Ajoutez photos, horaires, stock, menu ou chambres selon votre activité
+          </PointCle>
+          <PointCle>Suivez vos statistiques de fréquentation (vues, appels, itinéraires)</PointCle>
+        </ul>
+        <Button asChild variant="terrain" className="mt-3 w-full">
+          <Link to="/pro/nouveau">
+            <Plus className="size-4" aria-hidden />
+            Ajouter un établissement
+          </Link>
+        </Button>
+      </div>
+
+      <div className="mt-4 rounded-xl border border-border bg-card p-4">
+        <div className="flex items-center gap-2">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+            <Shield className="size-4" aria-hidden />
+          </span>
+          <p className="font-display text-base font-semibold text-card-foreground">
+            Vérification des lieux
+          </p>
         </div>
         {statutModeration.data?.role === "moderator" || statutModeration.data?.role === "admin" ? (
           <Link to="/pro/moderation" className="mt-2 inline-block text-sm font-medium text-primary">
@@ -187,26 +219,23 @@ function PageDashboardPro() {
           </form>
         ) : (
           <>
-            <div className="mt-1 space-y-1.5 text-sm text-muted-foreground">
-              <p>Ce que fait un modérateur sur UPK :</p>
-              <ul className="list-disc space-y-1 pl-5">
-                <li>Voir la liste des lieux proposés en attente de vérification</li>
-                <li>
-                  Se déplacer physiquement sur place — la validation n'est possible qu'une fois
-                  votre position confirmée à moins de 20 m du lieu (vérifié par GPS)
-                </li>
-                <li>Valider le lieu s'il existe bien, ou le rejeter sinon</li>
-              </ul>
-              <p>
-                Votre demande sera examinée par un administrateur, qui peut aussi retirer ce rôle à
-                tout moment.
-              </p>
-            </div>
+            <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+              <PointCle>Voir la liste des lieux proposés en attente de vérification</PointCle>
+              <PointCle>
+                Se déplacer physiquement sur place — validation possible uniquement une fois votre
+                position confirmée à moins de 20 m du lieu (vérifié par GPS)
+              </PointCle>
+              <PointCle>Valider le lieu s'il existe bien, ou le rejeter sinon</PointCle>
+            </ul>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Votre demande sera examinée par un administrateur, qui peut aussi retirer ce rôle à
+              tout moment.
+            </p>
             <Button
               type="button"
               variant="outline"
               size="sm"
-              className="mt-2"
+              className="mt-3"
               onClick={ouvrirFormulaire}
             >
               Devenir modérateur
