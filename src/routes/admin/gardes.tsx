@@ -1,10 +1,11 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Plus, Trash2, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { AdminShell } from "@/components/upk/AdminShell";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -93,23 +94,15 @@ function PageGroupesGarde() {
 
   if (chargement || !utilisateur || role.isPending || role.data !== true) {
     return (
-      <main className="mx-auto min-h-screen w-full max-w-2xl px-4 py-16 text-center text-sm text-muted-foreground">
-        Chargement…
-      </main>
+      <AdminShell>
+        <p className="py-16 text-center text-sm text-muted-foreground">Chargement…</p>
+      </AdminShell>
     );
   }
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
-      <div className="flex items-center gap-3 pt-6">
-        <Link to="/admin" className="text-sm font-medium text-primary">
-          ← Modération
-        </Link>
-        <Link to="/" className="text-sm font-medium text-muted-foreground">
-          Accueil
-        </Link>
-      </div>
-      <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
+    <AdminShell>
+      <h1 className="font-display text-xl font-semibold text-foreground">
         Groupes de garde (pharmacies)
       </h1>
       <p className="mt-1 text-sm text-muted-foreground">
@@ -167,7 +160,7 @@ function PageGroupesGarde() {
           ))
         )}
       </div>
-    </main>
+    </AdminShell>
   );
 }
 

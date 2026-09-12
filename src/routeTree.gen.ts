@@ -25,6 +25,10 @@ import { Route as ReinitialiserMotDePasseRouteImport } from './routes/reinitiali
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 import { Route as AdminGardesRouteImport } from './routes/admin/gardes'
+import { Route as AdminModerateursRouteImport } from './routes/admin/moderateurs'
+import { Route as AdminModerationRouteImport } from './routes/admin/moderation'
+import { Route as AdminRevendicationsRouteImport } from './routes/admin/revendications'
+import { Route as AdminSignalementsRouteImport } from './routes/admin/signalements'
 import { Route as LieuIdRouteImport } from './routes/lieu.$id'
 import { Route as ProIndexRouteImport } from './routes/pro/index'
 import { Route as ProIdRouteImport } from './routes/pro/$id'
@@ -115,6 +119,26 @@ const AdminGardesRoute = AdminGardesRouteImport.update({
   path: '/admin/gardes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminModerateursRoute = AdminModerateursRouteImport.update({
+  id: '/admin/moderateurs',
+  path: '/admin/moderateurs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminModerationRoute = AdminModerationRouteImport.update({
+  id: '/admin/moderation',
+  path: '/admin/moderation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRevendicationsRoute = AdminRevendicationsRouteImport.update({
+  id: '/admin/revendications',
+  path: '/admin/revendications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSignalementsRoute = AdminSignalementsRouteImport.update({
+  id: '/admin/signalements',
+  path: '/admin/signalements',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LieuIdRoute = LieuIdRouteImport.update({
   id: '/lieu/$id',
   path: '/lieu/$id',
@@ -172,6 +196,10 @@ export interface FileRoutesByFullPath {
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/gardes': typeof AdminGardesRoute
+  '/admin/moderateurs': typeof AdminModerateursRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/revendications': typeof AdminRevendicationsRoute
+  '/admin/signalements': typeof AdminSignalementsRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/moderation': typeof ProModerationRoute
@@ -198,6 +226,10 @@ export interface FileRoutesByTo {
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/gardes': typeof AdminGardesRoute
+  '/admin/moderateurs': typeof AdminModerateursRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/revendications': typeof AdminRevendicationsRoute
+  '/admin/signalements': typeof AdminSignalementsRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/moderation': typeof ProModerationRoute
@@ -225,6 +257,10 @@ export interface FileRoutesById {
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/gardes': typeof AdminGardesRoute
+  '/admin/moderateurs': typeof AdminModerateursRoute
+  '/admin/moderation': typeof AdminModerationRoute
+  '/admin/revendications': typeof AdminRevendicationsRoute
+  '/admin/signalements': typeof AdminSignalementsRoute
   '/lieu/$id': typeof LieuIdRoute
   '/pro/$id': typeof ProIdRouteWithChildren
   '/pro/moderation': typeof ProModerationRoute
@@ -253,6 +289,10 @@ export interface FileRouteTypes {
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
     | '/admin/gardes'
+    | '/admin/moderateurs'
+    | '/admin/moderation'
+    | '/admin/revendications'
+    | '/admin/signalements'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/moderation'
@@ -279,6 +319,10 @@ export interface FileRouteTypes {
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
     | '/admin/gardes'
+    | '/admin/moderateurs'
+    | '/admin/moderation'
+    | '/admin/revendications'
+    | '/admin/signalements'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/moderation'
@@ -305,6 +349,10 @@ export interface FileRouteTypes {
     | '/reinitialiser-mot-de-passe'
     | '/admin/categories'
     | '/admin/gardes'
+    | '/admin/moderateurs'
+    | '/admin/moderation'
+    | '/admin/revendications'
+    | '/admin/signalements'
     | '/lieu/$id'
     | '/pro/$id'
     | '/pro/moderation'
@@ -332,6 +380,10 @@ export interface RootRouteChildren {
   ReinitialiserMotDePasseRoute: typeof ReinitialiserMotDePasseRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminGardesRoute: typeof AdminGardesRoute
+  AdminModerateursRoute: typeof AdminModerateursRoute
+  AdminModerationRoute: typeof AdminModerationRoute
+  AdminRevendicationsRoute: typeof AdminRevendicationsRoute
+  AdminSignalementsRoute: typeof AdminSignalementsRoute
   LieuIdRoute: typeof LieuIdRoute
   ProIdRoute: typeof ProIdRouteWithChildren
   ProModerationRoute: typeof ProModerationRoute
@@ -454,6 +506,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminGardesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/moderateurs': {
+      id: '/admin/moderateurs'
+      path: '/admin/moderateurs'
+      fullPath: '/admin/moderateurs'
+      preLoaderRoute: typeof AdminModerateursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/moderation': {
+      id: '/admin/moderation'
+      path: '/admin/moderation'
+      fullPath: '/admin/moderation'
+      preLoaderRoute: typeof AdminModerationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/revendications': {
+      id: '/admin/revendications'
+      path: '/admin/revendications'
+      fullPath: '/admin/revendications'
+      preLoaderRoute: typeof AdminRevendicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/signalements': {
+      id: '/admin/signalements'
+      path: '/admin/signalements'
+      fullPath: '/admin/signalements'
+      preLoaderRoute: typeof AdminSignalementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lieu/$id': {
       id: '/lieu/$id'
       path: '/lieu/$id'
@@ -543,6 +623,10 @@ const rootRouteChildren: RootRouteChildren = {
   ReinitialiserMotDePasseRoute: ReinitialiserMotDePasseRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   AdminGardesRoute: AdminGardesRoute,
+  AdminModerateursRoute: AdminModerateursRoute,
+  AdminModerationRoute: AdminModerationRoute,
+  AdminRevendicationsRoute: AdminRevendicationsRoute,
+  AdminSignalementsRoute: AdminSignalementsRoute,
   LieuIdRoute: LieuIdRoute,
   ProIdRoute: ProIdRouteWithChildren,
   ProModerationRoute: ProModerationRoute,

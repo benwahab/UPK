@@ -158,6 +158,65 @@ export const mesStatistiquesModeration = createServerFn({ method: "GET" })
     return { validations, rejets };
   });
 
+export type StatistiquesAdmin = {
+  lieuxActifs: number;
+  aVerifier: number;
+  signalementsOuverts: number;
+  revendicationsEnAttente: number;
+  moderateursActifs: number;
+};
+
+/** Chiffres clés pour la vue d'ensemble du tableau de bord admin. */
+export const obtenirStatistiquesAdmin = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<StatistiquesAdmin> => {
+    const { data: profil, error: erreurProfil } = await context.supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", context.userId)
+      .maybeSingle();
+    if (erreurProfil) throw new Error(erreurProfil.message);
+    if (profil?.role !== "admin") throw new Error("Réservé aux administrateurs.");
+
+    const [
+      lieuxActifs,
+      aVerifier,
+      signalementsOuverts,
+      revendicationsEnAttente,
+      moderateursActifs,
+    ] = await Promise.all([
+      context.supabase
+        .from("places")
+        .select("id", { count: "exact", head: true })
+        .eq("actif", true),
+      context.supabase
+        .from("places")
+        .select("id", { count: "exact", head: true })
+        .eq("actif", true)
+        .eq("statut_verification", "a_verifier"),
+      context.supabase
+        .from("signalements")
+        .select("id", { count: "exact", head: true })
+        .eq("traite", false),
+      context.supabase
+        .from("revendications")
+        .select("id", { count: "exact", head: true })
+        .eq("statut", "en_attente"),
+      context.supabase
+        .from("profiles")
+        .select("id", { count: "exact", head: true })
+        .eq("role", "moderator"),
+    ]);
+
+    return {
+      lieuxActifs: lieuxActifs.count ?? 0,
+      aVerifier: aVerifier.count ?? 0,
+      signalementsOuverts: signalementsOuverts.count ?? 0,
+      revendicationsEnAttente: revendicationsEnAttente.count ?? 0,
+      moderateursActifs: moderateursActifs.count ?? 0,
+    };
+  });
+
 export type StatistiqueModerateur = {
   moderateur_id: string;
   nom_complet: string | null;
