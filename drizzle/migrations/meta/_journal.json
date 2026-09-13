@@ -36,6 +36,13 @@
       "when": 1788282922224,
       "tag": "0004_provenance_et_fusion",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789331839051,
+      "tag": "0005_roles_permissions_journal_admin",
+      "breakpoints": true
     }
   ]
 }
