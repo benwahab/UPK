@@ -312,6 +312,54 @@ export type Database = {
         }
         Relationships: []
       }
+      journal_admin: {
+        Row: {
+          acteur_id: string | null
+          acteur_nom: string | null
+          acteur_role: string
+          action: string
+          apres: Json | null
+          avant: Json | null
+          cible_id: string | null
+          cible_libelle: string | null
+          cible_type: string | null
+          created_at: string
+          id: string
+          resultat: string
+          section: string
+        }
+        Insert: {
+          acteur_id?: string | null
+          acteur_nom?: string | null
+          acteur_role: string
+          action: string
+          apres?: Json | null
+          avant?: Json | null
+          cible_id?: string | null
+          cible_libelle?: string | null
+          cible_type?: string | null
+          created_at?: string
+          id?: string
+          resultat?: string
+          section: string
+        }
+        Update: {
+          acteur_id?: string | null
+          acteur_nom?: string | null
+          acteur_role?: string
+          action?: string
+          apres?: Json | null
+          avant?: Json | null
+          cible_id?: string | null
+          cible_libelle?: string | null
+          cible_type?: string | null
+          created_at?: string
+          id?: string
+          resultat?: string
+          section?: string
+        }
+        Relationships: []
+      }
       medicaments: {
         Row: {
           conditionnement: string | null
@@ -442,6 +490,7 @@ export type Database = {
           location: unknown
           longitude: number
           metadata: Json
+          motif_refus: string | null
           nom: string
           osm_id: string | null
           osm_type: string | null
@@ -449,6 +498,7 @@ export type Database = {
           quartier: string | null
           site_web: string | null
           source: Database["public"]["Enums"]["place_source"]
+          statut_soumission: string | null
           statut_verification: Database["public"]["Enums"]["verification_status"]
           submitted_by: string | null
           telephone: string | null
@@ -470,6 +520,7 @@ export type Database = {
           location?: unknown
           longitude: number
           metadata?: Json
+          motif_refus?: string | null
           nom: string
           osm_id?: string | null
           osm_type?: string | null
@@ -477,6 +528,7 @@ export type Database = {
           quartier?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
+          statut_soumission?: string | null
           statut_verification?: Database["public"]["Enums"]["verification_status"]
           submitted_by?: string | null
           telephone?: string | null
@@ -498,6 +550,7 @@ export type Database = {
           location?: unknown
           longitude?: number
           metadata?: Json
+          motif_refus?: string | null
           nom?: string
           osm_id?: string | null
           osm_type?: string | null
@@ -505,6 +558,7 @@ export type Database = {
           quartier?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
+          statut_soumission?: string | null
           statut_verification?: Database["public"]["Enums"]["verification_status"]
           submitted_by?: string | null
           telephone?: string | null
@@ -570,6 +624,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          admin_suspendu: boolean
           created_at: string
           id: string
           nom_complet: string | null
@@ -579,6 +634,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          admin_suspendu?: boolean
           created_at?: string
           id: string
           nom_complet?: string | null
@@ -588,6 +644,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          admin_suspendu?: boolean
           created_at?: string
           id?: string
           nom_complet?: string | null
@@ -686,6 +743,54 @@ export type Database = {
           proj4text?: string | null
           srid?: number
           srtext?: string | null
+        }
+        Relationships: []
+      }
+      user_permissions: {
+        Row: {
+          accorde_par: string | null
+          created_at: string
+          id: string
+          permission: string
+          user_id: string
+        }
+        Insert: {
+          accorde_par?: string | null
+          created_at?: string
+          id?: string
+          permission: string
+          user_id: string
+        }
+        Update: {
+          accorde_par?: string | null
+          created_at?: string
+          id?: string
+          permission?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          accorde_par: string | null
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          accorde_par?: string | null
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          accorde_par?: string | null
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -824,6 +929,24 @@ export type Database = {
         Returns: unknown
       }
       _st_within: { Args: { geom1: unknown; geom2: unknown }; Returns: boolean }
+      a_permission: {
+        Args: { _permission: string; _user_id: string }
+        Returns: boolean
+      }
+      a_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      accorder_role: {
+        Args: {
+          p_role: Database["public"]["Enums"]["app_role"]
+          p_user_id: string
+        }
+        Returns: undefined
+      }
       addauth: { Args: { "": string }; Returns: boolean }
       addgeometrycolumn:
         | {
@@ -875,6 +998,14 @@ export type Database = {
         }
         Returns: number
       }
+      definir_permissions: {
+        Args: { p_permissions: string[]; p_user_id: string }
+        Returns: undefined
+      }
+      definir_statut_soumission: {
+        Args: { p_motif?: string; p_place_id: string; p_statut: string }
+        Returns: undefined
+      }
       disablelongtransactions: { Args: never; Returns: string }
       dropgeometrycolumn:
         | {
@@ -910,6 +1041,9 @@ export type Database = {
       equals: { Args: { geom1: unknown; geom2: unknown }; Returns: boolean }
       est_admin: { Args: { p_user_id: string }; Returns: boolean }
       est_moderateur: { Args: { p_user_id: string }; Returns: boolean }
+      est_staff: { Args: { _user_id: string }; Returns: boolean }
+      est_super_admin: { Args: { _user_id: string }; Returns: boolean }
+      est_suspendu: { Args: { _user_id: string }; Returns: boolean }
       fusionner_lieux: {
         Args: { p_garder_id: string; p_retirer_id: string }
         Returns: undefined
@@ -1013,7 +1147,28 @@ export type Database = {
       }
       geomfromewkt: { Args: { "": string }; Returns: unknown }
       gettransactionid: { Args: never; Returns: unknown }
+      journaliser: {
+        Args: {
+          p_action: string
+          p_apres?: Json
+          p_avant?: Json
+          p_cible_id?: string
+          p_cible_libelle?: string
+          p_cible_type?: string
+          p_resultat?: string
+          p_section: string
+        }
+        Returns: undefined
+      }
       longtransactionsenabled: { Args: never; Returns: boolean }
+      mes_autorisations: {
+        Args: never
+        Returns: {
+          permissions: string[]
+          roles: string[]
+          suspendu: boolean
+        }[]
+      }
       populate_geometry_columns:
         | { Args: { tbl_oid: unknown; use_typmod?: boolean }; Returns: number }
         | { Args: { use_typmod?: boolean }; Returns: string }
@@ -1054,6 +1209,20 @@ export type Database = {
       }
       postgis_version: { Args: never; Returns: string }
       postgis_wagyu_version: { Args: never; Returns: string }
+      rechercher_comptes: {
+        Args: { p_recherche?: string }
+        Returns: {
+          admin_suspendu: boolean
+          cree_le: string
+          email: string
+          id: string
+          nom_complet: string
+          permissions: string[]
+          prenom: string
+          roles: string[]
+          telephone: string
+        }[]
+      }
       rechercher_lieux: {
         Args: {
           categorie_slug?: string
@@ -1084,6 +1253,13 @@ export type Database = {
       }
       rejeter_demande_moderation: {
         Args: { p_demande_id: string }
+        Returns: undefined
+      }
+      retirer_role: {
+        Args: {
+          p_role: Database["public"]["Enums"]["app_role"]
+          p_user_id: string
+        }
         Returns: undefined
       }
       revoquer_moderateur: { Args: { p_user_id: string }; Returns: undefined }
@@ -1670,6 +1846,10 @@ export type Database = {
         Args: { geom: unknown; move: number; wrap: number }
         Returns: unknown
       }
+      suspendre_acces_admin: {
+        Args: { p_suspendu: boolean; p_user_id: string }
+        Returns: undefined
+      }
       unlockrows: { Args: { "": string }; Returns: number }
       updategeometrysrid: {
         Args: {
@@ -1683,6 +1863,11 @@ export type Database = {
       }
     }
     Enums: {
+      app_role:
+        | "professionnel"
+        | "moderateur"
+        | "administrateur"
+        | "super_admin"
       place_source: "interne" | "web_public" | "soumission_utilisateur"
       verification_status: "a_verifier" | "source_fiable" | "verifie"
     }
@@ -1820,6 +2005,12 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      app_role: [
+        "professionnel",
+        "moderateur",
+        "administrateur",
+        "super_admin",
+      ],
       place_source: ["interne", "web_public", "soumission_utilisateur"],
       verification_status: ["a_verifier", "source_fiable", "verifie"],
     },
