@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { CarteLieu } from "@/components/upk/CarteLieu";
 import { BasculeTheme } from "@/components/upk/BasculeTheme";
+import { BoutonEspaceAdmin } from "@/components/upk/BoutonEspaceAdmin";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { trouverCategorieParBesoin } from "@/lib/besoins";
@@ -145,7 +146,10 @@ function PageRecherche() {
             Pharmacies de garde
           </Link>
         </div>
-        <BasculeTheme />
+        <div className="flex items-center gap-2">
+          <BoutonEspaceAdmin />
+          <BasculeTheme />
+        </div>
       </div>
 
       <header

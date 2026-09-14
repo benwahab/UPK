@@ -23,7 +23,9 @@ import { Route as PolitiqueConfidentialiteRouteImport } from './routes/politique
 import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as ReinitialiserMotDePasseRouteImport } from './routes/reinitialiser-mot-de-passe'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminActiviteRouteImport } from './routes/admin/activite'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
+import { Route as AdminComptesRouteImport } from './routes/admin/comptes'
 import { Route as AdminGardesRouteImport } from './routes/admin/gardes'
 import { Route as AdminModerateursRouteImport } from './routes/admin/moderateurs'
 import { Route as AdminModerationRouteImport } from './routes/admin/moderation'
@@ -109,9 +111,19 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminActiviteRoute = AdminActiviteRouteImport.update({
+  id: '/admin/activite',
+  path: '/admin/activite',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
   id: '/admin/categories',
   path: '/admin/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminComptesRoute = AdminComptesRouteImport.update({
+  id: '/admin/comptes',
+  path: '/admin/comptes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminGardesRoute = AdminGardesRouteImport.update({
@@ -194,7 +206,9 @@ export interface FileRoutesByFullPath {
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
+  '/admin/activite': typeof AdminActiviteRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/comptes': typeof AdminComptesRoute
   '/admin/gardes': typeof AdminGardesRoute
   '/admin/moderateurs': typeof AdminModerateursRoute
   '/admin/moderation': typeof AdminModerationRoute
@@ -224,7 +238,9 @@ export interface FileRoutesByTo {
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
+  '/admin/activite': typeof AdminActiviteRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/comptes': typeof AdminComptesRoute
   '/admin/gardes': typeof AdminGardesRoute
   '/admin/moderateurs': typeof AdminModerateursRoute
   '/admin/moderation': typeof AdminModerationRoute
@@ -255,7 +271,9 @@ export interface FileRoutesById {
   '/politique-confidentialite': typeof PolitiqueConfidentialiteRoute
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
+  '/admin/activite': typeof AdminActiviteRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/admin/comptes': typeof AdminComptesRoute
   '/admin/gardes': typeof AdminGardesRoute
   '/admin/moderateurs': typeof AdminModerateursRoute
   '/admin/moderation': typeof AdminModerationRoute
@@ -287,7 +305,9 @@ export interface FileRouteTypes {
     | '/politique-confidentialite'
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
+    | '/admin/activite'
     | '/admin/categories'
+    | '/admin/comptes'
     | '/admin/gardes'
     | '/admin/moderateurs'
     | '/admin/moderation'
@@ -317,7 +337,9 @@ export interface FileRouteTypes {
     | '/politique-confidentialite'
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
+    | '/admin/activite'
     | '/admin/categories'
+    | '/admin/comptes'
     | '/admin/gardes'
     | '/admin/moderateurs'
     | '/admin/moderation'
@@ -347,7 +369,9 @@ export interface FileRouteTypes {
     | '/politique-confidentialite'
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
+    | '/admin/activite'
     | '/admin/categories'
+    | '/admin/comptes'
     | '/admin/gardes'
     | '/admin/moderateurs'
     | '/admin/moderation'
@@ -378,7 +402,9 @@ export interface RootRouteChildren {
   PolitiqueConfidentialiteRoute: typeof PolitiqueConfidentialiteRoute
   ProposerRoute: typeof ProposerRoute
   ReinitialiserMotDePasseRoute: typeof ReinitialiserMotDePasseRoute
+  AdminActiviteRoute: typeof AdminActiviteRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
+  AdminComptesRoute: typeof AdminComptesRoute
   AdminGardesRoute: typeof AdminGardesRoute
   AdminModerateursRoute: typeof AdminModerateursRoute
   AdminModerationRoute: typeof AdminModerationRoute
@@ -492,11 +518,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/activite': {
+      id: '/admin/activite'
+      path: '/admin/activite'
+      fullPath: '/admin/activite'
+      preLoaderRoute: typeof AdminActiviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/categories': {
       id: '/admin/categories'
       path: '/admin/categories'
       fullPath: '/admin/categories'
       preLoaderRoute: typeof AdminCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/comptes': {
+      id: '/admin/comptes'
+      path: '/admin/comptes'
+      fullPath: '/admin/comptes'
+      preLoaderRoute: typeof AdminComptesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/gardes': {
@@ -621,7 +661,9 @@ const rootRouteChildren: RootRouteChildren = {
   PolitiqueConfidentialiteRoute: PolitiqueConfidentialiteRoute,
   ProposerRoute: ProposerRoute,
   ReinitialiserMotDePasseRoute: ReinitialiserMotDePasseRoute,
+  AdminActiviteRoute: AdminActiviteRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
+  AdminComptesRoute: AdminComptesRoute,
   AdminGardesRoute: AdminGardesRoute,
   AdminModerateursRoute: AdminModerateursRoute,
   AdminModerationRoute: AdminModerationRoute,
