@@ -37,9 +37,10 @@ export const rechercherComptes = createServerFn({ method: "GET" })
     z.object({ recherche: z.string().trim().max(120).optional() }).parse(data ?? {}),
   )
   .handler(async ({ context, data }): Promise<CompteAdmin[]> => {
-    const { data: lignes, error } = await context.supabase.rpc("rechercher_comptes", {
-      p_recherche: data.recherche ?? undefined,
-    });
+    const { data: lignes, error } = await context.supabase.rpc(
+      "rechercher_comptes",
+      data.recherche ? { p_recherche: data.recherche } : {},
+    );
     if (error) throw new Error(error.message);
     return (lignes ?? []).map((l) => ({
       id: l.id as string,
@@ -177,9 +178,9 @@ export const journaliserAction = createServerFn({ method: "POST" })
       .rpc("journaliser", {
         p_action: data.action,
         p_section: data.section,
-        p_cible_type: data.cibleType ?? undefined,
-        p_cible_id: data.cibleId ?? undefined,
-        p_cible_libelle: data.cibleLibelle ?? undefined,
+        ...(data.cibleType ? { p_cible_type: data.cibleType } : {}),
+        ...(data.cibleId ? { p_cible_id: data.cibleId } : {}),
+        ...(data.cibleLibelle ? { p_cible_libelle: data.cibleLibelle } : {}),
         p_resultat: data.resultat ?? "succes",
       })
       .then(
