@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import type { Json } from "@/integrations/supabase/types";
 import type { Autorisations, RoleUpk } from "./autorisations";
 
 /** Rôles + permissions du compte connecté (source d'autorité côté serveur). */
@@ -37,7 +38,7 @@ export const rechercherComptes = createServerFn({ method: "GET" })
   )
   .handler(async ({ context, data }): Promise<CompteAdmin[]> => {
     const { data: lignes, error } = await context.supabase.rpc("rechercher_comptes", {
-      p_recherche: data.recherche ?? null,
+      p_recherche: data.recherche ?? undefined,
     });
     if (error) throw new Error(error.message);
     return (lignes ?? []).map((l) => ({
@@ -120,8 +121,8 @@ export type LigneJournal = {
   cible_id: string | null;
   cible_libelle: string | null;
   resultat: string;
-  avant: unknown;
-  apres: unknown;
+  avant: Json | null;
+  apres: Json | null;
   created_at: string;
 };
 
@@ -176,9 +177,9 @@ export const journaliserAction = createServerFn({ method: "POST" })
       .rpc("journaliser", {
         p_action: data.action,
         p_section: data.section,
-        p_cible_type: data.cibleType ?? null,
-        p_cible_id: data.cibleId ?? null,
-        p_cible_libelle: data.cibleLibelle ?? null,
+        p_cible_type: data.cibleType ?? undefined,
+        p_cible_id: data.cibleId ?? undefined,
+        p_cible_libelle: data.cibleLibelle ?? undefined,
         p_resultat: data.resultat ?? "succes",
       })
       .then(
