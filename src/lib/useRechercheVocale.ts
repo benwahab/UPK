@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // L'API Web Speech n'est pas standardisée dans le DOM lib de TypeScript ;
 // on ne type que ce dont on a besoin.
@@ -24,10 +24,12 @@ export function useRechercheVocale(surResultat: (texte: string) => void) {
   const [enEcoute, setEnEcoute] = useState(false);
   const instanceRef = useRef<ReconnaissanceVocale | null>(null);
 
-  const disponible = useMemo(() => {
-    if (typeof window === "undefined") return false;
+  // Détection après hydratation : le serveur ne connaît pas l'API vocale,
+  // donc l'état initial doit être identique côté serveur et client.
+  const [disponible, setDisponible] = useState(false);
+  useEffect(() => {
     const w = window as unknown as Record<string, unknown>;
-    return Boolean(w["SpeechRecognition"] || w["webkitSpeechRecognition"]);
+    setDisponible(Boolean(w["SpeechRecognition"] || w["webkitSpeechRecognition"]));
   }, []);
 
   const demarrer = useCallback(() => {

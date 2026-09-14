@@ -1,18 +1,73 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Copy, Flag, LayoutDashboard, ShieldCheck, Store, Tag, Users } from "lucide-react";
+import {
+  Copy,
+  Flag,
+  History,
+  LayoutDashboard,
+  ShieldCheck,
+  Store,
+  Tag,
+  UserCog,
+  Users,
+} from "lucide-react";
+
+import { peut, roleLePlusEleve, LIBELLES_ROLE } from "@/lib/autorisations";
+import { useAutorisations } from "@/lib/useAutorisations";
 
 const ONGLETS = [
-  { to: "/admin", label: "Vue d'ensemble", icone: LayoutDashboard, exact: true },
-  { to: "/admin/moderation", label: "Modération", icone: Copy, exact: false },
-  { to: "/admin/signalements", label: "Signalements", icone: Flag, exact: false },
-  { to: "/admin/revendications", label: "Revendications", icone: Store, exact: false },
-  { to: "/admin/moderateurs", label: "Modérateurs", icone: Users, exact: false },
-  { to: "/admin/categories", label: "Catégories", icone: Tag, exact: false },
-  { to: "/admin/gardes", label: "Garde", icone: ShieldCheck, exact: false },
+  { to: "/admin", label: "Vue d'ensemble", icone: LayoutDashboard, exact: true, permission: null },
+  {
+    to: "/admin/moderation",
+    label: "Modération",
+    icone: Copy,
+    exact: false,
+    permission: "validation_lieux",
+  },
+  {
+    to: "/admin/signalements",
+    label: "Signalements",
+    icone: Flag,
+    exact: false,
+    permission: "etablissements",
+  },
+  {
+    to: "/admin/revendications",
+    label: "Revendications",
+    icone: Store,
+    exact: false,
+    permission: "professionnels",
+  },
+  {
+    to: "/admin/moderateurs",
+    label: "Modérateurs",
+    icone: Users,
+    exact: false,
+    permission: "moderateurs",
+  },
+  { to: "/admin/comptes", label: "Comptes", icone: UserCog, exact: false, permission: "comptes" },
+  {
+    to: "/admin/activite",
+    label: "Activité",
+    icone: History,
+    exact: false,
+    permission: "activite",
+  },
+  {
+    to: "/admin/categories",
+    label: "Catégories",
+    icone: Tag,
+    exact: false,
+    permission: "parametres",
+  },
+  { to: "/admin/gardes", label: "Garde", icone: ShieldCheck, exact: false, permission: "parametres" },
 ] as const;
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { autorisations } = useAutorisations();
+  const role = roleLePlusEleve(autorisations);
+
+  const onglets = ONGLETS.filter((o) => !o.permission || peut(autorisations, o.permission));
 
   return (
     <div className="min-h-screen bg-background">
@@ -23,6 +78,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               U
             </span>
             <p className="font-display text-sm font-semibold tracking-tight">UPK Admin</p>
+            {role ? (
+              <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium">
+                {LIBELLES_ROLE[role]}
+              </span>
+            ) : null}
           </div>
           <Link
             to="/"
@@ -33,7 +93,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
         <nav aria-label="Sections admin" className="mx-auto max-w-2xl overflow-x-auto px-4 pb-2">
           <ul className="flex w-max gap-1">
-            {ONGLETS.map((onglet) => {
+            {onglets.map((onglet) => {
               const actif = onglet.exact ? pathname === onglet.to : pathname.startsWith(onglet.to);
               const Icone = onglet.icone;
               return (
