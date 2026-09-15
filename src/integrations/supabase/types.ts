@@ -88,6 +88,60 @@ export type Database = {
           },
         ]
       }
+      assignations_moderation: {
+        Row: {
+          created_at: string
+          id: string
+          latitude_corrigee: number | null
+          longitude_corrigee: number | null
+          lot_id: string
+          moderateur_id: string
+          motif_refus: string | null
+          place_id: string
+          statut: string
+          traite_le: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          latitude_corrigee?: number | null
+          longitude_corrigee?: number | null
+          lot_id: string
+          moderateur_id: string
+          motif_refus?: string | null
+          place_id: string
+          statut?: string
+          traite_le?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          latitude_corrigee?: number | null
+          longitude_corrigee?: number | null
+          lot_id?: string
+          moderateur_id?: string
+          motif_refus?: string | null
+          place_id?: string
+          statut?: string
+          traite_le?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assignations_moderation_lot_id_fkey"
+            columns: ["lot_id"]
+            isOneToOne: false
+            referencedRelation: "lots_assignation"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assignations_moderation_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       categories: {
         Row: {
           created_at: string
@@ -357,6 +411,42 @@ export type Database = {
           id?: string
           resultat?: string
           section?: string
+        }
+        Relationships: []
+      }
+      lots_assignation: {
+        Row: {
+          assigne_par: string | null
+          centre_lat: number
+          centre_lng: number
+          created_at: string
+          id: string
+          moderateur_id: string
+          nom: string
+          rayon_m: number
+          statut: string
+        }
+        Insert: {
+          assigne_par?: string | null
+          centre_lat: number
+          centre_lng: number
+          created_at?: string
+          id?: string
+          moderateur_id: string
+          nom: string
+          rayon_m?: number
+          statut?: string
+        }
+        Update: {
+          assigne_par?: string | null
+          centre_lat?: number
+          centre_lng?: number
+          created_at?: string
+          id?: string
+          moderateur_id?: string
+          nom?: string
+          rayon_m?: number
+          statut?: string
         }
         Relationships: []
       }
@@ -1159,6 +1249,19 @@ export type Database = {
           p_section: string
         }
         Returns: undefined
+      }
+      lieux_a_assigner: {
+        Args: { p_lat: number; p_lng: number; p_rayon_m: number }
+        Returns: {
+          adresse: string
+          categorie_nom: string
+          distance_m: number
+          id: string
+          latitude: number
+          longitude: number
+          nom: string
+          quartier: string
+        }[]
       }
       longtransactionsenabled: { Args: never; Returns: boolean }
       mes_autorisations: {
