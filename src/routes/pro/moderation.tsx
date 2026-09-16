@@ -7,12 +7,11 @@ import { useEffect } from "react";
 import { CarteTacheAssignee } from "@/components/upk/CarteTacheAssignee";
 import {
   mesLieuxAssignes,
-  mesStatistiquesModeration,
   rejeterAssignation,
   validerAssignation,
   type LieuAssigne,
 } from "@/lib/assignations.functions";
-import { monStatutModeration } from "@/lib/moderateurs.functions";
+import { mesStatistiquesModeration, monStatutModeration } from "@/lib/moderateurs.functions";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/moderation")({

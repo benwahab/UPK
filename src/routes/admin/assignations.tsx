@@ -12,10 +12,10 @@ import {
   creerLotAssignation,
   lieuxAAssigner,
   listerLotsAssignation,
-  listerModerateurs,
   RAYON_MAX_METRES,
   type LieuAAssigner,
 } from "@/lib/assignations.functions";
+import { listerModerateurs } from "@/lib/moderateurs.functions";
 import { peut } from "@/lib/autorisations";
 import { useAutorisations } from "@/lib/useAutorisations";
 import { useSession } from "@/lib/useSession";
@@ -37,14 +37,14 @@ function PageAssignations() {
   const chercherLots = useServerFn(listerLotsAssignation);
   const chercherModerateurs = useServerFn(listerModerateurs);
 
-  const autorise = peut(autorisations, "moderateurs");
+  const autorise = peut(autorisations ?? null, "moderateurs");
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
   }, [chargement, utilisateur, navigate]);
 
   useEffect(() => {
-    if (!chargement && utilisateur && autorisations.roles.length > 0 && !autorise) {
+    if (!chargement && utilisateur && (autorisations?.roles.length ?? 0) > 0 && !autorise) {
       navigate({ to: "/admin" });
     }
   }, [chargement, utilisateur, autorise, autorisations.roles.length, navigate]);
@@ -136,7 +136,7 @@ function PageAssignations() {
     }
   }
 
-  if (chargement || !utilisateur || autorisations.roles.length === 0 || !autorise) {
+  if (chargement || !utilisateur || (autorisations?.roles.length ?? 0) === 0 || !autorise) {
     return (
       <AdminShell>
         <p className="py-16 text-center text-sm text-muted-foreground">Chargement…</p>
@@ -165,7 +165,7 @@ function PageAssignations() {
             className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm"
           >
             <option value="">— Choisir —</option>
-            {(moderateurs.data ?? []).map((m) => (
+            {(moderateurs.data ?? []).map((m: { id: string; prenom: string | null; nom_complet: string | null }) => (
               <option key={m.id} value={m.id}>
                 {m.prenom ?? ""} {m.nom_complet ?? "Compte sans nom"}
               </option>
