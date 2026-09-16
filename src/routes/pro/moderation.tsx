@@ -4,14 +4,19 @@ import { useServerFn } from "@tanstack/react-start";
 import { ShieldCheck } from "lucide-react";
 import { useEffect } from "react";
 
-import { CarteLieuAVerifier } from "@/components/upk/CarteLieuAVerifier";
-import { listerFileAttente, rejeterLieu, validerLieu } from "@/lib/moderation.functions";
-import { detecterDoublons } from "@/lib/signalements.functions";
-import { mesStatistiquesModeration, monStatutModeration } from "@/lib/moderateurs.functions";
+import { CarteTacheAssignee } from "@/components/upk/CarteTacheAssignee";
+import {
+  mesLieuxAssignes,
+  mesStatistiquesModeration,
+  rejeterAssignation,
+  validerAssignation,
+  type LieuAssigne,
+} from "@/lib/assignations.functions";
+import { monStatutModeration } from "@/lib/moderateurs.functions";
 import { useSession } from "@/lib/useSession";
 
 export const Route = createFileRoute("/pro/moderation")({
-  head: () => ({ meta: [{ title: "Vérification des lieux — UPK" }] }),
+  head: () => ({ meta: [{ title: "Mes lieux à vérifier — UPK" }] }),
   component: PageModerationPro,
 });
 
@@ -20,11 +25,10 @@ function PageModerationPro() {
   const { utilisateur, chargement } = useSession();
   const queryClient = useQueryClient();
   const chercherStatut = useServerFn(monStatutModeration);
-  const chercherFile = useServerFn(listerFileAttente);
+  const chercherMesLieux = useServerFn(mesLieuxAssignes);
   const chercherMesStats = useServerFn(mesStatistiquesModeration);
-  const valider = useServerFn(validerLieu);
-  const rejeter = useServerFn(rejeterLieu);
-  const detecter = useServerFn(detecterDoublons);
+  const valider = useServerFn(validerAssignation);
+  const rejeter = useServerFn(rejeterAssignation);
 
   useEffect(() => {
     if (!chargement && !utilisateur) navigate({ to: "/connexion" });
@@ -42,31 +46,34 @@ function PageModerationPro() {
     }
   }, [statut.data, navigate]);
 
-  const file = useQuery({
-    queryKey: ["file-attente"],
-    queryFn: () => chercherFile(),
-    enabled: statut.data?.role === "moderator" || statut.data?.role === "admin",
+  const autorise = statut.data?.role === "moderator" || statut.data?.role === "admin";
+
+  const lieux = useQuery({
+    queryKey: ["mes-lieux-assignes", utilisateur?.id],
+    queryFn: () => chercherMesLieux(),
+    enabled: autorise,
   });
 
   const mesStats = useQuery({
     queryKey: ["mes-stats-moderation", utilisateur?.id],
     queryFn: () => chercherMesStats(),
-    enabled: statut.data?.role === "moderator" || statut.data?.role === "admin",
+    enabled: autorise,
   });
 
-  async function onValider(id: string, coords: { latitude: number; longitude: number }) {
-    await valider({ data: { id, ...coords } });
-    queryClient.invalidateQueries({ queryKey: ["file-attente"] });
+  async function onValider(assignationId: string, coords: { latitude: number; longitude: number }) {
+    await valider({ data: { assignationId, ...coords } });
+    queryClient.invalidateQueries({ queryKey: ["mes-lieux-assignes"] });
     queryClient.invalidateQueries({ queryKey: ["mes-stats-moderation"] });
   }
 
-  async function onRejeter(id: string, coords: { latitude: number; longitude: number }) {
-    await rejeter({ data: { id, ...coords } });
-    queryClient.invalidateQueries({ queryKey: ["file-attente"] });
+  async function onRejeter(
+    assignationId: string,
+    donnees: { motif: string; latitudeCorrigee: number; longitudeCorrigee: number },
+  ) {
+    await rejeter({ data: { assignationId, ...donnees } });
+    queryClient.invalidateQueries({ queryKey: ["mes-lieux-assignes"] });
     queryClient.invalidateQueries({ queryKey: ["mes-stats-moderation"] });
   }
-
-  const autorise = statut.data?.role === "moderator" || statut.data?.role === "admin";
 
   if (chargement || !utilisateur || statut.isPending || !autorise) {
     return (
@@ -76,7 +83,7 @@ function PageModerationPro() {
     );
   }
 
-  const lieux = file.data ?? [];
+  const mesLieux = (lieux.data ?? []) as LieuAssigne[];
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-2xl px-4 pb-16">
@@ -88,9 +95,11 @@ function PageModerationPro() {
           Accueil
         </Link>
       </div>
-      <h1 className="mt-4 font-display text-xl font-semibold text-foreground">Lieux à vérifier</h1>
+      <h1 className="mt-4 font-display text-xl font-semibold text-foreground">
+        Mes lieux à vérifier
+      </h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        {lieux.length} lieu{lieux.length > 1 ? "x" : ""} en attente de validation.
+        {mesLieux.length} lieu{mesLieux.length > 1 ? "x" : ""} à vérifier.
       </p>
 
       {mesStats.data ? (
@@ -104,20 +113,20 @@ function PageModerationPro() {
       ) : null}
 
       <section className="mt-5 space-y-3" aria-live="polite">
-        {file.isPending ? (
+        {lieux.isPending ? (
           <p className="py-8 text-center text-sm text-muted-foreground">Chargement…</p>
-        ) : lieux.length === 0 ? (
+        ) : mesLieux.length === 0 ? (
           <p className="rounded-xl border border-dashed border-border bg-card p-6 text-center text-sm text-muted-foreground">
-            Rien en attente. Tout est à jour.
+            Aucun lieu ne vous est attribué pour l'instant. Votre responsable vous en affectera un
+            groupe dès qu'il en aura sélectionné un.
           </p>
         ) : (
-          lieux.map((lieu) => (
-            <CarteLieuAVerifier
-              key={lieu.id}
+          mesLieux.map((lieu) => (
+            <CarteTacheAssignee
+              key={lieu.assignation_id}
               lieu={lieu}
-              onValider={(coords) => onValider(lieu.id, coords)}
-              onRejeter={(coords) => onRejeter(lieu.id, coords)}
-              chercherDoublons={(placeId) => detecter({ data: { placeId } })}
+              onValider={(coords) => onValider(lieu.assignation_id, coords)}
+              onRejeter={(donnees) => onRejeter(lieu.assignation_id, donnees)}
             />
           ))
         )}
