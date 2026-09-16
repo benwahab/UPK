@@ -46,6 +46,54 @@ export type Database = {
           },
         ]
       }
+      regions: {
+        Row: { id: string; nom: string; code: string; slug: string; created_at: string; updated_at: string }
+        Insert: { id?: string; nom: string; code: string; slug: string; created_at?: string; updated_at?: string }
+        Update: { id?: string; nom?: string; code?: string; slug?: string; created_at?: string; updated_at?: string }
+        Relationships: []
+      }
+      departements: {
+        Row: { id: string; region_id: string; nom: string; code: string | null; slug: string; created_at: string; updated_at: string }
+        Insert: { id?: string; region_id: string; nom: string; code?: string | null; slug: string; created_at?: string; updated_at?: string }
+        Update: { id?: string; region_id?: string; nom?: string; code?: string | null; slug?: string; created_at?: string; updated_at?: string }
+        Relationships: [
+          {
+            foreignKeyName: "departements_region_id_fkey"
+            columns: ["region_id"]
+            isOneToOne: false
+            referencedRelation: "regions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      communes: {
+        Row: { id: string; departement_id: string; nom: string; code: string | null; slug: string; type: string; created_at: string; updated_at: string }
+        Insert: { id?: string; departement_id: string; nom: string; code?: string | null; slug: string; type?: string; created_at?: string; updated_at?: string }
+        Update: { id?: string; departement_id?: string; nom?: string; code?: string | null; slug?: string; type?: string; created_at?: string; updated_at?: string }
+        Relationships: [
+          {
+            foreignKeyName: "communes_departement_id_fkey"
+            columns: ["departement_id"]
+            isOneToOne: false
+            referencedRelation: "departements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      villes_zones: {
+        Row: { id: string; commune_id: string; nom: string; slug: string; type: string; latitude: number | null; longitude: number | null; created_at: string; updated_at: string }
+        Insert: { id?: string; commune_id: string; nom: string; slug: string; type?: string; latitude?: number | null; longitude?: number | null; created_at?: string; updated_at?: string }
+        Update: { id?: string; commune_id?: string; nom?: string; slug?: string; type?: string; latitude?: number | null; longitude?: number | null; created_at?: string; updated_at?: string }
+        Relationships: [
+          {
+            foreignKeyName: "villes_zones_commune_id_fkey"
+            columns: ["commune_id"]
+            isOneToOne: false
+            referencedRelation: "communes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       alertes_medicament: {
         Row: {
           created_at: string
@@ -569,7 +617,9 @@ export type Database = {
           actif: boolean
           adresse: string | null
           category_id: string | null
+          commune_id: string | null
           created_at: string
+          departement_id: string | null
           derniere_sync: string | null
           description: string | null
           horaires: string | null
@@ -586,6 +636,7 @@ export type Database = {
           osm_type: string | null
           owner_id: string | null
           quartier: string | null
+          region_id: string | null
           site_web: string | null
           source: Database["public"]["Enums"]["place_source"]
           statut_soumission: string | null
@@ -593,13 +644,16 @@ export type Database = {
           submitted_by: string | null
           telephone: string | null
           updated_at: string
+          ville_zone_id: string | null
           whatsapp: string | null
         }
         Insert: {
           actif?: boolean
           adresse?: string | null
           category_id?: string | null
+          commune_id?: string | null
           created_at?: string
+          departement_id?: string | null
           derniere_sync?: string | null
           description?: string | null
           horaires?: string | null
@@ -616,6 +670,7 @@ export type Database = {
           osm_type?: string | null
           owner_id?: string | null
           quartier?: string | null
+          region_id?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
           statut_soumission?: string | null
@@ -623,13 +678,16 @@ export type Database = {
           submitted_by?: string | null
           telephone?: string | null
           updated_at?: string
+          ville_zone_id?: string | null
           whatsapp?: string | null
         }
         Update: {
           actif?: boolean
           adresse?: string | null
           category_id?: string | null
+          commune_id?: string | null
           created_at?: string
+          departement_id?: string | null
           derniere_sync?: string | null
           description?: string | null
           horaires?: string | null
@@ -646,6 +704,7 @@ export type Database = {
           osm_type?: string | null
           owner_id?: string | null
           quartier?: string | null
+          region_id?: string | null
           site_web?: string | null
           source?: Database["public"]["Enums"]["place_source"]
           statut_soumission?: string | null
@@ -653,6 +712,7 @@ export type Database = {
           submitted_by?: string | null
           telephone?: string | null
           updated_at?: string
+          ville_zone_id?: string | null
           whatsapp?: string | null
         }
         Relationships: [
@@ -661,6 +721,34 @@ export type Database = {
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "places_region_id_fkey"
+            columns: ["region_id"]
+            isOneToOne: false
+            referencedRelation: "regions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "places_departement_id_fkey"
+            columns: ["departement_id"]
+            isOneToOne: false
+            referencedRelation: "departements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "places_commune_id_fkey"
+            columns: ["commune_id"]
+            isOneToOne: false
+            referencedRelation: "communes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "places_ville_zone_id_fkey"
+            columns: ["ville_zone_id"]
+            isOneToOne: false
+            referencedRelation: "villes_zones"
             referencedColumns: ["id"]
           },
         ]
@@ -1351,6 +1439,43 @@ export type Database = {
           site_web: string
           statut_verification: Database["public"]["Enums"]["verification_status"]
           telephone: string
+          whatsapp: string
+        }[]
+      }
+      rechercher_lieux_v2: {
+        Args: {
+          categorie_slug?: string
+          decalage?: number
+          lat?: number
+          limite?: number
+          lng?: number
+          quartier_recherche?: string
+          rayon_km?: number
+          region_slug?: string
+          requete?: string
+          ville_slug?: string
+        }
+        Returns: {
+          adresse: string
+          categorie_icone: string
+          categorie_nom: string
+          categorie_slug: string
+          description: string
+          distance_m: number
+          horaires: string
+          id: string
+          latitude: number
+          longitude: number
+          nom: string
+          quartier: string
+          region_nom: string
+          region_slug: string
+          score_pertinence: number
+          site_web: string
+          statut_verification: Database["public"]["Enums"]["verification_status"]
+          telephone: string
+          ville_nom: string
+          ville_slug: string
           whatsapp: string
         }[]
       }

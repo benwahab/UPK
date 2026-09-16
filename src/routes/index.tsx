@@ -10,7 +10,12 @@ import { BoutonEspaceAdmin } from "@/components/upk/BoutonEspaceAdmin";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { trouverCategorieParBesoin } from "@/lib/besoins";
-import { listerCategories, rechercherLieux } from "@/lib/places.functions";
+import {
+  listerCategories,
+  listerRegionsRecherche,
+  listerVillesRecherche,
+  rechercherLieuxNational,
+} from "@/lib/places.functions";
 import { useRechercheVocale } from "@/lib/useRechercheVocale";
 
 const TITRE = "UPK — Recherche locale au Niger";
@@ -39,13 +44,18 @@ function PageRecherche() {
   });
   const [requete, setRequete] = useState("");
   const [categorieSlug, setCategorieSlugBrut] = useState<string | null>(null);
+  const [regionSlug, setRegionSlug] = useState<string | null>(null);
+  const [villeSlug, setVilleSlug] = useState<string | null>(null);
+  const [quartier, setQuartier] = useState("");
   const [suggestionBesoin, setSuggestionBesoin] = useState<string | null>(null);
   const categorieChoisieManuellement = useRef(false);
   const [position, setPosition] = useState<Position | null>(null);
   const [etatGeo, setEtatGeo] = useState<"inconnu" | "chargement" | "refuse" | "ok">("inconnu");
 
   const chargerCategories = useServerFn(listerCategories);
-  const chercher = useServerFn(rechercherLieux);
+  const chercher = useServerFn(rechercherLieuxNational);
+  const chargerRegions = useServerFn(listerRegionsRecherche);
+  const chargerVilles = useServerFn(listerVillesRecherche);
 
   // Choix manuel d'une catégorie (chip ou "Tout") : l'utilisateur reprend la
   // main, on arrête de lui proposer des suggestions automatiques tant qu'il
@@ -82,13 +92,21 @@ function PageRecherche() {
   // Une recherche n'est "active" que si l'utilisateur a tapé quelque chose
   // ou choisi une catégorie — l'écran d'accueil reste volontairement vide
   // tant qu'aucune intention n'a été exprimée.
-  const rechercheActive = saisie.trim().length > 0 || categorieSlug !== null;
+  const rechercheActive =
+    saisie.trim().length > 0 ||
+    categorieSlug !== null ||
+    regionSlug !== null ||
+    villeSlug !== null ||
+    quartier.trim().length > 0;
 
   const resultats = useQuery({
     queryKey: [
       "lieux",
       requete,
       categorieSlug,
+      regionSlug,
+      villeSlug,
+      quartier,
       suggestionBesoin,
       position?.lat ?? null,
       position?.lng ?? null,
@@ -98,11 +116,26 @@ function PageRecherche() {
         data: {
           requete: suggestionBesoin ? null : requete || null,
           categorieSlug,
+          regionSlug,
+          villeSlug,
+          quartier: quartier || null,
           lat: position?.lat ?? null,
           lng: position?.lng ?? null,
         },
       }),
     enabled: rechercheActive,
+  });
+
+  const regions = useQuery({
+    queryKey: ["regions-recherche"],
+    queryFn: () => chargerRegions(),
+    staleTime: 1000 * 60 * 60,
+  });
+
+  const villes = useQuery({
+    queryKey: ["villes-recherche"],
+    queryFn: () => chargerVilles(),
+    staleTime: 1000 * 60 * 60,
   });
 
   const lieux = useMemo(() => resultats.data ?? [], [resultats.data]);
@@ -293,6 +326,51 @@ function PageRecherche() {
               ))}
             </ul>
           </nav>
+
+          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <label className="sr-only" htmlFor="filtre-region">
+              Région
+            </label>
+            <select
+              id="filtre-region"
+              value={regionSlug ?? ""}
+              onChange={(e) => setRegionSlug(e.target.value || null)}
+              className="h-10 rounded-lg border border-border bg-card px-3 text-sm text-card-foreground"
+            >
+              <option value="">Toutes les régions</option>
+              {(regions.data ?? []).map((region) => (
+                <option key={region.id} value={region.slug}>
+                  {region.nom}
+                </option>
+              ))}
+            </select>
+            <label className="sr-only" htmlFor="filtre-ville">
+              Ville
+            </label>
+            <select
+              id="filtre-ville"
+              value={villeSlug ?? ""}
+              onChange={(e) => setVilleSlug(e.target.value || null)}
+              className="h-10 rounded-lg border border-border bg-card px-3 text-sm text-card-foreground"
+            >
+              <option value="">Toutes les villes</option>
+              {(villes.data ?? []).map((ville) => (
+                <option key={ville.id} value={ville.slug}>
+                  {ville.nom}
+                </option>
+              ))}
+            </select>
+            <label className="sr-only" htmlFor="filtre-quartier">
+              Quartier
+            </label>
+            <Input
+              id="filtre-quartier"
+              value={quartier}
+              onChange={(e) => setQuartier(e.target.value)}
+              placeholder="Quartier"
+              className="h-10"
+            />
+          </div>
 
           <section className="mt-4 space-y-3" aria-live="polite">
             {resultats.isPending ? (

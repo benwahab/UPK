@@ -1,10 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { AtSign, Check, CheckCircle2, LockKeyhole, UserRound } from "lucide-react";
+import { useMemo, useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { AuthField, AuthLayout } from "@/components/upk/AuthLayout";
 import { ChampMotDePasse } from "@/components/upk/ChampMotDePasse";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/inscription")({
@@ -21,6 +20,17 @@ function PageInscription() {
   const [erreur, setErreur] = useState<string | null>(null);
   const [enCours, setEnCours] = useState(false);
   const [confirmationRequise, setConfirmationRequise] = useState(false);
+
+  const exigences = useMemo(
+    () => [
+      { label: "8 caractères minimum", ok: motDePasse.length >= 8 },
+      { label: "Un chiffre", ok: /\d/.test(motDePasse) },
+      { label: "Une majuscule", ok: /[A-Z]/.test(motDePasse) },
+      { label: "Un caractère spécial", ok: /[^A-Za-z0-9]/.test(motDePasse) },
+    ],
+    [motDePasse],
+  );
+  const force = exigences.filter((exigence) => exigence.ok).length;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -48,9 +58,6 @@ function PageInscription() {
       );
       return;
     }
-    // Si Supabase exige une confirmation par email, signUp ne renvoie pas de
-    // session : on ne peut pas rediriger vers /pro (l'utilisateur n'est pas
-    // encore connecté), il faut d'abord qu'il clique le lien reçu par mail.
     if (!data.session) {
       setConfirmationRequise(true);
       return;
@@ -60,83 +67,129 @@ function PageInscription() {
 
   if (confirmationRequise) {
     return (
-      <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col items-center justify-center px-4 text-center">
-        <h1 className="font-display text-xl font-semibold text-foreground">
-          Vérifiez votre boîte mail
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Un email de confirmation a été envoyé à {email}. Cliquez sur le lien qu'il contient, puis
-          connectez-vous.
-        </p>
-        <Link to="/connexion" className="mt-4 text-sm font-medium text-primary">
-          Aller à la connexion
-        </Link>
-      </main>
+      <AuthLayout
+        mode="signup"
+        title="Check your inbox"
+        subtitle="One last step to activate your account"
+      >
+        <div className="auth-confirmation">
+          <div className="auth-confirmation-icon">
+            <CheckCircle2 />
+          </div>
+          <p>
+            Un email de confirmation a été envoyé à <strong>{email}</strong>. Cliquez sur le lien
+            qu&apos;il contient, puis connectez-vous.
+          </p>
+          <Link to="/connexion" className="auth-submit auth-submit-link">
+            Go to login
+          </Link>
+        </div>
+      </AuthLayout>
     );
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center px-4 pb-16">
-      <Link to="/" className="mb-6 self-start text-sm font-medium text-primary">
-        ← Accueil
-      </Link>
-      <h1 className="font-display text-xl font-semibold text-foreground">Créer un compte pro</h1>
-      <p className="mt-1 text-sm text-muted-foreground">
-        L'espace pro sert à deux choses : gérer la fiche de votre établissement sur UPK (infos,
-        horaires, photos, stock, statistiques de fréquentation), et — si vous le souhaitez — devenir
-        modérateur pour aider à vérifier les lieux proposés par d'autres utilisateurs.
-      </p>
-
-      <form onSubmit={onSubmit} className="mt-6 space-y-4">
-        <div className="space-y-1.5">
-          <Label htmlFor="nom">Nom complet</Label>
-          <Input id="nom" required value={nom} onChange={(e) => setNom(e.target.value)} />
+    <AuthLayout mode="signup" title="Create your account" subtitle="Join us today">
+      <form onSubmit={onSubmit} className="auth-form">
+        <AuthField
+          id="nom"
+          label="Full name"
+          icon={<UserRound />}
+          required
+          autoComplete="name"
+          placeholder="Votre nom complet"
+          value={nom}
+          onChange={(e) => setNom(e.target.value)}
+        />
+        <AuthField
+          id="email"
+          label="Email address"
+          icon={<AtSign />}
+          type="email"
+          required
+          autoComplete="email"
+          placeholder="vous@entreprise.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div className="auth-field">
+          <label htmlFor="mot-de-passe">Password</label>
+          <div className="auth-input-wrap">
+            <span className="auth-input-icon" aria-hidden>
+              <LockKeyhole />
+            </span>
+            <ChampMotDePasse
+              id="mot-de-passe"
+              required
+              minLength={8}
+              autoComplete="new-password"
+              value={motDePasse}
+              onChange={setMotDePasse}
+            />
+          </div>
+          <div className="auth-strength" aria-live="polite">
+            <div className="auth-strength-bars">
+              {[1, 2, 3, 4].map((bar) => (
+                <span key={bar} className={bar <= force ? `strength-${force}` : ""} />
+              ))}
+            </div>
+            <span>
+              {force === 0
+                ? "Choose a strong password"
+                : force < 3
+                  ? "Password is getting stronger"
+                  : "Strong password"}
+            </span>
+          </div>
+          <div className="auth-requirements">
+            {exigences.map((exigence) => (
+              <span key={exigence.label} className={exigence.ok ? "requirement-ok" : ""}>
+                <Check />
+                {exigence.label}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            required
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <div className="auth-field">
+          <label htmlFor="confirmation-mot-de-passe">Confirm password</label>
+          <div
+            className={`auth-input-wrap${confirmation && confirmation === motDePasse ? " has-success" : ""}`}
+          >
+            <span className="auth-input-icon" aria-hidden>
+              <LockKeyhole />
+            </span>
+            <ChampMotDePasse
+              id="confirmation-mot-de-passe"
+              required
+              autoComplete="new-password"
+              value={confirmation}
+              onChange={setConfirmation}
+            />
+          </div>
+          {confirmation && confirmation === motDePasse ? (
+            <p className="auth-field-message auth-success">
+              <CheckCircle2 /> Passwords match
+            </p>
+          ) : null}
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="mot-de-passe">Mot de passe</Label>
-          <ChampMotDePasse
-            id="mot-de-passe"
-            required
-            minLength={8}
-            autoComplete="new-password"
-            value={motDePasse}
-            onChange={setMotDePasse}
-          />
-          <p className="text-xs text-muted-foreground">8 caractères minimum.</p>
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="confirmation-mot-de-passe">Confirmer le mot de passe</Label>
-          <ChampMotDePasse
-            id="confirmation-mot-de-passe"
-            required
-            autoComplete="new-password"
-            value={confirmation}
-            onChange={setConfirmation}
-          />
-        </div>
-        {erreur ? <p className="text-sm text-destructive">{erreur}</p> : null}
-        <Button type="submit" variant="terrain" className="w-full" disabled={enCours}>
-          {enCours ? "Création…" : "Créer mon compte"}
-        </Button>
+        <label className="auth-check">
+          <input type="checkbox" required />
+          <span>
+            I agree to the <Link to="/conditions-utilisation">Terms and Conditions</Link>
+          </span>
+        </label>
+        {erreur ? (
+          <p className="auth-alert" role="alert">
+            {erreur}
+          </p>
+        ) : null}
+        <button type="submit" className="auth-submit" disabled={enCours}>
+          {enCours ? "Creating account…" : "Create account"}
+        </button>
       </form>
-
-      <p className="mt-4 text-center text-sm text-muted-foreground">
-        Déjà un compte ?{" "}
-        <Link to="/connexion" className="font-medium text-primary">
-          Se connecter
-        </Link>
+      <p className="auth-switch">
+        Already have an account? <Link to="/connexion">Sign in</Link>
       </p>
-    </main>
+    </AuthLayout>
   );
 }
