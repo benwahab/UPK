@@ -24,6 +24,7 @@ import { Route as ProposerRouteImport } from './routes/proposer'
 import { Route as ReinitialiserMotDePasseRouteImport } from './routes/reinitialiser-mot-de-passe'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminActiviteRouteImport } from './routes/admin/activite'
+import { Route as AdminAssignationsRouteImport } from './routes/admin/assignations'
 import { Route as AdminCategoriesRouteImport } from './routes/admin/categories'
 import { Route as AdminComptesRouteImport } from './routes/admin/comptes'
 import { Route as AdminGardesRouteImport } from './routes/admin/gardes'
@@ -114,6 +115,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AdminActiviteRoute = AdminActiviteRouteImport.update({
   id: '/admin/activite',
   path: '/admin/activite',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAssignationsRoute = AdminAssignationsRouteImport.update({
+  id: '/admin/assignations',
+  path: '/admin/assignations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
@@ -207,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/activite': typeof AdminActiviteRoute
+  '/admin/assignations': typeof AdminAssignationsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/comptes': typeof AdminComptesRoute
   '/admin/gardes': typeof AdminGardesRoute
@@ -239,6 +246,7 @@ export interface FileRoutesByTo {
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/activite': typeof AdminActiviteRoute
+  '/admin/assignations': typeof AdminAssignationsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/comptes': typeof AdminComptesRoute
   '/admin/gardes': typeof AdminGardesRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/proposer': typeof ProposerRoute
   '/reinitialiser-mot-de-passe': typeof ReinitialiserMotDePasseRoute
   '/admin/activite': typeof AdminActiviteRoute
+  '/admin/assignations': typeof AdminAssignationsRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/admin/comptes': typeof AdminComptesRoute
   '/admin/gardes': typeof AdminGardesRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/activite'
+    | '/admin/assignations'
     | '/admin/categories'
     | '/admin/comptes'
     | '/admin/gardes'
@@ -338,6 +348,7 @@ export interface FileRouteTypes {
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/activite'
+    | '/admin/assignations'
     | '/admin/categories'
     | '/admin/comptes'
     | '/admin/gardes'
@@ -370,6 +381,7 @@ export interface FileRouteTypes {
     | '/proposer'
     | '/reinitialiser-mot-de-passe'
     | '/admin/activite'
+    | '/admin/assignations'
     | '/admin/categories'
     | '/admin/comptes'
     | '/admin/gardes'
@@ -403,6 +415,7 @@ export interface RootRouteChildren {
   ProposerRoute: typeof ProposerRoute
   ReinitialiserMotDePasseRoute: typeof ReinitialiserMotDePasseRoute
   AdminActiviteRoute: typeof AdminActiviteRoute
+  AdminAssignationsRoute: typeof AdminAssignationsRoute
   AdminCategoriesRoute: typeof AdminCategoriesRoute
   AdminComptesRoute: typeof AdminComptesRoute
   AdminGardesRoute: typeof AdminGardesRoute
@@ -523,6 +536,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/activite'
       fullPath: '/admin/activite'
       preLoaderRoute: typeof AdminActiviteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/assignations': {
+      id: '/admin/assignations'
+      path: '/admin/assignations'
+      fullPath: '/admin/assignations'
+      preLoaderRoute: typeof AdminAssignationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/categories': {
@@ -662,6 +682,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProposerRoute: ProposerRoute,
   ReinitialiserMotDePasseRoute: ReinitialiserMotDePasseRoute,
   AdminActiviteRoute: AdminActiviteRoute,
+  AdminAssignationsRoute: AdminAssignationsRoute,
   AdminCategoriesRoute: AdminCategoriesRoute,
   AdminComptesRoute: AdminComptesRoute,
   AdminGardesRoute: AdminGardesRoute,
