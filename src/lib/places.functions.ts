@@ -8,8 +8,18 @@ const rechercheSchema = z.object({
   lat: z.number().min(-90).max(90).optional().nullable(),
   lng: z.number().min(-180).max(180).optional().nullable(),
   categorieSlug: z.string().max(80).optional().nullable(),
+  regionSlug: z.string().max(80).optional().nullable(),
+  villeSlug: z.string().max(80).optional().nullable(),
+  quartier: z.string().max(100).optional().nullable(),
+  decalage: z.number().int().min(0).optional(),
   limite: z.number().int().min(1).max(60).optional(),
 });
+
+export type TerritoireRecherche = {
+  id: string;
+  nom: string;
+  slug: string;
+};
 
 export const listerCategories = createServerFn({ method: "GET" }).handler(
   async (): Promise<Categorie[]> => {
@@ -38,6 +48,51 @@ export const rechercherLieux = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     return (rows ?? []) as Lieu[];
   });
+
+export const rechercherLieuxNational = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => rechercheSchema.parse(data))
+  .handler(async ({ data }): Promise<Lieu[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data: rows, error } = await clientPublic().rpc("rechercher_lieux_v2", {
+      requete: data.requete?.trim() || null,
+      lat: data.lat ?? null,
+      lng: data.lng ?? null,
+      categorie_slug: data.categorieSlug || null,
+      region_slug: data.regionSlug || null,
+      ville_slug: data.villeSlug || null,
+      quartier_recherche: data.quartier?.trim() || null,
+      rayon_km: null,
+      limite: data.limite ?? 40,
+      decalage: data.decalage ?? 0,
+    });
+    if (error) throw new Error(error.message);
+    return (rows ?? []) as Lieu[];
+  });
+
+export const listerRegionsRecherche = createServerFn({ method: "GET" }).handler(
+  async (): Promise<TerritoireRecherche[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data, error } = await clientPublic()
+      .from("regions")
+      .select("id, nom, slug")
+      .order("nom", { ascending: true });
+    if (error) throw new Error(error.message);
+    return (data ?? []) as TerritoireRecherche[];
+  },
+);
+
+export const listerVillesRecherche = createServerFn({ method: "GET" }).handler(
+  async (): Promise<TerritoireRecherche[]> => {
+    const { clientPublic } = await import("./supabase-public.server");
+    const { data, error } = await clientPublic()
+      .from("villes_zones")
+      .select("id, nom, slug")
+      .eq("type", "ville")
+      .order("nom", { ascending: true });
+    if (error) throw new Error(error.message);
+    return (data ?? []) as TerritoireRecherche[];
+  },
+);
 
 export const obtenirLieu = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
