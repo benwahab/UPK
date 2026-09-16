@@ -30,7 +30,7 @@ export function ChampMotDePasse({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pr-10"
+        className="auth-password-input pr-10"
       />
       <button
         type="button"

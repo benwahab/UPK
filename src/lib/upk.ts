@@ -25,6 +25,11 @@ export type Lieu = {
   categorie_slug: string | null;
   categorie_icone: string | null;
   distance_m: number | null;
+  region_nom?: string | null;
+  region_slug?: string | null;
+  ville_nom?: string | null;
+  ville_slug?: string | null;
+  score_pertinence?: number | null;
 };
 
 export type LieuDetail = Lieu & { photos: { id: string; url: string }[]; revendicable: boolean };
