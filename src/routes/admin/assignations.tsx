@@ -47,7 +47,7 @@ function PageAssignations() {
     if (!chargement && utilisateur && (autorisations?.roles.length ?? 0) > 0 && !autorise) {
       navigate({ to: "/admin" });
     }
-  }, [chargement, utilisateur, autorise, autorisations.roles.length, navigate]);
+  }, [chargement, utilisateur, autorise, autorisations?.roles.length, navigate]);
 
   const moderateurs = useQuery({
     queryKey: ["moderateurs"],
