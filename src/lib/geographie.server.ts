@@ -131,24 +131,24 @@ async function rechercherOpenMeteo(requete: string): Promise<GeoResult[]> {
       feature_code?: string;
     }>;
   }>(url);
-  return (payload?.results ?? [])
-    .map((row) => {
-      const latitude = nombre(row.latitude);
-      const longitude = nombre(row.longitude);
-      if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) return null;
-      return {
-        nom: texte(row.name) ?? requete,
-        latitude,
-        longitude,
-        ville: row.name ?? null,
-        region: row.admin1 ?? row.admin2 ?? null,
-        pays: row.country ?? "Niger",
-        identifiant: String(row.id ?? `${row.name}:${row.latitude}:${row.longitude}`),
-        source: "open-meteo" as const,
-        type: "localite" as const,
-      };
-    })
-    .filter((row): row is GeoResult => row !== null);
+  const resultats: GeoResult[] = [];
+  for (const row of payload?.results ?? []) {
+    const latitude = nombre(row.latitude);
+    const longitude = nombre(row.longitude);
+    if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) continue;
+    resultats.push({
+      nom: texte(row.name) ?? requete,
+      latitude,
+      longitude,
+      ville: row.name ?? null,
+      region: row.admin1 ?? row.admin2 ?? null,
+      pays: row.country ?? "Niger",
+      identifiant: String(row.id ?? `${row.name}:${row.latitude}:${row.longitude}`),
+      source: "open-meteo",
+      type: "localite",
+    });
+  }
+  return resultats;
 }
 
 async function rechercherGeoNames(requete: string): Promise<GeoResult[]> {
