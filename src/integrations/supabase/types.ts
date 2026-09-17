@@ -46,54 +46,6 @@ export type Database = {
           },
         ]
       }
-      regions: {
-        Row: { id: string; nom: string; code: string; slug: string; created_at: string; updated_at: string }
-        Insert: { id?: string; nom: string; code: string; slug: string; created_at?: string; updated_at?: string }
-        Update: { id?: string; nom?: string; code?: string; slug?: string; created_at?: string; updated_at?: string }
-        Relationships: []
-      }
-      departements: {
-        Row: { id: string; region_id: string; nom: string; code: string | null; slug: string; created_at: string; updated_at: string }
-        Insert: { id?: string; region_id: string; nom: string; code?: string | null; slug: string; created_at?: string; updated_at?: string }
-        Update: { id?: string; region_id?: string; nom?: string; code?: string | null; slug?: string; created_at?: string; updated_at?: string }
-        Relationships: [
-          {
-            foreignKeyName: "departements_region_id_fkey"
-            columns: ["region_id"]
-            isOneToOne: false
-            referencedRelation: "regions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      communes: {
-        Row: { id: string; departement_id: string; nom: string; code: string | null; slug: string; type: string; created_at: string; updated_at: string }
-        Insert: { id?: string; departement_id: string; nom: string; code?: string | null; slug: string; type?: string; created_at?: string; updated_at?: string }
-        Update: { id?: string; departement_id?: string; nom?: string; code?: string | null; slug?: string; type?: string; created_at?: string; updated_at?: string }
-        Relationships: [
-          {
-            foreignKeyName: "communes_departement_id_fkey"
-            columns: ["departement_id"]
-            isOneToOne: false
-            referencedRelation: "departements"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      villes_zones: {
-        Row: { id: string; commune_id: string; nom: string; slug: string; type: string; latitude: number | null; longitude: number | null; created_at: string; updated_at: string }
-        Insert: { id?: string; commune_id: string; nom: string; slug: string; type?: string; latitude?: number | null; longitude?: number | null; created_at?: string; updated_at?: string }
-        Update: { id?: string; commune_id?: string; nom?: string; slug?: string; type?: string; latitude?: number | null; longitude?: number | null; created_at?: string; updated_at?: string }
-        Relationships: [
-          {
-            foreignKeyName: "villes_zones_commune_id_fkey"
-            columns: ["commune_id"]
-            isOneToOne: false
-            referencedRelation: "communes"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       alertes_medicament: {
         Row: {
           created_at: string
@@ -281,6 +233,47 @@ export type Database = {
           },
         ]
       }
+      communes: {
+        Row: {
+          code: string | null
+          created_at: string
+          departement_id: string
+          id: string
+          nom: string
+          slug: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          departement_id: string
+          id?: string
+          nom: string
+          slug: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          departement_id?: string
+          id?: string
+          nom?: string
+          slug?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "communes_departement_id_fkey"
+            columns: ["departement_id"]
+            isOneToOne: false
+            referencedRelation: "departements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demandes_moderation: {
         Row: {
           created_at: string
@@ -301,6 +294,44 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      departements: {
+        Row: {
+          code: string | null
+          created_at: string
+          id: string
+          nom: string
+          region_id: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          nom: string
+          region_id: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          id?: string
+          nom?: string
+          region_id?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "departements_region_id_fkey"
+            columns: ["region_id"]
+            isOneToOne: false
+            referencedRelation: "regions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       evenements_lieu: {
         Row: {
@@ -548,6 +579,101 @@ export type Database = {
           },
         ]
       }
+      osm_import_batches: {
+        Row: {
+          attempt: number
+          bbox: string
+          elements_seen: number
+          error_message: string | null
+          finished_at: string | null
+          id: string
+          job_id: string
+          places_upserted: number
+          region_slug: string
+          started_at: string | null
+          status: string
+        }
+        Insert: {
+          attempt?: number
+          bbox: string
+          elements_seen?: number
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          job_id: string
+          places_upserted?: number
+          region_slug: string
+          started_at?: string | null
+          status?: string
+        }
+        Update: {
+          attempt?: number
+          bbox?: string
+          elements_seen?: number
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          job_id?: string
+          places_upserted?: number
+          region_slug?: string
+          started_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "osm_import_batches_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "osm_import_jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      osm_import_jobs: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          finished_at: string | null
+          id: string
+          overpass_endpoint: string
+          places_failed: number
+          places_seen: number
+          places_upserted: number
+          requested_regions: string[]
+          source: string
+          started_at: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          overpass_endpoint: string
+          places_failed?: number
+          places_seen?: number
+          places_upserted?: number
+          requested_regions: string[]
+          source?: string
+          started_at?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          finished_at?: string | null
+          id?: string
+          overpass_endpoint?: string
+          places_failed?: number
+          places_seen?: number
+          places_upserted?: number
+          requested_regions?: string[]
+          source?: string
+          started_at?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       pharmacie_gardes: {
         Row: {
           created_at: string
@@ -573,6 +699,38 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "pharmacie_gardes_place_id_fkey"
+            columns: ["place_id"]
+            isOneToOne: false
+            referencedRelation: "places"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      place_aliases: {
+        Row: {
+          alias: string
+          created_at: string
+          id: string
+          place_id: string
+          source: string
+        }
+        Insert: {
+          alias: string
+          created_at?: string
+          id?: string
+          place_id: string
+          source?: string
+        }
+        Update: {
+          alias?: string
+          created_at?: string
+          id?: string
+          place_id?: string
+          source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "place_aliases_place_id_fkey"
             columns: ["place_id"]
             isOneToOne: false
             referencedRelation: "places"
@@ -724,10 +882,10 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "places_region_id_fkey"
-            columns: ["region_id"]
+            foreignKeyName: "places_commune_id_fkey"
+            columns: ["commune_id"]
             isOneToOne: false
-            referencedRelation: "regions"
+            referencedRelation: "communes"
             referencedColumns: ["id"]
           },
           {
@@ -738,10 +896,10 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "places_commune_id_fkey"
-            columns: ["commune_id"]
+            foreignKeyName: "places_region_id_fkey"
+            columns: ["region_id"]
             isOneToOne: false
-            referencedRelation: "communes"
+            referencedRelation: "regions"
             referencedColumns: ["id"]
           },
           {
@@ -829,6 +987,33 @@ export type Database = {
           prenom?: string | null
           role?: string
           telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      regions: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          nom: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          nom: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          nom?: string
+          slug?: string
           updated_at?: string
         }
         Relationships: []
@@ -971,6 +1156,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      villes_zones: {
+        Row: {
+          commune_id: string
+          created_at: string
+          id: string
+          latitude: number | null
+          longitude: number | null
+          nom: string
+          slug: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          commune_id: string
+          created_at?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          nom: string
+          slug: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          commune_id?: string
+          created_at?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          nom?: string
+          slug?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "villes_zones_commune_id_fkey"
+            columns: ["commune_id"]
+            isOneToOne: false
+            referencedRelation: "communes"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
