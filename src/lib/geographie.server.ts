@@ -90,25 +90,25 @@ async function rechercherNominatim(requete: string): Promise<GeoResult[]> {
       address?: Record<string, string>;
     }>
   >(url);
-  return (rows ?? [])
-    .map((row) => {
-      const latitude = nombre(row.lat);
-      const longitude = nombre(row.lon);
-      if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) return null;
-      const address = row.address ?? {};
-      return {
-        nom: texte(row.display_name) ?? requete,
-        latitude,
-        longitude,
-        ville: address.city ?? address.town ?? address.village ?? null,
-        region: address.state ?? null,
-        pays: address.country ?? "Niger",
-        identifiant: `${row.osm_type ?? "place"}:${row.osm_id ?? row.place_id ?? row.display_name}`,
-        source: "nominatim" as const,
-        type: row.type === "house" || row.type === "road" ? ("adresse" as const) : ("localite" as const),
-      };
-    })
-    .filter((row): row is GeoResult => row !== null);
+  const resultats: GeoResult[] = [];
+  for (const row of rows ?? []) {
+    const latitude = nombre(row.lat);
+    const longitude = nombre(row.lon);
+    if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) continue;
+    const address = row.address ?? {};
+    resultats.push({
+      nom: texte(row.display_name) ?? requete,
+      latitude,
+      longitude,
+      ville: address["city"] ?? address["town"] ?? address["village"] ?? null,
+      region: address["state"] ?? null,
+      pays: address["country"] ?? "Niger",
+      identifiant: `${row.osm_type ?? "place"}:${row.osm_id ?? row.place_id ?? row.display_name}`,
+      source: "nominatim",
+      type: row.type === "house" || row.type === "road" ? "adresse" : "localite",
+    });
+  }
+  return resultats;
 }
 
 async function rechercherOpenMeteo(requete: string): Promise<GeoResult[]> {
@@ -131,24 +131,24 @@ async function rechercherOpenMeteo(requete: string): Promise<GeoResult[]> {
       feature_code?: string;
     }>;
   }>(url);
-  return (payload?.results ?? [])
-    .map((row) => {
-      const latitude = nombre(row.latitude);
-      const longitude = nombre(row.longitude);
-      if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) return null;
-      return {
-        nom: texte(row.name) ?? requete,
-        latitude,
-        longitude,
-        ville: row.name ?? null,
-        region: row.admin1 ?? row.admin2 ?? null,
-        pays: row.country ?? "Niger",
-        identifiant: String(row.id ?? `${row.name}:${row.latitude}:${row.longitude}`),
-        source: "open-meteo" as const,
-        type: "localite" as const,
-      };
-    })
-    .filter((row): row is GeoResult => row !== null);
+  const resultats: GeoResult[] = [];
+  for (const row of payload?.results ?? []) {
+    const latitude = nombre(row.latitude);
+    const longitude = nombre(row.longitude);
+    if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) continue;
+    resultats.push({
+      nom: texte(row.name) ?? requete,
+      latitude,
+      longitude,
+      ville: row.name ?? null,
+      region: row.admin1 ?? row.admin2 ?? null,
+      pays: row.country ?? "Niger",
+      identifiant: String(row.id ?? `${row.name}:${row.latitude}:${row.longitude}`),
+      source: "open-meteo",
+      type: "localite",
+    });
+  }
+  return resultats;
 }
 
 async function rechercherGeoNames(requete: string): Promise<GeoResult[]> {
@@ -175,24 +175,24 @@ async function rechercherGeoNames(requete: string): Promise<GeoResult[]> {
       fcode?: string;
     }>;
   }>(url);
-  return (payload?.geonames ?? [])
-    .map((row) => {
-      const latitude = nombre(row.lat);
-      const longitude = nombre(row.lng);
-      if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) return null;
-      return {
-        nom: texte(row.name) ?? texte(row.asciiName) ?? requete,
-        latitude,
-        longitude,
-        ville: row.name ?? null,
-        region: row.adminName1 ?? row.adminName2 ?? null,
-        pays: row.countryName ?? "Niger",
-        identifiant: String(row.geonameId ?? `${row.name}:${row.lat}:${row.lng}`),
-        source: "geonames" as const,
-        type: "localite" as const,
-      };
-    })
-    .filter((row): row is GeoResult => row !== null);
+  const resultats: GeoResult[] = [];
+  for (const row of payload?.geonames ?? []) {
+    const latitude = nombre(row.lat);
+    const longitude = nombre(row.lng);
+    if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) continue;
+    resultats.push({
+      nom: texte(row.name) ?? texte(row.asciiName) ?? requete,
+      latitude,
+      longitude,
+      ville: row.name ?? null,
+      region: row.adminName1 ?? row.adminName2 ?? null,
+      pays: row.countryName ?? "Niger",
+      identifiant: String(row.geonameId ?? `${row.name}:${row.lat}:${row.lng}`),
+      source: "geonames",
+      type: "localite",
+    });
+  }
+  return resultats;
 }
 
 function distanceCarree(a: Point, b: Point): number {
