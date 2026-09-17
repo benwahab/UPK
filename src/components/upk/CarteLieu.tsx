@@ -49,11 +49,17 @@ export function CarteLieu({ lieu }: { lieu: Lieu }) {
             Itinéraire
           </a>
         </Button>
-        <Button asChild size="sm" variant="outline" className="flex-1">
-          <Link to="/lieu/$id" params={{ id: lieu.id }}>
-            Détails
-          </Link>
-        </Button>
+        {lieu.estLocalite ? (
+          <span className="flex flex-1 items-center justify-center rounded-md border border-border px-3 text-center text-xs text-muted-foreground">
+            Résultat géographique
+          </span>
+        ) : (
+          <Button asChild size="sm" variant="outline" className="flex-1">
+            <Link to="/lieu/$id" params={{ id: lieu.id }}>
+              Détails
+            </Link>
+          </Button>
+        )}
       </div>
     </article>
   );

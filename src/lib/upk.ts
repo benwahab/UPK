@@ -30,6 +30,8 @@ export type Lieu = {
   ville_nom?: string | null;
   ville_slug?: string | null;
   score_pertinence?: number | null;
+  estLocalite?: boolean;
+  provenance?: string[];
 };
 
 export type LieuDetail = Lieu & { photos: { id: string; url: string }[]; revendicable: boolean };

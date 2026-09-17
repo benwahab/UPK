@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 import type { Categorie, Lieu, LieuDetail } from "./upk";
+import { convertirLocaliteEnLieu, resoudreLocalites } from "./geographie.server";
 
 const rechercheSchema = z.object({
   requete: z.string().max(120).optional().nullable(),
@@ -53,7 +54,8 @@ export const rechercherLieuxNational = createServerFn({ method: "GET" })
   .inputValidator((data: unknown) => rechercheSchema.parse(data))
   .handler(async ({ data }): Promise<Lieu[]> => {
     const { clientPublic } = await import("./supabase-public.server");
-    const { data: rows, error } = await clientPublic().rpc("rechercher_lieux_v2", {
+    const client = clientPublic();
+    const rechercheLocale = {
       requete: data.requete?.trim() || null,
       lat: data.lat ?? null,
       lng: data.lng ?? null,
@@ -64,9 +66,51 @@ export const rechercherLieuxNational = createServerFn({ method: "GET" })
       rayon_km: null,
       limite: data.limite ?? 40,
       decalage: data.decalage ?? 0,
-    });
+    };
+    const { data: rows, error } = await client.rpc("rechercher_lieux_v2", rechercheLocale);
     if (error) throw new Error(error.message);
-    return (rows ?? []) as Lieu[];
+    const lieux = (rows ?? []) as Lieu[];
+    if (
+      !data.requete?.trim() ||
+      lieux.length >= 8 ||
+      data.categorieSlug ||
+      data.regionSlug ||
+      data.villeSlug ||
+      data.quartier
+    ) {
+      return lieux;
+    }
+
+    const localites = await resoudreLocalites(data.requete);
+    if (localites.length === 0) return lieux;
+
+    const enrichis = [...lieux];
+    for (const localite of localites.slice(0, 3)) {
+      const { data: proches, error: erreurProches } = await client.rpc("rechercher_lieux_v2", {
+        ...rechercheLocale,
+        requete: null,
+        lat: localite.latitude,
+        lng: localite.longitude,
+        rayon_km: 25,
+        limite: 12,
+        decalage: 0,
+      });
+      if (erreurProches) continue;
+      for (const proche of (proches ?? []) as Lieu[]) {
+        if (!enrichis.some((lieu) => lieu.id === proche.id)) enrichis.push(proche);
+      }
+    }
+    const localiteResultats = localites
+      .slice(0, 3)
+      .map((localite) =>
+        convertirLocaliteEnLieu(
+          localite,
+          data.lat !== null && data.lat !== undefined && data.lng !== null && data.lng !== undefined
+            ? { latitude: data.lat, longitude: data.lng }
+            : null,
+        ),
+      );
+    return [...localiteResultats, ...enrichis].slice(0, data.limite ?? 40);
   });
 
 export const listerRegionsRecherche = createServerFn({ method: "GET" }).handler(

@@ -37,6 +37,21 @@ SUPABASE_SERVICE_ROLE_KEY
 exposé au navigateur. Les variables `VITE_*` sont intégrées au bundle public ;
 elles ne doivent donc contenir qu'une clé publiable.
 
+La recherche multi-sources peut utiliser les variables serveur suivantes :
+
+```text
+UPK_GEO_USER_AGENT
+NOMINATIM_SEARCH_URL
+GEONAMES_USERNAME
+GEONAMES_SEARCH_URL
+OPEN_METEO_GEOCODING_URL
+```
+
+`GEONAMES_USERNAME` est obligatoire pour activer GeoNames ; il n'y a pas de
+clé API GeoNames générique à inventer. Nominatim et Open-Meteo sont désactivés
+ou utilisés avec leurs endpoints publics par défaut, mais leurs conditions
+d'utilisation doivent être vérifiées avant un déploiement à fort trafic.
+
 Certaines fonctions internes peuvent aussi utiliser `LOVABLE_CRON_SECRET` et
 `LOVABLE_CRON_SECRET_PREVIOUS` pour l'authentification de tâches planifiées.
 Ces noms peuvent être remplacés par des secrets équivalents lors d'une
@@ -102,11 +117,25 @@ photos et en conservant les identifiants de lieux.
 
 ## OpenStreetMap et services externes
 
-OpenStreetMap est la source géographique externe principale. Les imports sont
-décrits dans les migrations OSM et doivent conserver l'attribution ODbL ainsi
-que les identifiants et dates de synchronisation. Les appels Nominatim ou
-Overpass doivent rester isolés dans un pipeline d'import côté serveur, jamais
-dans le parcours de recherche de chaque utilisateur.
+La recherche unifiée utilise la base UPK en priorité et peut résoudre une
+requête géographique avec Nominatim, GeoNames et Open-Meteo Geocoding. Les
+réponses sont normalisées, dédupliquées et gardées dans un cache mémoire court
+pour éviter de solliciter inutilement les services. GeoNames n'est appelé que
+si `GEONAMES_USERNAME` est défini.
+
+Les limites connues doivent être respectées : Nominatim impose notamment un
+User-Agent/Referer identifiable, une cadence maximale d'environ une requête
+par seconde et interdit l'autocomplétion côté client ; GeoNames utilise des
+quotas par utilisateur ; Open-Meteo Geocoding est soumis à ses conditions
+gratuites/non commerciales et à une attribution CC-BY. Les valeurs exactes
+doivent être revalidées auprès des fournisseurs avant production.
+
+OpenStreetMap est aussi la source principale pour les lieux et POI. Les
+imports Overpass sont décrits dans les migrations OSM et doivent conserver
+l'attribution ODbL ainsi que les identifiants et dates de synchronisation.
+Overpass reste un pipeline d'import/rafraîchissement borné par zone : il n'est
+pas appelé à chaque recherche utilisateur. Les appels Nominatim ou Overpass
+doivent rester côté serveur, avec limitation et cache.
 
 Les catégories UPK restent stockées en base afin d'éviter de coupler
 l'interface aux valeurs OSM. Toute nouvelle source externe doit être ajoutée
