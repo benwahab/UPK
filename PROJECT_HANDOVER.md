@@ -80,12 +80,12 @@ La recherche doit fonctionner sans autorisation de géolocalisation :
 Les sources ne sont pas équivalentes et ne doivent pas être présentées comme
 quatre recherches séparées.
 
-| Source | Rôle prévu | État réel |
-| --- | --- | --- |
-| OpenStreetMap / Overpass | Données de lieux et POI, imports et rafraîchissements par zone | Import OSM Niamey présent ; pipeline national à développer |
-| Nominatim | Recherche textuelle et géocodage complémentaire | Intégration serveur présente ; doit rester limitée et cachée côté serveur |
-| GeoNames | Villes, villages, subdivisions, variantes et hiérarchie géographique | Code présent ; nécessite `GEONAMES_USERNAME` pour être actif |
-| Open-Meteo Geocoding | Résolution géographique complémentaire | Intégration serveur présente, sans clé prévue |
+| Source                   | Rôle prévu                                                           | État réel                                                                                                            |
+| ------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| OpenStreetMap / Overpass | Données de lieux et POI, imports et rafraîchissements par zone       | Import Niamey historique et fonctions serveur nationales protégées présentes ; migration à appliquer avant exécution |
+| Nominatim                | Recherche textuelle et géocodage complémentaire                      | Intégration serveur présente ; doit rester limitée et cachée côté serveur                                            |
+| GeoNames                 | Villes, villages, subdivisions, variantes et hiérarchie géographique | Code présent ; nécessite `GEONAMES_USERNAME` pour être actif                                                         |
+| Open-Meteo Geocoding     | Résolution géographique complémentaire                               | Intégration serveur présente, sans clé prévue                                                                        |
 
 La couche `src/lib/geographie.server.ts` normalise les résultats, conserve la
 source, dédoublonne les localités et utilise un cache mémoire court. Elle est
@@ -314,30 +314,30 @@ Les secrets serveur ne doivent jamais être exposés au navigateur ou committés
 
 ## 14. État réel du projet
 
-| Fonctionnalité | État | Preuve dans le dépôt | Reste à faire |
-| --- | --- | --- | --- |
-| Recherche publique de lieux | IMPLEMENTÉ | `src/routes/index.tsx`, RPC historique, fonctions serveur | Tests de charge et parcours complet à maintenir |
-| Fiche lieu | IMPLEMENTÉ | `src/routes/lieu.$id.tsx`, composants de fiche | Vérification continue des données réelles |
-| Recherche nationale | PARTIELLEMENT IMPLEMENTÉ | migrations territoriales, `rechercher_lieux_v2`, filtres UI | Charger et tester les données de tout le Niger |
-| GPS et distance | IMPLEMENTÉ | PostGIS, RPC, demande de position et cartes | Tester davantage les cas sans permission |
-| Régions et hiérarchie Niamey | IMPLEMENTÉ | `20260915220000_modele_territorial_niger.sql` | Étendre les départements, communes et localités |
-| Import OSM Niamey | IMPLEMENTÉ | `20260830090000_import_osm_niamey.sql` | Améliorer la synchronisation et la couverture |
-| Pipeline OSM national | PRÉVU / À DÉVELOPPER | provenance OSM et documentation | Import par zone, reprise, quotas, rattachement territorial |
-| Nominatim | PARTIELLEMENT IMPLEMENTÉ | `src/lib/geographie.server.ts` | Validation de production, quotas et tests intégrés |
-| Open-Meteo Geocoding | PARTIELLEMENT IMPLEMENTÉ | `src/lib/geographie.server.ts` | Validation de production et suivi des conditions |
-| GeoNames | PARTIELLEMENT IMPLEMENTÉ | code et variables documentées | Fournir un username et tester dans l'environnement réel |
-| Dédoublonnage géographique | PARTIELLEMENT IMPLEMENTÉ | couche géographique et fonctions de fusion | Améliorer les variantes, noms locaux et règles métier |
-| Google Maps itinéraire | IMPLEMENTÉ | `src/lib/upk.ts` et liens d'itinéraire | Aucun catalogue Google Maps à ajouter |
-| Ajout sans compte | IMPLEMENTÉ | routes et migrations de propositions anonymes | Vérifier le parcours complet en production |
-| Modération | IMPLEMENTÉ | routes admin/pro, migrations et fonctions serveur | Vérifier tous les droits sur l'instance active |
-| Rôles et permissions | PARTIELLEMENT IMPLEMENTÉ | migrations, autorisations, routes admin | Audit complet des rôles et attribution sécurisée |
-| Espace Pro | PARTIELLEMENT IMPLEMENTÉ | routes `/pro`, fonctions business et revendications | Vérifier chaque parcours professionnel réel |
-| Pharmacie | IMPLEMENTÉ | migrations et routes spécialisées | Enrichissement métier éventuel |
-| Restaurant | IMPLEMENTÉ | migration plats et route menu | Enrichissement métier éventuel |
-| Hôtel | IMPLEMENTÉ | migration chambres et route chambres | Enrichissement métier éventuel |
-| PWA | PARTIELLEMENT IMPLEMENTÉ | manifest, configuration et `src/lib/pwa.ts` | Test d'installation et offline réel |
-| Portabilité hors Lovable | PARTIELLEMENT IMPLEMENTÉ | `docs/PORTABILITY.md`, migrations versionnées | Procédure d'export/restauration réellement testée |
-| Couverture nationale des lieux | PRÉVU / À DÉVELOPPER | architecture territoriale nationale | Importer et vérifier les données hors Niamey |
+| Fonctionnalité                 | État                     | Preuve dans le dépôt                                                                                      | Reste à faire                                                                                                  |
+| ------------------------------ | ------------------------ | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Recherche publique de lieux    | IMPLEMENTÉ               | `src/routes/index.tsx`, RPC historique, fonctions serveur                                                 | Tests de charge et parcours complet à maintenir                                                                |
+| Fiche lieu                     | IMPLEMENTÉ               | `src/routes/lieu.$id.tsx`, composants de fiche                                                            | Vérification continue des données réelles                                                                      |
+| Recherche nationale            | PARTIELLEMENT IMPLEMENTÉ | migrations territoriales, `rechercher_lieux_v2`, filtres UI                                               | Charger et tester les données de tout le Niger                                                                 |
+| GPS et distance                | IMPLEMENTÉ               | PostGIS, RPC, demande de position et cartes                                                               | Tester davantage les cas sans permission                                                                       |
+| Régions et hiérarchie Niamey   | IMPLEMENTÉ               | `20260915220000_modele_territorial_niger.sql`                                                             | Étendre les départements, communes et localités                                                                |
+| Import OSM Niamey              | IMPLEMENTÉ               | `20260830090000_import_osm_niamey.sql`                                                                    | Améliorer la synchronisation et la couverture                                                                  |
+| Pipeline OSM national          | PARTIELLEMENT IMPLEMENTÉ | `src/lib/osm-import.functions.ts`, `src/routes/admin/index.tsx`, `20260917150000_import_osm_national.sql` | Lancer depuis l'administration, contrôler les quotas Overpass et vérifier les données nationales |
+| Nominatim                      | PARTIELLEMENT IMPLEMENTÉ | `src/lib/geographie.server.ts`                                                                            | Validation de production, quotas et tests intégrés                                                             |
+| Open-Meteo Geocoding           | PARTIELLEMENT IMPLEMENTÉ | `src/lib/geographie.server.ts`                                                                            | Validation de production et suivi des conditions                                                               |
+| GeoNames                       | PARTIELLEMENT IMPLEMENTÉ | code et variables documentées                                                                             | Fournir un username et tester dans l'environnement réel                                                        |
+| Dédoublonnage géographique     | PARTIELLEMENT IMPLEMENTÉ | couche géographique et fonctions de fusion                                                                | Améliorer les variantes, noms locaux et règles métier                                                          |
+| Google Maps itinéraire         | IMPLEMENTÉ               | `src/lib/upk.ts` et liens d'itinéraire                                                                    | Aucun catalogue Google Maps à ajouter                                                                          |
+| Ajout sans compte              | IMPLEMENTÉ               | routes et migrations de propositions anonymes                                                             | Vérifier le parcours complet en production                                                                     |
+| Modération                     | IMPLEMENTÉ               | routes admin/pro, migrations et fonctions serveur                                                         | Vérifier tous les droits sur l'instance active                                                                 |
+| Rôles et permissions           | PARTIELLEMENT IMPLEMENTÉ | migrations, autorisations, routes admin                                                                   | Audit complet des rôles et attribution sécurisée                                                               |
+| Espace Pro                     | PARTIELLEMENT IMPLEMENTÉ | routes `/pro`, fonctions business et revendications                                                       | Vérifier chaque parcours professionnel réel                                                                    |
+| Pharmacie                      | IMPLEMENTÉ               | migrations et routes spécialisées                                                                         | Enrichissement métier éventuel                                                                                 |
+| Restaurant                     | IMPLEMENTÉ               | migration plats et route menu                                                                             | Enrichissement métier éventuel                                                                                 |
+| Hôtel                          | IMPLEMENTÉ               | migration chambres et route chambres                                                                      | Enrichissement métier éventuel                                                                                 |
+| PWA                            | PARTIELLEMENT IMPLEMENTÉ | manifest, configuration et `src/lib/pwa.ts`                                                               | Test d'installation et offline réel                                                                            |
+| Portabilité hors Lovable       | PARTIELLEMENT IMPLEMENTÉ | `docs/PORTABILITY.md`, migrations versionnées                                                             | Procédure d'export/restauration réellement testée                                                              |
+| Couverture nationale des lieux | PARTIELLEMENT IMPLEMENTÉ | fonctions serveur OSM réutilisables sur les 8 régions et journalisation des batches                       | Lancer l'import réel puis vérifier les données et subdivisions détaillées                                      |
 
 ## 15. Travail restant vers l'objectif actuel
 
@@ -345,13 +345,21 @@ Priorités connues :
 
 1. confirmer régulièrement l'état des migrations sur la base Supabase active ;
 2. charger les territoires et localités nationales fiables ;
-3. construire un pipeline OSM par région ou zone ;
+3. exécuter et surveiller le pipeline OSM par région ou zone depuis le tableau de bord administrateur ;
 4. activer GeoNames uniquement après configuration d'un username ;
 5. améliorer les variantes, noms locaux et fautes ;
 6. tester la recherche de bout en bout hors Niamey ;
 7. mesurer les performances avec plusieurs milliers de lieux ;
 8. vérifier les droits RLS et les parcours Pro/admin ;
 9. tester la PWA sur appareil réel.
+
+### Actions externes requises
+
+La migration `20260917150000_import_osm_national.sql` a été appliquée dans
+Lovable Cloud. Les fonctions serveur utilisent le client Lovable privilégié
+côté serveur et le tableau de bord administrateur pour lancer les huit batches,
+suivre les échecs et relancer un batch. Aucun import massif n'a été lancé
+localement et aucune clé n'est demandée ou committée.
 
 ## 16. AI DEVELOPMENT RULES
 

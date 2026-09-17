@@ -147,7 +147,7 @@ export const obtenirLieu = createServerFn({ method: "GET" })
     const { data: lieu, error } = await supabase
       .from("places")
       .select(
-        "id, nom, description, adresse, quartier, latitude, longitude, telephone, whatsapp, horaires, site_web, statut_verification, owner_id, categories(nom, slug, icone)",
+        "id, nom, description, adresse, quartier, latitude, longitude, telephone, whatsapp, horaires, site_web, statut_verification, owner_id, categories(nom, slug, icone), regions(nom, slug), villes_zones(nom, slug)",
       )
       .eq("id", data.id)
       .eq("actif", true)
@@ -162,6 +162,10 @@ export const obtenirLieu = createServerFn({ method: "GET" })
       .order("ordre", { ascending: true });
 
     const categorie = (lieu as unknown as { categories: Categorie | null }).categories;
+    const region = (lieu as unknown as { regions: { nom: string; slug: string } | null }).regions;
+    const ville = (
+      lieu as unknown as { villes_zones: { nom: string; slug: string } | null }
+    ).villes_zones;
     const { owner_id, ...lieuSansProprietaire } = lieu as unknown as Record<string, unknown> & {
       owner_id: string | null;
     };
@@ -179,6 +183,10 @@ export const obtenirLieu = createServerFn({ method: "GET" })
       categorie_nom: categorie?.nom ?? null,
       categorie_slug: categorie?.slug ?? null,
       categorie_icone: categorie?.icone ?? null,
+      region_nom: region?.nom ?? null,
+      region_slug: region?.slug ?? null,
+      ville_nom: ville?.nom ?? null,
+      ville_slug: ville?.slug ?? null,
       distance_m: null,
       photos: (photos ?? []) as { id: string; url: string }[],
       revendicable: owner_id === null,

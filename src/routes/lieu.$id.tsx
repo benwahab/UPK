@@ -47,7 +47,10 @@ export const Route = createFileRoute("/lieu/$id")({
         meta: [{ title: "Lieu indisponible — UPK" }, { name: "robots", content: "noindex" }],
       };
     }
-    const titre = `${loaderData.nom} — ${loaderData.categorie_nom ?? "Lieu"} à ${loaderData.quartier ?? "Niamey"} | UPK`;
+    const territoire = [loaderData.quartier, loaderData.ville_nom, loaderData.region_nom]
+      .filter(Boolean)
+      .join(", ");
+    const titre = `${loaderData.nom} — ${loaderData.categorie_nom ?? "Lieu"}${territoire ? ` à ${territoire}` : ""} | UPK`;
     const description =
       loaderData.description ??
       `Adresse, horaires et contact de ${loaderData.nom} au Niger, sur UPK.`;
@@ -130,7 +133,9 @@ function PageLieu() {
       <header className="mt-4">
         <p className="text-sm font-medium text-muted-foreground">
           {lieu.categorie_nom ?? "Lieu"}
-          {lieu.quartier ? ` · ${lieu.quartier}` : ""}
+          {[lieu.quartier, lieu.ville_nom, lieu.region_nom].filter(Boolean).length
+            ? ` · ${[lieu.quartier, lieu.ville_nom, lieu.region_nom].filter(Boolean).join(" · ")}`
+            : ""}
         </p>
         <div className="mt-1 flex items-start justify-between gap-3">
           <h1 className="font-display text-2xl leading-tight font-bold text-foreground">
