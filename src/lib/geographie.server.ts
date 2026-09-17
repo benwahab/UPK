@@ -175,24 +175,24 @@ async function rechercherGeoNames(requete: string): Promise<GeoResult[]> {
       fcode?: string;
     }>;
   }>(url);
-  return (payload?.geonames ?? [])
-    .map((row) => {
-      const latitude = nombre(row.lat);
-      const longitude = nombre(row.lng);
-      if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) return null;
-      return {
-        nom: texte(row.name) ?? texte(row.asciiName) ?? requete,
-        latitude,
-        longitude,
-        ville: row.name ?? null,
-        region: row.adminName1 ?? row.adminName2 ?? null,
-        pays: row.countryName ?? "Niger",
-        identifiant: String(row.geonameId ?? `${row.name}:${row.lat}:${row.lng}`),
-        source: "geonames" as const,
-        type: "localite" as const,
-      };
-    })
-    .filter((row): row is GeoResult => row !== null);
+  const resultats: GeoResult[] = [];
+  for (const row of payload?.geonames ?? []) {
+    const latitude = nombre(row.lat);
+    const longitude = nombre(row.lng);
+    if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) continue;
+    resultats.push({
+      nom: texte(row.name) ?? texte(row.asciiName) ?? requete,
+      latitude,
+      longitude,
+      ville: row.name ?? null,
+      region: row.adminName1 ?? row.adminName2 ?? null,
+      pays: row.countryName ?? "Niger",
+      identifiant: String(row.geonameId ?? `${row.name}:${row.lat}:${row.lng}`),
+      source: "geonames",
+      type: "localite",
+    });
+  }
+  return resultats;
 }
 
 function distanceCarree(a: Point, b: Point): number {
