@@ -90,25 +90,25 @@ async function rechercherNominatim(requete: string): Promise<GeoResult[]> {
       address?: Record<string, string>;
     }>
   >(url);
-  return (rows ?? [])
-    .map((row) => {
-      const latitude = nombre(row.lat);
-      const longitude = nombre(row.lon);
-      if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) return null;
-      const address = row.address ?? {};
-      return {
-        nom: texte(row.display_name) ?? requete,
-        latitude,
-        longitude,
-        ville: address.city ?? address.town ?? address.village ?? null,
-        region: address.state ?? null,
-        pays: address.country ?? "Niger",
-        identifiant: `${row.osm_type ?? "place"}:${row.osm_id ?? row.place_id ?? row.display_name}`,
-        source: "nominatim" as const,
-        type: row.type === "house" || row.type === "road" ? ("adresse" as const) : ("localite" as const),
-      };
-    })
-    .filter((row): row is GeoResult => row !== null);
+  const resultats: GeoResult[] = [];
+  for (const row of rows ?? []) {
+    const latitude = nombre(row.lat);
+    const longitude = nombre(row.lon);
+    if (latitude === null || longitude === null || !dansLeNiger({ latitude, longitude })) continue;
+    const address = row.address ?? {};
+    resultats.push({
+      nom: texte(row.display_name) ?? requete,
+      latitude,
+      longitude,
+      ville: address["city"] ?? address["town"] ?? address["village"] ?? null,
+      region: address["state"] ?? null,
+      pays: address["country"] ?? "Niger",
+      identifiant: `${row.osm_type ?? "place"}:${row.osm_id ?? row.place_id ?? row.display_name}`,
+      source: "nominatim",
+      type: row.type === "house" || row.type === "road" ? "adresse" : "localite",
+    });
+  }
+  return resultats;
 }
 
 async function rechercherOpenMeteo(requete: string): Promise<GeoResult[]> {
