@@ -7,6 +7,9 @@ compatibility_flags = ["nodejs_compat"]
 APP_ENV = "production"
 # À remplacer par le domaine de production avant le déploiement.
 BETTER_AUTH_URL = "http://localhost:5173"
+# Emails administrateurs, séparés par des virgules. À remplacer en production.
+ADMIN_EMAILS = ""
+RATE_LIMIT_SALT = "upk-rate-limit"
 
 [[d1_databases]]
 binding = "DB"
@@ -14,7 +17,8 @@ database_name = "upk"
 database_id = "3b364a13-7620-415d-8b7f-6ec9d79a6d66"
 migrations_dir = "../packages/db/migrations"
 
-# R2 activé au sprint 2 (photos).
+# R2 n'est pas encore activé sur le compte Cloudflare.
+# Activer R2 dans le tableau de bord, créer les buckets, puis décommenter.
 # [[r2_buckets]]
 # binding = "PHOTOS"
 # bucket_name = "upk-photos"
@@ -25,6 +29,14 @@ name = "upk-staging"
 [env.staging.vars]
 APP_ENV = "staging"
 BETTER_AUTH_URL = "https://upk-staging.benwahab111.workers.dev"
+ADMIN_EMAILS = "admin@upk.test"
+RATE_LIMIT_SALT = "upk-staging-rate-limit"
+# Clé de test Turnstile (publique, toujours valide). Remplacer en production.
+TURNSTILE_SECRET_KEY = "1x0000000000000000000000000000000AA"
+
+# [[env.staging.r2_buckets]]
+# binding = "PHOTOS"
+# bucket_name = "upk-photos-staging"
 
 [[env.staging.d1_databases]]
 binding = "DB"

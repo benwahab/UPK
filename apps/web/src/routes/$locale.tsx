@@ -1,6 +1,7 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect, useRouterState } from "@tanstack/react-router";
 import { localeSchema, type Locale } from "@upk/domain";
 import { t } from "@upk/i18n";
+import { useDocumentTitle } from "../lib/use-document-title";
 
 const OG_LOCALES: Record<Locale, string> = { fr: "fr_FR", en: "en_US", ar: "ar_AR" };
 
@@ -32,5 +33,12 @@ export const Route = createFileRoute("/$locale")({
 });
 
 function LocaleLayout() {
+  const { locale } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  useDocumentTitle(
+    pathname === `/${locale}` || pathname === `/${locale}/`
+      ? `${t(locale, "app.name")} — ${t(locale, "home.title")}`
+      : null,
+  );
   return <Outlet />;
 }

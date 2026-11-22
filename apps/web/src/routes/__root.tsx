@@ -7,6 +7,7 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { SiteFooter } from "../components/site-footer";
 import { absoluteUrl } from "../lib/site";
 import appCss from "../styles.css?url";
 
@@ -129,11 +130,17 @@ function RootComponent() {
     }
   };
 
-  const pathLocale = typeof window === "undefined" ? "fr" : window.location.pathname.split("/")[1];
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const locale =
+    pathname === "/en" || pathname.startsWith("/en/")
+      ? "en"
+      : pathname === "/ar" || pathname.startsWith("/ar/")
+        ? "ar"
+        : "fr";
   const labels =
-    pathLocale === "en"
+    locale === "en"
       ? { update: "A new version is available.", reload: "Reload", install: "Install UPK" }
-      : pathLocale === "ar"
+      : locale === "ar"
         ? { update: "تتوفر نسخة جديدة.", reload: "إعادة التحميل", install: "تثبيت UPK" }
         : {
             update: "Une nouvelle version est disponible.",
@@ -144,6 +151,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <SiteFooter locale={locale} />
       {updateReady && (
         <div
           role="status"

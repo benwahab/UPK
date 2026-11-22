@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { localeSchema, type Locale } from "@upk/domain";
 import { t } from "@upk/i18n";
+import { ReportForm } from "../../../components/report-form";
 import { absoluteUrl } from "../../../lib/site";
 import { getTrpcClient } from "../../../lib/trpc";
+import { useDocumentTitle } from "../../../lib/use-document-title";
 import { getPlace } from "../../../server/places";
 
 export const Route = createFileRoute("/$locale/places/$id")({
@@ -91,6 +93,7 @@ function PlaceDetail() {
   }
 
   const place = query.data;
+  useDocumentTitle(place ? `${place.nom} — ${t(locale, "app.name")}` : null);
   if (!place) {
     return (
       <main className="mx-auto max-w-3xl px-6 py-16">
@@ -159,6 +162,7 @@ function PlaceDetail() {
           {t(locale, "place.directions")}
         </a>
       </div>
+      <ReportForm placeId={place.id} locale={locale} />
     </main>
   );
 }

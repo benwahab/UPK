@@ -1,13 +1,28 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { Context } from "@upk/api";
-import { getCategoryRepository, getPlaceRepository } from "../lib/repositories.server";
+import {
+  getAuditRepository,
+  getCategoryRepository,
+  getContributionRepository,
+  getModerationRepository,
+  getPlaceRepository,
+  getRateLimitRepository,
+  getReportRepository,
+} from "../lib/repositories.server";
 import { createTrpcCaller } from "../lib/trpc.server";
 
 function publicContext(): Context {
   return {
     user: null,
+    client: { ip: "127.0.0.1", ipHash: "server", userAgent: null },
     places: getPlaceRepository(),
     categories: getCategoryRepository(),
+    contributions: getContributionRepository(),
+    reports: getReportRepository(),
+    moderation: getModerationRepository(),
+    rateLimits: getRateLimitRepository(),
+    audit: getAuditRepository(),
+    turnstile: { verify: async () => false },
   };
 }
 

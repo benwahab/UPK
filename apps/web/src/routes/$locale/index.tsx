@@ -100,6 +100,13 @@ function Home() {
           </Link>
         ))}
       </nav>
+      <Link
+        to="/$locale/contribuer"
+        params={{ locale }}
+        className="mt-4 text-sm font-medium text-[var(--upk-primary)]"
+      >
+        {t(locale, "nav.propose")}
+      </Link>
       <form
         method="get"
         action={`/${locale}`}
@@ -194,9 +201,6 @@ function Home() {
         )}
       </section>
 
-      <p className="mt-auto pt-10 text-xs text-[var(--upk-muted-fg)]">
-        {t(locale, "footer.attribution")}
-      </p>
     </main>
   );
 }

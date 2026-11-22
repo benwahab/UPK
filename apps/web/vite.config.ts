@@ -8,6 +8,9 @@ import tsConfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   define: {
     "import.meta.env.VITE_SITE_URL": JSON.stringify(process.env.SITE_URL ?? ""),
+    "import.meta.env.VITE_TURNSTILE_SITE_KEY": JSON.stringify(
+      process.env.VITE_TURNSTILE_SITE_KEY ?? "",
+    ),
   },
   plugins: [
     cloudflare({

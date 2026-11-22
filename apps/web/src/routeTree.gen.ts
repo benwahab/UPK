@@ -14,10 +14,19 @@ import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
+import { Route as LocaleAProposRouteImport } from './routes/$locale/a-propos'
+import { Route as LocaleConditionsRouteImport } from './routes/$locale/conditions'
+import { Route as LocaleConfidentialiteRouteImport } from './routes/$locale/confidentialite'
+import { Route as LocaleConnexionRouteImport } from './routes/$locale/connexion'
+import { Route as LocaleContactRouteImport } from './routes/$locale/contact'
+import { Route as LocaleContribuerRouteImport } from './routes/$locale/contribuer'
 import { Route as ApiPocRouteImport } from './routes/api/poc'
+import { Route as ApiUploadsRouteImport } from './routes/api/uploads'
 import { Route as PlacesIdRouteImport } from './routes/places/$id'
+import { Route as LocaleAdminModerationRouteImport } from './routes/$locale/admin/moderation'
 import { Route as LocalePlacesIdRouteImport } from './routes/$locale/places/$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiPhotosSplatRouteImport } from './routes/api/photos/$'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -45,15 +54,55 @@ const LocaleIndexRoute = LocaleIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleAProposRoute = LocaleAProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleConditionsRoute = LocaleConditionsRouteImport.update({
+  id: '/conditions',
+  path: '/conditions',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleConfidentialiteRoute = LocaleConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleConnexionRoute = LocaleConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleContactRoute = LocaleContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleContribuerRoute = LocaleContribuerRouteImport.update({
+  id: '/contribuer',
+  path: '/contribuer',
+  getParentRoute: () => LocaleRoute,
+} as any)
 const ApiPocRoute = ApiPocRouteImport.update({
   id: '/api/poc',
   path: '/api/poc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiUploadsRoute = ApiUploadsRouteImport.update({
+  id: '/api/uploads',
+  path: '/api/uploads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlacesIdRoute = PlacesIdRouteImport.update({
   id: '/places/$id',
   path: '/places/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleAdminModerationRoute = LocaleAdminModerationRouteImport.update({
+  id: '/admin/moderation',
+  path: '/admin/moderation',
+  getParentRoute: () => LocaleRoute,
 } as any)
 const LocalePlacesIdRoute = LocalePlacesIdRouteImport.update({
   id: '/places/$id',
@@ -63,6 +112,11 @@ const LocalePlacesIdRoute = LocalePlacesIdRouteImport.update({
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPhotosSplatRoute = ApiPhotosSplatRouteImport.update({
+  id: '/api/photos/$',
+  path: '/api/photos/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
@@ -76,22 +130,40 @@ export interface FileRoutesByFullPath {
   '/$locale': typeof LocaleRouteWithChildren
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$locale/a-propos': typeof LocaleAProposRoute
+  '/$locale/conditions': typeof LocaleConditionsRoute
+  '/$locale/confidentialite': typeof LocaleConfidentialiteRoute
+  '/$locale/connexion': typeof LocaleConnexionRoute
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/contribuer': typeof LocaleContribuerRoute
   '/api/poc': typeof ApiPocRoute
+  '/api/uploads': typeof ApiUploadsRoute
   '/places/$id': typeof PlacesIdRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/admin/moderation': typeof LocaleAdminModerationRoute
   '/$locale/places/$id': typeof LocalePlacesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/photos/$': typeof ApiPhotosSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$locale/a-propos': typeof LocaleAProposRoute
+  '/$locale/conditions': typeof LocaleConditionsRoute
+  '/$locale/confidentialite': typeof LocaleConfidentialiteRoute
+  '/$locale/connexion': typeof LocaleConnexionRoute
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/contribuer': typeof LocaleContribuerRoute
   '/api/poc': typeof ApiPocRoute
+  '/api/uploads': typeof ApiUploadsRoute
   '/places/$id': typeof PlacesIdRoute
   '/$locale': typeof LocaleIndexRoute
+  '/$locale/admin/moderation': typeof LocaleAdminModerationRoute
   '/$locale/places/$id': typeof LocalePlacesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/photos/$': typeof ApiPhotosSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesById {
@@ -100,11 +172,20 @@ export interface FileRoutesById {
   '/$locale': typeof LocaleRouteWithChildren
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/$locale/a-propos': typeof LocaleAProposRoute
+  '/$locale/conditions': typeof LocaleConditionsRoute
+  '/$locale/confidentialite': typeof LocaleConfidentialiteRoute
+  '/$locale/connexion': typeof LocaleConnexionRoute
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/contribuer': typeof LocaleContribuerRoute
   '/api/poc': typeof ApiPocRoute
+  '/api/uploads': typeof ApiUploadsRoute
   '/places/$id': typeof PlacesIdRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/admin/moderation': typeof LocaleAdminModerationRoute
   '/$locale/places/$id': typeof LocalePlacesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/photos/$': typeof ApiPhotosSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRouteTypes {
@@ -114,22 +195,40 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/$locale/a-propos'
+    | '/$locale/conditions'
+    | '/$locale/confidentialite'
+    | '/$locale/connexion'
+    | '/$locale/contact'
+    | '/$locale/contribuer'
     | '/api/poc'
+    | '/api/uploads'
     | '/places/$id'
     | '/$locale/'
+    | '/$locale/admin/moderation'
     | '/$locale/places/$id'
     | '/api/auth/$'
+    | '/api/photos/$'
     | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/$locale/a-propos'
+    | '/$locale/conditions'
+    | '/$locale/confidentialite'
+    | '/$locale/connexion'
+    | '/$locale/contact'
+    | '/$locale/contribuer'
     | '/api/poc'
+    | '/api/uploads'
     | '/places/$id'
     | '/$locale'
+    | '/$locale/admin/moderation'
     | '/$locale/places/$id'
     | '/api/auth/$'
+    | '/api/photos/$'
     | '/api/trpc/$'
   id:
     | '__root__'
@@ -137,11 +236,20 @@ export interface FileRouteTypes {
     | '/$locale'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/$locale/a-propos'
+    | '/$locale/conditions'
+    | '/$locale/confidentialite'
+    | '/$locale/connexion'
+    | '/$locale/contact'
+    | '/$locale/contribuer'
     | '/api/poc'
+    | '/api/uploads'
     | '/places/$id'
     | '/$locale/'
+    | '/$locale/admin/moderation'
     | '/$locale/places/$id'
     | '/api/auth/$'
+    | '/api/photos/$'
     | '/api/trpc/$'
   fileRoutesById: FileRoutesById
 }
@@ -151,8 +259,10 @@ export interface RootRouteChildren {
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPocRoute: typeof ApiPocRoute
+  ApiUploadsRoute: typeof ApiUploadsRoute
   PlacesIdRoute: typeof PlacesIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiPhotosSplatRoute: typeof ApiPhotosSplatRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
 }
 
@@ -193,11 +303,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleIndexRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/a-propos': {
+      id: '/$locale/a-propos'
+      path: '/a-propos'
+      fullPath: '/$locale/a-propos'
+      preLoaderRoute: typeof LocaleAProposRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/conditions': {
+      id: '/$locale/conditions'
+      path: '/conditions'
+      fullPath: '/$locale/conditions'
+      preLoaderRoute: typeof LocaleConditionsRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/confidentialite': {
+      id: '/$locale/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/$locale/confidentialite'
+      preLoaderRoute: typeof LocaleConfidentialiteRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/connexion': {
+      id: '/$locale/connexion'
+      path: '/connexion'
+      fullPath: '/$locale/connexion'
+      preLoaderRoute: typeof LocaleConnexionRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/contact': {
+      id: '/$locale/contact'
+      path: '/contact'
+      fullPath: '/$locale/contact'
+      preLoaderRoute: typeof LocaleContactRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/contribuer': {
+      id: '/$locale/contribuer'
+      path: '/contribuer'
+      fullPath: '/$locale/contribuer'
+      preLoaderRoute: typeof LocaleContribuerRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/api/poc': {
       id: '/api/poc'
       path: '/api/poc'
       fullPath: '/api/poc'
       preLoaderRoute: typeof ApiPocRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/uploads': {
+      id: '/api/uploads'
+      path: '/api/uploads'
+      fullPath: '/api/uploads'
+      preLoaderRoute: typeof ApiUploadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/places/$id': {
@@ -206,6 +365,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/places/$id'
       preLoaderRoute: typeof PlacesIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/$locale/admin/moderation': {
+      id: '/$locale/admin/moderation'
+      path: '/admin/moderation'
+      fullPath: '/$locale/admin/moderation'
+      preLoaderRoute: typeof LocaleAdminModerationRouteImport
+      parentRoute: typeof LocaleRoute
     }
     '/$locale/places/$id': {
       id: '/$locale/places/$id'
@@ -221,6 +387,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/photos/$': {
+      id: '/api/photos/$'
+      path: '/api/photos/$'
+      fullPath: '/api/photos/$'
+      preLoaderRoute: typeof ApiPhotosSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/trpc/$': {
       id: '/api/trpc/$'
       path: '/api/trpc/$'
@@ -232,12 +405,26 @@ declare module '@tanstack/react-router' {
 }
 
 interface LocaleRouteChildren {
+  LocaleAProposRoute: typeof LocaleAProposRoute
+  LocaleConditionsRoute: typeof LocaleConditionsRoute
+  LocaleConfidentialiteRoute: typeof LocaleConfidentialiteRoute
+  LocaleConnexionRoute: typeof LocaleConnexionRoute
+  LocaleContactRoute: typeof LocaleContactRoute
+  LocaleContribuerRoute: typeof LocaleContribuerRoute
   LocaleIndexRoute: typeof LocaleIndexRoute
+  LocaleAdminModerationRoute: typeof LocaleAdminModerationRoute
   LocalePlacesIdRoute: typeof LocalePlacesIdRoute
 }
 
 const LocaleRouteChildren: LocaleRouteChildren = {
+  LocaleAProposRoute: LocaleAProposRoute,
+  LocaleConditionsRoute: LocaleConditionsRoute,
+  LocaleConfidentialiteRoute: LocaleConfidentialiteRoute,
+  LocaleConnexionRoute: LocaleConnexionRoute,
+  LocaleContactRoute: LocaleContactRoute,
+  LocaleContribuerRoute: LocaleContribuerRoute,
   LocaleIndexRoute: LocaleIndexRoute,
+  LocaleAdminModerationRoute: LocaleAdminModerationRoute,
   LocalePlacesIdRoute: LocalePlacesIdRoute,
 }
 
@@ -250,8 +437,10 @@ const rootRouteChildren: RootRouteChildren = {
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPocRoute: ApiPocRoute,
+  ApiUploadsRoute: ApiUploadsRoute,
   PlacesIdRoute: PlacesIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiPhotosSplatRoute: ApiPhotosSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
 }
 export const routeTree = rootRouteImport
