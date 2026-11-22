@@ -1,27 +1,33 @@
 name = "upk"
-# Le bundle Worker sera produit par l'adaptateur Cloudflare (sprint 1).
-# main = "../apps/web/.output/server/index.mjs"
+main = "@tanstack/react-start/server-entry"
 compatibility_date = "2026-11-01"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
 APP_ENV = "production"
+# À remplacer par le domaine de production avant le déploiement.
+BETTER_AUTH_URL = "http://localhost:5173"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "upk"
-database_id = "REPLACE_ME"
+database_id = "3b364a13-7620-415d-8b7f-6ec9d79a6d66"
 migrations_dir = "../packages/db/migrations"
 
-[[r2_buckets]]
-binding = "PHOTOS"
-bucket_name = "upk-photos"
+# R2 activé au sprint 2 (photos).
+# [[r2_buckets]]
+# binding = "PHOTOS"
+# bucket_name = "upk-photos"
 
 [env.staging]
 name = "upk-staging"
 
+[env.staging.vars]
+APP_ENV = "staging"
+BETTER_AUTH_URL = "https://staging.upk.example"
+
 [[env.staging.d1_databases]]
 binding = "DB"
 database_name = "upk-staging"
-database_id = "REPLACE_ME"
+database_id = "9cab467d-3261-442d-8933-cc759e93b359"
 migrations_dir = "../packages/db/migrations"

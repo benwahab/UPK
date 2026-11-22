@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "vite preview",
+    "preview": "vite preview",
+    "deploy": "vite build && wrangler deploy",
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.70.1",
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
@@ -30,6 +32,7 @@
     "tailwindcss": "^4.2.1",
     "typescript": "^5.8.3",
     "vite": "8.1.5",
-    "vite-tsconfig-paths": "^6.0.2"
+    "vite-tsconfig-paths": "^6.0.2",
+    "wrangler": "^4.166.0"
   }
 }

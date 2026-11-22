@@ -3,6 +3,8 @@ packages:
   - "packages/*"
 allowBuilds:
   esbuild: true
+  workerd: true
+  better-sqlite3: true
 minimumReleaseAgeExclude:
   - "@trpc/client@11.29.7"
   - "@trpc/react-query@11.29.7"
