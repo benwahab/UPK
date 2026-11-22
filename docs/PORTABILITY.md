@@ -1,3 +1,6 @@
+> **Document obsolète (v1).** Conservé pour mémoire. La v2 n'utilise ni
+> Lovable ni Supabase. Voir `ARCHITECTURE.md`.
+
 # Portabilité de UPK
 
 Ce document décrit les éléments nécessaires pour exécuter UPK hors de Lovable

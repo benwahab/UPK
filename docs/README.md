@@ -1,0 +1,42 @@
+# Documentation UPK
+
+Point d'entrée de la reconstruction UPK v2.
+
+| Document | Rôle | Public |
+| --- | --- | --- |
+| [`CAHIER_DES_CHARGES.md`](./CAHIER_DES_CHARGES.md) | Ce que le produit doit faire, pour qui, avec quels critères d'acceptation | Commanditaire, équipe |
+| [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Comment c'est construit : stack, schéma, API, sécurité, CI/CD | Équipe technique |
+| [`PLAN_DE_TRAVAIL.md`](./PLAN_DE_TRAVAIL.md) | Quand et dans quel ordre : sprints, jalons, checklists | Tous |
+| [`PORTABILITY.md`](./PORTABILITY.md) | Ancienne documentation de portabilité (v1) | Archive |
+
+## Données
+
+| Fichier | Contenu |
+| --- | --- |
+| [`../seed/niamey-2026-08-30.json`](../seed/niamey-2026-08-30.json) | 1 546 lieux OpenStreetMap de Niamey, avec coordonnées |
+| [`../seed/ATTRIBUTION.md`](../seed/ATTRIBUTION.md) | Attribution ODbL et empreinte d'intégrité |
+
+## Ordre de lecture recommandé
+
+1. Cahier des charges — pour comprendre le périmètre.
+2. Plan de travail — pour comprendre la séquence.
+3. Architecture — pour comprendre les choix techniques.
+
+## Conventions de travail
+
+- **Un seul dépôt, une seule branche : `main`.** Aucune branche de
+  fonctionnalité, aucune pull request, aucun tag.
+- Commits atomiques, message explicite, jamais de `push --force`.
+- Pipeline vert obligatoire avant tout déploiement.
+- Retour arrière par `git revert`, jamais par reset.
+- Chaque commit est auto-relu et accompagné d'un court rapport de vérification.
+- Aucune dépendance Lovable ni Supabase.
+
+## Langues
+
+Français, anglais et arabe (RTL) au lancement. Haoussa et zarma après la v1.
+
+## Statut
+
+Les trois documents sont en version 1.0 et **attendent validation** avant le
+démarrage du sprint 0.
