@@ -41,6 +41,10 @@ Français, anglais et arabe (RTL) au lancement. Haoussa et zarma après la v1.
 
 Les trois documents sont en version 1.1. Le choix « web mobile-first » est
 consigné (ADR-008) : la v1.0 sort en application web installable desktop +
-mobile, le Play Store est différé en v1.1. Le sprint 0 est en cours :
-monorepo, POC D1/FTS5 mesuré sur D1 réelle, seed des 1 546 lieux, Better Auth,
-repositories, CI et staging Cloudflare en place.
+mobile, le Play Store est différé en v1.1.
+
+S0 à S2 sont livrés : monorepo, POC D1/FTS5 sur D1 réelle, seed des 1 546
+lieux, Better Auth, recherche et fiches, PWA, contribution, signalements,
+modération et journal d'audit. L'upload R2 reste désactivé et le parcours est
+vérifié manuellement (pas encore de Playwright). Le staging n'a pas encore
+reçu la tranche contribution/modération.
