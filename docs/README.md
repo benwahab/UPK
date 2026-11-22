@@ -39,7 +39,7 @@ Français, anglais et arabe (RTL) au lancement. Haoussa et zarma après la v1.
 
 ## Statut
 
-Les trois documents sont en version 1.1. Le choix « web mobile-first » est
+Les trois documents sont en version 1.0. Le choix « web mobile-first » est
 consigné (ADR-008) : la v1.0 sort en application web installable desktop +
 mobile, le Play Store est différé en v1.1.
 
