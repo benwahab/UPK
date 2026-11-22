@@ -11,8 +11,8 @@
 
 ## Stack (v2)
 
-- Web : TanStack Start (SSR, PWA desktop) sur Cloudflare Workers.
-- Mobile : Expo / React Native, distribution Play Store.
+- Web : TanStack Start (SSR, PWA installable desktop + mobile) sur Cloudflare Workers.
+- Mobile : PWA mobile en v1.0 ; Expo ou TWA en v1.1 si besoin Play Store.
 - API : tRPC sur Workers.
 - Données : D1 (SQLite) + Drizzle. Fichiers : R2.
 - Auth : Better Auth. Anti-abus : Turnstile + rate limiting.
@@ -21,8 +21,8 @@
 ## Structure
 
 ```
-apps/web        TanStack Start (SSR, PWA desktop)
-apps/mobile     Expo (sprint 3)
+apps/web        TanStack Start (SSR, PWA desktop + mobile)
+apps/mobile     Expo (v1.1, si besoin natif)
 packages/domain types, Zod, normalisation, distance, scoring
 packages/db     schéma Drizzle, migrations SQL, client D1
 packages/api    routeur tRPC, contexte, permissions
@@ -44,6 +44,12 @@ pnpm build        # turbo run build
 pnpm lint         # eslint .
 pnpm seed:sql > infra/seed.sql
 ```
+
+## Décisions structurantes
+
+- **ADR-008** : PWA installable desktop et mobile pour la v1.0 ; Play Store
+  différé en v1.1 (TWA en priorité, Expo seulement si besoin natif prouvé).
+- Le dépôt reste sur une seule branche `main`, sans tag ni pull request.
 
 ## État au démarrage du sprint 0
 

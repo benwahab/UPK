@@ -31,7 +31,7 @@ Semaine   1    2    3    4    5    6    7    8    9   10   11   12
 S0 Fond.  ████
 S1 Web+i18n    ████████████████
 S2 PWA+Contr.                  ████████████
-S3 Android                              ████████████
+S3 PWA mob.                             ████████████
 S4 Admin                                        ████████████
 S5 Indus.                                                   ████████
 Jalons    M0        M1         M2         M3         M4      M5
@@ -41,10 +41,10 @@ Jalons    M0        M1         M2         M3         M4      M5
 | --- | --- | --- |
 | **M0** | S1 | POC D1 + FTS5 (latin et arabe) validé sur 1 546 lieux, auth fonctionnelle, CI verte |
 | **M1** | S4 | Web public déployé : recherche, fiche, SEO, fr/en/ar, RTL |
-| **M2** | S6 | PWA installable, contribution et modération opérationnelles |
-| **M3** | S8 | Application Android en test fermé Play Store |
+| **M2** | S6 | PWA installable desktop, contribution et modération opérationnelles |
+| **M3** | S8 | PWA mobile validée sur Android 2 Go / 3G ; décision TWA prise |
 | **M4** | S10 | Administration complète, permissions vérifiées par API |
-| **M5** | S12 | Mise en production web + Play Store |
+| **M5** | S12 | Mise en production web (PWA) ; Play Store optionnel |
 
 ## 3. Sprint 0 — Fondations (1 semaine)
 
@@ -61,7 +61,7 @@ Jalons    M0        M1         M2         M3         M4      M5
 | T0.7 | Script de seed depuis `seed/niamey-2026-08-30.json` | 0,5 j |
 | T0.8 | Better Auth : inscription, connexion, session web | 1 j |
 | T0.9 | Design tokens (couleurs, typographie, espacements) | 0,5 j |
-| T0.10 | Compte Play Store, fiche app, liste de testeurs | 0,5 j |
+| T0.10 | Décision PWA mobile-first consignée (ADR-008, avenant) | 0,5 j |
 | T0.11 | ADR validés, conventions de commit, runbook initial | 0,5 j |
 
 **Critères de sortie.**
@@ -127,30 +127,30 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
 - Le rejet enregistre un motif.
 - Toute action de modération écrit une ligne de journal.
 
-## 6. Sprint 3 — Application Android (2 semaines)
+## 6. Sprint 3 — PWA mobile et durcissement (2 semaines)
 
-**Objectif :** une app installable, utilisable sur le terrain, en test fermé.
+**Objectif :** une PWA excellente sur Android bas de gamme, sans app native.
 
 | ID | Tâche | Est. |
 | --- | --- | --- |
-| T3.1 | Projet Expo, routing, thème, tokens | 1 j |
-| T3.2 | Client tRPC + TanStack Query | 1 j |
-| T3.3 | Favoris locaux persistants (SQLite) | 1 j |
-| T3.4 | Écran recherche + fiche | 3 j |
-| T3.5 | Appel, WhatsApp, itinéraire natifs | 1 j |
-| T3.6 | Géolocalisation native | 1 j |
-| T3.7 | Hors-ligne SQLite (50 fiches) | 2 j |
-| T3.8 | Build AAB interne + signature | 1 j |
-| T3.9 | Tests Maestro | 1 j |
-| T3.10 | RTL mobile, arabe, sélecteur de langue | 2 j |
-| T3.11 | Test fermé Play Store (12 testeurs, 14 jours) | — |
+| T3.1 | Installation mobile : WebAPK, `beforeinstallprompt`, bandeau | 1 j |
+| T3.2 | Mise en page mobile : cibles tactiles, liste d'abord, carte à la demande | 2 j |
+| T3.3 | Hors-ligne mobile : 50 fiches, `storage.persist`, éviction | 2 j |
+| T3.4 | RTL mobile, arabe, sélecteur de langue | 1 j |
+| T3.5 | Recherche sans JavaScript (progressive enhancement, Opera Mini) | 2 j |
+| T3.6 | Tests sur Android 8 / 2 Go / 3G : Lighthouse, WebPageTest | 1 j |
+| T3.7 | Mesure de la part de navigateurs, décision TWA | 0,5 j |
+| T3.8 | Spike TWA (Bubblewrap, `assetlinks.json`) — optionnel | 1 j |
+| T3.9 | Tests Playwright mobile | 1 j |
+| T3.10 | Correctifs de performance | 1 j |
 
 **Critères de sortie.**
-- AAB installable sur un appareil Android 8 et un appareil 2 Go de RAM.
-- Parcours complet : recherche → fiche → appel.
+- PWA installable en mode standalone sur Chrome Android (WebAPK).
+- LCP < 2,5 s sur un Android 2 Go en 3G.
 - Mode avion : les 50 dernières fiches restent consultables.
-- Poids < 30 Mo, démarrage à froid < 3 s.
-- Test fermé lancé (le délai de 14 jours court en parallèle).
+- Recherche « pharmacie » utilisable sans JavaScript.
+- Aucun débordement horizontal en arabe.
+- Décision TWA/Play Store consignée (GO ou NO-GO).
 
 ## 7. Sprint 4 — Administration (2 semaines)
 
@@ -189,15 +189,16 @@ professionnels publics arrivent en v1.1, après la mise en ligne.
 | T5.5 | Revue de sécurité + en-têtes + rate limits | 1 j |
 | T5.6 | Sauvegarde D1 + procédure de restauration | 1 j |
 | T5.7 | Runbook d'exploitation | 1 j |
-| T5.8 | Soumission Play Store en production | — |
+| T5.8 | Préparation TWA si décision GO (sinon aucune action) | 1 j |
 | T5.9 | Bascule DNS + redirections 301 depuis l'ancien domaine | 0,5 j |
 | T5.10 | QA arabe et RTL : captures, non-débordement, relecture native | 1 j |
+| T5.11 | Vérification PWA mobile : installation, hors-ligne, Lighthouse 2 Go / 3G | 1 j |
 
 **Critères de sortie.**
 - Tous les budgets de performance sont respectés.
 - Une panne API simulée produit un message clair, pas un écran blanc.
 - Restauration D1 testée sur une base vide.
-- Application publiée ou en review Play Store.
+- PWA installable vérifiée sur Chrome Android et desktop ; décision TWA appliquée.
 - Aucune erreur critique Sentry sur 72 h.
 
 ## 9. Rôles
@@ -235,10 +236,16 @@ Une tâche est terminée quand :
 - [ ] Pages légales, confidentialité, CGU publiées
 - [ ] Attribution ODbL visible
 - [ ] Test PWA sur Chrome et Edge desktop
-- [ ] Test sur connexion 3G bridée
+- [ ] Test PWA sur Chrome Android (WebAPK, mode standalone)
+- [ ] Recherche utilisable sans JavaScript
+- [ ] Hors-ligne : 20 fiches web, 50 fiches mobiles
+- [ ] Test sur connexion 3G bridée et appareil 2 Go
 - [ ] Vérification des données structurées (Rich Results Test)
 
-## 12. Checklist Play Store
+## 12. Checklist Play Store (v1.1, optionnelle)
+
+> La v1.0 ne passe pas par le Play Store. Cette checklist sert si la décision
+> TWA (ou Expo) est prise en v1.1.
 
 - [ ] Compte développeur Google validé
 - [ ] Nom de package définitif (`ne.upk.app`)
@@ -295,7 +302,10 @@ Une tâche est terminée quand :
 | --- | --- | --- | --- | --- |
 | Limite D1 découverte tard | Moy. | Élevé | POC S0 | Bascule Hyperdrive prévue |
 | FTS5 indisponible | Faible | Moyen | POC S0 | Index inversé applicatif |
-| Retard Play Store | Moy. | Moyen | Test fermé | Lancer le compte en S0 |
+| Découvrabilité de l'installation PWA | Moy. | Moyen | Lancement | Bandeau `beforeinstallprompt`, page d'aide, WebAPK |
+| Part d'Opera Mini / navigateurs non compatibles | Moy. | Élevé | Mesure S3 | Recherche SSR sans JS, repli serveur, TWA/natif si besoin |
+| Éviction du cache PWA | Faible | Moyen | Appareil sous pression | `storage.persist`, cache limité, repli réseau |
+| Review Play Store (v1.1) | Moy. | Faible | Décision TWA | Compte dès S3, TWA plutôt qu'Expo |
 | Dérive de périmètre | Élevé | Élevé | Nouvelle demande | Avenant obligatoire |
 | Données OSM incomplètes (3 % de téléphones, 5 % d'adresses, 0,06 % de quartiers sur 1 546 lieux) | Élevé | Élevé | Revue qualité | Enrichissement terrain et partenaires, signalements, modération |
 | Perte SEO au changement de domaine | Moy. | Moyen | Bascule | 301 + sitemap + Search Console |
@@ -307,7 +317,7 @@ Une tâche est terminée quand :
 
 | Version | Contenu | Horizon |
 | --- | --- | --- |
-| v1.1 | Comptes pro complets, statistiques, revendication avancée | +3 sem. |
+| v1.1 | Comptes pro complets, statistiques, revendication avancée, app Play Store (TWA ou Expo) | +3 sem. |
 | v1.2 | Modules pharmacie de garde, restaurant, hôtel | +4 sem. |
 | v1.3 | Alertes médicament, assignations par zone, fusion de doublons | +3 sem. |
 | v2.0 | Haoussa et zarma (après FR/EN/AR), API publique, iOS | +8 sem. |

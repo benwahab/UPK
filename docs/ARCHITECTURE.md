@@ -13,8 +13,8 @@
 
 ```
 ┌──────────────────────┐        ┌──────────────────────┐
-│  Web desktop (PWA)   │        │  Android (Play Store) │
-│  TanStack Start SSR  │        │  Expo / React Native  │
+│  Web desktop (PWA)   │        │  Mobile (PWA)         │
+│  TanStack Start SSR  │        │  Android / Chrome     │
 └──────────┬───────────┘        └──────────┬───────────┘
            │  HTTPS / tRPC                 │  HTTPS / tRPC
            └───────────────┬───────────────┘
@@ -44,8 +44,8 @@ dans un composant. Aucune règle métier dans l'UI.
 ```
 upk/
 ├── apps/
-│   ├── web/                  TanStack Start (React 19), SSR, PWA desktop
-│   └── mobile/               Expo (React Native), Android
+│   ├── web/                  TanStack Start (React 19), SSR, PWA desktop + mobile
+│   └── mobile/               Expo (v1.1, si besoin natif)
 ├── packages/
 │   ├── domain/               Types, schémas Zod, règles métier pures
 │   ├── api/                  Routeur tRPC + procédures
@@ -104,9 +104,14 @@ D1 n'a pas de RLS. Chaque procédure passe par un wrapper qui exige une session
 et une permission. **Refus par défaut.** Toute requête de repository est
 contrainte par l'identité de l'appelant.
 
-### ADR-008 — PWA desktop uniquement
-Pas de PWA mobile : l'Android passe par le Play Store. Réduit fortement la
-complexité (pas d'iOS, pas de prompt d'installation mobile).
+### ADR-008 — PWA installable desktop et mobile, app native différée
+La v1.0 sort en PWA installable sur desktop et mobile. Le Play Store n'est pas
+requis au lancement : il ajoute une review, un test fermé de 14 jours et une
+seconde chaîne de distribution pour un besoin non démontré. Si une présence
+Play Store devient nécessaire, un **TWA** (Trusted Web Activity) emballe la
+même PWA dans un APK de 1–2 Mo, sans réécrire l'application. Expo/React Native
+est différé à la v1.1, uniquement si un besoin natif réel apparaît (SQLite
+50 fiches, push, background sync).
 
 ### ADR-009 — Visiteur sans compte
 Aucune inscription pour chercher, consulter, proposer ou signaler.
@@ -317,27 +322,31 @@ export const approvePlace = procedure("admin.moderation.approve")
 - Images en cache disque (`expo-image`).
 - Bandeau « hors-ligne » et date de dernière synchronisation.
 
-## 9. PWA desktop
+## 9. PWA installable (desktop et mobile)
 
 - `manifest.webmanifest` : `display: standalone`, `start_url: "/"`,
-  `theme_color`, icônes 192/512 + maskable, captures desktop.
-- Service worker généré par VitePWA **dans la sortie réelle** du build
-  (`.output/public`), pas dans `dist/`.
+  `theme_color`, icônes 192/512 + maskable, captures desktop et mobile.
+- Service worker généré par VitePWA **dans la sortie réelle** du build,
+  pas dans `dist/`.
 - Enregistrement explicite au démarrage.
 - Flux de mise à jour : détection d'une nouvelle version → bandeau → activation
   au clic.
-- `beforeinstallprompt` capturé, bouton affiché uniquement sur desktop.
+- `beforeinstallprompt` capturé, bouton affiché sur desktop et mobile.
+- Android : installation WebAPK, mode standalone, icône dans le tiroir
+  d'applications.
+- Recherche et fiche utilisables **sans JavaScript** (SSR + formulaire) pour
+  Opera Mini et les réseaux lents.
 
-## 10. Application Android
+## 10. Application Android (différée v1.1)
 
-- **Expo** (dernière SDK stable), Expo Router.
-- `expo-location`, `expo-linking`, `expo-image`, `expo-secure-store`,
-  `expo-sqlite`.
-- **EAS Build** pour l'AAB, **EAS Update** pour les correctifs OTA.
-- Signature Play App Signing.
-- Budget : APK < 30 Mo, démarrage à froid < 3 s, Android 8+.
+- **v1.0** : pas d'app native ; la PWA mobile couvre le besoin.
+- **v1.1, si besoin Play Store** : **TWA** (Bubblewrap) autour de la PWA,
+  APK de 1–2 Mo, `assetlinks.json`, review Play Store.
+- **Expo/React Native** seulement si un besoin natif réel est prouvé :
+  `expo-sqlite` pour 50 fiches hors-ligne, push, background sync.
+- Si Expo : EAS Build, EAS Update, Play App Signing, APK < 30 Mo, Android 8+,
+  démarrage à froid < 3 s.
 - Carte chargée à la demande, jamais dans le bundle initial.
-- Bandeau web mobile « Ouvrir dans l'application » (lien Play Store).
 
 ## 11. Import OpenStreetMap
 
@@ -402,7 +411,10 @@ push main
   └─ deploy production (déclenchement manuel depuis main)
 ```
 
-### Pipeline mobile — déclenchement manuel depuis `main`
+### Pipeline mobile (v1.1) — déclenchement manuel depuis `main`
+
+En v1.0, la PWA mobile est livrée par le pipeline web : il n'y a pas de build
+mobile séparé.
 ```
 workflow_dispatch
   ├─ lint + typecheck + tests
@@ -430,7 +442,8 @@ workflow_dispatch
 | Unitaire | Vitest | Domaine, normalisation, scoring, permissions |
 | Intégration | Vitest + Miniflare | Procédures tRPC sur D1 locale |
 | Web E2E | Playwright | Recherche, fiche, proposition, admin |
-| Mobile E2E | Maestro | Recherche, fiche, appel, hors-ligne |
+| PWA mobile | Playwright + Lighthouse | Installation, hors-ligne, budgets 2 Go / 3G |
+| Mobile natif (v1.1) | Maestro | Recherche, fiche, appel, hors-ligne |
 | Charge | k6 | Recherche à 50 req/s |
 
 ## 16. Environnements et secrets
@@ -470,6 +483,8 @@ Injectés par `wrangler secret put` et par les secrets EAS. **Jamais dans Git.**
 - Comportement de `wrangler d1 migrations apply` en préversion.
 - Coût R2 pour les photos à l'échelle prévue.
 - Comportement de FTS5 sur l'arabe (tokenizer, normalisation des harakat).
+- Installation WebAPK sur Android (Chrome, Samsung Internet) et comportement
+  de la recherche sans JavaScript.
 
 **Mesures du POC (SQLite local, 1 546 lieux, `MATCH` + filtres, `LIMIT 200`,
 pilote Python inclus) :** p50 ≈ 22 ms, p95 ≈ 25 ms sur « pharmacie »,

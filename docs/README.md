@@ -38,5 +38,8 @@ Français, anglais et arabe (RTL) au lancement. Haoussa et zarma après la v1.
 
 ## Statut
 
-Les trois documents sont en version 1.0 et validés. Le sprint 0 est démarré :
-monorepo, POC D1/FTS5, seed des 1 546 lieux et CI sont en place.
+Les trois documents sont en version 1.1. Le choix « web mobile-first » est
+consigné (ADR-008) : la v1.0 sort en application web installable desktop +
+mobile, le Play Store est différé en v1.1. Le sprint 0 est en cours :
+monorepo, POC D1/FTS5, seed des 1 546 lieux, CI et adaptateur Cloudflare en
+place.

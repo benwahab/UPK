@@ -31,10 +31,10 @@ novembre 2026 a établi :
 - aucun test automatisé ;
 - deux systèmes de migrations concurrents.
 
-La décision est prise de **reconstruire sur des bases neuves**, avec deux
-canaux assumés : **web desktop** (PWA installable) et **application Android**
-(Play Store). Les données OpenStreetMap déjà intégrées sont conservées dans
-`seed/`.
+La décision est prise de **reconstruire sur des bases neuves**, avec un canal
+assumé : **la PWA installable desktop et mobile**. L'application Play Store est
+différée en v1.1 (TWA ou Expo). Les données OpenStreetMap déjà intégrées sont
+conservées dans `seed/`.
 
 ## 3. Vision et principes directeurs
 
@@ -73,8 +73,8 @@ secondes, où se trouve ce dont elle a besoin, et d'agir immédiatement : appele
 ## 5. Parcours utilisateurs clés
 
 ### P1 — Recherche immédiate (visiteur, mobile)
-Ouvre l'app → autorise la position (optionnel) → tape « pharmacie » → voit les
-résultats triés par distance → appuie sur « Appeler ».
+Ouvre la PWA (ou le site mobile) → autorise la position (optionnel) → tape
+« pharmacie » → voit les résultats triés par distance → appuie sur « Appeler ».
 
 ### P2 — Recherche desktop (visiteur, ordinateur)
 Ouvre le site → tape une requête → voit la liste à gauche et la carte à droite
@@ -103,8 +103,8 @@ statistiques.
 | 3 | Proposition de lieu avec photo et CAPTCHA |
 | 4 | Signalement d'erreur |
 | 5 | Favoris locaux (sans compte) |
-| 6 | PWA desktop installable, hors-ligne sur les dernières fiches |
-| 7 | Application Android publiée sur le Play Store |
+| 6 | PWA installable desktop et mobile, hors-ligne sur les dernières fiches |
+| 7 | Installation mobile de la PWA (WebAPK, mode standalone), sans Play Store |
 | 8 | Modération minimale (valider / rejeter avec motif) |
 | 9 | Administration minimale (comptes, catégories, signalements) |
 | 10 | SEO : SSR, sitemap, données structurées `LocalBusiness` |
@@ -115,7 +115,7 @@ statistiques.
 
 | Version | Contenu |
 | --- | --- |
-| **v1.1** | Comptes professionnels, revendication de fiche, photos gérées, statistiques |
+| **v1.1** | Comptes professionnels, revendication de fiche, photos gérées, statistiques ; application Play Store (TWA ou Expo selon besoin natif) |
 | **v1.2** | Modules métier : pharmacie de garde, restaurant (menu), hôtel (chambres) |
 | **v1.3** | Alertes médicament, assignations par zone, fusion de doublons |
 | **v2.0** | Haoussa et zarma (après FR/EN/AR), paiement, API publique |
@@ -123,7 +123,8 @@ statistiques.
 ### 6.3 Hors périmètre explicite
 
 - iOS (à réévaluer après la v1.1).
-- PWA mobile : **abandonnée**, remplacée par l'app Android.
+- Application native Play Store : **différée en v1.1**. La v1.0 est une PWA
+  mobile-first ; un TWA peut être ajouté ensuite sans réécrire l'application.
 - Chat, réservation, paiement en ligne.
 - Import CSV de menus/chambres.
 - Recherche vocale.
@@ -232,7 +233,7 @@ assortie de critères d'acceptation vérifiables.
 | EF-MET-04 | Médicaments et alertes de disponibilité | C |
 | EF-MET-05 | Un module n'est visible que si le lieu a des données | M |
 
-### 7.8 E8 — PWA desktop
+### 7.8 E8 — PWA installable (desktop et mobile)
 
 | ID | Exigence | Prio |
 | --- | --- | --- |
@@ -241,20 +242,32 @@ assortie de critères d'acceptation vérifiables.
 | EF-PWA-03 | App-shell disponible hors-ligne | M |
 | EF-PWA-04 | 20 dernières fiches consultées disponibles hors-ligne | S |
 | EF-PWA-05 | Notification de mise à jour avec bouton « Recharger » | M |
-| EF-PWA-06 | Bouton d'installation affiché uniquement sur desktop | M |
+| EF-PWA-06 | Bouton d'installation affiché sur desktop et mobile | M |
 
-### 7.9 E9 — Application Android
+### 7.9 E9 — PWA mobile et installation
 
 | ID | Exigence | Prio |
 | --- | --- | --- |
 | EF-MOB-01 | Recherche et fiche identiques au web en contenu | M |
-| EF-MOB-02 | Géolocalisation native | M |
-| EF-MOB-03 | Appel, WhatsApp, itinéraire natifs | M |
+| EF-MOB-02 | Géolocalisation navigateur, avec repli sans position | M |
+| EF-MOB-03 | Appel, WhatsApp, itinéraire via liens natifs | M |
 | EF-MOB-04 | 50 dernières fiches consultées hors-ligne | S |
-| EF-MOB-05 | Poids de l'APK inférieur à 30 Mo | M |
+| EF-MOB-05 | Installation WebAPK et mode standalone | M |
 | EF-MOB-06 | Compatible Android 8 et appareils 2 Go de RAM | M |
-| EF-MOB-07 | Mises à jour OTA pour les correctifs | S |
-| EF-MOB-08 | Bandeau « Ouvrir dans l'app » sur le web mobile | S |
+| EF-MOB-07 | Mise à jour instantanée via service worker | M |
+| EF-MOB-08 | Bandeau « Installer l'application » sur mobile | S |
+| EF-MOB-09 | Recherche utilisable sans JavaScript (Opera Mini, réseaux lents) | M |
+
+**Critères d'acceptation.**
+
+- *Étant donné* un Android 2 Go en 3G, *quand* j'ouvre la recherche, *alors*
+  le premier résultat utile s'affiche en moins de 2,5 s.
+- *Étant donné* Chrome Android, *quand* j'accepte l'invite, *alors* la PWA
+  s'installe en mode standalone (WebAPK).
+- *Étant donné* le mode avion, *quand* j'ouvre une fiche déjà consultée,
+  *alors* elle reste lisible.
+- *Étant donné* JavaScript désactivé, *quand* je recherche « pharmacie »,
+  *alors* les résultats s'affichent en HTML.
 
 ### 7.10 E10 — Internationalisation
 
@@ -590,8 +603,8 @@ de distance.
 - **ODbL** : attribution « © les contributeurs OpenStreetMap » visible et
   provenance conservée pour chaque lieu.
 - **Mentions légales**, **politique de confidentialité**, **CGU** publiées.
-- **Play Store** : politique de confidentialité accessible, formulaire Data
-  Safety, classification de contenu, signature Play App Signing.
+- **Play Store (v1.1)** : politique de confidentialité accessible, formulaire
+  Data Safety, classification de contenu, signature Play App Signing.
 - Aucune donnée personnelle collectée sans base légale identifiable.
 
 ## 15. Definition of Done
@@ -613,9 +626,9 @@ Une fonctionnalité est terminée lorsque :
 | Taux de recherches avec clic sur un résultat | > 40 % |
 | Taux de recherches sans résultat | < 15 % |
 | Temps jusqu'au premier résultat | < 1,5 s |
-| Sessions sans plantage (Android) | > 99,5 % |
+| Sessions sans plantage (mobile) | > 99,5 % |
 | Fiches publiées et vérifiées | > 2 000 |
-| Installations Play Store | > 1 000 |
+| Installations PWA / sessions en mode standalone | > 1 000 |
 | Complétude des traductions (fr, en, ar) | 100 % |
 
 ## 17. Risques
@@ -625,8 +638,8 @@ Une fonctionnalité est terminée lorsque :
 | Perte définitive des données v1 | Élevé | Données OSM déjà extraites dans `seed/` ; export runtime à tenter avant coupure |
 | Dérive de périmètre | Élevé | Ce document fait foi ; tout ajout passe par un avenant |
 | Limites D1/Workers découvertes tard | Moyen | POC en sprint 0, tests de charge avant production |
-| Faible qualité des données OSM | Moyen | Circuit de modération, signalements, fusion de doublons |
-| Coût de la review Play Store | Moyen | Compte développeur et test fermé lancés dès le sprint 0 |
+| Faible qualité des données OSM (3 % de téléphones, 5 % d'adresses, 0,06 % de quartiers) | Élevé | Enrichissement terrain et partenaires, signalements, modération |
+| Coût de la review Play Store (v1.1) | Faible | Décision TWA, compte développeur seulement si GO |
 | Réseau lent / appareils faibles | Élevé | Budgets de performance, offline, texte d'abord |
 | Perte de SEO au changement de domaine | Moyen | Plan de redirections 301, sitemap, canoniques |
 
@@ -655,7 +668,7 @@ Une fonctionnalité est terminée lorsque :
 4. `seed/niamey-2026-08-30.json` + `seed/ATTRIBUTION.md`.
 5. Monorepo initialisé avec CI.
 6. Web déployé sur Workers.
-7. Application Android publiée (test fermé puis production).
+7. PWA mobile installée et vérifiée sur Android 2 Go / 3G.
 8. Documentation d'exploitation (runbook).
 
 ## 20. Glossaire

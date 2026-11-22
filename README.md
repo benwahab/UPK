@@ -2,15 +2,15 @@
 
 Moteur de recherche local et annuaire d'établissements pour le Niger.
 
-- **Web desktop** : TanStack Start (SSR, PWA installable) sur Cloudflare Workers.
-- **Android** : Expo / React Native, distribution Play Store.
+- **Web et mobile** : TanStack Start (SSR, PWA installable desktop + mobile) sur Cloudflare Workers.
+- **Play Store** : différé en v1.1 (TWA ou Expo selon besoin natif).
 - **Langues** : français, anglais, arabe (RTL).
 
 ## Structure
 
 ```
-apps/web        application web (SSR + PWA)
-apps/mobile     application Android (sprint 3)
+apps/web        application web (SSR + PWA desktop + mobile)
+apps/mobile     Expo (v1.1, si besoin natif)
 packages/       domaine, API, base, i18n, UI
 infra/          Wrangler, scripts de seed
 docs/           cahier des charges, architecture, plan de travail
