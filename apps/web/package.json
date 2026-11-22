@@ -15,7 +15,7 @@
     "@tanstack/react-router": "1.170.18",
     "@tanstack/react-start": "1.168.32",
     "@trpc/client": "^11.29.7",
-    "@trpc/react-query": "^11.29.7",
+    "@trpc/server": "^11.29.7",
     "@upk/api": "workspace:*",
     "@upk/db": "workspace:*",
     "@upk/domain": "workspace:*",

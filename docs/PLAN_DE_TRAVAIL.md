@@ -103,6 +103,15 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
 | T1.12 | Tests unitaires, intégration et complétude des catalogues | 2 j |
 | T1.13 | Déploiement préversion + Lighthouse | 1 j |
 
+**État au 2026-11-22 (première tranche).**
+- T1.1, T1.2, T1.4 : faits (domaine, repositories, i18n).
+- T1.3 : `search.places`, `places.byId`, `categories.list` branchés sur D1 ;
+  handler `/api/trpc` + contexte session Better Auth.
+- T1.6/T1.7 (partiel) : recherche SSR (20 premiers résultats, total 1 546) et
+  fiche `/places/$id` SSR, appel et itinéraire.
+- Reste : filtres + carte, JSON-LD, routes `/fr` `/en` `/ar`, sitemap,
+  Lighthouse.
+
 **Critères de sortie.**
 - Recherche < 400 ms p95 sur 1 546 lieux.
 - Lighthouse : SEO ≥ 95, Performance ≥ 85 sur desktop.

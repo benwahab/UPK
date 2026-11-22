@@ -287,6 +287,11 @@ export const approvePlace = procedure("admin.moderation.approve")
 - Une API REST publique (`/api/v1`) pourra être ajoutée en v2.0 sans casser
   tRPC.
 
+**Implémentation S0/S1.** Handler `/api/trpc/$` (`fetchRequestHandler`),
+contexte `createTrpcContext` (session Better Auth + repositories D1), client
+vanilla `@trpc/client` + React Query. La recherche et la fiche sont aussi
+rendues côté serveur via `createServerFn` (`apps/web/src/server/places.ts`).
+
 ## 6. Authentification
 
 - **Better Auth** sur D1.

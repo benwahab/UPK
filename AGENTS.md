@@ -72,8 +72,10 @@ pnpm -C apps/web exec wrangler deploy
 - Repositories D1 : FTS5, filtres, distance, catégories ; tests sur les
   migrations réelles (`0001_init.sql`).
 - POC D1 réelle : SQL p95 ≤ 4,9 ms ; bout-en-bout p95 ≤ 48 ms.
+- S1 (première tranche) : `/api/trpc`, recherche SSR (1 546 lieux), fiche
+  `/places/$id`, appel et itinéraire.
 - Staging : `https://upk-staging.benwahab111.workers.dev`.
-- Reste : runbook, confirmation CI GitHub, PWA.
+- Reste : filtres/carte, routes `/fr` `/en` `/ar`, sitemap, PWA, CI.
 
 ### Pièges vérifiés
 
