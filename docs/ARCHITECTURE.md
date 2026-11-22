@@ -308,6 +308,42 @@ rendues côté serveur via `createServerFn` (`apps/web/src/server/places.ts`).
 (migration `0002_auth.sql`) ; secret `BETTER_AUTH_SECRET`. Inscription et
 `get-session` vérifiés en local (workerd) et sur le staging.
 
+**Administration.** Les adresses listées dans `ADMIN_EMAILS` reçoivent la
+permission `moderation:write` ; `moderation.me` expose `isAdmin` à l'interface.
+Le rôle est dérivé de l'e-mail vérifié, jamais d'un champ modifiable par le
+client.
+
+## 6 bis. Contribution et modération (S2)
+
+**Schéma.** Migration `0003_contribution_moderation.sql` : `contributions`,
+`signalements`, `journal_admin`, `rate_limits`. Une proposition crée un lieu
+avec `statut_publication='en_attente'` et `statut_verification='a_verifier'` ;
+elle n'apparaît dans la recherche qu'après passage à `valide`.
+
+**Flux.**
+1. `contributions.create` (public) : rate limit 5/h/IP, Turnstile, validation
+   Zod (coordonnées du Niger), insertion puis audit `contribution.create`.
+2. `moderation.pending` (admin) liste les propositions ; `approve` passe le
+   lieu à `valide` + `verifie` et renseigne `modere_par` / `modere_le`. Une
+   précision GPS supérieure à 20 m exige `forceGps: true`.
+3. `reject` exige un motif de 5 à 500 caractères et conserve `motif_refus`.
+4. `reports.create` (public) : rate limit 10/h/IP + Turnstile, crée un
+   signalement ; `moderation.reports` et `resolveReport` le traitent.
+
+**Audit.** Chaque mutation écrit `journal_admin` (acteur, rôle, action, cible,
+résultat, avant/après). Aucune route publique ne permet de le modifier.
+
+**Rate limiting.** Table D1 `rate_limits` (scope + hash d'IP salé, fenêtre
+d'une heure). Le sel vient de `RATE_LIMIT_SALT`.
+
+**Anti-abus.** Turnstile : clé de test en staging, clé réelle en production.
+Le secret reste côté Worker ; sans secret, les écritures sont refusées. En
+local, `TURNSTILE_SECRET_KEY` peut utiliser la clé de test Cloudflare.
+
+**Photos.** L'upload R2 est codé mais désactivé tant que R2 n'est pas activé
+sur le compte ; `POST /api/uploads` et `GET /api/photos/*` renvoient 503. Le
+formulaire reste utilisable sans photo.
+
 ## 7. Stockage des photos
 
 - Bucket R2 **privé**.
@@ -319,6 +355,10 @@ rendues côté serveur via `createServerFn` (`apps/web/src/server/places.ts`).
 - Types acceptés : `image/jpeg`, `image/png`, `image/webp`, `image/avif`.
 - Redimensionnement à la demande (Cloudflare Images ou Worker) pour les
   vignettes.
+
+**État S2.** R2 n'est pas encore activé sur le compte Cloudflare. Les bindings
+`PHOTOS` sont commentés dans `infra/wrangler.toml` ; les routes de photos
+renvoient 503. Le reste du formulaire de contribution fonctionne sans photo.
 
 ## 8. Hors-ligne
 

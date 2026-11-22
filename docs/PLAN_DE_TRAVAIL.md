@@ -145,6 +145,11 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
 | T2.9 | Journal d'audit append-only | 1 j |
 | T2.10 | Tests E2E Playwright | 2 j |
 
+**État au 2026-11-22.** T2.5 formulaire, Turnstile et photos (upload R2 en
+attente d'activation R2) ; T2.6 rate limiting ; T2.7 signalement ; T2.8 file
+de modération, contrôle GPS 20 m et rejet motivé ; T2.9 journal d'audit ;
+T2.10 parcours vérifié manuellement dans le navigateur (Playwright non ajouté).
+
 **Critères de sortie.**
 - `navigator.serviceWorker.getRegistration()` renvoie une registration active.
 - L'application s'installe depuis Chrome desktop.

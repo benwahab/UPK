@@ -39,8 +39,11 @@ pnpm -C apps/web exec wrangler d1 execute upk --local \
   --file=/tmp/seed.sql
 ```
 
-Le secret local `BETTER_AUTH_SECRET` se place dans `apps/web/.dev.vars`
-(fichier ignoré par Git). L'état D1 local est dans `apps/web/.wrangler/state`.
+Les secrets locaux (`BETTER_AUTH_SECRET`, `TURNSTILE_SECRET_KEY`,
+`ADMIN_EMAILS`, `RATE_LIMIT_SALT`) se placent dans `apps/web/.dev.vars` pour
+`pnpm dev`, et dans `infra/.dev.vars` pour un `wrangler dev` lancé avec
+`infra/wrangler.toml`. Garder les deux fichiers identiques ; ils sont ignorés
+par Git. L'état D1 local est dans `apps/web/.wrangler/state`.
 
 ### Staging
 

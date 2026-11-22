@@ -19,10 +19,15 @@ pnpm -C apps/web exec wrangler d1 execute upk --local \
   --config ../../infra/wrangler.toml --persist-to .wrangler/state \
   --file=/tmp/seed.sql
 printf 'BETTER_AUTH_SECRET=%s\n' "$(openssl rand -hex 32)" > apps/web/.dev.vars
+cp apps/web/.dev.vars infra/.dev.vars
 pnpm dev
 ```
 
-- `wrangler dev` lit `apps/web/.dev.vars`, pas `infra/.dev.vars`.
+- `pnpm dev` (plugin Cloudflare) lit `apps/web/.dev.vars` ; un
+  `wrangler dev --config infra/wrangler.toml` lit `infra/.dev.vars`. Garder
+  les deux identiques.
+- Ajouter aussi `TURNSTILE_SECRET_KEY` (clé de test `1x000…AA` en local),
+  `ADMIN_EMAILS` et `RATE_LIMIT_SALT` dans les deux fichiers.
 - L'état D1 local est `apps/web/.wrangler/state`.
 - `/api/poc` est réservé au staging (`APP_ENV=staging`) ; en local il renvoie 404.
 - Vérifier : `curl http://127.0.0.1:8787/` renvoie 200 ; inscription via
@@ -36,6 +41,30 @@ pnpm dev
   il envoie `SKIP_WAITING` puis recharge la page.
 - La carte Leaflet est chargée au clic ; les tuiles OSM doivent garder leur
   attribution.
+
+## 2 ter. Contribution, signalements et modération
+
+- `ADMIN_EMAILS` liste les comptes modérateurs (séparés par des virgules).
+  En local : `admin@upk.test` ; le mot de passe temporaire est dans
+  `UPK_STAGING_ADMIN_PASSWORD` (fichier local, jamais versionné).
+- `TURNSTILE_SECRET_KEY` et `VITE_TURNSTILE_SITE_KEY` utilisent les clés de
+  test Cloudflare en local/staging ; remplacer par les clés réelles en
+  production.
+- Parcours de vérification :
+  1. `/fr/contribuer` : soumettre un lieu. Il reste invisible en recherche.
+  2. Se connecter avec un compte de `ADMIN_EMAILS`, puis ouvrir
+     `/fr/admin/moderation` : approuver ou rejeter avec un motif.
+  3. Rechercher le lieu : il apparaît avec `verifie: true` après approbation.
+  4. Sur la fiche, ouvrir « Signaler une erreur », envoyer un signalement, puis
+     le traiter dans la section « Signalements » de l'admin.
+- Journal d'audit (colonne `action`, pas `cle`) :
+  ```bash
+  pnpm -C apps/web exec wrangler d1 execute upk --local \
+    --config ../../infra/wrangler.toml --persist-to .wrangler/state \
+    --command "SELECT action, resultat, cible_id, created_at FROM journal_admin ORDER BY created_at DESC LIMIT 10"
+  ```
+- Les photos R2 sont désactivées tant que R2 n'est pas activé : `/api/uploads`
+  et `/api/photos/*` renvoient 503.
 
 ## 3. Staging
 
@@ -51,6 +80,9 @@ openssl rand -hex 32 | pnpm -C apps/web exec wrangler secret put \
 - **Ne pas** utiliser `wrangler deploy --env staging` sur le config généré :
   il déploie `upk` (production).
 - Mesure : `curl "https://upk-staging.benwahab111.workers.dev/api/poc?q=pharmacie&runs=30"`.
+- Créer le compte admin de staging (`admin@upk.test`) via
+  `POST /api/auth/sign-up/email`, puis vérifier `moderation.me` : `isAdmin`
+  doit être `true`. Le staging utilise les clés Turnstile de test.
 
 ## 4. Migrations D1
 
@@ -87,8 +119,10 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 | Nom | Où | Usage |
 | --- | --- | --- |
 | `BETTER_AUTH_SECRET` | Worker staging/production | Signature des sessions |
-| `TURNSTILE_SECRET_KEY` | Worker production | Anti-abus formulaires |
-| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Worker production | Photos R2 |
+| `TURNSTILE_SECRET_KEY` | Worker staging/production | Anti-abus formulaires |
+| `RATE_LIMIT_SALT` | Worker production | Hachage des IP du rate limit |
+| `ADMIN_EMAILS` | Variable Worker | Comptes modérateurs (pas un secret) |
+| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Worker production | Photos R2 (désactivé) |
 
 `wrangler secret put <NOM> --name <worker>` ; jamais dans Git, jamais dans un
 `.dev.vars` versionné.
@@ -98,10 +132,14 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 1. Domaine et `BETTER_AUTH_URL` décidés.
 2. `SITE_URL=https://upk.benwahab111.workers.dev pnpm --filter @upk/web build`
    (config production par défaut ; adapter `SITE_URL` au domaine public).
-3. `pnpm -C apps/web exec wrangler deploy`.
+3. Renseigner `ADMIN_EMAILS` dans `infra/wrangler.toml` (production), puis
+   `pnpm -C apps/web exec wrangler deploy`.
 4. `wrangler secret put BETTER_AUTH_SECRET --name upk`.
-5. Vérifier `/`, `/api/auth/get-session` et une recherche.
-6. Le Worker `upk` actuel (`https://upk.benwahab111.workers.dev`) est un
+5. `wrangler secret put TURNSTILE_SECRET_KEY --name upk` (clé réelle, pas la
+   clé de test) et `wrangler secret put RATE_LIMIT_SALT --name upk`.
+6. Vérifier `/`, `/api/auth/get-session`, une recherche, puis le parcours
+   contribution → modération → recherche et un signalement.
+7. Le Worker `upk` actuel (`https://upk.benwahab111.workers.dev`) est un
    aperçu non configuré : le supprimer ou le configurer avant l'ouverture
    publique.
 
@@ -123,6 +161,15 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
   développement.
 - **`wrangler deploy --env staging` déploie `upk`** : utiliser
   `CLOUDFLARE_ENV=staging` au build.
+- **`moderation.me` renvoie `isAdmin: false`** : l'e-mail du compte n'est pas
+  exactement dans `ADMIN_EMAILS` ou n'est pas vérifié ; recréer la session
+  après correction.
+- **Contribution invisible en recherche** : `statut_publication` vaut encore
+  `en_attente` ; l'approuver dans `/fr/admin/moderation`.
+- **Turnstile refusé** : `TURNSTILE_SECRET_KEY` et `VITE_TURNSTILE_SITE_KEY`
+  doivent appartenir au même mode (test ou réel).
+- **`/api/uploads` ou `/api/photos/*` en 503** : R2 n'est pas activé ; c'est
+  attendu tant que les bindings `PHOTOS` restent commentés.
 
 ## 10. Checklist avant déploiement
 
@@ -131,4 +178,8 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 - [ ] `BETTER_AUTH_URL` correct.
 - [ ] `BETTER_AUTH_SECRET` présent.
 - [ ] Recherche « pharmacie » et « صيدلية » OK.
+- [ ] `ADMIN_EMAILS` contient le compte de modération et `moderation.me`
+      renvoie `isAdmin: true`.
+- [ ] `TURNSTILE_SECRET_KEY` réel en production (pas la clé de test).
+- [ ] Contribution → approbation → recherche → signalement vérifiés.
 - [ ] `/api/poc` absent ou 404 en production.

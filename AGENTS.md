@@ -62,10 +62,10 @@ pnpm -C apps/web exec wrangler deploy
   différé en v1.1 (TWA en priorité, Expo seulement si besoin natif prouvé).
 - Le dépôt reste sur une seule branche `main`, sans tag ni pull request.
 
-## État au 2026-11-22 (S0)
+## État au 2026-11-22 (S0–S2)
 
-- Monorepo pnpm 12 + Turborepo ; 7 projets ; lint, typecheck et 28 tests verts.
-- `packages/domain` (13 tests), `packages/i18n` (5), `packages/api` (10).
+- Monorepo pnpm 12 + Turborepo ; 7 projets ; lint, typecheck et 42 tests verts.
+- `packages/domain` (13 tests), `packages/i18n` (5), `packages/api` (24).
 - D1 `upk` et `upk-staging` migrées et seedées : 1 546 lieux, 9 catégories.
 - Better Auth : route `/api/auth/$`, inscription + `get-session` vérifiées en
   local (workerd) et sur staging.
@@ -78,12 +78,23 @@ pnpm -C apps/web exec wrangler deploy
   demande (tuiles OSM) ; Lighthouse desktop/mobile 100/100/100/100.
 - S2 (PWA) : manifest, icônes, service worker (assets cache-first, navigation
   network-first, page hors-ligne), bandeau de mise à jour, installation desktop.
+- S2 (contribution) : formulaire + Turnstile + GPS, signalements, file de
+  modération, rejet motivé, journal d'audit, rate limiting, pages légales et
+  titres de page. Upload R2 codé mais désactivé.
 - Staging : `https://upk-staging.benwahab111.workers.dev`.
-- Reste : contribution/modération (S2), mobile Expo (S3), CI verte.
+- Reste : mobile Expo (S3), CI verte, activation R2, Playwright.
 
 ### Pièges vérifiés
 
-- `wrangler dev` lit `apps/web/.dev.vars`, pas `infra/.dev.vars`.
+- `pnpm dev` lit `apps/web/.dev.vars` ; `wrangler dev --config
+  infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
+- Modération : `ADMIN_EMAILS` doit contenir l'e-mail exact du compte ;
+  `moderation.me` renvoie `isAdmin`. `approve` passe le lieu à `valide` +
+  `verifie` ; sans cela il reste invisible en recherche.
+- Audit : la colonne du journal est `action` (pas `cle`).
+- R2 désactivé : `/api/uploads` et `/api/photos/*` renvoient 503.
+- Titres de page : `useDocumentTitle` pour les navigations client ; le `head`
+  SSR reste la source pour le premier chargement.
 - Build SEO : `SITE_URL=https://...` fige les canoniques, `hreflang` et
   Open Graph en URLs absolues ; sans elle, elles restent relatives.
 - Carte : importer Leaflet uniquement via `createClientOnlyFn` + `lazy` dans
