@@ -21,6 +21,7 @@
     "@upk/domain": "workspace:*",
     "@upk/i18n": "workspace:*",
     "@upk/ui": "workspace:*",
+    "leaflet": "^1.9.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
@@ -28,6 +29,7 @@
     "@cloudflare/vite-plugin": "^1.70.1",
     "@cloudflare/workers-types": "^5.20261121.1",
     "@tailwindcss/vite": "^4.2.1",
+    "@types/leaflet": "^1.9.22",
     "@types/node": "^26.6.6",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

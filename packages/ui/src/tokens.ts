@@ -3,7 +3,7 @@ export const colors = {
   foreground: "oklch(0.22 0.02 250)",
   muted: "oklch(0.96 0.005 95)",
   mutedForeground: "oklch(0.5 0.02 250)",
-  primary: "oklch(0.55 0.14 155)",
+  primary: "oklch(0.52 0.14 155)",
   primaryForeground: "oklch(0.99 0 0)",
   border: "oklch(0.9 0.01 250)",
   danger: "oklch(0.55 0.2 25)",

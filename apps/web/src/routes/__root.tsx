@@ -6,7 +6,7 @@ import {
   createRootRouteWithContext,
   useRouterState,
 } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { absoluteUrl } from "../lib/site";
 import appCss from "../styles.css?url";
 
@@ -15,6 +15,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#2f8f5b" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-title", content: "UPK" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { title: "UPK — Votre guide local" },
         { name: "description", content: "Trouvez un lieu proche de vous au Niger." },
         { name: "robots", content: "index,follow" },
@@ -28,7 +32,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { name: "twitter:description", content: "Trouvez un lieu proche de vous au Niger." },
         { name: "twitter:image", content: absoluteUrl("/og-default.png") },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "icon", href: "/icon-192.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -55,11 +64,112 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+};
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [updateReady, setUpdateReady] = useState(false);
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
+  const updateRequested = useRef(false);
+
+  useEffect(() => {
+    if (!import.meta.env.PROD || !("serviceWorker" in navigator)) return;
+
+    const onControllerChange = () => {
+      if (updateRequested.current) window.location.reload();
+    };
+    navigator.serviceWorker.addEventListener("controllerchange", onControllerChange);
+    void navigator.serviceWorker.register("/sw.js").then((registration) => {
+      registrationRef.current = registration;
+      if (registration.waiting && navigator.serviceWorker.controller) {
+        setUpdateReady(true);
+      }
+      registration.addEventListener("updatefound", () => {
+        const worker = registration.installing;
+        if (!worker) return;
+        worker.addEventListener("statechange", () => {
+          if (worker.state === "installed" && navigator.serviceWorker.controller) {
+            setUpdateReady(true);
+          }
+        });
+      });
+    });
+    return () => {
+      navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      if (!window.matchMedia("(min-width: 1024px)").matches) return;
+      event.preventDefault();
+      setInstallPrompt(event as BeforeInstallPromptEvent);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+    };
+  }, []);
+
+  const reload = () => {
+    updateRequested.current = true;
+    registrationRef.current?.waiting?.postMessage({ type: "SKIP_WAITING" });
+  };
+
+  const install = async () => {
+    if (!installPrompt) return;
+    try {
+      await installPrompt.prompt();
+    } finally {
+      setInstallPrompt(null);
+    }
+  };
+
+  const pathLocale = typeof window === "undefined" ? "fr" : window.location.pathname.split("/")[1];
+  const labels =
+    pathLocale === "en"
+      ? { update: "A new version is available.", reload: "Reload", install: "Install UPK" }
+      : pathLocale === "ar"
+        ? { update: "تتوفر نسخة جديدة.", reload: "إعادة التحميل", install: "تثبيت UPK" }
+        : {
+            update: "Une nouvelle version est disponible.",
+            reload: "Recharger",
+            install: "Installer UPK",
+          };
+
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      {updateReady && (
+        <div
+          role="status"
+          className="fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-md items-center justify-between gap-3 rounded-xl border border-[var(--upk-border)] bg-[var(--upk-bg)] p-3 shadow-lg"
+        >
+          <span className="text-sm">{labels.update}</span>
+          <button
+            type="button"
+            onClick={reload}
+            className="rounded-lg bg-[var(--upk-primary)] px-3 py-1.5 text-sm font-medium text-[var(--upk-primary-fg)]"
+          >
+            {labels.reload}
+          </button>
+        </div>
+      )}
+      {installPrompt && (
+        <div className="fixed bottom-4 start-4 z-50">
+          <button
+            type="button"
+            onClick={install}
+            className="rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-2 text-sm font-medium shadow-lg"
+          >
+            {labels.install}
+          </button>
+        </div>
+      )}
     </QueryClientProvider>
   );
 }

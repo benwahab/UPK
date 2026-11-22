@@ -74,15 +74,23 @@ pnpm -C apps/web exec wrangler deploy
 - POC D1 réelle : SQL p95 ≤ 4,9 ms ; bout-en-bout p95 ≤ 48 ms.
 - S1 (première tranche) : `/api/trpc`, recherche SSR (1 546 lieux), filtre
   catégorie, routes `/fr` `/en` `/ar` avec RTL, fiche `/$locale/places/$id`,
-  SEO (`hreflang`, sitemap, robots, JSON-LD, Open Graph).
+  SEO (`hreflang`, sitemap, robots, JSON-LD, Open Graph), carte Leaflet à la
+  demande (tuiles OSM) ; Lighthouse desktop/mobile 100/100/100/100.
+- S2 (PWA) : manifest, icônes, service worker (assets cache-first, navigation
+  network-first, page hors-ligne), bandeau de mise à jour, installation desktop.
 - Staging : `https://upk-staging.benwahab111.workers.dev`.
-- Reste : carte, Lighthouse, PWA, CI.
+- Reste : contribution/modération (S2), mobile Expo (S3), CI verte.
 
 ### Pièges vérifiés
 
 - `wrangler dev` lit `apps/web/.dev.vars`, pas `infra/.dev.vars`.
 - Build SEO : `SITE_URL=https://...` fige les canoniques, `hreflang` et
   Open Graph en URLs absolues ; sans elle, elles restent relatives.
+- Carte : importer Leaflet uniquement via `createClientOnlyFn` + `lazy` dans
+  un fichier `.client.tsx` ; les tuiles OSM exigent l'attribution.
+- PWA : incrémenter `VERSION` dans `apps/web/public/sw.js` à chaque changement
+  de cache ; le SW attend `SKIP_WAITING` pour le bandeau « Recharger ».
+- Recherche sans JS : le formulaire GET `?q=&category=` fonctionne en SSR.
 - `wrangler deploy --env staging` sur le config généré déploie `upk`
   (production). Utiliser `CLOUDFLARE_ENV=staging` au build.
 - Le seed ne doit pas contenir `BEGIN`/`COMMIT` : D1 les refuse.

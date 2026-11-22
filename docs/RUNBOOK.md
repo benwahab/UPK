@@ -28,6 +28,15 @@ pnpm dev
 - Vérifier : `curl http://127.0.0.1:8787/` renvoie 200 ; inscription via
   `POST /api/auth/sign-up/email`.
 
+## 2 bis. PWA et carte
+
+- Incrémenter `VERSION` dans `apps/web/public/sw.js` à chaque déploiement qui
+  change le cache, puis vérifier `/sw.js`, `/manifest.webmanifest` et `/offline`.
+- Le bandeau « Recharger » apparaît quand un nouveau service worker attend ;
+  il envoie `SKIP_WAITING` puis recharge la page.
+- La carte Leaflet est chargée au clic ; les tuiles OSM doivent garder leur
+  attribution.
+
 ## 3. Staging
 
 ```bash

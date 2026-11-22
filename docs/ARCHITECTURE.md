@@ -337,12 +337,16 @@ rendues côté serveur via `createServerFn` (`apps/web/src/server/places.ts`).
 
 - `manifest.webmanifest` : `display: standalone`, `start_url: "/"`,
   `theme_color`, icônes 192/512 + maskable, captures desktop et mobile.
-- Service worker généré par VitePWA **dans la sortie réelle** du build,
-  pas dans `dist/`.
-- Enregistrement explicite au démarrage.
+- Service worker actuel : `apps/web/public/sw.js` (assets en cache-first,
+  navigation en network-first, page hors-ligne) ; migration VitePWA/Workbox
+  possible sans changer l'interface.
+- Enregistrement explicite au démarrage, en production uniquement.
 - Flux de mise à jour : détection d'une nouvelle version → bandeau → activation
-  au clic.
-- `beforeinstallprompt` capturé, bouton affiché sur desktop et mobile.
+  au clic (`SKIP_WAITING`).
+- `beforeinstallprompt` capturé, bouton affiché sur desktop uniquement ; sur
+  mobile, installation via le menu du navigateur.
+- Carte : composant Leaflet chargé à la demande (`lazy` +
+  `createClientOnlyFn`), tuiles OSM avec attribution.
 - Android : installation WebAPK, mode standalone, icône dans le tiroir
   d'applications.
 - Recherche et fiche utilisables **sans JavaScript** (SSR + formulaire) pour

@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createClientOnlyFn } from "@tanstack/react-start";
 import { formatDistance, localeSchema, type Locale, type PlaceSummary } from "@upk/domain";
 import { t } from "@upk/i18n";
-import { useState, type FormEvent } from "react";
+import { lazy, Suspense, useState, type FormEvent } from "react";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
 import { listCategories, searchPlaces } from "../../server/places";
+
+const PlaceMap = lazy(createClientOnlyFn(() => import("../../components/place-map.client")));
 
 export const Route = createFileRoute("/$locale/")({
   validateSearch: (search: Record<string, unknown>) => {
@@ -41,6 +44,7 @@ function Home() {
   const [initial, categories] = Route.useLoaderData();
   const navigate = useNavigate({ from: "/$locale/" });
   const [input, setInput] = useState(q ?? "");
+  const [showMap, setShowMap] = useState(false);
   const results = useQuery({
     queryKey: ["search", q, category],
     queryFn: () =>
@@ -96,9 +100,15 @@ function Home() {
           </Link>
         ))}
       </nav>
-      <form className="mt-8 flex flex-col gap-2 sm:flex-row" onSubmit={submit}>
+      <form
+        method="get"
+        action={`/${locale}`}
+        className="mt-8 flex flex-col gap-2 sm:flex-row"
+        onSubmit={submit}
+      >
         <input
           type="search"
+          name="q"
           value={input}
           onChange={(event) => setInput(event.target.value)}
           aria-label={t(locale, "search.button")}
@@ -106,6 +116,7 @@ function Home() {
           className="min-w-0 flex-1 rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--upk-primary)]"
         />
         <select
+          name="category"
           value={category ?? ""}
           onChange={(event) => changeCategory(event.target.value)}
           aria-label={t(locale, "search.category")}
@@ -139,11 +150,45 @@ function Home() {
             {results.data.items.length === 0 ? (
               <p className="mt-4">{t(locale, "search.empty")}</p>
             ) : (
-              <ul className="mt-4 flex flex-col gap-3">
-                {results.data.items.map((place) => (
-                  <PlaceCard key={place.id} place={place} locale={locale} />
-                ))}
-              </ul>
+              <>
+                <button
+                  type="button"
+                  onClick={() => setShowMap((value) => !value)}
+                  aria-expanded={showMap}
+                  className="mt-4 rounded-lg border border-[var(--upk-border)] px-4 py-2 text-sm font-medium"
+                >
+                  {t(locale, showMap ? "search.hideMap" : "search.showMap")}
+                </button>
+                <div
+                  className={
+                    showMap ? "mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]" : "mt-4"
+                  }
+                >
+                  <ul className="flex flex-col gap-3">
+                    {results.data.items.map((place) => (
+                      <PlaceCard key={place.id} place={place} locale={locale} />
+                    ))}
+                  </ul>
+                  {showMap && (
+                    <div className="lg:sticky lg:top-4">
+                      <Suspense
+                        fallback={
+                          <p className="text-[var(--upk-muted-fg)]">
+                            {t(locale, "search.mapLoading")}
+                          </p>
+                        }
+                      >
+                        <PlaceMap
+                          places={results.data.items}
+                          locale={locale}
+                          label={t(locale, "search.map")}
+                          className="h-80 w-full rounded-xl lg:h-[480px]"
+                        />
+                      </Suspense>
+                    </div>
+                  )}
+                </div>
+              </>
             )}
           </>
         )}
