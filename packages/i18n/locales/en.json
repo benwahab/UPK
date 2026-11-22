@@ -7,6 +7,8 @@
   "home.subtitle": "Find a place near you in Niger.",
   "search.placeholder": "Pharmacy, restaurant, garage…",
   "search.button": "Search",
+  "search.category": "Category",
+  "search.allCategories": "All categories",
   "search.empty": "No results for this search.",
   "search.results": "results",
   "place.call": "Call",

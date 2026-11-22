@@ -10,8 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocaleRouteImport } from './routes/$locale'
+import { Route as LocaleIndexRouteImport } from './routes/$locale/index'
 import { Route as ApiPocRouteImport } from './routes/api/poc'
 import { Route as PlacesIdRouteImport } from './routes/places/$id'
+import { Route as LocalePlacesIdRouteImport } from './routes/$locale/places/$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc/$'
 
@@ -19,6 +22,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleRoute = LocaleRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleRoute,
 } as any)
 const ApiPocRoute = ApiPocRouteImport.update({
   id: '/api/poc',
@@ -29,6 +42,11 @@ const PlacesIdRoute = PlacesIdRouteImport.update({
   id: '/places/$id',
   path: '/places/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LocalePlacesIdRoute = LocalePlacesIdRouteImport.update({
+  id: '/places/$id',
+  path: '/places/$id',
+  getParentRoute: () => LocaleRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -43,8 +61,11 @@ const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteWithChildren
   '/api/poc': typeof ApiPocRoute
   '/places/$id': typeof PlacesIdRoute
+  '/$locale/': typeof LocaleIndexRoute
+  '/$locale/places/$id': typeof LocalePlacesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
@@ -52,33 +73,57 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/poc': typeof ApiPocRoute
   '/places/$id': typeof PlacesIdRoute
+  '/$locale': typeof LocaleIndexRoute
+  '/$locale/places/$id': typeof LocalePlacesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteWithChildren
   '/api/poc': typeof ApiPocRoute
   '/places/$id': typeof PlacesIdRoute
+  '/$locale/': typeof LocaleIndexRoute
+  '/$locale/places/$id': typeof LocalePlacesIdRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/poc' | '/places/$id' | '/api/auth/$' | '/api/trpc/$'
+  fullPaths:
+    | '/'
+    | '/$locale'
+    | '/api/poc'
+    | '/places/$id'
+    | '/$locale/'
+    | '/$locale/places/$id'
+    | '/api/auth/$'
+    | '/api/trpc/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/poc' | '/places/$id' | '/api/auth/$' | '/api/trpc/$'
-  id:
-    | '__root__'
+  to:
     | '/'
     | '/api/poc'
     | '/places/$id'
+    | '/$locale'
+    | '/$locale/places/$id'
+    | '/api/auth/$'
+    | '/api/trpc/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/$locale'
+    | '/api/poc'
+    | '/places/$id'
+    | '/$locale/'
+    | '/$locale/places/$id'
     | '/api/auth/$'
     | '/api/trpc/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LocaleRoute: typeof LocaleRouteWithChildren
   ApiPocRoute: typeof ApiPocRoute
   PlacesIdRoute: typeof PlacesIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
@@ -94,6 +139,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/'
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof LocaleRoute
+    }
     '/api/poc': {
       id: '/api/poc'
       path: '/api/poc'
@@ -107,6 +166,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/places/$id'
       preLoaderRoute: typeof PlacesIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/$locale/places/$id': {
+      id: '/$locale/places/$id'
+      path: '/places/$id'
+      fullPath: '/$locale/places/$id'
+      preLoaderRoute: typeof LocalePlacesIdRouteImport
+      parentRoute: typeof LocaleRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -125,8 +191,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface LocaleRouteChildren {
+  LocaleIndexRoute: typeof LocaleIndexRoute
+  LocalePlacesIdRoute: typeof LocalePlacesIdRoute
+}
+
+const LocaleRouteChildren: LocaleRouteChildren = {
+  LocaleIndexRoute: LocaleIndexRoute,
+  LocalePlacesIdRoute: LocalePlacesIdRoute,
+}
+
+const LocaleRouteWithChildren =
+  LocaleRoute._addFileChildren(LocaleRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LocaleRoute: LocaleRouteWithChildren,
   ApiPocRoute: ApiPocRoute,
   PlacesIdRoute: PlacesIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,

@@ -7,6 +7,8 @@
   "home.subtitle": "Trouvez un lieu proche de vous au Niger.",
   "search.placeholder": "Pharmacie, restaurant, garage…",
   "search.button": "Rechercher",
+  "search.category": "Catégorie",
+  "search.allCategories": "Toutes les catégories",
   "search.empty": "Aucun résultat pour cette recherche.",
   "search.results": "résultats",
   "place.call": "Appeler",

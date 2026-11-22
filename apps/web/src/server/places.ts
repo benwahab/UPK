@@ -12,10 +12,14 @@ function publicContext(): Context {
 }
 
 export const searchPlaces = createServerFn({ method: "GET" })
-  .validator((input: { q?: string; limit?: number }) => input)
+  .validator((input: { q?: string; categorySlug?: string; limit?: number }) => input)
   .handler(({ data }) =>
     createTrpcCaller(publicContext()).search.places({ ...data, limit: data.limit ?? 20 }),
   );
+
+export const listCategories = createServerFn({ method: "GET" })
+  .validator((locale: "fr" | "en" | "ar") => locale)
+  .handler(({ data }) => createTrpcCaller(publicContext()).categories.list({ locale: data }));
 
 export const getPlace = createServerFn({ method: "GET" })
   .validator((id: string) => id)

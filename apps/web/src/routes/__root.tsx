@@ -1,5 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRouteWithContext,
+  useRouterState,
+} from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import appCss from "../styles.css?url";
 
@@ -18,8 +24,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const locale =
+    pathname === "/en" || pathname.startsWith("/en/")
+      ? "en"
+      : pathname === "/ar" || pathname.startsWith("/ar/")
+        ? "ar"
+        : "fr";
   return (
-    <html lang="fr" dir="ltr">
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <head>
         <HeadContent />
       </head>
