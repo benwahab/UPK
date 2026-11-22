@@ -61,14 +61,14 @@ function PlaceDetail() {
         params={{ locale }}
         className="text-sm text-[var(--upk-muted-fg)]"
       >
-        ← {t(locale, "nav.search")}
+        {locale === "ar" ? "→" : "←"} {t(locale, "nav.search")}
       </Link>
       <h1 className="mt-4 text-4xl font-bold">{place.nom}</h1>
       <p className="mt-2 text-lg text-[var(--upk-muted-fg)]">
         {place.categorieNom}
         {place.quartier ? ` · ${place.quartier}` : place.ville ? ` · ${place.ville}` : ""}
       </p>
-      <nav className="mt-4 flex gap-3 text-sm" aria-label="Langue">
+      <nav className="mt-4 flex gap-3 text-sm" aria-label={t(locale, "nav.language")}>
         {(["fr", "en", "ar"] as const).map((code) => (
           <Link
             key={code}
