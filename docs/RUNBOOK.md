@@ -69,10 +69,13 @@ pnpm dev
 ## 3. Staging
 
 ```bash
-SITE_URL=https://upk-staging.benwahab111.workers.dev CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
+export CLOUDFLARE_API_TOKEN="$CLOUDFARE_API_TOKEN"
+SITE_URL=https://upk-staging.benwahab111.workers.dev \
+VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA \
+CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
 pnpm -C apps/web exec wrangler deploy
-openssl rand -hex 32 | pnpm -C apps/web exec wrangler secret put \
-  BETTER_AUTH_SECRET --name upk-staging
+# BETTER_AUTH_SECRET est déjà défini sur staging ; ne le régénérer que si
+# nécessaire (cela invalide les sessions).
 ```
 
 - URL : `https://upk-staging.benwahab111.workers.dev`.
@@ -80,9 +83,11 @@ openssl rand -hex 32 | pnpm -C apps/web exec wrangler secret put \
 - **Ne pas** utiliser `wrangler deploy --env staging` sur le config généré :
   il déploie `upk` (production).
 - Mesure : `curl "https://upk-staging.benwahab111.workers.dev/api/poc?q=pharmacie&runs=30"`.
-- Créer le compte admin de staging (`admin@upk.test`) via
-  `POST /api/auth/sign-up/email`, puis vérifier `moderation.me` : `isAdmin`
-  doit être `true`. Le staging utilise les clés Turnstile de test.
+- Le compte admin de staging (`admin@upk.test`) existe et `moderation.me`
+  renvoie `isAdmin: true`. Le staging utilise les clés Turnstile de test.
+- Le token Cloudflare est enregistré sous `CLOUDFARE_API_TOKEN` (coquille) ;
+  Wrangler attend `CLOUDFLARE_API_TOKEN`. Exporter avant toute commande :
+  `export CLOUDFLARE_API_TOKEN="$CLOUDFARE_API_TOKEN"`.
 
 ## 4. Migrations D1
 

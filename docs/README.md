@@ -45,6 +45,7 @@ mobile, le Play Store est différé en v1.1.
 
 S0 à S2 sont livrés : monorepo, POC D1/FTS5 sur D1 réelle, seed des 1 546
 lieux, Better Auth, recherche et fiches, PWA, contribution, signalements,
-modération et journal d'audit. L'upload R2 reste désactivé et le parcours est
-vérifié manuellement (pas encore de Playwright). Le staging n'a pas encore
-reçu la tranche contribution/modération.
+modération et journal d'audit. La migration `0003` et la tranche S2 sont
+déployées sur staging (`32444869`), avec le compte `admin@upk.test`. L'upload
+R2 reste désactivé et le parcours est vérifié manuellement (pas encore de
+Playwright).

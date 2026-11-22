@@ -81,11 +81,16 @@ pnpm -C apps/web exec wrangler deploy
 - S2 (contribution) : formulaire + Turnstile + GPS, signalements, file de
   modération, rejet motivé, journal d'audit, rate limiting, pages légales et
   titres de page. Upload R2 codé mais désactivé.
-- Staging : `https://upk-staging.benwahab111.workers.dev`.
+- Staging : `https://upk-staging.benwahab111.workers.dev`, migration `0003`
+  appliquée, version `32444869`, compte `admin@upk.test`.
 - Reste : mobile Expo (S3), CI verte, activation R2, Playwright.
 
 ### Pièges vérifiés
 
+- Le secret Cloudflare est enregistré sous `CLOUDFARE_API_TOKEN` (coquille) ;
+  Wrangler attend `CLOUDFLARE_API_TOKEN`. Faire
+  `export CLOUDFLARE_API_TOKEN="$CLOUDFARE_API_TOKEN"` avant toute commande
+  distante.
 - `pnpm dev` lit `apps/web/.dev.vars` ; `wrangler dev --config
   infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - Modération : `ADMIN_EMAILS` doit contenir l'e-mail exact du compte ;
