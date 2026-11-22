@@ -23,3 +23,5 @@ export function requirePermission(permission: string) {
     return next({ ctx: { ...ctx, user: ctx.user } });
   });
 }
+
+export const adminProcedure = protectedProcedure.use(requirePermission("moderation:write"));

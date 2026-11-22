@@ -1,4 +1,12 @@
-import { index, integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import {
+  index,
+  integer,
+  primaryKey,
+  real,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from "drizzle-orm/sqlite-core";
 
 export const regions = sqliteTable("regions", {
   id: text("id").primaryKey(),
@@ -83,6 +91,11 @@ export const places = sqliteTable(
     licenceSource: text("licence_source"),
     importeLe: text("importe_le"),
     metadata: text("metadata"),
+    contactEmail: text("contact_email"),
+    gpsPrecisionM: real("gps_precision_m"),
+    motifRefus: text("motif_refus"),
+    moderePar: text("modere_par"),
+    modereLe: text("modere_le"),
     langue: text("langue").notNull().default("fr"),
     actif: integer("actif").notNull().default(1),
     createdAt: text("created_at").notNull(),
@@ -93,6 +106,11 @@ export const places = sqliteTable(
     index("places_categorie_idx").on(table.categoryId),
     index("places_ville_idx").on(table.villeZoneId),
     index("places_publication_idx").on(table.statutPublication, table.actif),
+    index("places_moderation_idx").on(
+      table.statutPublication,
+      table.source,
+      table.createdAt,
+    ),
     index("places_tel_idx").on(table.telephoneNormalise),
     uniqueIndex("places_osm_idx").on(table.osmId, table.osmType),
   ],
@@ -133,9 +151,33 @@ export const signalements = sqliteTable(
     typeProbleme: text("type_probleme").notNull(),
     description: text("description"),
     traite: integer("traite").notNull().default(0),
+    userId: text("user_id"),
+    email: text("email"),
+    statut: text("statut").notNull().default("nouveau"),
+    motif: text("motif"),
+    traiteLe: text("traite_le"),
+    traitePar: text("traite_par"),
     createdAt: text("created_at").notNull(),
   },
-  (table) => [index("signalements_place_idx").on(table.placeId)],
+  (table) => [
+    index("signalements_place_idx").on(table.placeId),
+    index("signalements_statut_idx").on(table.statut, table.createdAt),
+  ],
+);
+
+export const rateLimits = sqliteTable(
+  "rate_limits",
+  {
+    scope: text("scope").notNull(),
+    identifier: text("identifier").notNull(),
+    windowStart: integer("window_start").notNull(),
+    count: integer("count").notNull().default(0),
+    expiresAt: integer("expires_at").notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.scope, table.identifier, table.windowStart] }),
+    index("rate_limits_expires_idx").on(table.expiresAt),
+  ],
 );
 
 export const revendications = sqliteTable(
