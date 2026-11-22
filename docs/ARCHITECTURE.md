@@ -297,6 +297,12 @@ export const approvePlace = procedure("admin.moderation.approve")
 - Verrouillage progressif après échecs répétés.
 - Aucune session pour un visiteur anonyme.
 
+**Implémentation S0.** Route `/api/auth/$` (GET/POST) dans
+`apps/web/src/routes/api/auth/$.ts` ; instance `apps/web/src/lib/auth.server.ts`
+(cache par isolate) ; tables `user`, `session`, `account`, `verification`
+(migration `0002_auth.sql`) ; secret `BETTER_AUTH_SECRET`. Inscription et
+`get-session` vérifiés en local (workerd) et sur le staging.
+
 ## 7. Stockage des photos
 
 - Bucket R2 **privé**.
@@ -440,7 +446,8 @@ workflow_dispatch
 | Niveau | Outil | Périmètre |
 | --- | --- | --- |
 | Unitaire | Vitest | Domaine, normalisation, scoring, permissions |
-| Intégration | Vitest + Miniflare | Procédures tRPC sur D1 locale |
+| Intégration | Vitest + better-sqlite3 | Repositories D1 sur les migrations réelles (`0001_init.sql`) |
+| D1 réelle | Wrangler / API D1 | FTS5, latence SQL, seed |
 | Web E2E | Playwright | Recherche, fiche, proposition, admin |
 | PWA mobile | Playwright + Lighthouse | Installation, hors-ligne, budgets 2 Go / 3G |
 | Mobile natif (v1.1) | Maestro | Recherche, fiche, appel, hors-ligne |
@@ -450,9 +457,13 @@ workflow_dispatch
 
 | Environnement | Base | Usage |
 | --- | --- | --- |
-| `local` | D1 locale (Miniflare) | Développement |
-| `staging` | D1 de préversion | Chaque push sur `main` |
-| `production` | D1 de production | Public |
+| `local` | D1 locale `upk` (Miniflare, `apps/web/.wrangler/state`) | Développement |
+| `staging` | D1 `upk-staging` | `https://upk-staging.benwahab111.workers.dev` |
+| `production` | D1 `upk` | `https://upk.benwahab111.workers.dev` (aperçu ; auth non configurée, domaine à définir) |
+
+Le build staging se fait avec `CLOUDFLARE_ENV=staging pnpm --filter @upk/web build`
+puis `wrangler deploy` depuis `apps/web`. `wrangler deploy --env staging` sur le
+config généré déploie le Worker de production `upk` : ne pas l'utiliser.
 
 **Secrets** : `BETTER_AUTH_SECRET`, `TURNSTILE_SECRET_KEY`, `SENTRY_DSN`,
 `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `GEONAMES_USERNAME`.
@@ -475,22 +486,50 @@ Injectés par `wrangler secret put` et par les secrets EAS. **Jamais dans Git.**
 
 ## 18. Limites à valider avant production
 
-- Taille maximale d'une base D1 et stratégie d'archivage.
+- Taille maximale d'une base D1 et stratégie d'archivage. **Ordre de grandeur :
+  1 546 lieux ≈ 1 Mo.**
 - Nombre maximal de paramètres liés par requête (impact sur les imports par
   lots).
 - Temps CPU maximal par requête Worker (impact sur l'import Overpass).
 - Disponibilité des fonctions FTS5 et du tokenizer `unicode61` sur D1.
+  **Vérifié : disponible, y compris `bm25`.**
 - Comportement de `wrangler d1 migrations apply` en préversion.
+  **Vérifié : OK sur `upk` et `upk-staging`.**
 - Coût R2 pour les photos à l'échelle prévue.
 - Comportement de FTS5 sur l'arabe (tokenizer, normalisation des harakat).
+  **Vérifié : « صيدلية » retrouve « صيدلية النور » après normalisation.**
 - Installation WebAPK sur Android (Chrome, Samsung Internet) et comportement
   de la recherche sans JavaScript.
 
 **Mesures du POC (SQLite local, 1 546 lieux, `MATCH` + filtres, `LIMIT 200`,
 pilote Python inclus) :** p50 ≈ 22 ms, p95 ≈ 25 ms sur « pharmacie »,
 « ecole » et « banque » ; p95 ≈ 50 ms sur la phrase « station service ».
-Ce n'est pas une mesure D1 : le réseau et le CPU Worker restent à mesurer sur
-une base distante avant de valider le budget de 400 ms.
+Ces chiffres mesurent le harnais Node/better-sqlite3, pas D1.
+
+**Mesures sur D1 réelle** (base `upk`, 1 546 lieux, 20 requêtes par terme,
+API D1, `MATCH` + `bm25` + filtres, `LIMIT 20`) :
+
+| Terme | SQL p50 | SQL p95 |
+| --- | --- | --- |
+| pharmacie | 0,79 ms | 4,90 ms |
+| ecole | 0,96 ms | 3,15 ms |
+| station service | 0,76 ms | 1,37 ms |
+| banque | 0,65 ms | 0,90 ms |
+
+**Mesures bout-en-bout** (Worker `upk-staging`, 30 requêtes par terme, D1
+distante incluse, repository + scoring) :
+
+| Terme | p50 | p95 |
+| --- | --- | --- |
+| pharmacie | 16–21 ms | 24–48 ms |
+| ecole | 19–20 ms | 23–28 ms |
+| station service | 19–20 ms | 23–27 ms |
+| banque | 19–21 ms | 24–31 ms |
+
+Le budget de 400 ms est largement tenu. FTS5, `bm25` et
+`unicode61 remove_diacritics 2` fonctionnent sur D1 ; la recherche arabe
+normalisée (« صيدلية » → « صيدليه ») est validée par test et sur la base
+distante.
 
 Ces points font l'objet de tests explicites au sprint 0, avant tout
 développement fonctionnel.

@@ -25,8 +25,33 @@ pnpm dev
 pnpm typecheck
 pnpm test
 pnpm build
-pnpm seed:sql > infra/seed.sql
+pnpm lint
+pnpm seed:sql > /tmp/seed.sql
 ```
+
+### Base D1 locale
+
+```
+pnpm -C apps/web exec wrangler d1 migrations apply upk --local \
+  --config ../../infra/wrangler.toml --persist-to .wrangler/state -y
+pnpm -C apps/web exec wrangler d1 execute upk --local \
+  --config ../../infra/wrangler.toml --persist-to .wrangler/state \
+  --file=/tmp/seed.sql
+```
+
+Le secret local `BETTER_AUTH_SECRET` se place dans `apps/web/.dev.vars`
+(fichier ignoré par Git). L'état D1 local est dans `apps/web/.wrangler/state`.
+
+### Staging
+
+```
+CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
+pnpm -C apps/web exec wrangler deploy
+```
+
+Le staging est `https://upk-staging.benwahab111.workers.dev`. Ne pas utiliser
+`wrangler deploy --env staging` sur le config généré : il déploie le Worker de
+production `upk`.
 
 ## Règles
 

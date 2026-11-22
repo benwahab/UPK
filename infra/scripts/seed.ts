@@ -31,7 +31,6 @@ const categories = [...new Set(data.places.map((place) => place.categorie_slug))
 const lines: string[] = [
   "-- Généré depuis seed/niamey-2026-08-30.json (OpenStreetMap, ODbL-1.0)",
   "PRAGMA foreign_keys = ON;",
-  "BEGIN;",
 ];
 
 for (const slug of categories) {
@@ -49,5 +48,4 @@ for (const place of data.places) {
   );
 }
 
-lines.push("COMMIT;");
 process.stdout.write(`${lines.join("\n")}\n`);

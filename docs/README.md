@@ -7,6 +7,7 @@ Point d'entrée de la reconstruction UPK v2.
 | [`CAHIER_DES_CHARGES.md`](./CAHIER_DES_CHARGES.md) | Ce que le produit doit faire, pour qui, avec quels critères d'acceptation | Commanditaire, équipe |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Comment c'est construit : stack, schéma, API, sécurité, CI/CD | Équipe technique |
 | [`PLAN_DE_TRAVAIL.md`](./PLAN_DE_TRAVAIL.md) | Quand et dans quel ordre : sprints, jalons, checklists | Tous |
+| [`RUNBOOK.md`](./RUNBOOK.md) | Procédures : local, staging, migrations, secrets, incidents | Équipe technique |
 | [`PORTABILITY.md`](./PORTABILITY.md) | Ancienne documentation de portabilité (v1) | Archive |
 
 ## Données
@@ -41,5 +42,5 @@ Français, anglais et arabe (RTL) au lancement. Haoussa et zarma après la v1.
 Les trois documents sont en version 1.1. Le choix « web mobile-first » est
 consigné (ADR-008) : la v1.0 sort en application web installable desktop +
 mobile, le Play Store est différé en v1.1. Le sprint 0 est en cours :
-monorepo, POC D1/FTS5, seed des 1 546 lieux, CI et adaptateur Cloudflare en
-place.
+monorepo, POC D1/FTS5 mesuré sur D1 réelle, seed des 1 546 lieux, Better Auth,
+repositories, CI et staging Cloudflare en place.

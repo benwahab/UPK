@@ -42,7 +42,18 @@ pnpm typecheck    # turbo run typecheck
 pnpm test         # turbo run test
 pnpm build        # turbo run build
 pnpm lint         # eslint .
-pnpm seed:sql > infra/seed.sql
+pnpm seed:sql > /tmp/seed.sql
+
+# D1 locale (même état que wrangler dev)
+pnpm -C apps/web exec wrangler d1 migrations apply upk --local \
+  --config ../../infra/wrangler.toml --persist-to .wrangler/state -y
+pnpm -C apps/web exec wrangler d1 execute upk --local \
+  --config ../../infra/wrangler.toml --persist-to .wrangler/state \
+  --file=/tmp/seed.sql
+
+# Staging
+CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
+pnpm -C apps/web exec wrangler deploy
 ```
 
 ## Décisions structurantes
@@ -51,22 +62,28 @@ pnpm seed:sql > infra/seed.sql
   différé en v1.1 (TWA en priorité, Expo seulement si besoin natif prouvé).
 - Le dépôt reste sur une seule branche `main`, sans tag ni pull request.
 
-## État au démarrage du sprint 0
+## État au 2026-11-22 (S0)
 
-- v1 (TanStack Start + Supabase + Lovable) conservée dans l'historique Git,
-  retirée du répertoire de travail.
-- Monorepo pnpm 12 + Turborepo opérationnel.
-- `packages/domain` : normalisation latine/arabe, téléphone, Haversine,
-  scoring, schémas Zod. 13 tests.
-- `packages/i18n` : catalogues fr/en/ar, repli, RTL, formats. 5 tests.
-- `packages/api` : routeur tRPC `search.places`, `places.byId`,
-  `categories.list`, permissions. 3 tests.
-- `packages/db` : schéma Drizzle + migration `0001_init.sql` (D1, FTS5).
-- Seed SQL : 1 546 lieux, 9 catégories, généré depuis le JSON OSM.
-- POC FTS5 validé sur SQLite : « pharmacie » → 93 résultats, « ecole » → 200,
-  arabe normalisé « صيدليه » → « صيدلية النور ».
-- `apps/web` : accueil SSR minimal, build Vite vert, sans Lovable.
-- CI GitHub Actions : lint, typecheck, test, build sur `main`.
+- Monorepo pnpm 12 + Turborepo ; 7 projets ; lint, typecheck et 28 tests verts.
+- `packages/domain` (13 tests), `packages/i18n` (5), `packages/api` (10).
+- D1 `upk` et `upk-staging` migrées et seedées : 1 546 lieux, 9 catégories.
+- Better Auth : route `/api/auth/$`, inscription + `get-session` vérifiées en
+  local (workerd) et sur staging.
+- Repositories D1 : FTS5, filtres, distance, catégories ; tests sur les
+  migrations réelles (`0001_init.sql`).
+- POC D1 réelle : SQL p95 ≤ 4,9 ms ; bout-en-bout p95 ≤ 48 ms.
+- Staging : `https://upk-staging.benwahab111.workers.dev`.
+- Reste : runbook, confirmation CI GitHub, PWA.
+
+### Pièges vérifiés
+
+- `wrangler dev` lit `apps/web/.dev.vars`, pas `infra/.dev.vars`.
+- `wrangler deploy --env staging` sur le config généré déploie `upk`
+  (production). Utiliser `CLOUDFLARE_ENV=staging` au build.
+- Le seed ne doit pas contenir `BEGIN`/`COMMIT` : D1 les refuse.
+- D1 : `upk` = `3b364a13-7620-415d-8b7f-6ec9d79a6d66`,
+  `upk-staging` = `9cab467d-3261-442d-8933-cc759e93b359`.
+- `seed:sql` utilise `node --experimental-strip-types`.
 
 ## Notes d'environnement
 
@@ -80,6 +97,7 @@ pnpm seed:sql > infra/seed.sql
 - `docs/CAHIER_DES_CHARGES.md` — périmètre, exigences, critères d'acceptation.
 - `docs/ARCHITECTURE.md` — choix techniques, ADR, schémas.
 - `docs/PLAN_DE_TRAVAIL.md` — sprints, jalons, checklists.
+- `docs/RUNBOOK.md` — procédures local, staging, migrations, secrets, incidents.
 - `seed/` — données OpenStreetMap (ODbL), 1 546 lieux de Niamey.
 
 ## Interdits

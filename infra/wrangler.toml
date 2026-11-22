@@ -24,7 +24,7 @@ name = "upk-staging"
 
 [env.staging.vars]
 APP_ENV = "staging"
-BETTER_AUTH_URL = "https://staging.upk.example"
+BETTER_AUTH_URL = "https://upk-staging.benwahab111.workers.dev"
 
 [[env.staging.d1_databases]]
 binding = "DB"
