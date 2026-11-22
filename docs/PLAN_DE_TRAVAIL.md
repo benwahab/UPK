@@ -68,7 +68,7 @@ Jalons    M0        M1         M2         M3         M4      M5
 - T0.1, T0.2, T0.4, T0.5, T0.6, T0.7, T0.8, T0.9, T0.10 : faits et vérifiés.
 - T0.3 : workflow `.github/workflows/ci.yml` présent ; lint, typecheck, tests
   et build verts en local, à confirmer par un run GitHub.
-- T0.11 : ADR-001 à ADR-008 consignés ; runbook à compléter.
+- T0.11 : ADR-001 à ADR-008 consignés ; runbook créé (`docs/RUNBOOK.md`).
 - POC D1 réelle : SQL p95 ≤ 4,9 ms ; bout-en-bout p95 ≤ 48 ms (staging).
 - Staging : `https://upk-staging.benwahab111.workers.dev` (auth + recherche).
 
