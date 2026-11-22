@@ -1,0 +1,27 @@
+name = "upk"
+# Le bundle Worker sera produit par l'adaptateur Cloudflare (sprint 1).
+# main = "../apps/web/.output/server/index.mjs"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+APP_ENV = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "upk"
+database_id = "REPLACE_ME"
+migrations_dir = "../packages/db/migrations"
+
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "upk-photos"
+
+[env.staging]
+name = "upk-staging"
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "upk-staging"
+database_id = "REPLACE_ME"
+migrations_dir = "../packages/db/migrations"

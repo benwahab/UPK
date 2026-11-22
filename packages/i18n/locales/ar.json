@@ -1,0 +1,19 @@
+{
+  "app.name": "UPK",
+  "nav.search": "بحث",
+  "nav.propose": "اقترح مكانًا",
+  "nav.about": "حول",
+  "home.title": "دليلك المحلي",
+  "home.subtitle": "اعثر على مكان قريب منك في النيجر.",
+  "search.placeholder": "صيدلية، مطعم، ورشة…",
+  "search.button": "بحث",
+  "search.empty": "لا توجد نتائج لهذا البحث.",
+  "search.results": "نتائج",
+  "place.call": "اتصال",
+  "place.directions": "الاتجاهات",
+  "place.verify": "تحقق",
+  "place.verified": "تم التحقق",
+  "common.loading": "جارٍ التحميل…",
+  "common.error": "حدث خطأ.",
+  "footer.attribution": "© مساهمو OpenStreetMap"
+}

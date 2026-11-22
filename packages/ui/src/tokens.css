@@ -1,0 +1,27 @@
+:root {
+  --upk-bg: oklch(0.99 0.005 95);
+  --upk-fg: oklch(0.22 0.02 250);
+  --upk-muted: oklch(0.96 0.005 95);
+  --upk-muted-fg: oklch(0.5 0.02 250);
+  --upk-primary: oklch(0.55 0.14 155);
+  --upk-primary-fg: oklch(0.99 0 0);
+  --upk-border: oklch(0.9 0.01 250);
+  --upk-danger: oklch(0.55 0.2 25);
+  --upk-radius: 0.5rem;
+  --upk-font-sans: Inter, system-ui, -apple-system, sans-serif;
+  --upk-font-arabic: "Noto Naskh Arabic", "IBM Plex Sans Arabic", serif;
+}
+
+[dir="rtl"] {
+  --upk-font-sans: var(--upk-font-arabic);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --upk-bg: oklch(0.18 0.01 250);
+    --upk-fg: oklch(0.96 0.005 95);
+    --upk-muted: oklch(0.24 0.01 250);
+    --upk-muted-fg: oklch(0.72 0.01 250);
+    --upk-border: oklch(0.32 0.01 250);
+  }
+}

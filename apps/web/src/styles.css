@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "@upk/ui/tokens.css";
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--upk-bg);
+  color: var(--upk-fg);
+  font-family: var(--upk-font-sans);
+  -webkit-font-smoothing: antialiased;
+}

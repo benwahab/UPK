@@ -1,0 +1,16 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - "@trpc/client@11.29.7"
+  - "@trpc/react-query@11.29.7"
+  - "@trpc/server@11.29.7"
+permissions:
+  '@tanstack/react-start':
+    skills: true
+  '@trpc/client':
+    skills: true
+  '@trpc/server':
+    skills: true

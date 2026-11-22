@@ -524,10 +524,11 @@ développement fonctionnel.
   - arabe : suppression des harakat, unification alef (`أ إ آ ا`), ya
     (`ي ى`) et ta marbuta (`ة ه`).
 - FTS5 `unicode61 remove_diacritics 2` pour le latin.
-- Pour l'arabe, vérifier au sprint 0 le comportement du tokenizer ; à défaut,
-  indexer une colonne `recherche_normalisee` et faire le `MATCH` dessus, ou
-  utiliser le tokenizer `trigram`.
-- Les alias sont indexés avec leur langue.
+- **Validé en S0** : `unicode61` ne suffit pas pour l'arabe (ni les harakat,
+  ni les variantes de alef/ya/ta marbuta ne sont unifiées). On indexe donc
+  `places.nom_normalise` dans `places_fts` et on normalise la requête avant
+  le `MATCH`. Vérifié sur SQLite/D1 : « صيدليه » retrouve « صيدلية النور ».
+- Les alias sont indexés avec leur langue, via `place_aliases.alias_normalise`.
 
 ### 19.7 Formats
 

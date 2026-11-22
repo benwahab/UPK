@@ -1,0 +1,19 @@
+{
+  "app.name": "UPK",
+  "nav.search": "Search",
+  "nav.propose": "Suggest a place",
+  "nav.about": "About",
+  "home.title": "Your local guide",
+  "home.subtitle": "Find a place near you in Niger.",
+  "search.placeholder": "Pharmacy, restaurant, garage…",
+  "search.button": "Search",
+  "search.empty": "No results for this search.",
+  "search.results": "results",
+  "place.call": "Call",
+  "place.directions": "Directions",
+  "place.verify": "Verify",
+  "place.verified": "Verified",
+  "common.loading": "Loading…",
+  "common.error": "Something went wrong.",
+  "footer.attribution": "© OpenStreetMap contributors"
+}

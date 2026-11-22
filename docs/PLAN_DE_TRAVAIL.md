@@ -52,7 +52,7 @@ Jalons    M0        M1         M2         M3         M4      M5
 
 | ID | Tâche | Est. |
 | --- | --- | --- |
-| T0.1 | Créer le dépôt `upk-v2`, monorepo pnpm + Turborepo | 0,5 j |
+| T0.1 | Restructurer le dépôt existant en monorepo pnpm + Turborepo (aucun nouveau dépôt, aucune branche) | 0,5 j |
 | T0.2 | TypeScript strict, ESLint, Prettier, Vitest | 0,5 j |
 | T0.3 | CI GitHub Actions : lint, typecheck, test, build | 0,5 j |
 | T0.4 | `wrangler.toml` : Workers, D1, R2, Queues, Cron | 0,5 j |

@@ -38,5 +38,5 @@ Français, anglais et arabe (RTL) au lancement. Haoussa et zarma après la v1.
 
 ## Statut
 
-Les trois documents sont en version 1.0 et **attendent validation** avant le
-démarrage du sprint 0.
+Les trois documents sont en version 1.0 et validés. Le sprint 0 est démarré :
+monorepo, POC D1/FTS5, seed des 1 546 lieux et CI sont en place.
