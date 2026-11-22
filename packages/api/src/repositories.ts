@@ -159,6 +159,15 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       `);
       return row ? toSummary(row, null) : null;
     },
+
+    async listPublishedIds(): Promise<string[]> {
+      const rows = await db.all<{ id: string }>(sql`
+        SELECT id FROM places
+        WHERE statut_publication = ${PUBLISHED} AND actif = 1
+        ORDER BY id ASC
+      `);
+      return rows.map((row) => row.id);
+    },
   };
 }
 

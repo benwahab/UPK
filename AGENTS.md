@@ -73,13 +73,16 @@ pnpm -C apps/web exec wrangler deploy
   migrations réelles (`0001_init.sql`).
 - POC D1 réelle : SQL p95 ≤ 4,9 ms ; bout-en-bout p95 ≤ 48 ms.
 - S1 (première tranche) : `/api/trpc`, recherche SSR (1 546 lieux), filtre
-  catégorie, routes `/fr` `/en` `/ar` avec RTL, fiche `/$locale/places/$id`.
+  catégorie, routes `/fr` `/en` `/ar` avec RTL, fiche `/$locale/places/$id`,
+  SEO (`hreflang`, sitemap, robots, JSON-LD, Open Graph).
 - Staging : `https://upk-staging.benwahab111.workers.dev`.
-- Reste : carte, `hreflang`, sitemap, JSON-LD, PWA, CI.
+- Reste : carte, Lighthouse, PWA, CI.
 
 ### Pièges vérifiés
 
 - `wrangler dev` lit `apps/web/.dev.vars`, pas `infra/.dev.vars`.
+- Build SEO : `SITE_URL=https://...` fige les canoniques, `hreflang` et
+  Open Graph en URLs absolues ; sans elle, elles restent relatives.
 - `wrangler deploy --env staging` sur le config généré déploie `upk`
   (production). Utiliser `CLOUDFLARE_ENV=staging` au build.
 - Le seed ne doit pas contenir `BEGIN`/`COMMIT` : D1 les refuse.

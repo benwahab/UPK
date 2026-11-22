@@ -111,4 +111,8 @@ describe("repositories D1", () => {
     const list = await categories.list("fr");
     expect(list.map((category) => category.slug)).toContain("pharmacie");
   });
+
+  it("liste les identifiants publiés", async () => {
+    expect(await places.listPublishedIds()).toEqual(["p1", "p2", "p3"]);
+  });
 });

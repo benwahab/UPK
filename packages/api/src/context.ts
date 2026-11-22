@@ -9,6 +9,7 @@ export type AppUser = {
 export type PlaceRepository = {
   search(input: SearchInput): Promise<SearchResult>;
   byId(id: string): Promise<PlaceSummary | null>;
+  listPublishedIds(): Promise<string[]>;
 };
 
 export type Category = {

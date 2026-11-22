@@ -2,11 +2,63 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { localeSchema, type Locale } from "@upk/domain";
 import { t } from "@upk/i18n";
+import { absoluteUrl } from "../../../lib/site";
 import { getTrpcClient } from "../../../lib/trpc";
 import { getPlace } from "../../../server/places";
 
 export const Route = createFileRoute("/$locale/places/$id")({
   loader: ({ params }) => getPlace({ data: params.id }),
+  head: ({ params, loaderData }) => {
+    const place = loaderData;
+    if (!place) return {};
+    const locale = localeSchema.parse(params.locale);
+    const title = `${place.nom} — ${t(locale, "app.name")}`;
+    const description = `${place.categorieNom}${place.quartier ? ` · ${place.quartier}` : ""} — ${t(locale, "home.subtitle")}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: absoluteUrl(`/${locale}/places/${place.id}`) },
+        { property: "og:image", content: absoluteUrl("/og-default.png") },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: absoluteUrl("/og-default.png") },
+      ],
+      links: [
+        { rel: "canonical", href: absoluteUrl(`/${locale}/places/${place.id}`) },
+        { rel: "alternate", hrefLang: "fr", href: absoluteUrl(`/fr/places/${place.id}`) },
+        { rel: "alternate", hrefLang: "en", href: absoluteUrl(`/en/places/${place.id}`) },
+        { rel: "alternate", hrefLang: "ar", href: absoluteUrl(`/ar/places/${place.id}`) },
+        { rel: "alternate", hrefLang: "x-default", href: absoluteUrl(`/fr/places/${place.id}`) },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: place.nom,
+            description: `${place.categorieNom}${place.quartier ? ` · ${place.quartier}` : ""}`,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: place.ville ?? "Niamey",
+              addressCountry: "NE",
+            },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: place.latitude,
+              longitude: place.longitude,
+            },
+            telephone: place.telephone ?? undefined,
+            url: `/${locale}/places/${place.id}`,
+          }),
+        },
+      ],
+    };
+  },
   component: PlaceDetail,
 });
 

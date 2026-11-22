@@ -1,6 +1,8 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { localeSchema } from "@upk/domain";
+import { localeSchema, type Locale } from "@upk/domain";
 import { t } from "@upk/i18n";
+
+const OG_LOCALES: Record<Locale, string> = { fr: "fr_FR", en: "en_US", ar: "ar_AR" };
 
 export const Route = createFileRoute("/$locale")({
   beforeLoad: ({ params }) => {
@@ -18,6 +20,11 @@ export const Route = createFileRoute("/$locale")({
       meta: [
         { title: `${t(locale, "app.name")} — ${t(locale, "home.title")}` },
         { name: "description", content: t(locale, "home.subtitle") },
+        { property: "og:site_name", content: t(locale, "app.name") },
+        { property: "og:type", content: "website" },
+        { property: "og:locale", content: OG_LOCALES[locale] },
+        { property: "og:title", content: `${t(locale, "app.name")} — ${t(locale, "home.title")}` },
+        { property: "og:description", content: t(locale, "home.subtitle") },
       ],
     };
   },

@@ -31,7 +31,7 @@ pnpm dev
 ## 3. Staging
 
 ```bash
-CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
+SITE_URL=https://upk-staging.benwahab111.workers.dev CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
 pnpm -C apps/web exec wrangler deploy
 openssl rand -hex 32 | pnpm -C apps/web exec wrangler secret put \
   BETTER_AUTH_SECRET --name upk-staging
@@ -87,7 +87,8 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 ## 7. Déploiement production (M5)
 
 1. Domaine et `BETTER_AUTH_URL` décidés.
-2. `pnpm --filter @upk/web build` (config production par défaut).
+2. `SITE_URL=https://upk.benwahab111.workers.dev pnpm --filter @upk/web build`
+   (config production par défaut ; adapter `SITE_URL` au domaine public).
 3. `pnpm -C apps/web exec wrangler deploy`.
 4. `wrangler secret put BETTER_AUTH_SECRET --name upk`.
 5. Vérifier `/`, `/api/auth/get-session` et une recherche.

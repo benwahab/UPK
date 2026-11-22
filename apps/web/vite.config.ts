@@ -6,6 +6,9 @@ import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
+  define: {
+    "import.meta.env.VITE_SITE_URL": JSON.stringify(process.env.SITE_URL ?? ""),
+  },
   plugins: [
     cloudflare({
       viteEnvironment: { name: "ssr" },

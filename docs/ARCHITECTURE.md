@@ -555,6 +555,8 @@ développement fonctionnel.
 - Mobile : `expo-localization` + réglage in-app persistant.
 - `lang` et `dir` sur `<html>`.
 - `hreflang` réciproques sur chaque page.
+- Canoniques, sitemap multilingue et JSON-LD `LocalBusiness` générés côté
+  serveur ; `SITE_URL` fige les URLs absolues au build.
 
 ### 19.3 RTL
 

@@ -3,6 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { formatDistance, localeSchema, type Locale, type PlaceSummary } from "@upk/domain";
 import { t } from "@upk/i18n";
 import { useState, type FormEvent } from "react";
+import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
 import { listCategories, searchPlaces } from "../../server/places";
 
@@ -21,6 +22,15 @@ export const Route = createFileRoute("/$locale/")({
       searchPlaces({ data: { q: deps.q, categorySlug: deps.category, limit: 20 } }),
       listCategories({ data: localeSchema.parse(params.locale) }),
     ]),
+  head: ({ params }) => ({
+    links: [
+      { rel: "canonical", href: absoluteUrl(`/${params.locale}`) },
+      { rel: "alternate", hrefLang: "fr", href: absoluteUrl("/fr") },
+      { rel: "alternate", hrefLang: "en", href: absoluteUrl("/en") },
+      { rel: "alternate", hrefLang: "ar", href: absoluteUrl("/ar") },
+      { rel: "alternate", hrefLang: "x-default", href: absoluteUrl("/fr") },
+    ],
+  }),
   component: Home,
 });
 

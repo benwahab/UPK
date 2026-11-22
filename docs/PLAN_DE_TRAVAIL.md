@@ -109,9 +109,11 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
   handler `/api/trpc` + contexte session Better Auth.
 - T1.6/T1.7 (partiel) : recherche SSR (20 premiers résultats, total 1 546),
   filtre catégorie, fiche `/$locale/places/$id` SSR, appel et itinéraire.
-- T1.9 (partiel) : routes `/fr` `/en` `/ar`, `lang`/`dir` dynamiques et
-  sélecteur de langue ; reste `hreflang` et sitemaps.
-- Reste : carte, JSON-LD, `hreflang`, sitemap, Lighthouse.
+- T1.9 : routes `/fr` `/en` `/ar`, `lang`/`dir` dynamiques, sélecteur de
+  langue, `hreflang` réciproques, canoniques et sitemap multilingue.
+- T1.11 : `robots.txt`, sitemap, Open Graph (image par défaut) et JSON-LD
+  `LocalBusiness` sur les fiches.
+- Reste : carte, Lighthouse.
 
 **Critères de sortie.**
 - Recherche < 400 ms p95 sur 1 546 lieux.

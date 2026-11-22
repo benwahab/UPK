@@ -26,6 +26,9 @@ const ctx: Context = {
         total: 1,
       };
     },
+    async listPublishedIds() {
+      return ["p1"];
+    },
     async byId(id) {
       return id === "p1"
         ? {
