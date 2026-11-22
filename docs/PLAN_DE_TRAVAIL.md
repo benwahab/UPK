@@ -297,7 +297,7 @@ Une tâche est terminée quand :
 | FTS5 indisponible | Faible | Moyen | POC S0 | Index inversé applicatif |
 | Retard Play Store | Moy. | Moyen | Test fermé | Lancer le compte en S0 |
 | Dérive de périmètre | Élevé | Élevé | Nouvelle demande | Avenant obligatoire |
-| Données OSM incomplètes | Moy. | Moyen | Revue qualité | Signalements + modération |
+| Données OSM incomplètes (3 % de téléphones, 5 % d'adresses, 0,06 % de quartiers sur 1 546 lieux) | Élevé | Élevé | Revue qualité | Enrichissement terrain et partenaires, signalements, modération |
 | Perte SEO au changement de domaine | Moy. | Moyen | Bascule | 301 + sitemap + Search Console |
 | Appareil de test indisponible | Faible | Moyen | S3 | Émulateur + appareil prêté |
 | Traductions arabes non livrées | Moy. | Élevé | Relecture native | Lancer la traduction dès S1, repli `en` |

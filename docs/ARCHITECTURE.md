@@ -471,6 +471,12 @@ Injectés par `wrangler secret put` et par les secrets EAS. **Jamais dans Git.**
 - Coût R2 pour les photos à l'échelle prévue.
 - Comportement de FTS5 sur l'arabe (tokenizer, normalisation des harakat).
 
+**Mesures du POC (SQLite local, 1 546 lieux, `MATCH` + filtres, `LIMIT 200`,
+pilote Python inclus) :** p50 ≈ 22 ms, p95 ≈ 25 ms sur « pharmacie »,
+« ecole » et « banque » ; p95 ≈ 50 ms sur la phrase « station service ».
+Ce n'est pas une mesure D1 : le réseau et le CPU Worker restent à mesurer sur
+une base distante avant de valider le budget de 400 ms.
+
 Ces points font l'objet de tests explicites au sprint 0, avant tout
 développement fonctionnel.
 
