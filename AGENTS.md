@@ -81,8 +81,12 @@ pnpm -C apps/web exec wrangler deploy
 - S2 (contribution) : formulaire + Turnstile + GPS, signalements, file de
   modération, rejet motivé, journal d'audit, rate limiting, pages légales et
   titres de page. Upload R2 codé mais désactivé.
+- S2 (accueil) : accueil sans liste initiale ; géolocalisation via bouton
+  « Autour de moi » ; tri par distance croissante quand `lat`/`lng` sont
+  fournis ; localisation automatique si la permission est déjà accordée ;
+  recherche vocale Web Speech API selon `fr-FR`/`en-US`/`ar-SA`.
 - Staging : `https://upk-staging.benwahab111.workers.dev`, migration `0003`
-  appliquée, version `32444869`, compte `admin@upk.test`.
+  appliquée, version `7aa952f2`, compte `admin@upk.test`.
 - Reste : mobile Expo (S3), CI verte, activation R2, Playwright.
 
 ### Pièges vérifiés

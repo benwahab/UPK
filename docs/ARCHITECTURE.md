@@ -95,7 +95,7 @@ Contrôle du type MIME et de la taille côté serveur, pas seulement côté clie
 1. `MATCH` FTS5 (tokenizer `unicode61 remove_diacritics 2`) ;
 2. préfiltre `latitude BETWEEN … AND longitude BETWEEN …` ;
 3. calcul Haversine en TypeScript sur les candidats ;
-4. tri pertinence puis distance.
+4. si position connue : tri distance croissante ; sinon pertinence puis distance.
 Évite de dépendre de fonctions mathématiques SQL dont la disponibilité sur D1
 doit être vérifiée.
 
@@ -242,13 +242,20 @@ entrée : q, lat?, lng?, filtres, limite, curseur
      (index places_geo_idx)
 5. charger au plus 200 candidats
 6. calculer la distance Haversine en TypeScript
-7. trier : score texte DESC, puis distance ASC
+7. si lat/lng : trier distance ASC puis nom ; sinon score texte DESC, distance ASC
 8. paginer par curseur opaque (score, distance, id)
 ```
 
 **Pourquoi la distance en TypeScript :** évite toute dépendance à des fonctions
 mathématiques SQL dont la disponibilité sur D1 doit être vérifiée, et reste
 négligeable sur 200 lignes.
+
+Sans `q`, catégorie ni position, l'accueil ne lance aucune requête : il affiche
+une aide et le formulaire. Le bouton « Autour de moi » ajoute `lat`/`lng` à
+l'URL et déclenche le tri par distance. La recherche vocale est une amélioration
+progressive via la Web Speech API (`fr-FR`, `en-US`, `ar-SA`) ; le bouton est
+masqué si le navigateur ne la supporte pas, et le texte reconnu remplit la
+requête.
 
 ### 4.5 Migrations
 

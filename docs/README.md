@@ -45,7 +45,9 @@ mobile, le Play Store est différé en v1.1.
 
 S0 à S2 sont livrés : monorepo, POC D1/FTS5 sur D1 réelle, seed des 1 546
 lieux, Better Auth, recherche et fiches, PWA, contribution, signalements,
-modération et journal d'audit. La migration `0003` et la tranche S2 sont
-déployées sur staging (`32444869`), avec le compte `admin@upk.test`. L'upload
-R2 reste désactivé et le parcours est vérifié manuellement (pas encore de
-Playwright).
+modération et journal d'audit. L'accueil reste simple : aucune liste n'est
+chargée sans recherche, la géolocalisation affiche les lieux du plus proche au
+plus éloigné et la recherche vocale est proposée quand le navigateur la
+supporte. La migration `0003` et la tranche S2 sont déployées sur staging
+(`7aa952f2`), avec le compte `admin@upk.test`. L'upload R2 reste désactivé et
+le parcours est vérifié manuellement (pas encore de Playwright).
