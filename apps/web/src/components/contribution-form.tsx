@@ -30,7 +30,6 @@ export function ContributionForm({
   const [siteWeb, setSiteWeb] = useState("");
   const [horaires, setHoraires] = useState("");
   const [contactEmail, setContactEmail] = useState("");
-  const [files, setFiles] = useState<File[]>([]);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -70,7 +69,7 @@ export function ContributionForm({
 
     setSubmitting(true);
     try {
-      const result = await getTrpcClient().contributions.create.mutate({
+      await getTrpcClient().contributions.create.mutate({
         nom,
         categorySlug,
         description: description || undefined,
@@ -89,15 +88,6 @@ export function ContributionForm({
         turnstileToken,
       });
 
-      for (const file of files.slice(0, 3)) {
-        const body = new FormData();
-        body.append("file", file);
-        await fetch(
-          `/api/uploads?placeId=${encodeURIComponent(result.id)}&token=${encodeURIComponent(result.submissionToken)}`,
-          { method: "POST", body },
-        );
-      }
-
       setSuccess(true);
     } catch {
       setError(t(locale, "contribute.error"));
@@ -108,10 +98,7 @@ export function ContributionForm({
 
   if (success) {
     return (
-      <div
-        role="status"
-        className="mt-8 rounded-xl border border-[var(--upk-border)] p-6"
-      >
+      <div role="status" className="mt-8 rounded-xl border border-[var(--upk-border)] p-6">
         <p className="font-medium">{t(locale, "contribute.success")}</p>
         <Link
           to="/$locale"
@@ -232,10 +219,7 @@ export function ContributionForm({
         {t(locale, "contribute.locationHelp")}
         {gpsPrecisionM !== null && (
           <span className="mt-1 block">
-            {t(locale, "contribute.locationAccuracy").replace(
-              "{value}",
-              String(gpsPrecisionM),
-            )}
+            {t(locale, "contribute.locationAccuracy").replace("{value}", String(gpsPrecisionM))}
           </span>
         )}
       </p>
@@ -304,20 +288,6 @@ export function ContributionForm({
           onChange={(event) => setDescription(event.target.value)}
           maxLength={2000}
         />
-      </label>
-
-      <label className="sm:col-span-2">
-        <span className="text-sm font-medium">{t(locale, "contribute.photos")}</span>
-        <input
-          className="mt-1 block w-full text-sm"
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          multiple
-          onChange={(event) => setFiles(Array.from(event.target.files ?? []).slice(0, 3))}
-        />
-        <span className="mt-1 block text-xs text-[var(--upk-muted-fg)]">
-          {t(locale, "contribute.photosHelp")}
-        </span>
       </label>
 
       <div className="sm:col-span-2">
