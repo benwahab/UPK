@@ -86,10 +86,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           ? { lat: input.lat, lng: input.lng }
           : null;
       const ftsQuery = input.q ? toFtsQuery(input.q) : null;
-      const conditions: SQL[] = [
-        sql`p.statut_publication = ${PUBLISHED}`,
-        sql`p.actif = 1`,
-      ];
+      const conditions: SQL[] = [sql`p.statut_publication = ${PUBLISHED}`, sql`p.actif = 1`];
 
       if (ftsQuery) conditions.push(sql`places_fts MATCH ${ftsQuery}`);
       if (input.categorySlug) conditions.push(sql`c.slug = ${input.categorySlug}`);
@@ -118,25 +115,33 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       `);
 
       const ranks = new Map(rows.map((row) => [row.id, row.rank ?? 0]));
-      const items = rows
+      const candidates = rows
         .map((row) => toSummary(row, origin))
         .filter(
           (item) =>
             !origin ||
             !input.radiusKm ||
             (item.distanceM ?? Number.POSITIVE_INFINITY) <= input.radiusKm * 1000,
-        )
-        .map((item) => ({
-          item,
-          score: rankScore({
-            textScore: Math.max(0, -(ranks.get(item.id) ?? 0)),
-            verified: item.verifie,
-            hasPhone: Boolean(item.telephone),
-            distanceM: item.distanceM,
-          }),
-        }))
-        .sort((a, b) => b.score - a.score || a.item.nom.localeCompare(b.item.nom))
-        .map(({ item }) => item);
+        );
+
+      const items = origin
+        ? candidates.sort(
+            (a, b) =>
+              (a.distanceM ?? Number.POSITIVE_INFINITY) -
+                (b.distanceM ?? Number.POSITIVE_INFINITY) || a.nom.localeCompare(b.nom),
+          )
+        : candidates
+            .map((item) => ({
+              item,
+              score: rankScore({
+                textScore: Math.max(0, -(ranks.get(item.id) ?? 0)),
+                verified: item.verifie,
+                hasPhone: Boolean(item.telephone),
+                distanceM: item.distanceM,
+              }),
+            }))
+            .sort((a, b) => b.score - a.score || a.item.nom.localeCompare(b.item.nom))
+            .map(({ item }) => item);
 
       const count = await db.get<{ total: number }>(sql`
         SELECT COUNT(*) AS total FROM ${from} ${PLACE_JOINS} WHERE ${where}

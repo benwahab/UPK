@@ -102,6 +102,13 @@ describe("repositories D1", () => {
     ).toBe(true);
   });
 
+  it("classe les résultats du plus proche au plus éloigné", async () => {
+    const result = await places.search({ lat: 13.53, lng: 2.13, limit: 20 });
+    expect(result.items.map((place) => place.id)).toEqual(["p3", "p2", "p1"]);
+    const distances = result.items.map((place) => place.distanceM ?? Number.POSITIVE_INFINITY);
+    expect(distances).toEqual([...distances].sort((a, b) => a - b));
+  });
+
   it("lit un lieu par identifiant", async () => {
     expect((await places.byId("p1"))?.nom).toBe("Pharmacie du Plateau");
     expect(await places.byId("absent")).toBeNull();
