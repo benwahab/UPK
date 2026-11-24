@@ -25,7 +25,7 @@
   "search.startHint": "Type a name, choose a category or use your location.",
   "search.voice": "Voice search",
   "search.voiceListening": "Listening…",
-  "search.voiceError": "No speech detected. Try again.",
+  "search.voiceError": "Voice search failed. Check your microphone or try again.",
   "search.voiceUnavailable": "Voice search is not available on this device.",
   "place.call": "Call",
   "place.directions": "Directions",

@@ -9,7 +9,7 @@ import {
   type SearchResult,
 } from "@upk/domain";
 import { t } from "@upk/i18n";
-import { lazy, Suspense, useState, type FormEvent } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type FormEvent } from "react";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
@@ -101,6 +101,23 @@ function Home() {
     staleTime: 30_000,
     enabled: typeof window !== "undefined" && hasSearch,
   });
+
+  const autoLocated = useRef(false);
+
+  useEffect(() => {
+    if (autoLocated.current || hasSearch || !("permissions" in navigator)) return;
+    autoLocated.current = true;
+    let cancelled = false;
+    void navigator.permissions
+      .query({ name: "geolocation" })
+      .then((status) => {
+        if (!cancelled && status.state === "granted") locate();
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [hasSearch]);
 
   function navigateSearch(next: { q?: string; category?: string; lat?: number; lng?: number }) {
     void navigate({

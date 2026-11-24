@@ -25,7 +25,7 @@
   "search.startHint": "اكتب اسمًا أو اختر فئة أو استخدم موقعك.",
   "search.voice": "البحث الصوتي",
   "search.voiceListening": "جارٍ الاستماع…",
-  "search.voiceError": "لم يتم اكتشاف كلام. حاول مرة أخرى.",
+  "search.voiceError": "تعذر البحث الصوتي. تحقق من الميكروفون أو حاول مرة أخرى.",
   "search.voiceUnavailable": "البحث الصوتي غير متاح على هذا الجهاز.",
   "place.call": "اتصال",
   "place.directions": "الاتجاهات",

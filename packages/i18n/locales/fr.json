@@ -25,7 +25,7 @@
   "search.startHint": "Tapez un nom, choisissez une catégorie ou utilisez votre position.",
   "search.voice": "Recherche vocale",
   "search.voiceListening": "Écoute…",
-  "search.voiceError": "Aucune parole détectée. Réessayez.",
+  "search.voiceError": "Recherche vocale impossible. Vérifiez le micro ou réessayez.",
   "search.voiceUnavailable": "Recherche vocale non disponible sur cet appareil.",
   "place.call": "Appeler",
   "place.directions": "Itinéraire",
