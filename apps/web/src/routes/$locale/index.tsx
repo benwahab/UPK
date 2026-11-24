@@ -1,30 +1,67 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { createClientOnlyFn } from "@tanstack/react-start";
-import { formatDistance, localeSchema, type Locale, type PlaceSummary } from "@upk/domain";
+import {
+  formatDistance,
+  localeSchema,
+  type Locale,
+  type PlaceSummary,
+  type SearchResult,
+} from "@upk/domain";
 import { t } from "@upk/i18n";
 import { lazy, Suspense, useState, type FormEvent } from "react";
+import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
 import { listCategories, searchPlaces } from "../../server/places";
 
 const PlaceMap = lazy(createClientOnlyFn(() => import("../../components/place-map.client")));
 
+const EMPTY_RESULTS: SearchResult = { items: [], total: 0, nextCursor: null };
+
+function coordinate(value: unknown, min: number, max: number): number | undefined {
+  const parsed =
+    typeof value === "string" ? Number(value) : typeof value === "number" ? value : Number.NaN;
+  return Number.isFinite(parsed) && parsed >= min && parsed <= max ? parsed : undefined;
+}
+
 export const Route = createFileRoute("/$locale/")({
   validateSearch: (search: Record<string, unknown>) => {
     const q = typeof search.q === "string" ? search.q.trim() : "";
     const category = typeof search.category === "string" ? search.category.trim() : "";
+    const lat = coordinate(search.lat, -90, 90);
+    const lng = coordinate(search.lng, -180, 180);
     return {
       ...(q ? { q } : {}),
       ...(category ? { category } : {}),
+      ...(lat !== undefined && lng !== undefined ? { lat, lng } : {}),
     };
   },
-  loaderDeps: ({ search }) => ({ q: search.q, category: search.category }),
-  loader: ({ params, deps }) =>
-    Promise.all([
-      searchPlaces({ data: { q: deps.q, categorySlug: deps.category, limit: 20 } }),
+  loaderDeps: ({ search }) => ({
+    q: search.q,
+    category: search.category,
+    lat: search.lat,
+    lng: search.lng,
+  }),
+  loader: ({ params, deps }) => {
+    const hasQuery = Boolean(
+      deps.q || deps.category || (deps.lat !== undefined && deps.lng !== undefined),
+    );
+    return Promise.all([
+      hasQuery
+        ? searchPlaces({
+            data: {
+              q: deps.q,
+              categorySlug: deps.category,
+              lat: deps.lat,
+              lng: deps.lng,
+              limit: 20,
+            },
+          })
+        : Promise.resolve(EMPTY_RESULTS),
       listCategories({ data: localeSchema.parse(params.locale) }),
-    ]),
+    ]);
+  },
   head: ({ params }) => ({
     links: [
       { rel: "canonical", href: absoluteUrl(`/${params.locale}`) },
@@ -40,42 +77,95 @@ export const Route = createFileRoute("/$locale/")({
 function Home() {
   const { locale: rawLocale } = Route.useParams();
   const locale = localeSchema.parse(rawLocale);
-  const { q, category } = Route.useSearch();
+  const { q, category, lat, lng } = Route.useSearch();
   const [initial, categories] = Route.useLoaderData();
   const navigate = useNavigate({ from: "/$locale/" });
   const [input, setInput] = useState(q ?? "");
   const [showMap, setShowMap] = useState(false);
+  const [locating, setLocating] = useState(false);
+  const [locationError, setLocationError] = useState(false);
+  const [voiceError, setVoiceError] = useState(false);
+  const hasPosition = lat !== undefined && lng !== undefined;
+  const hasSearch = Boolean(q || category || hasPosition);
   const results = useQuery({
-    queryKey: ["search", q, category],
+    queryKey: ["search", q, category, lat, lng],
     queryFn: () =>
       getTrpcClient().search.places.query({
         q: q || undefined,
         categorySlug: category || undefined,
+        lat,
+        lng,
         limit: 20,
       }),
     initialData: initial,
     staleTime: 30_000,
-    enabled: typeof window !== "undefined",
+    enabled: typeof window !== "undefined" && hasSearch,
   });
 
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const next = input.trim();
+  function navigateSearch(next: { q?: string; category?: string; lat?: number; lng?: number }) {
     void navigate({
       search: {
-        ...(next ? { q: next } : {}),
-        ...(category ? { category } : {}),
+        ...(next.q ? { q: next.q } : {}),
+        ...(next.category ? { category: next.category } : {}),
+        ...(next.lat !== undefined && next.lng !== undefined
+          ? { lat: next.lat, lng: next.lng }
+          : {}),
       },
     });
   }
 
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const next = input.trim();
+    setVoiceError(false);
+    navigateSearch({ q: next || undefined, category: category || undefined, lat, lng });
+  }
+
   function changeCategory(value: string) {
-    void navigate({
-      search: {
-        ...(q ? { q } : {}),
-        ...(value ? { category: value } : {}),
-      },
+    navigateSearch({
+      q: input.trim() || undefined,
+      category: value || undefined,
+      lat,
+      lng,
     });
+  }
+
+  function locate() {
+    if (!("geolocation" in navigator)) {
+      setLocationError(true);
+      return;
+    }
+    setLocationError(false);
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocating(false);
+        navigateSearch({
+          q: input.trim() || undefined,
+          category: category || undefined,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      () => {
+        setLocating(false);
+        setLocationError(true);
+      },
+      { enableHighAccuracy: false, timeout: 10_000, maximumAge: 60_000 },
+    );
+  }
+
+  function clearPosition() {
+    navigateSearch({
+      q: input.trim() || undefined,
+      category: category || undefined,
+    });
+  }
+
+  function voiceResult(text: string) {
+    setVoiceError(false);
+    setInput(text);
+    navigateSearch({ q: text, category: category || undefined, lat, lng });
   }
 
   return (
@@ -89,7 +179,11 @@ function Home() {
             key={code}
             to="/$locale"
             params={{ locale: code }}
-            search={{ ...(q ? { q } : {}), ...(category ? { category } : {}) }}
+            search={{
+              ...(q ? { q } : {}),
+              ...(category ? { category } : {}),
+              ...(lat !== undefined && lng !== undefined ? { lat, lng } : {}),
+            }}
             className={
               code === locale
                 ? "font-semibold text-[var(--upk-primary)]"
@@ -110,46 +204,96 @@ function Home() {
       <form
         method="get"
         action={`/${locale}`}
-        className="mt-8 flex flex-col gap-2 sm:flex-row"
+        className="mt-8 flex flex-col gap-2"
         onSubmit={submit}
       >
-        <input
-          type="search"
-          name="q"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          aria-label={t(locale, "search.button")}
-          placeholder={t(locale, "search.placeholder")}
-          className="min-w-0 flex-1 rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--upk-primary)]"
-        />
-        <select
-          name="category"
-          value={category ?? ""}
-          onChange={(event) => changeCategory(event.target.value)}
-          aria-label={t(locale, "search.category")}
-          className="rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--upk-primary)]"
-        >
-          <option value="">{t(locale, "search.allCategories")}</option>
-          {categories.map((item) => (
-            <option key={item.id} value={item.slug}>
-              {item.nom}
-            </option>
-          ))}
-        </select>
-        <button
-          type="submit"
-          className="rounded-lg bg-[var(--upk-primary)] px-5 py-3 font-medium text-[var(--upk-primary-fg)]"
-        >
-          {t(locale, "search.button")}
-        </button>
+        <div className="flex gap-2">
+          <input
+            type="search"
+            name="q"
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            aria-label={t(locale, "search.button")}
+            placeholder={t(locale, "search.placeholder")}
+            className="min-w-0 flex-1 rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--upk-primary)]"
+          />
+          <VoiceSearch locale={locale} onResult={voiceResult} onError={() => setVoiceError(true)} />
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <select
+            name="category"
+            value={category ?? ""}
+            onChange={(event) => changeCategory(event.target.value)}
+            aria-label={t(locale, "search.category")}
+            className="min-w-0 flex-1 rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--upk-primary)]"
+          >
+            <option value="">{t(locale, "search.allCategories")}</option>
+            {categories.map((item) => (
+              <option key={item.id} value={item.slug}>
+                {item.nom}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="rounded-lg bg-[var(--upk-primary)] px-5 py-3 font-medium text-[var(--upk-primary-fg)]"
+          >
+            {t(locale, "search.button")}
+          </button>
+          <button
+            type="button"
+            onClick={locate}
+            disabled={locating}
+            className="rounded-lg border border-[var(--upk-border)] px-4 py-3 text-sm font-medium disabled:opacity-60"
+          >
+            {locating ? t(locale, "search.locating") : t(locale, "search.nearby")}
+          </button>
+        </div>
+        {lat !== undefined && lng !== undefined && (
+          <>
+            <input type="hidden" name="lat" value={lat} />
+            <input type="hidden" name="lng" value={lng} />
+          </>
+        )}
       </form>
 
-      <section className="mt-10" aria-live="polite">
-        {results.isPending && (
+      {locationError && (
+        <p role="alert" className="mt-3 text-sm text-red-700">
+          {t(locale, "search.locationError")}
+        </p>
+      )}
+      {voiceError && (
+        <p role="alert" className="mt-3 text-sm text-red-700">
+          {t(locale, "search.voiceError")}
+        </p>
+      )}
+      {hasPosition && (
+        <p className="mt-4 flex flex-wrap items-center gap-3 text-sm text-[var(--upk-muted-fg)]">
+          <span>{t(locale, "search.sortedByDistance")}</span>
+          <button
+            type="button"
+            onClick={clearPosition}
+            className="font-medium text-[var(--upk-primary)]"
+          >
+            {t(locale, "search.clearPosition")}
+          </button>
+        </p>
+      )}
+
+      <section className="mt-8" aria-live="polite">
+        {!hasSearch && (
+          <div className="rounded-xl border border-[var(--upk-border)] p-6">
+            <h2 className="text-xl font-semibold">{t(locale, "search.startTitle")}</h2>
+            <p className="mt-2 text-sm text-[var(--upk-muted-fg)]">
+              {t(locale, "search.startHint")}
+            </p>
+          </div>
+        )}
+        {hasSearch && results.isPending && (
           <p className="text-[var(--upk-muted-fg)]">{t(locale, "common.loading")}</p>
         )}
-        {results.error && <p role="alert">{t(locale, "common.error")}</p>}
-        {results.data && (
+        {hasSearch && results.error && <p role="alert">{t(locale, "common.error")}</p>}
+        {hasSearch && results.data && (
           <>
             <p className="text-sm text-[var(--upk-muted-fg)]">
               {results.data.total} {t(locale, "search.results")}
@@ -200,7 +344,6 @@ function Home() {
           </>
         )}
       </section>
-
     </main>
   );
 }
@@ -208,11 +351,7 @@ function Home() {
 function PlaceCard({ place, locale }: { place: PlaceSummary; locale: Locale }) {
   return (
     <li className="rounded-xl border border-[var(--upk-border)] p-4">
-      <Link
-        to="/$locale/places/$id"
-        params={{ locale, id: place.id }}
-        className="block"
-      >
+      <Link to="/$locale/places/$id" params={{ locale, id: place.id }} className="block">
         <h2 className="text-lg font-semibold">{place.nom}</h2>
         <p className="text-sm text-[var(--upk-muted-fg)]">
           {place.categorieNom}

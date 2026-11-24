@@ -27,7 +27,10 @@ function publicContext(): Context {
 }
 
 export const searchPlaces = createServerFn({ method: "GET" })
-  .validator((input: { q?: string; categorySlug?: string; limit?: number }) => input)
+  .validator(
+    (input: { q?: string; categorySlug?: string; lat?: number; lng?: number; limit?: number }) =>
+      input,
+  )
   .handler(({ data }) =>
     createTrpcCaller(publicContext()).search.places({ ...data, limit: data.limit ?? 20 }),
   );
