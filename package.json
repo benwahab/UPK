@@ -13,10 +13,13 @@
     "test": "turbo run test",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "seed:sql": "node --experimental-strip-types infra/scripts/seed.ts"
+    "seed:sql": "node --experimental-strip-types infra/scripts/seed.ts",
+    "e2e:prepare": "pnpm seed:sql > /tmp/upk-e2e-seed.sql && pnpm -C apps/web exec wrangler d1 migrations apply upk --local --config ../../infra/wrangler.toml --persist-to .wrangler/state -y && pnpm -C apps/web exec wrangler d1 execute upk --local --config ../../infra/wrangler.toml --persist-to .wrangler/state --file=/tmp/upk-e2e-seed.sql",
+    "e2e": "playwright test"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
+    "@playwright/test": "1.55.0",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.1",
     "globals": "^15.15.0",

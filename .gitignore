@@ -7,6 +7,8 @@ dist/
 .wrangler/
 .turbo/
 coverage/
+playwright-report/
+test-results/
 .env
 .env.*
 .dev.vars
