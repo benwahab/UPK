@@ -106,7 +106,6 @@ function Home() {
 
   useEffect(() => {
     if (autoLocated.current || hasSearch || !("permissions" in navigator)) return;
-    autoLocated.current = true;
     let cancelled = false;
     void navigator.permissions
       .query({ name: "geolocation" })
@@ -148,6 +147,7 @@ function Home() {
   }
 
   function locate() {
+    autoLocated.current = true;
     if (!("geolocation" in navigator)) {
       setLocationError(true);
       return;
