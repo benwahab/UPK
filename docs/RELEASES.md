@@ -11,3 +11,4 @@ Aucun tag, aucune branche. Le repère de version est le SHA du commit.
 | S1 (carte, PWA, Lighthouse) | `b2e442d` | 2026-11-22 | Carte Leaflet, PWA hors-ligne, contrastes, recherche sans JS | Oui (staging `e97a25ea`) |
 | S2 (contribution, modération) | `bb8b14b` | 2026-11-22 | Formulaire + Turnstile + GPS, signalements, modération, audit, pages légales, titres | Oui (staging `7aa952f2`) |
 | S2 (accueil, proximité, vocal) | `6983613` | 2026-11-22 | Accueil sans liste initiale, géolocalisation, tri par distance, recherche vocale | Oui (staging `7aa952f2`) |
+| S2 (qualité, confidentialité) | `ebc1a80` | 2026-11-22 | Tests E2E Playwright, confidentialité position/vocal, photos masquées (R2 non activé) | Oui (staging `a745f417`) |

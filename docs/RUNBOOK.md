@@ -63,8 +63,26 @@ pnpm dev
     --config ../../infra/wrangler.toml --persist-to .wrangler/state \
     --command "SELECT action, resultat, cible_id, created_at FROM journal_admin ORDER BY created_at DESC LIMIT 10"
   ```
-- Les photos R2 sont désactivées tant que R2 n'est pas activé : `/api/uploads`
-  et `/api/photos/*` renvoient 503.
+- Les photos R2 sont désactivées tant que R2 n'est pas activé : le champ
+  photos est masqué dans le formulaire et `/api/uploads` renvoie 503.
+  L'activation R2 exige le tableau de bord Cloudflare (l'API répond
+  `Please enable R2 through the Cloudflare Dashboard.`).
+
+## 2 quater. Tests E2E Playwright
+
+```bash
+pnpm e2e:prepare                 # migrations + seed D1 locale
+pnpm exec playwright install chromium
+PLAYWRIGHT_CHROMIUM_PATH=/usr/bin/chromium pnpm e2e   # si Chromium système
+pnpm e2e                         # sinon navigateur Playwright
+```
+
+- `pnpm e2e` démarre Vite sur `127.0.0.1:5173` et prépare la D1 locale.
+- Pour tester un déploiement existant :
+  `E2E_BASE_URL=https://upk-staging.benwahab111.workers.dev pnpm e2e`.
+- 9 tests : accueil vide, recherche, catégorie, proximité, vocal simulé,
+  absence de JavaScript, photos masquées, confidentialité.
+- En CI, le workflow installe Chromium puis exécute `pnpm e2e`.
 
 ## 3. Staging
 

@@ -146,12 +146,12 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
 | T2.10 | Tests E2E Playwright | 2 j |
 | T2.11 | Accueil simple, géolocalisation, tri proximité et recherche vocale | 1,5 j |
 
-**État au 2026-11-22.** T2.5 formulaire, Turnstile et photos (upload R2 en
-attente d'activation R2) ; T2.6 rate limiting ; T2.7 signalement ; T2.8 file
-de modération, contrôle GPS 20 m et rejet motivé ; T2.9 journal d'audit ;
-T2.10 parcours vérifié manuellement dans le navigateur (Playwright non ajouté) ;
-T2.11 accueil simple, géolocalisation avec tri par distance et recherche vocale
-livrés sur staging.
+**État au 2026-11-22.** T2.5 formulaire et Turnstile ; upload R2 en attente
+d'activation, champ photos masqué ; T2.6 rate limiting ; T2.7 signalement ;
+T2.8 file de modération, contrôle GPS 20 m et rejet motivé ; T2.9 journal
+d'audit ; T2.10 9 tests E2E Playwright ajoutés (`pnpm e2e`) ; T2.11 accueil
+simple, géolocalisation avec tri par distance et recherche vocale livrés sur
+staging.
 
 **Critères de sortie.**
 - `navigator.serviceWorker.getRegistration()` renvoie une registration active.

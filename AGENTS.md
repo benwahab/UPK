@@ -80,14 +80,19 @@ pnpm -C apps/web exec wrangler deploy
   network-first, page hors-ligne), bandeau de mise à jour, installation desktop.
 - S2 (contribution) : formulaire + Turnstile + GPS, signalements, file de
   modération, rejet motivé, journal d'audit, rate limiting, pages légales et
-  titres de page. Upload R2 codé mais désactivé.
+  titres de page. Upload R2 codé mais désactivé ; le champ photos est masqué
+  tant que R2 n'est pas activé.
 - S2 (accueil) : accueil sans liste initiale ; géolocalisation via bouton
   « Autour de moi » ; tri par distance croissante quand `lat`/`lng` sont
   fournis ; localisation automatique si la permission est déjà accordée ;
   recherche vocale Web Speech API selon `fr-FR`/`en-US`/`ar-SA`.
+- Qualité : 9 tests E2E Playwright (`pnpm e2e`) couvrent accueil vide,
+  recherche, catégorie, proximité, vocal simulé, absence de JavaScript,
+  photos masquées et confidentialité. `pnpm e2e:prepare` prépare la D1 locale.
 - Staging : `https://upk-staging.benwahab111.workers.dev`, migration `0003`
-  appliquée, version `7aa952f2`, compte `admin@upk.test`.
-- Reste : mobile Expo (S3), CI verte, activation R2, Playwright.
+  appliquée, version `a745f417`, compte `admin@upk.test`.
+- Reste : mobile Expo (S3), CI verte, activation R2 (bloquée par le dashboard
+  Cloudflare), production.
 
 ### Pièges vérifiés
 
