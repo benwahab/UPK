@@ -23,7 +23,7 @@ export function CarteLieu({ lieu }: { lieu: Lieu }) {
           </p>
         </div>
         {distance ? (
-          <span className="shrink-0 rounded-lg bg-accent px-2 py-1 text-sm font-semibold text-accent-foreground">
+          <span className="shrink-0 rounded-lg bg-accent px-2 py-1 text-sm font-semibold text-accent-foreground dark:bg-primary/15 dark:text-primary">
             {distance}
           </span>
         ) : null}

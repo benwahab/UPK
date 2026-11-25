@@ -195,7 +195,7 @@ function PageRecherche() {
         <img
           src="/logo/upk-logo.png"
           alt="UPK"
-          className={rechercheActive ? "h-16 w-16" : "h-28 w-28"}
+          className={`${rechercheActive ? "h-16 w-16" : "h-28 w-28"} dark:drop-shadow-[0_6px_18px_rgba(255,110,30,0.3)]`}
         />
         <h1 className="mt-3 font-display text-lg leading-snug font-semibold text-foreground">
           Votre guide local
