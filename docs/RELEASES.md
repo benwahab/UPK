@@ -12,3 +12,4 @@ Aucun tag, aucune branche. Le repère de version est le SHA du commit.
 | S2 (contribution, modération) | `bb8b14b` | 2026-11-22 | Formulaire + Turnstile + GPS, signalements, modération, audit, pages légales, titres | Oui (staging `7aa952f2`) |
 | S2 (accueil, proximité, vocal) | `6983613` | 2026-11-22 | Accueil sans liste initiale, géolocalisation, tri par distance, recherche vocale | Oui (staging `7aa952f2`) |
 | S2 (qualité, confidentialité) | `ebc1a80` | 2026-11-22 | Tests E2E Playwright, confidentialité position/vocal, photos masquées (R2 non activé) | Oui (staging `a745f417`) |
+| S3 (PWA mobile) | `fcb44c4` | 2026-11-26 | Installation mobile, 50 pages hors ligne, CSS critique inliné, tests Pixel 5 | Oui (staging `c9ea1400`) |

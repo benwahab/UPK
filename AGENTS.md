@@ -77,7 +77,8 @@ pnpm -C apps/web exec wrangler deploy
   SEO (`hreflang`, sitemap, robots, JSON-LD, Open Graph), carte Leaflet à la
   demande (tuiles OSM) ; Lighthouse desktop/mobile 100/100/100/100.
 - S2 (PWA) : manifest, icônes, service worker (assets cache-first, navigation
-  network-first, page hors-ligne), bandeau de mise à jour, installation desktop.
+  network-first, page hors-ligne, 50 pages), stockage persistant, bandeau de
+  mise à jour, installation desktop et mobile via `beforeinstallprompt`.
 - S2 (contribution) : formulaire + Turnstile + GPS, signalements, file de
   modération, rejet motivé, journal d'audit, rate limiting, pages légales et
   titres de page. Upload R2 codé mais désactivé ; le champ photos est masqué
@@ -86,13 +87,18 @@ pnpm -C apps/web exec wrangler deploy
   « Autour de moi » ; tri par distance croissante quand `lat`/`lng` sont
   fournis ; localisation automatique si la permission est déjà accordée ;
   recherche vocale Web Speech API selon `fr-FR`/`en-US`/`ar-SA`.
-- Qualité : 9 tests E2E Playwright (`pnpm e2e`) couvrent accueil vide,
-  recherche, catégorie, proximité, vocal simulé, absence de JavaScript,
-  photos masquées et confidentialité. `pnpm e2e:prepare` prépare la D1 locale.
+- Qualité : 11 parcours E2E Playwright, exécutés en desktop et Pixel 5
+  (21 exécutions vertes sur staging) : accueil vide, recherche, catégorie,
+  proximité, vocal simulé, absence de JavaScript, photos masquées,
+  confidentialité, bandeau d'installation et cache du service worker.
+  `pnpm e2e:prepare` prépare la D1 locale ; le test PWA nécessite
+  `E2E_BASE_URL`.
 - Staging : `https://upk-staging.benwahab111.workers.dev`, migration `0003`
-  appliquée, version `a745f417`, compte `admin@upk.test`.
-- Reste : mobile Expo (S3), CI verte, activation R2 (bloquée par le dashboard
-  Cloudflare), production.
+  appliquée, version `c9ea1400`, compte `admin@upk.test`. Lighthouse mobile
+  100/100/100/100, LCP 0,8 s (simulation 3G/2 Go).
+- Reste : fin du durcissement PWA mobile (T3.2, T3.4, T3.7/T3.8), CI verte,
+  activation R2 (bloquée par le dashboard Cloudflare), production. Expo/TWA
+  reste différé en v1.1 (ADR-008) ; `apps/mobile` est un emplacement réservé.
 
 ### Pièges vérifiés
 

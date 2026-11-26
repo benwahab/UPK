@@ -385,19 +385,22 @@ renvoient 503. Le reste du formulaire de contribution fonctionne sans photo.
 - `manifest.webmanifest` : `display: standalone`, `start_url: "/"`,
   `theme_color`, icônes 192/512 + maskable, captures desktop et mobile.
 - Service worker actuel : `apps/web/public/sw.js` (assets en cache-first,
-  navigation en network-first, page hors-ligne) ; migration VitePWA/Workbox
-  possible sans changer l'interface.
+  navigation en network-first, page hors-ligne, 50 dernières navigations en
+  cache, `storage.persist`) ; migration VitePWA/Workbox possible sans changer
+  l'interface.
 - Enregistrement explicite au démarrage, en production uniquement.
 - Flux de mise à jour : détection d'une nouvelle version → bandeau → activation
   au clic (`SKIP_WAITING`).
-- `beforeinstallprompt` capturé, bouton affiché sur desktop uniquement ; sur
-  mobile, installation via le menu du navigateur.
+- `beforeinstallprompt` capturé sur desktop et mobile ; bouton d'installation
+  affiché quand le navigateur le propose, avec une cible tactile de 44 px.
 - Carte : composant Leaflet chargé à la demande (`lazy` +
   `createClientOnlyFn`), tuiles OSM avec attribution.
 - Android : installation WebAPK, mode standalone, icône dans le tiroir
   d'applications.
 - Recherche et fiche utilisables **sans JavaScript** (SSR + formulaire) pour
   Opera Mini et les réseaux lents.
+- CSS critique inliné dans le document pour supprimer la requête bloquante ;
+  Lighthouse mobile 100/100/100/100, LCP 0,8 s.
 
 ## 10. Application Android (différée v1.1)
 
@@ -440,7 +443,7 @@ Cron (hebdomadaire)
 | Téléversement malveillant | Type MIME, taille, chemin contrôlés serveur |
 | Fuite de secrets | `wrangler secret`, jamais dans le bundle |
 | Falsification du journal | Écriture uniquement via le service, pas d'endpoint public |
-| XSS | Échappement par défaut, CSP stricte, pas de `dangerouslySetInnerHTML` |
+| XSS | Échappement par défaut, CSP stricte ; `dangerouslySetInnerHTML` réservé au CSS statique inliné |
 | CSRF | Cookies `SameSite=Lax` + vérification d'origine |
 | Abus de scraping | Rate limiting + cache |
 

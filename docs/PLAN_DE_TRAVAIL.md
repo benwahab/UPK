@@ -186,6 +186,12 @@ staging.
 - Aucun débordement horizontal en arabe.
 - Décision TWA/Play Store consignée (GO ou NO-GO).
 
+**État au 2026-11-26.** T3.1 (bandeau d'installation mobile), T3.3
+(50 pages en cache, `storage.persist`), T3.5 (recherche sans JavaScript
+vérifiée), T3.6 (Lighthouse mobile 100/100/100/100, LCP 0,8 s) et T3.9
+(Playwright Pixel 5) sont livrés. T3.2, T3.4 et la décision T3.7/T3.8 restent
+à traiter.
+
 ## 7. Sprint 4 — Administration (2 semaines)
 
 **Objectif :** l'équipe pilote la plateforme en toute sécurité. Les comptes

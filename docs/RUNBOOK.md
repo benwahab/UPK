@@ -80,8 +80,12 @@ pnpm e2e                         # sinon navigateur Playwright
 - `pnpm e2e` démarre Vite sur `127.0.0.1:5173` et prépare la D1 locale.
 - Pour tester un déploiement existant :
   `E2E_BASE_URL=https://upk-staging.benwahab111.workers.dev pnpm e2e`.
-- 9 tests : accueil vide, recherche, catégorie, proximité, vocal simulé,
-  absence de JavaScript, photos masquées, confidentialité.
+- 11 parcours : accueil vide, recherche, catégorie, proximité, vocal simulé,
+  absence de JavaScript, photos masquées, confidentialité, bandeau
+  d'installation mobile et cache du service worker. Les projets `chromium`
+  et `mobile-chrome` (Pixel 5) sont exécutés.
+- `pnpm e2e --project=mobile-chrome` ne lance que le mobile.
+- Le test PWA est ignoré sans `E2E_BASE_URL` ; il vérifie le cache `upk-v3-pages`.
 - En CI, le workflow installe Chromium puis exécute `pnpm e2e`.
 
 ## 3. Staging
@@ -101,6 +105,9 @@ pnpm -C apps/web exec wrangler deploy
 - **Ne pas** utiliser `wrangler deploy --env staging` sur le config généré :
   il déploie `upk` (production).
 - Mesure : `curl "https://upk-staging.benwahab111.workers.dev/api/poc?q=pharmacie&runs=30"`.
+- Lighthouse mobile (3G/2 Go simulés) :
+  `CHROME_PATH=/usr/bin/chromium npx --yes lighthouse@12.8.2 https://upk-staging.benwahab111.workers.dev/fr --form-factor=mobile --throttling-method=simulate --only-categories=performance,accessibility,best-practices,seo`.
+  Résultat de référence : 100/100/100/100, LCP 0,8 s.
 - Le compte admin de staging (`admin@upk.test`) existe et `moderation.me`
   renvoie `isAdmin: true`. Le staging utilise les clés Turnstile de test.
 - Le token Cloudflare est enregistré sous `CLOUDFARE_API_TOKEN` (coquille) ;
