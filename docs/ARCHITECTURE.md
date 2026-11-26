@@ -452,14 +452,17 @@ Cron (hebdomadaire)
 | CSRF | Cookies `SameSite=Lax` + vérification d'origine |
 | Abus de scraping | Rate limiting + cache |
 
-**En-têtes HTTP** : `Content-Security-Policy`, `Strict-Transport-Security`,
-`X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`,
-`Permissions-Policy` minimal.
+**En-têtes HTTP** : ajoutés par `apps/web/src/start.ts` —
+`Content-Security-Policy` (Turnstile et tuiles OSM autorisés),
+`Strict-Transport-Security`, `X-Content-Type-Options: nosniff`,
+`X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`,
+`Permissions-Policy` minimal et `Cross-Origin-Opener-Policy: same-origin`.
 
 ## 13. Observabilité
 
-- **Sentry** : erreurs web, mobile, Worker.
-- **Workers Analytics Engine** : latence, erreurs, volume par procédure.
+- **Workers Logs** : activés par `[observability]` (production et staging).
+- **Sentry** : prévu, DSN non encore configuré.
+- **Workers Analytics Engine** : prévu pour latence, erreurs et volume.
 - **Logs structurés** JSON avec identifiant de requête.
 - Tableaux de bord : recherches sans résultat, taux d'erreur, p95 API.
 - Alertes : pic d'erreurs, chute du taux de succès de recherche, échec d'import.

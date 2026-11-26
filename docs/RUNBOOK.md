@@ -50,6 +50,11 @@ pnpm dev
 - `TURNSTILE_SECRET_KEY` et `VITE_TURNSTILE_SITE_KEY` utilisent les clés de
   test Cloudflare en local/staging. La production initiale utilise aussi les
   clés de test pour l'instant : les remplacer avant l'ouverture publique.
+- En-têtes de sécurité : `apps/web/src/start.ts` ajoute CSP, HSTS, nosniff,
+  `frame-ancestors 'none'`, `Referrer-Policy` et `Permissions-Policy`. La CSP
+  autorise Turnstile (`challenges.cloudflare.com`) et les tuiles OSM.
+- Workers Logs : `[observability] enabled = true` dans `infra/wrangler.toml`
+  (production et staging). Sentry n'est pas encore branché.
 - Parcours de vérification :
   1. `/fr/contribuer` : soumettre un lieu. Il reste invisible en recherche.
   2. Se connecter avec un compte de `ADMIN_EMAILS`, puis ouvrir
@@ -102,7 +107,7 @@ pnpm -C apps/web exec wrangler deploy
 ```
 
 - URL : `https://upk-staging.benwahab111.workers.dev`.
-- D1 : `upk-staging` (`9cab467d-3261-442d-8933-cc759e93b359`).
+- D1 : `upk-staging` (`fcfcb0f4-a79d-42b7-86c4-0ccc9eead1ee`).
 - R2 : `upk-photos-staging` (binding `PHOTOS`).
 - **Ne pas** utiliser `wrangler deploy --env staging` sur le config généré :
   il déploie `upk` (production).
@@ -162,9 +167,9 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 ## 7. Déploiement production (M5)
 
 État au 2026-11-26 : production initiale déployée sur
-`https://upk.benwahab111.workers.dev` (version `a9263a1b`), migration `0003`
-appliquée. Turnstile utilise encore la clé de test : à remplacer avant
-l'ouverture publique.
+`https://upk.benwahab111.workers.dev` (version `f76c19c5`), migration `0003`
+appliquée, en-têtes de sécurité et Workers Logs actifs. Turnstile utilise
+encore la clé de test : à remplacer avant l'ouverture publique.
 
 1. `BETTER_AUTH_URL` vaut `https://upk.benwahab111.workers.dev` dans
    `infra/wrangler.toml`.
@@ -182,6 +187,24 @@ l'ouverture publique.
    contribution → modération → recherche et un signalement.
 7. Remplacer la clé Turnstile de test par une clé réelle avant l'ouverture
    publique, puis reconstruire et redéployer.
+
+## 7 bis. Sauvegarde et restauration D1
+
+- Sauvegarde logique :
+  `pnpm backup:d1` exporte `upk` avec `--compatibility sqlite3_cli_only`
+  (obligatoire : l'export D1 standard refuse les tables FTS5), compresse,
+  calcule un SHA-256 et dépose le tout dans `r2://upk-backups/d1/`.
+- Rétention R2 : règle `backup-90d` sur le préfixe `d1/` (expiration après
+  90 jours).
+- Restauration point-in-time (Cloudflare Time Travel) :
+  `pnpm -C apps/web exec wrangler d1 time-travel info upk --config ../../infra/wrangler.toml --json`
+  puis `... time-travel restore upk --timestamp <RFC3339>`. La restauration
+  est destructive : la tester sur une base de copie, jamais directement sur
+  la production.
+- Restauration logique : télécharger l'archive, vérifier le SHA-256, puis
+  l'importer dans un SQLite local disposant de FTS5. Le dump
+  `sqlite3_cli_only` n'est pas importable tel quel dans D1 ; il sert à
+  l'analyse et à la reconstruction locale.
 
 ## 8. Retour arrière
 

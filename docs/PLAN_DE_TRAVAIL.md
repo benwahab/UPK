@@ -269,10 +269,11 @@ Une tâche est terminée quand :
 - [ ] Domaine et DNS configurés, TLS actif
 - [ ] Redirections 301 depuis les anciennes URL
 - [ ] `sitemap.xml` et `robots.txt` corrects
-- [ ] En-têtes de sécurité vérifiés (CSP, HSTS, nosniff)
+- [x] En-têtes de sécurité vérifiés (CSP, HSTS, nosniff)
 - [ ] Turnstile en mode production
 - [ ] Rate limiting actif
-- [ ] Sauvegarde D1 quotidienne + test de restauration
+- [x] Sauvegarde D1 initiale testée (export R2 + Time Travel) ;
+  automatisation quotidienne à planifier
 - [ ] Sentry configuré et alertes actives
 - [ ] Pages légales, confidentialité, CGU publiées
 - [ ] Attribution ODbL visible

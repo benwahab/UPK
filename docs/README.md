@@ -49,11 +49,12 @@ modération et journal d'audit. L'accueil reste simple : aucune liste n'est
 chargée sans recherche, la géolocalisation affiche les lieux du plus proche au
 plus éloigné et la recherche vocale est proposée quand le navigateur la
 supporte. La migration `0003` et la tranche S2 sont déployées sur staging
-(`6b6ba112`), avec le compte `admin@upk.test`. L'upload R2 est actif : les
+(`dd213a9d`), avec le compte `admin@upk.test`. L'upload R2 est actif : les
 photos optionnelles (3 max, 5 Mo) sont stockées dans les buckets privés
 `upk-photos` et `upk-photos-staging`. La production initiale est déployée sur
-`https://upk.benwahab111.workers.dev` (`a9263a1b`) avec la migration `0003`,
-R2 et Better Auth configurés. Turnstile utilise encore la clé de test en
-production : la remplacer avant l'ouverture publique. Les 11 parcours E2E
+`https://upk.benwahab111.workers.dev` (`f76c19c5`) avec la migration `0003`,
+R2, Better Auth, en-têtes de sécurité et Workers Logs configurés. Les
+sauvegardes D1 sont déposées dans `upk-backups`. Turnstile utilise encore la
+clé de test en production : la remplacer avant l'ouverture publique. Les 11 parcours E2E
 Playwright sont exécutés en desktop et mobile (21 exécutions vertes sur
 staging). Lighthouse mobile : 100/100/100/100, LCP 0,8 s.

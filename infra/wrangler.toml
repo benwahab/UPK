@@ -3,6 +3,9 @@ main = "@tanstack/react-start/server-entry"
 compatibility_date = "2026-11-01"
 compatibility_flags = ["nodejs_compat"]
 
+[observability]
+enabled = true
+
 [vars]
 APP_ENV = "production"
 BETTER_AUTH_URL = "https://upk.benwahab111.workers.dev"
@@ -22,6 +25,9 @@ bucket_name = "upk-photos"
 [env.staging]
 name = "upk-staging"
 
+[env.staging.observability]
+enabled = true
+
 [env.staging.vars]
 APP_ENV = "staging"
 BETTER_AUTH_URL = "https://upk-staging.benwahab111.workers.dev"
@@ -37,5 +43,5 @@ bucket_name = "upk-photos-staging"
 [[env.staging.d1_databases]]
 binding = "DB"
 database_name = "upk-staging"
-database_id = "9cab467d-3261-442d-8933-cc759e93b359"
+database_id = "fcfcb0f4-a79d-42b7-86c4-0ccc9eead1ee"
 migrations_dir = "../packages/db/migrations"

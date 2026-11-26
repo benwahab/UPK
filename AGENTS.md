@@ -95,17 +95,21 @@ pnpm -C apps/web exec wrangler deploy
   `pnpm e2e:prepare` prépare la D1 locale ; le test PWA nécessite
   `E2E_BASE_URL`.
 - Staging : `https://upk-staging.benwahab111.workers.dev`, migration `0003`
-  appliquée, version `6b6ba112`, compte `admin@upk.test`. Lighthouse mobile
+  appliquée, version `dd213a9d`, compte `admin@upk.test`. Lighthouse mobile
   100/100/100/100, LCP 0,8 s (simulation 3G/2 Go). R2 actif : buckets
   `upk-photos` (production) et `upk-photos-staging`.
 - Production : `https://upk.benwahab111.workers.dev`, migration `0003`
-  appliquée, version `a9263a1b`. Secrets Worker `BETTER_AUTH_SECRET`,
+  appliquée, version `f76c19c5`. Secrets Worker `BETTER_AUTH_SECRET`,
   `ADMIN_EMAILS`, `RATE_LIMIT_SALT` et `TURNSTILE_SECRET_KEY` définis hors Git.
-  R2 `upk-photos` et auth vérifiés. Turnstile utilise encore la clé de test :
-  la remplacer avant l'ouverture publique.
-- Reste : Turnstile réel et domaine personnalisé avant ouverture publique ;
-  fin du durcissement PWA mobile (T3.2, T3.4, T3.7/T3.8). Expo/TWA reste
-  différé en v1.1 (ADR-008) ; `apps/mobile` est un emplacement réservé.
+  R2 `upk-photos` et auth vérifiés. En-têtes de sécurité (CSP, HSTS, nosniff,
+  frame-ancestors) servis par `apps/web/src/start.ts` ; Workers Logs activés.
+  Sauvegardes D1 dans `upk-backups` (préfixe `d1/`, rétention 90 jours).
+  Turnstile utilise encore la clé de test : la remplacer avant l'ouverture
+  publique.
+- Reste : Turnstile réel, domaine personnalisé et Sentry avant ouverture
+  publique ; automatiser `pnpm backup:d1` ; fin du durcissement PWA mobile
+  (T3.2, T3.4, T3.7/T3.8). Expo/TWA reste différé en v1.1 (ADR-008) ;
+  `apps/mobile` est un emplacement réservé.
 
 ### Pièges vérifiés
 
@@ -135,7 +139,7 @@ pnpm -C apps/web exec wrangler deploy
   (production). Utiliser `CLOUDFLARE_ENV=staging` au build.
 - Le seed ne doit pas contenir `BEGIN`/`COMMIT` : D1 les refuse.
 - D1 : `upk` = `3b364a13-7620-415d-8b7f-6ec9d79a6d66`,
-  `upk-staging` = `9cab467d-3261-442d-8933-cc759e93b359`.
+  `upk-staging` = `fcfcb0f4-a79d-42b7-86c4-0ccc9eead1ee`.
 - `seed:sql` utilise `node --experimental-strip-types`.
 
 ## Notes d'environnement

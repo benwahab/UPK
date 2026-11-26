@@ -15,3 +15,4 @@ Aucun tag, aucune branche. Le repère de version est le SHA du commit.
 | S3 (PWA mobile) | `fcb44c4` | 2026-11-26 | Installation mobile, 50 pages hors ligne, CSS critique inliné, tests Pixel 5 | Oui (staging `c9ea1400`) |
 | S3 (R2 photos) | `0145576` | 2026-11-26 | Upload R2 actif (3 photos, 5 Mo), galerie sur la fiche publiée, confidentialité, tests et docs | Oui (staging `6b6ba112`) |
 | S3 (production initiale) | `0c5a872` | 2026-11-26 | Déploiement production, migration `0003`, R2 `upk-photos`, auth et secrets admin ; Turnstile de test temporaire | Oui (`upk` `a9263a1b`) |
+| S3 (durcissement production) | `2848ffe` | 2026-11-26 | En-têtes CSP/HSTS, Workers Logs, sauvegardes D1 dans R2 (`upk-backups`) | Oui (`upk` `f76c19c5`, `upk-staging` `dd213a9d`) |
