@@ -13,3 +13,4 @@ Aucun tag, aucune branche. Le repère de version est le SHA du commit.
 | S2 (accueil, proximité, vocal) | `6983613` | 2026-11-22 | Accueil sans liste initiale, géolocalisation, tri par distance, recherche vocale | Oui (staging `7aa952f2`) |
 | S2 (qualité, confidentialité) | `ebc1a80` | 2026-11-22 | Tests E2E Playwright, confidentialité position/vocal, photos masquées (R2 non activé) | Oui (staging `a745f417`) |
 | S3 (PWA mobile) | `fcb44c4` | 2026-11-26 | Installation mobile, 50 pages hors ligne, CSS critique inliné, tests Pixel 5 | Oui (staging `c9ea1400`) |
+| S3 (R2 photos) | `0145576` | 2026-11-26 | Upload R2 actif (3 photos, 5 Mo), galerie sur la fiche publiée, confidentialité, tests et docs | Oui (staging `6b6ba112`) |
