@@ -5,6 +5,7 @@ import {
   normalizeSearch,
   rankScore,
   type Locale,
+  type PlacePhoto,
   type PlaceSummary,
   type SearchInput,
   type SearchResult,
@@ -62,7 +63,11 @@ function encodeOffset(offset: number): string {
   return btoa(String(offset));
 }
 
-function toSummary(row: PlaceRow, origin: { lat: number; lng: number } | null): PlaceSummary {
+function toSummary(
+  row: PlaceRow,
+  origin: { lat: number; lng: number } | null,
+  photos: PlacePhoto[] = [],
+): PlaceSummary {
   return {
     id: row.id,
     nom: row.nom,
@@ -75,6 +80,7 @@ function toSummary(row: PlaceRow, origin: { lat: number; lng: number } | null): 
     telephone: row.telephone,
     verifie: row.statut_verification !== "a_verifier",
     distanceM: origin ? haversineMetres(origin, { lat: row.latitude, lng: row.longitude }) : null,
+    photos,
   };
 }
 
@@ -162,7 +168,26 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
         ${PLACE_JOINS}
         WHERE p.id = ${id} AND p.statut_publication = ${PUBLISHED} AND p.actif = 1
       `);
-      return row ? toSummary(row, null) : null;
+      if (!row) return null;
+      const photos = await db.all<{
+        cle_r2: string;
+        url_publique: string | null;
+        alt: string | null;
+      }>(sql`
+        SELECT cle_r2, url_publique, alt
+        FROM place_photos
+        WHERE place_id = ${id}
+        ORDER BY ordre ASC, created_at ASC
+      `);
+      return toSummary(
+        row,
+        null,
+        photos.map((photo) => ({
+          key: photo.cle_r2,
+          url: photo.url_publique ?? `/api/photos/${photo.cle_r2}`,
+          alt: photo.alt,
+        })),
+      );
     },
 
     async listPublishedIds(): Promise<string[]> {

@@ -1,6 +1,7 @@
 import type {
   ContributionData,
   Locale,
+  PlacePhoto,
   PlaceSummary,
   ReportData,
   SearchInput,
@@ -31,11 +32,7 @@ export type CategoryRepository = {
   list(locale: Locale): Promise<Category[]>;
 };
 
-export type Photo = {
-  key: string;
-  url: string;
-  alt: string | null;
-};
+export type Photo = PlacePhoto;
 
 export type ModerationPlace = {
   id: string;

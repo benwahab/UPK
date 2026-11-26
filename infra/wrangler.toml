@@ -17,11 +17,9 @@ database_name = "upk"
 database_id = "3b364a13-7620-415d-8b7f-6ec9d79a6d66"
 migrations_dir = "../packages/db/migrations"
 
-# R2 n'est pas encore activé sur le compte Cloudflare.
-# Activer R2 dans le tableau de bord, créer les buckets, puis décommenter.
-# [[r2_buckets]]
-# binding = "PHOTOS"
-# bucket_name = "upk-photos"
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "upk-photos"
 
 [env.staging]
 name = "upk-staging"
@@ -34,9 +32,9 @@ RATE_LIMIT_SALT = "upk-staging-rate-limit"
 # Clé de test Turnstile (publique, toujours valide). Remplacer en production.
 TURNSTILE_SECRET_KEY = "1x0000000000000000000000000000000AA"
 
-# [[env.staging.r2_buckets]]
-# binding = "PHOTOS"
-# bucket_name = "upk-photos-staging"
+[[env.staging.r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "upk-photos-staging"
 
 [[env.staging.d1_databases]]
 binding = "DB"

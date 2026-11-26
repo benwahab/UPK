@@ -87,9 +87,11 @@ Query.
 Sessions, vérification d'e-mail, réinitialisation, adaptateur D1, client Expo
 avec stockage sécurisé. Évite de réécrire une authentification maison.
 
-### ADR-005 — R2 + URLs signées
-Bucket privé. Le Worker vérifie la permission, génère une URL signée courte.
-Contrôle du type MIME et de la taille côté serveur, pas seulement côté client.
+### ADR-005 — R2 privé + proxy Worker
+Bucket privé. Le Worker vérifie le jeton de soumission, le type MIME et la
+taille, puis écrit l'objet. La lecture passe par `/api/photos/{key}` avec un
+cache immuable. Les URLs signées restent une option si la livraison directe
+devient nécessaire.
 
 ### ADR-006 — Recherche : FTS5 + boîte englobante + distance en TS
 1. `MATCH` FTS5 (tokenizer `unicode61 remove_diacritics 2`) ;
@@ -347,32 +349,34 @@ d'une heure). Le sel vient de `RATE_LIMIT_SALT`.
 Le secret reste côté Worker ; sans secret, les écritures sont refusées. En
 local, `TURNSTILE_SECRET_KEY` peut utiliser la clé de test Cloudflare.
 
-**Photos.** L'upload R2 est codé mais désactivé tant que R2 n'est pas activé
-sur le compte ; `POST /api/uploads` et `GET /api/photos/*` renvoient 503. Le
-formulaire reste utilisable sans photo.
+**Photos.** L'upload R2 est actif. `POST /api/uploads` vérifie le jeton de
+soumission, limite à 10 envois par heure et par fiche, contrôle le type MIME
+(JPEG/PNG/WebP) et la taille (5 Mo), puis écrit dans le bucket privé.
+`GET /api/photos/{key}` sert l'objet avec un cache immuable.
 
 ## 7. Stockage des photos
 
 - Bucket R2 **privé**.
 - Chemin : `places/{placeId}/{uuid}.{ext}`.
-- Téléversement : le client demande une URL signée `PUT` au Worker, qui vérifie
-  la session, la propriété de la fiche, le type MIME et la taille (< 5 Mo).
-- Lecture : URL signée `GET` de 15 minutes, ou URL publique si la fiche est
-  publiée.
-- Types acceptés : `image/jpeg`, `image/png`, `image/webp`, `image/avif`.
-- Redimensionnement à la demande (Cloudflare Images ou Worker) pour les
-  vignettes.
+- Téléversement : `POST /api/uploads?placeId=…&token=…` en multipart. Le Worker
+  vérifie le jeton de soumission, la limite de débit, le type MIME et la taille
+  (< 5 Mo), puis écrit l'objet et la ligne `place_photos`.
+- Lecture : `GET /api/photos/{key}`, cache `public, max-age=31536000, immutable`.
+  La fiche d'un lieu publié affiche ses photos dans une galerie.
+- Types acceptés : `image/jpeg`, `image/png`, `image/webp`.
+- Trois photos maximum par proposition ; redimensionnement à la demande
+  (Cloudflare Images ou Worker) pour les vignettes.
 
-**État S2.** R2 n'est pas encore activé sur le compte Cloudflare. Les bindings
-`PHOTOS` sont commentés dans `infra/wrangler.toml` ; les routes de photos
-renvoient 503. Le reste du formulaire de contribution fonctionne sans photo.
+**État au 2026-11-26.** R2 est actif sur le compte Cloudflare. Les bindings
+`PHOTOS` sont déclarés dans `infra/wrangler.toml` ; les buckets
+`upk-photos` et `upk-photos-staging` sont privés. Un upload réel et une
+lecture `/api/photos/...` ont été vérifiés sur staging.
 
 ## 8. Hors-ligne
 
 ### Web
-- App-shell précaché par Workbox.
-- Dernières 20 fiches et derniers résultats en IndexedDB via la persistance
-  TanStack Query.
+- App-shell précaché par le service worker (`apps/web/public/sw.js`).
+- 50 dernières navigations en cache, page `/offline` en repli.
 - Page de repli hors-ligne.
 
 ### Mobile
@@ -524,9 +528,10 @@ Le build staging se fait avec `CLOUDFLARE_ENV=staging pnpm --filter @upk/web bui
 puis `wrangler deploy` depuis `apps/web`. `wrangler deploy --env staging` sur le
 config généré déploie le Worker de production `upk` : ne pas l'utiliser.
 
-**Secrets** : `BETTER_AUTH_SECRET`, `TURNSTILE_SECRET_KEY`, `SENTRY_DSN`,
-`R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `GEONAMES_USERNAME`.
-Injectés par `wrangler secret put` et par les secrets EAS. **Jamais dans Git.**
+**Secrets** : `BETTER_AUTH_SECRET`, `TURNSTILE_SECRET_KEY`, `RATE_LIMIT_SALT`,
+`SENTRY_DSN`, `GEONAMES_USERNAME`. R2 passe par le binding `PHOTOS`, sans clé
+S3. Injectés par `wrangler secret put` et par les secrets EAS. **Jamais dans
+Git.**
 
 ## 17. Migration depuis v1
 

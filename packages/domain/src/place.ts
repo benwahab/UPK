@@ -21,6 +21,12 @@ export const searchInputSchema = z
 
 export type SearchInput = z.infer<typeof searchInputSchema>;
 
+export type PlacePhoto = {
+  key: string;
+  url: string;
+  alt: string | null;
+};
+
 export type PlaceSummary = {
   id: string;
   nom: string;
@@ -33,6 +39,7 @@ export type PlaceSummary = {
   telephone: string | null;
   verifie: boolean;
   distanceM: number | null;
+  photos: PlacePhoto[];
 };
 
 export type SearchResult = {

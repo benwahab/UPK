@@ -49,7 +49,8 @@ modération et journal d'audit. L'accueil reste simple : aucune liste n'est
 chargée sans recherche, la géolocalisation affiche les lieux du plus proche au
 plus éloigné et la recherche vocale est proposée quand le navigateur la
 supporte. La migration `0003` et la tranche S2 sont déployées sur staging
-(`c9ea1400`), avec le compte `admin@upk.test`. L'upload R2 reste désactivé et
-le champ photos est masqué en attendant son activation. Les 11 parcours E2E
-Playwright sont exécutés en desktop et mobile (21 exécutions vertes sur
-staging). Lighthouse mobile : 100/100/100/100, LCP 0,8 s.
+(`6b6ba112`), avec le compte `admin@upk.test`. L'upload R2 est actif : les
+photos optionnelles (3 max, 5 Mo) sont stockées dans les buckets privés
+`upk-photos` et `upk-photos-staging`. Les 11 parcours E2E Playwright sont
+exécutés en desktop et mobile (21 exécutions vertes sur staging). Lighthouse
+mobile : 100/100/100/100, LCP 0,8 s.

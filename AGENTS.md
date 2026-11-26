@@ -81,24 +81,26 @@ pnpm -C apps/web exec wrangler deploy
   mise à jour, installation desktop et mobile via `beforeinstallprompt`.
 - S2 (contribution) : formulaire + Turnstile + GPS, signalements, file de
   modération, rejet motivé, journal d'audit, rate limiting, pages légales et
-  titres de page. Upload R2 codé mais désactivé ; le champ photos est masqué
-  tant que R2 n'est pas activé.
+  titres de page. Upload R2 actif (bucket privé, proxy Worker) : photos
+  optionnelles (3 max, 5 Mo), stockées dans R2, visibles en modération puis
+  publiées sur la fiche après validation.
 - S2 (accueil) : accueil sans liste initiale ; géolocalisation via bouton
   « Autour de moi » ; tri par distance croissante quand `lat`/`lng` sont
   fournis ; localisation automatique si la permission est déjà accordée ;
   recherche vocale Web Speech API selon `fr-FR`/`en-US`/`ar-SA`.
 - Qualité : 11 parcours E2E Playwright, exécutés en desktop et Pixel 5
   (21 exécutions vertes sur staging) : accueil vide, recherche, catégorie,
-  proximité, vocal simulé, absence de JavaScript, photos masquées,
+  proximité, vocal simulé, absence de JavaScript, photos proposées,
   confidentialité, bandeau d'installation et cache du service worker.
   `pnpm e2e:prepare` prépare la D1 locale ; le test PWA nécessite
   `E2E_BASE_URL`.
 - Staging : `https://upk-staging.benwahab111.workers.dev`, migration `0003`
-  appliquée, version `c9ea1400`, compte `admin@upk.test`. Lighthouse mobile
-  100/100/100/100, LCP 0,8 s (simulation 3G/2 Go).
-- Reste : fin du durcissement PWA mobile (T3.2, T3.4, T3.7/T3.8), CI verte,
-  activation R2 (bloquée par le dashboard Cloudflare), production. Expo/TWA
-  reste différé en v1.1 (ADR-008) ; `apps/mobile` est un emplacement réservé.
+  appliquée, version `6b6ba112`, compte `admin@upk.test`. Lighthouse mobile
+  100/100/100/100, LCP 0,8 s (simulation 3G/2 Go). R2 actif : buckets
+  `upk-photos` (production) et `upk-photos-staging`.
+- Reste : fin du durcissement PWA mobile (T3.2, T3.4, T3.7/T3.8), production.
+  Expo/TWA reste différé en v1.1 (ADR-008) ; `apps/mobile` est un emplacement
+  réservé.
 
 ### Pièges vérifiés
 
@@ -112,7 +114,8 @@ pnpm -C apps/web exec wrangler deploy
   `moderation.me` renvoie `isAdmin`. `approve` passe le lieu à `valide` +
   `verifie` ; sans cela il reste invisible en recherche.
 - Audit : la colonne du journal est `action` (pas `cle`).
-- R2 désactivé : `/api/uploads` et `/api/photos/*` renvoient 503.
+- R2 : si `/api/uploads` ou `/api/photos/*` renvoie 503, vérifier le binding
+  `PHOTOS` dans `dist/server/wrangler.json` et l'existence du bucket.
 - Titres de page : `useDocumentTitle` pour les navigations client ; le `head`
   SSR reste la source pour le premier chargement.
 - Build SEO : `SITE_URL=https://...` fige les canoniques, `hreflang` et

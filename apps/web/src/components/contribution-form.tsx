@@ -30,6 +30,7 @@ export function ContributionForm({
   const [siteWeb, setSiteWeb] = useState("");
   const [horaires, setHoraires] = useState("");
   const [contactEmail, setContactEmail] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
   const [turnstileToken, setTurnstileToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +70,7 @@ export function ContributionForm({
 
     setSubmitting(true);
     try {
-      await getTrpcClient().contributions.create.mutate({
+      const result = await getTrpcClient().contributions.create.mutate({
         nom,
         categorySlug,
         description: description || undefined,
@@ -87,6 +88,15 @@ export function ContributionForm({
         langue: locale,
         turnstileToken,
       });
+
+      for (const file of files.slice(0, 3)) {
+        const body = new FormData();
+        body.append("file", file);
+        await fetch(
+          `/api/uploads?placeId=${encodeURIComponent(result.id)}&token=${encodeURIComponent(result.submissionToken)}`,
+          { method: "POST", body },
+        );
+      }
 
       setSuccess(true);
     } catch {
@@ -288,6 +298,20 @@ export function ContributionForm({
           onChange={(event) => setDescription(event.target.value)}
           maxLength={2000}
         />
+      </label>
+
+      <label className="sm:col-span-2">
+        <span className="text-sm font-medium">{t(locale, "contribute.photos")}</span>
+        <input
+          className="mt-1 block w-full text-sm"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          multiple
+          onChange={(event) => setFiles(Array.from(event.target.files ?? []).slice(0, 3))}
+        />
+        <span className="mt-1 block text-xs text-[var(--upk-muted-fg)]">
+          {t(locale, "contribute.photosHelp")}
+        </span>
       </label>
 
       <div className="sm:col-span-2">

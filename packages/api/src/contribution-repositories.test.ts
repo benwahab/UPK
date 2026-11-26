@@ -111,6 +111,13 @@ describe("repositories contribution et modération", () => {
     await expect(moderation.findPending(created.id)).resolves.toBeNull();
     const published = await places.byId(created.id);
     expect(published?.nom).toBe("Pharmacie test");
+    expect(published?.photos).toEqual([
+      {
+        key: `places/${created.id}/photo.jpg`,
+        url: `/api/photos/places/${created.id}/photo.jpg`,
+        alt: "Façade",
+      },
+    ]);
   });
 
   it("enregistre un rejet motivé", async () => {

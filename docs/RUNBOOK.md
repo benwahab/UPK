@@ -63,10 +63,11 @@ pnpm dev
     --config ../../infra/wrangler.toml --persist-to .wrangler/state \
     --command "SELECT action, resultat, cible_id, created_at FROM journal_admin ORDER BY created_at DESC LIMIT 10"
   ```
-- Les photos R2 sont désactivées tant que R2 n'est pas activé : le champ
-  photos est masqué dans le formulaire et `/api/uploads` renvoie 503.
-  L'activation R2 exige le tableau de bord Cloudflare (l'API répond
-  `Please enable R2 through the Cloudflare Dashboard.`).
+- R2 est actif : buckets privés `upk-photos` (production) et
+  `upk-photos-staging` (staging), binding `PHOTOS`. Le formulaire propose
+  jusqu'à 3 photos (JPEG/PNG/WebP, 5 Mo max). Vérifier après déploiement :
+  `wrangler r2 bucket list`, puis un upload depuis `/fr/contribuer` et un
+  `GET /api/photos/places/...` qui renvoie l'image en 200.
 
 ## 2 quater. Tests E2E Playwright
 
@@ -81,7 +82,7 @@ pnpm e2e                         # sinon navigateur Playwright
 - Pour tester un déploiement existant :
   `E2E_BASE_URL=https://upk-staging.benwahab111.workers.dev pnpm e2e`.
 - 11 parcours : accueil vide, recherche, catégorie, proximité, vocal simulé,
-  absence de JavaScript, photos masquées, confidentialité, bandeau
+  absence de JavaScript, photos proposées, confidentialité, bandeau
   d'installation mobile et cache du service worker. Les projets `chromium`
   et `mobile-chrome` (Pixel 5) sont exécutés.
 - `pnpm e2e --project=mobile-chrome` ne lance que le mobile.
@@ -102,6 +103,7 @@ pnpm -C apps/web exec wrangler deploy
 
 - URL : `https://upk-staging.benwahab111.workers.dev`.
 - D1 : `upk-staging` (`9cab467d-3261-442d-8933-cc759e93b359`).
+- R2 : `upk-photos-staging` (binding `PHOTOS`).
 - **Ne pas** utiliser `wrangler deploy --env staging` sur le config généré :
   il déploie `upk` (production).
 - Mesure : `curl "https://upk-staging.benwahab111.workers.dev/api/poc?q=pharmacie&runs=30"`.
@@ -152,7 +154,7 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 | `TURNSTILE_SECRET_KEY` | Worker staging/production | Anti-abus formulaires |
 | `RATE_LIMIT_SALT` | Worker production | Hachage des IP du rate limit |
 | `ADMIN_EMAILS` | Variable Worker | Comptes modérateurs (pas un secret) |
-| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Worker production | Photos R2 (désactivé) |
+| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Hors Worker | Non utilisés : le binding `PHOTOS` suffit |
 
 `wrangler secret put <NOM> --name <worker>` ; jamais dans Git, jamais dans un
 `.dev.vars` versionné.
@@ -198,8 +200,9 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
   `en_attente` ; l'approuver dans `/fr/admin/moderation`.
 - **Turnstile refusé** : `TURNSTILE_SECRET_KEY` et `VITE_TURNSTILE_SITE_KEY`
   doivent appartenir au même mode (test ou réel).
-- **`/api/uploads` ou `/api/photos/*` en 503** : R2 n'est pas activé ; c'est
-  attendu tant que les bindings `PHOTOS` restent commentés.
+- **`/api/uploads` ou `/api/photos/*` en 503** : binding `PHOTOS` absent du
+  Worker déployé ou bucket supprimé ; vérifier `dist/server/wrangler.json` et
+  `wrangler r2 bucket list`.
 
 ## 10. Checklist avant déploiement
 

@@ -109,7 +109,8 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
   handler `/api/trpc` + contexte session Better Auth.
 - T1.6 : recherche SSR (20 premiers résultats, total 1 546), filtre catégorie,
   carte Leaflet à la demande (tuiles OSM, liste d'abord).
-- T1.7 : fiche `/$locale/places/$id` SSR, appel, itinéraire et JSON-LD.
+- T1.7 : fiche `/$locale/places/$id` SSR, appel, itinéraire, JSON-LD et
+  galerie des photos publiées.
 - T1.9 : routes `/fr` `/en` `/ar`, `lang`/`dir` dynamiques, sélecteur de
   langue, `hreflang` réciproques, canoniques et sitemap multilingue.
 - T1.11 : `robots.txt`, sitemap, Open Graph (image par défaut) et JSON-LD
@@ -137,7 +138,7 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
 | T2.1 | Manifeste, icônes, `theme-color`, `apple-touch-icon` | 0,5 j |
 | T2.2 | Workbox dans `.output/public`, app-shell, offline | 2 j |
 | T2.3 | Flux de mise à jour + bouton « Recharger » | 1 j |
-| T2.4 | Bouton d'installation desktop uniquement | 0,5 j |
+| T2.4 | Bouton d'installation desktop et mobile | 0,5 j |
 | T2.5 | Formulaire de proposition + upload R2 + Turnstile | 3 j |
 | T2.6 | Rate limiting sur toutes les écritures publiques | 1 j |
 | T2.7 | Signalement d'erreur | 1 j |
@@ -146,12 +147,12 @@ D1, on bascule sur un index inversé applicatif. Décision prise en S0, pas en S
 | T2.10 | Tests E2E Playwright | 2 j |
 | T2.11 | Accueil simple, géolocalisation, tri proximité et recherche vocale | 1,5 j |
 
-**État au 2026-11-22.** T2.5 formulaire et Turnstile ; upload R2 en attente
-d'activation, champ photos masqué ; T2.6 rate limiting ; T2.7 signalement ;
+**État au 2026-11-26.** T2.5 formulaire, Turnstile et upload R2 actif (buckets
+`upk-photos` et `upk-photos-staging`) ; T2.6 rate limiting ; T2.7 signalement ;
 T2.8 file de modération, contrôle GPS 20 m et rejet motivé ; T2.9 journal
-d'audit ; T2.10 9 tests E2E Playwright ajoutés (`pnpm e2e`) ; T2.11 accueil
-simple, géolocalisation avec tri par distance et recherche vocale livrés sur
-staging.
+d'audit ; T2.10 11 parcours E2E Playwright (21 exécutions desktop/mobile) ;
+T2.11 accueil simple, géolocalisation avec tri par distance et recherche
+vocale livrés sur staging.
 
 **Critères de sortie.**
 - `navigator.serviceWorker.getRegistration()` renvoie une registration active.

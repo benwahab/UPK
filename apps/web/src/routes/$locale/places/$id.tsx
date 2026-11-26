@@ -144,6 +144,25 @@ function PlaceDetail() {
           {t(locale, "place.verified")}
         </p>
       )}
+      {place.photos.length > 0 && (
+        <section className="mt-8" aria-labelledby="place-photos">
+          <h2 id="place-photos" className="text-xl font-semibold">
+            {t(locale, "place.photos")}
+          </h2>
+          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {place.photos.map((photo) => (
+              <img
+                key={photo.key}
+                src={photo.url}
+                alt={photo.alt ?? place.nom}
+                loading="lazy"
+                decoding="async"
+                className="aspect-square w-full rounded-lg border border-[var(--upk-border)] object-cover"
+              />
+            ))}
+          </div>
+        </section>
+      )}
       <div className="mt-8 flex flex-wrap gap-3">
         {place.telephone && (
           <a
