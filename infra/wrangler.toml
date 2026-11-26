@@ -5,11 +5,9 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 APP_ENV = "production"
-# À remplacer par le domaine de production avant le déploiement.
-BETTER_AUTH_URL = "http://localhost:5173"
-# Emails administrateurs, séparés par des virgules. À remplacer en production.
-ADMIN_EMAILS = ""
-RATE_LIMIT_SALT = "upk-rate-limit"
+BETTER_AUTH_URL = "https://upk.benwahab111.workers.dev"
+# ADMIN_EMAILS et RATE_LIMIT_SALT sont définis via `wrangler secret put`.
+# Ne pas les committer : le dépôt est public.
 
 [[d1_databases]]
 binding = "DB"

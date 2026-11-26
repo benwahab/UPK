@@ -98,9 +98,14 @@ pnpm -C apps/web exec wrangler deploy
   appliquée, version `6b6ba112`, compte `admin@upk.test`. Lighthouse mobile
   100/100/100/100, LCP 0,8 s (simulation 3G/2 Go). R2 actif : buckets
   `upk-photos` (production) et `upk-photos-staging`.
-- Reste : fin du durcissement PWA mobile (T3.2, T3.4, T3.7/T3.8), production.
-  Expo/TWA reste différé en v1.1 (ADR-008) ; `apps/mobile` est un emplacement
-  réservé.
+- Production : `https://upk.benwahab111.workers.dev`, migration `0003`
+  appliquée, version `a9263a1b`. Secrets Worker `BETTER_AUTH_SECRET`,
+  `ADMIN_EMAILS`, `RATE_LIMIT_SALT` et `TURNSTILE_SECRET_KEY` définis hors Git.
+  R2 `upk-photos` et auth vérifiés. Turnstile utilise encore la clé de test :
+  la remplacer avant l'ouverture publique.
+- Reste : Turnstile réel et domaine personnalisé avant ouverture publique ;
+  fin du durcissement PWA mobile (T3.2, T3.4, T3.7/T3.8). Expo/TWA reste
+  différé en v1.1 (ADR-008) ; `apps/mobile` est un emplacement réservé.
 
 ### Pièges vérifiés
 
@@ -111,7 +116,8 @@ pnpm -C apps/web exec wrangler deploy
 - `pnpm dev` lit `apps/web/.dev.vars` ; `wrangler dev --config
   infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - Modération : `ADMIN_EMAILS` doit contenir l'e-mail exact du compte ;
-  `moderation.me` renvoie `isAdmin`. `approve` passe le lieu à `valide` +
+  `moderation.me` renvoie `isAdmin`. En production c'est un secret Worker
+  (`wrangler secret put`), pas une variable de `wrangler.toml`. `approve` passe le lieu à `valide` +
   `verifie` ; sans cela il reste invisible en recherche.
 - Audit : la colonne du journal est `action` (pas `cle`).
 - R2 : si `/api/uploads` ou `/api/photos/*` renvoie 503, vérifier le binding

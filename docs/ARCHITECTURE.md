@@ -345,9 +345,10 @@ résultat, avant/après). Aucune route publique ne permet de le modifier.
 **Rate limiting.** Table D1 `rate_limits` (scope + hash d'IP salé, fenêtre
 d'une heure). Le sel vient de `RATE_LIMIT_SALT`.
 
-**Anti-abus.** Turnstile : clé de test en staging, clé réelle en production.
-Le secret reste côté Worker ; sans secret, les écritures sont refusées. En
-local, `TURNSTILE_SECRET_KEY` peut utiliser la clé de test Cloudflare.
+**Anti-abus.** Turnstile : clé de test en staging et sur la production
+initiale, clé réelle à installer avant l'ouverture publique. Le secret reste
+côté Worker ; sans secret, les écritures sont refusées. En local,
+`TURNSTILE_SECRET_KEY` peut utiliser la clé de test Cloudflare.
 
 **Photos.** L'upload R2 est actif. `POST /api/uploads` vérifie le jeton de
 soumission, limite à 10 envois par heure et par fiche, contrôle le type MIME
@@ -522,7 +523,7 @@ workflow_dispatch
 | --- | --- | --- |
 | `local` | D1 locale `upk` (Miniflare, `apps/web/.wrangler/state`) | Développement |
 | `staging` | D1 `upk-staging` | `https://upk-staging.benwahab111.workers.dev` |
-| `production` | D1 `upk` | `https://upk.benwahab111.workers.dev` (aperçu ; auth non configurée, domaine à définir) |
+| `production` | D1 `upk` | `https://upk.benwahab111.workers.dev` (production initiale ; domaine personnalisé à définir) |
 
 Le build staging se fait avec `CLOUDFLARE_ENV=staging pnpm --filter @upk/web build`
 puis `wrangler deploy` depuis `apps/web`. `wrangler deploy --env staging` sur le

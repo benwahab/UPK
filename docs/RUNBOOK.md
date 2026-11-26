@@ -48,8 +48,8 @@ pnpm dev
   En local : `admin@upk.test` ; le mot de passe temporaire est dans
   `UPK_STAGING_ADMIN_PASSWORD` (fichier local, jamais versionné).
 - `TURNSTILE_SECRET_KEY` et `VITE_TURNSTILE_SITE_KEY` utilisent les clés de
-  test Cloudflare en local/staging ; remplacer par les clés réelles en
-  production.
+  test Cloudflare en local/staging. La production initiale utilise aussi les
+  clés de test pour l'instant : les remplacer avant l'ouverture publique.
 - Parcours de vérification :
   1. `/fr/contribuer` : soumettre un lieu. Il reste invisible en recherche.
   2. Se connecter avec un compte de `ADMIN_EMAILS`, puis ouvrir
@@ -153,7 +153,7 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 | `BETTER_AUTH_SECRET` | Worker staging/production | Signature des sessions |
 | `TURNSTILE_SECRET_KEY` | Worker staging/production | Anti-abus formulaires |
 | `RATE_LIMIT_SALT` | Worker production | Hachage des IP du rate limit |
-| `ADMIN_EMAILS` | Variable Worker | Comptes modérateurs (pas un secret) |
+| `ADMIN_EMAILS` | Secret Worker en production, variable en staging/local | Comptes modérateurs |
 | `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Hors Worker | Non utilisés : le binding `PHOTOS` suffit |
 
 `wrangler secret put <NOM> --name <worker>` ; jamais dans Git, jamais dans un
@@ -161,19 +161,27 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 
 ## 7. Déploiement production (M5)
 
-1. Domaine et `BETTER_AUTH_URL` décidés.
-2. `SITE_URL=https://upk.benwahab111.workers.dev pnpm --filter @upk/web build`
-   (config production par défaut ; adapter `SITE_URL` au domaine public).
-3. Renseigner `ADMIN_EMAILS` dans `infra/wrangler.toml` (production), puis
-   `pnpm -C apps/web exec wrangler deploy`.
-4. `wrangler secret put BETTER_AUTH_SECRET --name upk`.
-5. `wrangler secret put TURNSTILE_SECRET_KEY --name upk` (clé réelle, pas la
-   clé de test) et `wrangler secret put RATE_LIMIT_SALT --name upk`.
+État au 2026-11-26 : production initiale déployée sur
+`https://upk.benwahab111.workers.dev` (version `a9263a1b`), migration `0003`
+appliquée. Turnstile utilise encore la clé de test : à remplacer avant
+l'ouverture publique.
+
+1. `BETTER_AUTH_URL` vaut `https://upk.benwahab111.workers.dev` dans
+   `infra/wrangler.toml`.
+2. `SITE_URL=https://upk.benwahab111.workers.dev VITE_TURNSTILE_SITE_KEY=<clé> \
+   pnpm --filter @upk/web build` (config production par défaut).
+3. Définir les secrets Worker :
+   `wrangler secret put BETTER_AUTH_SECRET --name upk`,
+   `wrangler secret put ADMIN_EMAILS --name upk`,
+   `wrangler secret put RATE_LIMIT_SALT --name upk`,
+   `wrangler secret put TURNSTILE_SECRET_KEY --name upk`.
+4. Appliquer les migrations :
+   `wrangler d1 migrations apply upk --remote --config ../../infra/wrangler.toml`.
+5. `pnpm -C apps/web exec wrangler deploy`.
 6. Vérifier `/`, `/api/auth/get-session`, une recherche, puis le parcours
    contribution → modération → recherche et un signalement.
-7. Le Worker `upk` actuel (`https://upk.benwahab111.workers.dev`) est un
-   aperçu non configuré : le supprimer ou le configurer avant l'ouverture
-   publique.
+7. Remplacer la clé Turnstile de test par une clé réelle avant l'ouverture
+   publique, puis reconstruire et redéployer.
 
 ## 8. Retour arrière
 
