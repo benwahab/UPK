@@ -62,6 +62,7 @@ const ctx: Context = {
             telephone: "+22720733412",
             verifie: true,
             distanceM: 320,
+            photos: [],
           },
         ],
         nextCursor: null,
@@ -85,6 +86,7 @@ const ctx: Context = {
             telephone: "+22720733412",
             verifie: true,
             distanceM: null,
+            photos: [],
           }
         : null;
     },
