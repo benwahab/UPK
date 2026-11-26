@@ -9,7 +9,7 @@ import {
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SiteFooter } from "../components/site-footer";
 import { absoluteUrl } from "../lib/site";
-import appCss from "../styles.css?url";
+import appCss from "../styles.css?inline";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
@@ -21,20 +21,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-title", content: "UPK" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { title: "UPK — Votre guide local" },
-        { name: "description", content: "Trouvez un lieu proche de vous au Niger." },
-        { name: "robots", content: "index,follow" },
-        { property: "og:site_name", content: "UPK" },
-        { property: "og:image", content: absoluteUrl("/og-default.png") },
-        { property: "og:image:width", content: "1200" },
-        { property: "og:image:height", content: "630" },
-        { property: "og:image:alt", content: "UPK — Votre guide local" },
-        { name: "twitter:card", content: "summary_large_image" },
-        { name: "twitter:title", content: "UPK — Votre guide local" },
-        { name: "twitter:description", content: "Trouvez un lieu proche de vous au Niger." },
-        { name: "twitter:image", content: absoluteUrl("/og-default.png") },
+      { name: "description", content: "Trouvez un lieu proche de vous au Niger." },
+      { name: "robots", content: "index,follow" },
+      { property: "og:site_name", content: "UPK" },
+      { property: "og:image", content: absoluteUrl("/og-default.png") },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "UPK — Votre guide local" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "UPK — Votre guide local" },
+      { name: "twitter:description", content: "Trouvez un lieu proche de vous au Niger." },
+      { name: "twitter:image", content: absoluteUrl("/og-default.png") },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", href: "/icon-192.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
@@ -56,6 +55,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <head>
         <HeadContent />
+        <style dangerouslySetInnerHTML={{ __html: appCss }} />
       </head>
       <body>
         {children}
@@ -84,6 +84,9 @@ function RootComponent() {
       if (updateRequested.current) window.location.reload();
     };
     navigator.serviceWorker.addEventListener("controllerchange", onControllerChange);
+    if (navigator.storage?.persist) {
+      void navigator.storage.persist().catch(() => {});
+    }
     void navigator.serviceWorker.register("/sw.js").then((registration) => {
       registrationRef.current = registration;
       if (registration.waiting && navigator.serviceWorker.controller) {
@@ -106,7 +109,6 @@ function RootComponent() {
 
   useEffect(() => {
     const handler = (event: Event) => {
-      if (!window.matchMedia("(min-width: 1024px)").matches) return;
       event.preventDefault();
       setInstallPrompt(event as BeforeInstallPromptEvent);
     };
@@ -172,7 +174,7 @@ function RootComponent() {
           <button
             type="button"
             onClick={install}
-            className="rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-2 text-sm font-medium shadow-lg"
+            className="rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-3 text-sm font-medium shadow-lg"
           >
             {labels.install}
           </button>

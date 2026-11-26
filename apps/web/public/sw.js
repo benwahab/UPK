@@ -1,7 +1,8 @@
-const VERSION = "upk-v2";
+const VERSION = "upk-v3";
 const STATIC_CACHE = `${VERSION}-static`;
 const PAGE_CACHE = `${VERSION}-pages`;
 const OFFLINE_URL = "/offline";
+const MAX_CACHED_PAGES = 50;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -42,13 +43,13 @@ self.addEventListener("fetch", (event) => {
           caches.open(PAGE_CACHE).then(async (cache) => {
             await cache.put(request, copy);
             const keys = await cache.keys();
-            if (keys.length > 10) await cache.delete(keys[0]);
+            for (const key of keys.slice(0, Math.max(0, keys.length - MAX_CACHED_PAGES))) {
+              await cache.delete(key);
+            }
           });
           return response;
         })
-        .catch(() =>
-          caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL)),
-        ),
+        .catch(() => caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL))),
     );
     return;
   }
