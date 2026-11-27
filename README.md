@@ -45,16 +45,9 @@ Les secrets locaux (`BETTER_AUTH_SECRET`, `TURNSTILE_SECRET_KEY`,
 `infra/wrangler.toml`. Garder les deux fichiers identiques ; ils sont ignorés
 par Git. L'état D1 local est dans `apps/web/.wrangler/state`.
 
-### Staging
+### Environnement Cloudflare
 
-```
-CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
-pnpm -C apps/web exec wrangler deploy
-```
-
-Le staging est `https://upk-staging.benwahab111.workers.dev`. Ne pas utiliser
-`wrangler deploy --env staging` sur le config généré : il déploie le Worker de
-production `upk`.
+UPK utilise un seul environnement distant : le Worker de production `upk`, avec la base D1 `upk` et le bucket R2 `upk-photos`. Aucun environnement staging ne doit être configuré ou redéployé. Les tests se font en local, puis sur la production selon une procédure de validation contrôlée.
 
 ## Règles
 
