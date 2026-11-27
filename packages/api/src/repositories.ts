@@ -409,7 +409,9 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           countConditions.push(sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`);
           countConditions.push(sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`);
         }
-        if (fromFts) countConditions.push(sql`places_fts MATCH ${ftsQuery}`);
+        // Inclure aussi les conditions propres aux replis (ex. recherche tolérante).
+        // Elles suivent toujours les filtres de base dans le tableau transmis.
+        countConditions.push(...conditions.slice(baseConditions.length));
         const countWhere = sql.join(countConditions, sql` AND `);
         const count = await db.get<{ total: number }>(sql`
           SELECT COUNT(*) AS total FROM ${from} WHERE ${countWhere}
