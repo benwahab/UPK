@@ -6,6 +6,7 @@ Never connects to D1 and never writes to production.
 from __future__ import annotations
 import argparse, json, math, re, unicodedata
 from collections import defaultdict
+from difflib import SequenceMatcher
 from pathlib import Path
 
 RELEASE = "2026-11-18.0"
@@ -17,6 +18,25 @@ COUNTRIES = {
 }
 R = 6_371_000
 CELL = 0.001
+UPK_CATEGORY_MAP = {
+    "pharmacie": {"pharmacy"},
+    "sante": {"hospital", "clinic", "doctor", "dentist", "health_care", "healthcare", "medical_center", "medical_clinic"},
+    "restaurant": {"restaurant", "fast_food_restaurant", "cafe", "bar", "food_court"},
+    "hotel": {"hotel", "lodging", "motel", "hostel", "guest_house", "resort"},
+    "banque": {"bank", "financial_institution"},
+    "distributeur": {"atm"},
+    "station-service": {"gas_station", "fuel_station"},
+    "garage": {"auto_repair", "car_repair", "car_wash", "auto_parts_store", "vehicle_inspection"},
+    "ecole": {"school", "private_school", "elementary_school", "middle_school", "high_school", "preschool", "college_university", "education"},
+    "marche": {"market", "shopping_mall", "marketplace"},
+    "administration": {"government_office", "embassy", "police_station", "fire_station", "courthouse", "post_office", "public_service"},
+    "commerce": {"shopping", "grocery_store", "supermarket", "convenience_store", "clothing_store", "electronics_store", "mobile_phone_store", "bakery", "department_store", "hardware_store", "book_store", "store"},
+    "transport": {"airport", "bus_station", "taxi_stand", "train_station", "port", "car_rental", "transportation"},
+    "loisirs": {"historic_site", "national_park", "park", "museum", "arts_and_entertainment", "stadium_arena", "music_venue", "attraction", "tourist_attraction", "cinema", "zoo"},
+    "services-professionnels": {"professional_service", "money_transfer_service", "travel_service", "real_estate_service", "building_or_construction_service", "social_or_community_service", "insurance_agency"},
+    "lieu-culte": {"muslim_place_of_worship", "christian_place_of_worship", "mosque", "church", "place_of_worship", "religious_organization"},
+}
+VALID_UPK_CATEGORIES = set().union(*UPK_CATEGORY_MAP.values())
 
 def norm(value):
     value = unicodedata.normalize("NFKD", str(value or "").casefold())
@@ -41,36 +61,55 @@ def load_osm(path):
             result[code].append(p)
     return result
 
+def normalize_phone(value):
+    return re.sub(r"\\D", "", str(value or ""))
+
+def normalize_site(value):
+    value = str(value or "").strip().lower()
+    value = re.sub(r"^https?://", "", value)
+    value = re.sub(r"^www\\.", "", value)
+    return value.split("/")[0].split("?")[0]
+
 def make_index(places):
     index = defaultdict(list)
     for p in places:
-        name = norm(p.get("nom") or p.get("name"))
         try:
             lat, lon = float(p["latitude"]), float(p["longitude"])
         except (KeyError, TypeError, ValueError):
             continue
-        if name:
-            y, x = cell(lat, lon)
-            index[(name, y, x)].append(p)
+        y, x = cell(lat, lon)
+        index[(y, x)].append(p)
     return index
 
 def duplicate(place, index):
     name = norm(place.get("name"))
+    phone = normalize_phone(place.get("phone"))
+    site = normalize_site(place.get("website"))
     try:
         lat, lon = float(place["latitude"]), float(place["longitude"])
     except (KeyError, TypeError, ValueError):
         return False
-    if not name:
-        return False
     y, x = cell(lat, lon)
     for dy in range(-2, 3):
         for dx in range(-2, 3):
-            for p in index.get((name, y+dy, x+dx), []):
+            for p in index.get((y+dy, x+dx), []):
                 try:
-                    if distance(lat, lon, float(p["latitude"]), float(p["longitude"])) <= 100:
-                        return True
+                    other_lat, other_lon = float(p["latitude"]), float(p["longitude"])
+                    metres = distance(lat, lon, other_lat, other_lon)
                 except (KeyError, TypeError, ValueError):
-                    pass
+                    continue
+                if metres > 500:
+                    continue
+                other_name = norm(p.get("nom") or p.get("name"))
+                if name and name == other_name and metres <= 100:
+                    return True
+                if phone and phone == normalize_phone(p.get("telephone") or p.get("telephone_normalise")):
+                    return True
+                if site and site == normalize_site(p.get("site_web")):
+                    return True
+                if name and other_name and min(len(name), len(other_name)) >= 7 and metres <= 100:
+                    if SequenceMatcher(None, name, other_name).ratio() >= 0.92:
+                        return True
     return False
 
 def query_country(duckdb, code):
@@ -111,12 +150,12 @@ def main():
         "",
         f"- Overture release: {RELEASE}",
         "- Existing UPK reference: OSM seed dated 2026-11-27",
-        "- Probable duplicate rule: normalized exact name within 100 metres",
+        "- Probable duplicate rule: exact/fuzzy normalized name within 100 m, or identical phone/site within 500 m",
         "- Overture records without an explicit ISO country in addresses are excluded",
         "- Unmatched records are candidates for review, not approved additions",
         "",
-        "| Country | UPK OSM | Overture | Confidence ≥ 0.70 | Probable duplicates | Additional candidates |",
-        "|---|---:|---:|---:|---:|---:|",
+        "| Country | UPK OSM | Overture | Confidence ≥ 0.70 | Probable duplicates | Additional candidates | UPK-relevant candidates |",
+        "|---|---:|---:|---:|---:|---:|---:|",
     ]
     totals = {}
     for code, (country, _) in COUNTRIES.items():
@@ -124,34 +163,40 @@ def main():
         records = query_country(duckdb, code)
         index = make_index(osm[code])
         high = sum(float(p.get("confidence") or 0) >= 0.70 for p in records)
-        dup = sum(duplicate(p, index) for p in records)
+        duplicate_flags = [duplicate(p, index) for p in records]
+        dup = sum(duplicate_flags)
         candidates = [
-            p for p in records
+            p for p, is_duplicate in zip(records, duplicate_flags)
             if float(p.get("confidence") or 0) >= 0.70
-            and p.get("name") and not duplicate(p, index)
+            and p.get("name") and not is_duplicate
         ]
+        relevant = [p for p in candidates if p.get("category") in VALID_UPK_CATEGORIES]
         totals[code] = {
             "country": country,
             "upk_osm_places": len(osm[code]),
             "overture_places": len(records),
             "confidence_ge_070": high,
-            "probable_exact_name_duplicates_within_100m": dup,
+            "probable_duplicates_name_phone_or_website": dup,
             "additional_candidates_ge_070": len(candidates),
-            "candidate_sample": candidates[:100],
+            "upk_relevant_candidates": len(relevant),
+            "candidate_sample": relevant[:100],
         }
         report.append(
             f"| {country} | {len(osm[code]):,} | {len(records):,} | "
-            f"{high:,} | {dup:,} | {len(candidates):,} |"
+            f"{high:,} | {dup:,} | {len(candidates):,} | {len(relevant):,} |"
         )
         (out / f"candidates-{code}.json").write_text(
             json.dumps(candidates, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        (out / f"candidates-upk-{code}.json").write_text(
+            json.dumps(relevant, ensure_ascii=False, indent=2), encoding="utf-8"
         )
     report += [
         "",
         "## Limits",
         "",
         "- Different spellings, transliterations and nearby branches may evade this first-pass match.",
-        "- Closed places and Overture duplicates require a second quality pass.",
+        "- Categories outside UPK's 16 current categories are excluded from the UPK-relevant count; category mapping still needs review. Closed places and Overture-internal duplicates require a second quality pass.",
         "- Candidates must be reviewed before import; this audit does not modify D1, R2 or the Worker.",
     ]
     (out / "report.md").write_text("\n".join(report) + "\n", encoding="utf-8")
