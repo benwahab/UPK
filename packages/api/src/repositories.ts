@@ -382,8 +382,37 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           ORDER BY ${exactOrder}${fromFts ? sql`rank ASC, ` : distanceOrder}p.nom ASC, p.id ASC
           LIMIT ${input.limit} OFFSET ${offset}
         `);
+        // Le comptage n'a pas besoin des jointures d'affichage.
+        // Les filtres géographiques et de catégorie sont résolus par sous-requêtes.
+        const countConditions: SQL[] = [
+          sql`p.statut_publication = ${PUBLISHED}`,
+          sql`p.actif = 1`,
+        ];
+        if (categorySlug) {
+          countConditions.push(sql`p.category_id IN (
+            SELECT id FROM categories WHERE slug = ${categorySlug}
+          )`);
+        }
+        if (input.regionSlug) {
+          countConditions.push(sql`p.region_id IN (
+            SELECT id FROM regions WHERE slug = ${input.regionSlug}
+          )`);
+        }
+        if (input.villeSlug) {
+          countConditions.push(sql`p.ville_zone_id IN (
+            SELECT id FROM villes_zones WHERE slug = ${input.villeSlug}
+          )`);
+        }
+        if (geoFilter) countConditions.push(geoFilter);
+        if (origin && input.radiusKm) {
+          const box = boundingBox(origin, input.radiusKm * 1000);
+          countConditions.push(sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`);
+          countConditions.push(sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`);
+        }
+        if (fromFts) countConditions.push(sql`places_fts MATCH ${ftsQuery}`);
+        const countWhere = sql.join(countConditions, sql` AND `);
         const count = await db.get<{ total: number }>(sql`
-          SELECT COUNT(*) AS total FROM ${from} ${PLACE_JOINS} WHERE ${where}
+          SELECT COUNT(*) AS total FROM ${from} WHERE ${countWhere}
         `);
         return { rows, total: Number(count?.total ?? 0) };
       };
