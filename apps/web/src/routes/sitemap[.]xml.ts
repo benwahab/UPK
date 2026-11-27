@@ -33,7 +33,7 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async ({ request }) => {
         // Le sitemap ne change pas à chaque visite. Le cache edge évite de relire
         // les 40 000+ identifiants publiés à chaque requête.
-        const cache = caches.default;
+        const cache = (caches as CacheStorage & { default: Cache }).default;
         const cached = await cache.match(request);
         if (cached) return cached;
 
