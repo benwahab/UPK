@@ -207,6 +207,7 @@ infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - `docs/ARCHITECTURE.md` — choix techniques, ADR, schémas.
 - `docs/PLAN_DE_TRAVAIL.md` — sprints, jalons, checklists.
 - `docs/RUNBOOK.md` — procédures local, staging, migrations, secrets, incidents.
+- `docs/OVERTURE-AUDIT.md` — comparaison Overture/OSM, chiffres, limites et règles d'intégration.
 - `seed/` — OpenStreetMap (ODbL) et GeoNames (CC BY 4.0), catalogue Sahel
   (41 566 lieux) + snapshot historique de Niamey.
 
