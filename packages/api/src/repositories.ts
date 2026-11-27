@@ -362,11 +362,14 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
         fromFts: boolean,
         countOnly = false,
         skipCount = false,
+        forceGeoIndex = false,
       ) => {
         const where = sql.join(conditions, sql` AND `);
         const from = fromFts
           ? sql`places_fts JOIN places p ON p.rowid = places_fts.rowid`
-          : sql`places p`;
+          : forceGeoIndex
+            ? sql`places p INDEXED BY places_geo_idx`
+            : sql`places p`;
         const rank = fromFts ? sql`bm25(places_fts)` : sql`0`;
         const exactOrder = normalizedQuery
           ? sql`CASE WHEN p.nom_normalise = ${normalizedQuery} THEN 0 ELSE 1 END, `
@@ -449,7 +452,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
             sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`,
             sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`,
           ];
-          const nearby = await queryRows(boundedConditions, false, false, true);
+          const nearby = await queryRows(boundedConditions, false, false, true, true);
           rows = nearby.rows;
           const farthestDistance = rows.reduce((farthest, row) => {
             const distance = haversineMetres(origin, {
