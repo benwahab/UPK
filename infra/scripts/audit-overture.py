@@ -154,8 +154,8 @@ def main():
         "- Overture records without an explicit ISO country in addresses are excluded",
         "- Unmatched records are candidates for review, not approved additions",
         "",
-        "| Country | UPK OSM | Overture | Confidence ≥ 0.70 | Probable duplicates | Additional candidates | UPK-relevant candidates |",
-        "|---|---:|---:|---:|---:|---:|---:|",
+        "| Country | UPK OSM | Overture | Confidence ≥ 0.70 | Probable duplicates | Additional candidates | UPK-relevant candidates ≥ 0.70 | UPK-relevant candidates ≥ 0.80 |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
     ]
     totals = {}
     for code, (country, _) in COUNTRIES.items():
@@ -171,6 +171,7 @@ def main():
             and p.get("name") and not is_duplicate
         ]
         relevant = [p for p in candidates if p.get("category") in VALID_UPK_CATEGORIES]
+        relevant_080 = [p for p in relevant if float(p.get("confidence") or 0) >= 0.80]
         totals[code] = {
             "country": country,
             "upk_osm_places": len(osm[code]),
@@ -178,12 +179,13 @@ def main():
             "confidence_ge_070": high,
             "probable_duplicates_name_phone_or_website": dup,
             "additional_candidates_ge_070": len(candidates),
-            "upk_relevant_candidates": len(relevant),
+            "upk_relevant_candidates_ge_070": len(relevant),
+            "upk_relevant_candidates_ge_080": len(relevant_080),
             "candidate_sample": relevant[:100],
         }
         report.append(
             f"| {country} | {len(osm[code]):,} | {len(records):,} | "
-            f"{high:,} | {dup:,} | {len(candidates):,} | {len(relevant):,} |"
+            f"{high:,} | {dup:,} | {len(candidates):,} | {len(relevant):,} | {len(relevant_080):,} |"
         )
         (out / f"candidates-{code}.json").write_text(
             json.dumps(candidates, ensure_ascii=False, indent=2), encoding="utf-8"
