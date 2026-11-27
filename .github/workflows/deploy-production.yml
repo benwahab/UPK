@@ -35,7 +35,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Build and deploy UPK production Worker
-        run: pnpm --filter @upk/web deploy
+        run: pnpm --filter @upk/web run deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: e354b8c45c7d099a846d530af7e84014
