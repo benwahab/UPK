@@ -86,7 +86,7 @@ def query_country(duckdb, code):
              websites[1] AS website, operating_status
       FROM read_parquet('{DATASET}')
       WHERE bbox.xmin BETWEEN ? AND ? AND bbox.ymin BETWEEN ? AND ?
-        AND list_contains(list_transform(addresses, a -> a.country), ?)
+        AND list_contains(list_transform(addresses, lambda a: a.country), ?)
     """
     rows = con.execute(sql, [west, east, south, north, code]).fetchall()
     cols = [c[0] for c in con.description]
