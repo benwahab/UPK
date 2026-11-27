@@ -208,6 +208,12 @@ describe("repositories D1", () => {
     expect(distances).toEqual([...distances].sort((a, b) => a - b));
   });
 
+  it("limite la lecture GPS aux lieux proches tout en conservant le total exact", async () => {
+    const result = await places.search({ lat: 13.53, lng: 2.13, limit: 1 });
+    expect(result.items.map((place) => place.id)).toEqual(["p3"]);
+    expect(result.total).toBe(4);
+  });
+
   it("lit un lieu par identifiant", async () => {
     expect((await places.byId("p1"))?.nom).toBe("Pharmacie du Plateau");
     expect(await places.byId("absent")).toBeNull();
