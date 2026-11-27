@@ -29,7 +29,7 @@ pnpm dev
 - Ajouter aussi `TURNSTILE_SECRET_KEY` (clé de test `1x000…AA` en local),
   `ADMIN_EMAILS` et `RATE_LIMIT_SALT` dans les deux fichiers.
 - L'état D1 local est `apps/web/.wrangler/state`.
-- `/api/poc` est réservé au staging (`APP_ENV=staging`) ; en local il renvoie 404.
+- `/api/poc` est une ancienne route de mesure ; elle ne fait pas partie des parcours de production.
 - Vérifier : `curl http://127.0.0.1:8787/` renvoie 200 ; inscription via
   `POST /api/auth/sign-up/email`.
 
@@ -201,8 +201,6 @@ pnpm --filter @upk/web build` (config production par défaut).
   `dist/server/wrangler.json` (`name`, `d1_databases`).
 - **`BEGIN`/`COMMIT` refusés par D1** : retirer du SQL.
 - **`/api/poc` 404** : `APP_ENV=production` ; route de diagnostic désactivée en production.
-- **`wrangler deploy --env staging` déploie `upk`** : utiliser
-  `CLOUDFLARE_ENV=staging` au build.
 - **`moderation.me` renvoie `isAdmin: false`** : l'e-mail du compte n'est pas
   exactement dans `ADMIN_EMAILS` ou n'est pas vérifié ; recréer la session
   après correction.
