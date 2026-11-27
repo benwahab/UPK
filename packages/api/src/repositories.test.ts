@@ -94,7 +94,7 @@ function createTestDb() {
     INSERT INTO quartiers (id, ville_zone_id, commune_id, nom, slug, nom_normalise, latitude, longitude, source, created_at)
       VALUES ('q1', 'v1', 'c1', 'Plateau', 'plateau', 'plateau', 13.511, 2.112, 'test', '2026-01-01'),
              ('q2', 'v1', 'c1', 'Yantala', 'yantala', 'yantala', 13.53, 2.13, 'test', '2026-01-01');
-    UPDATE places SET quartier_id = 'q1' WHERE id = 'p1';
+    UPDATE places SET quartier_id = 'q1', region_id = 'r1', ville_zone_id = 'v1' WHERE id = 'p1';
     UPDATE places SET quartier_id = 'q2' WHERE id = 'p3';
   `);
 
@@ -168,6 +168,18 @@ describe("repositories D1", () => {
   it("filtre par catégorie", async () => {
     const result = await places.search({ categorySlug: "ecole", limit: 20 });
     expect(result.items.map((place) => place.id)).toEqual(["p2"]);
+  });
+
+  it("conserve le comptage avec un filtre de région", async () => {
+    const result = await places.search({ regionSlug: "niamey", limit: 20 });
+    expect(result.items.map((place) => place.id)).toEqual(["p1"]);
+    expect(result.total).toBe(1);
+  });
+
+  it("conserve le comptage avec un filtre de ville", async () => {
+    const result = await places.search({ villeSlug: "niamey", limit: 20 });
+    expect(result.items.map((place) => place.id)).toEqual(["p1"]);
+    expect(result.total).toBe(1);
   });
 
   it("tronque après le tri par distance, pas avant", async () => {
