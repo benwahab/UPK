@@ -31,6 +31,12 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async ({ request }) => {
+        // Le sitemap ne change pas à chaque visite. Le cache edge évite de relire
+        // les 40 000+ identifiants publiés à chaque requête.
+        const cache = caches.default;
+        const cached = await cache.match(request);
+        if (cached) return cached;
+
         const origin = new URL(request.url).origin;
         const ids = await getPlaceRepository().listPublishedIds();
         const entries: string[] = [];
@@ -54,12 +60,14 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join("\n")}\n</urlset>\n`;
 
-        return new Response(xml, {
+        const response = new Response(xml, {
           headers: {
             "content-type": "application/xml; charset=utf-8",
-            "cache-control": "public, max-age=3600",
+            "cache-control": "public, max-age=3600, s-maxage=3600",
           },
         });
+        await cache.put(request, response.clone());
+        return response;
       },
     },
   },
