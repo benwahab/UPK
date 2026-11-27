@@ -493,13 +493,14 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           .split(" ")
           .filter((token) => token.length >= 3 && !stopwords.has(token));
         if (tokens.length > 0) {
-          const likeConditions = tokens.map(
-            (token) =>
-              sql`(p.nom_normalise LIKE ${`%${token.slice(0, 3)}%`} OR p.quartier_normalise LIKE ${`%${token.slice(0, 3)}%`})`,
-          );
+          // FTS5 prefix search narrows fuzzy candidates without scanning every
+          // published place with leading-wildcard LIKE predicates.
+          const fallbackFtsQuery = tokens
+            .map((token) => `"${token.slice(0, 3)}"*`)
+            .join(" OR ");
           const fallback = await queryRows(
-            [...baseConditions, sql`(${sql.join(likeConditions, sql` OR `)})`],
-            false,
+            [...baseConditions, sql`places_fts MATCH ${fallbackFtsQuery}`],
+            true,
           );
           const fuzzyRows = fallback.rows.filter(
             (row) =>
