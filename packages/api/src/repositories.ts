@@ -1,6 +1,7 @@
 import type { Database } from "@upk/db";
 import {
   boundingBox,
+  categorySlugForText,
   haversineMetres,
   isFuzzyMatch,
   normalizeSearch,
@@ -158,7 +159,10 @@ function toSummary(
 }
 
 function sqlList(values: string[]): SQL {
-  return sql`(${sql.join(values.map((value) => sql`${value}`), sql`, `)})`;
+  return sql`(${sql.join(
+    values.map((value) => sql`${value}`),
+    sql`, `,
+  )})`;
 }
 
 type GeoMatch = { ids: string[]; label: string; intent: "quartier" | "ville" };
@@ -172,9 +176,13 @@ async function matchQuartier(
     SELECT q.id, q.nom
     FROM quartiers q
     WHERE q.nom_normalise = ${query}
-       ${exactOnly ? sql`` : sql`OR q.nom_normalise LIKE ${`${query} %`}
+       ${
+         exactOnly
+           ? sql``
+           : sql`OR q.nom_normalise LIKE ${`${query} %`}
        OR q.nom_normalise LIKE ${`% ${query} %`}
-       OR q.nom_normalise LIKE ${`% ${query}`}`}
+       OR q.nom_normalise LIKE ${`% ${query}`}`
+       }
     ORDER BY (q.nom_normalise = ${query}) DESC, length(q.nom) ASC, q.nom ASC
     LIMIT 8
   `);
@@ -207,11 +215,51 @@ async function matchVille(
   };
 }
 
+async function matchQuartierFuzzy(db: Database, query: string): Promise<GeoMatch | null> {
+  const prefix = query.slice(0, 3);
+  if (prefix.length < 3) return null;
+  const rows = await db.all<{ id: string; nom: string }>(sql`
+    SELECT q.id, q.nom
+    FROM quartiers q
+    WHERE q.nom_normalise LIKE ${`${prefix}%`}
+    LIMIT 60
+  `);
+  const matches = rows.filter((row) => isFuzzyMatch(query, row.nom));
+  if (matches.length === 0) return null;
+  return {
+    ids: matches.map((row) => row.id),
+    label: matches.map((row) => row.nom).join(", "),
+    intent: "quartier",
+  };
+}
+
+async function matchVilleFuzzy(db: Database, query: string): Promise<GeoMatch | null> {
+  const prefix = query.slice(0, 3);
+  if (prefix.length < 3) return null;
+  const rows = await db.all<{ id: string; nom: string }>(sql`
+    SELECT v.id, v.nom
+    FROM villes_zones v
+    WHERE v.nom_normalise LIKE ${`${prefix}%`}
+    ORDER BY v.population DESC
+    LIMIT 40
+  `);
+  const matches = rows.filter((row) => isFuzzyMatch(query, row.nom));
+  if (matches.length === 0) return null;
+  return {
+    ids: matches.map((row) => row.id),
+    label: matches.map((row) => row.nom).join(", "),
+    intent: "ville",
+  };
+}
+
 async function matchCategory(
   db: Database,
   query: string,
 ): Promise<{ slug: string; nom: string } | null> {
-  const slug = CATEGORY_INTENTS[query] ?? CATEGORY_INTENTS[query.replace(/s$/, "")];
+  const slug =
+    CATEGORY_INTENTS[query] ??
+    CATEGORY_INTENTS[query.replace(/s$/, "")] ??
+    categorySlugForText(query);
   if (slug) {
     const row = await db.get<{ slug: string; nom: string }>(sql`
       SELECT slug, nom FROM categories WHERE slug = ${slug} LIMIT 1
@@ -259,8 +307,18 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       if (normalizedQuery) {
         const exactQuartier = await matchQuartier(db, normalizedQuery, true);
         const exactVille = exactQuartier ? null : await matchVille(db, normalizedQuery, true);
-        const quartier = exactQuartier ?? (exactVille ? null : await matchQuartier(db, normalizedQuery));
-        const ville = exactVille ?? (quartier ? null : await matchVille(db, normalizedQuery));
+        const quartier =
+          exactQuartier ??
+          (exactVille
+            ? null
+            : ((await matchQuartier(db, normalizedQuery)) ??
+              (await matchQuartierFuzzy(db, normalizedQuery))));
+        const ville =
+          exactVille ??
+          (quartier
+            ? null
+            : ((await matchVille(db, normalizedQuery)) ??
+              (await matchVilleFuzzy(db, normalizedQuery))));
         if (quartier) {
           intent = "quartier";
           label = quartier.label;
@@ -287,10 +345,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
         if (intent === "texte" && !normalizedQuery) intent = "categorie";
       }
 
-      const baseConditions: SQL[] = [
-        sql`p.statut_publication = ${PUBLISHED}`,
-        sql`p.actif = 1`,
-      ];
+      const baseConditions: SQL[] = [sql`p.statut_publication = ${PUBLISHED}`, sql`p.actif = 1`];
       if (categorySlug) baseConditions.push(sql`c.slug = ${categorySlug}`);
       if (input.regionSlug) baseConditions.push(sql`r.slug = ${input.regionSlug}`);
       if (input.villeSlug) baseConditions.push(sql`v.slug = ${input.villeSlug}`);
@@ -348,8 +403,10 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           ? true
           : rows.some((row) => row.nom_normalise === normalizedQuery);
 
-      // Repli tolérant aux fautes et variantes lorsque FTS ne trouve rien.
-      if (rows.length === 0 && normalizedQuery && intent === "texte") {
+      // Repli tolérant aux fautes et variantes : même si FTS renvoie des
+      // résultats, on cherche une correspondance plus proche quand aucun nom
+      // exact n'a été trouvé.
+      if (normalizedQuery && intent === "texte" && !exactNameMatch) {
         const stopwords = new Set(["de", "du", "des", "la", "le", "les", "et", "a", "au", "aux"]);
         const tokens = normalizedQuery
           .split(" ")
@@ -363,12 +420,14 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
             [...baseConditions, sql`(${sql.join(likeConditions, sql` OR `)})`],
             false,
           );
-          rows = fallback.rows.filter(
+          const fuzzyRows = fallback.rows.filter(
             (row) =>
               isFuzzyMatch(normalizedQuery, row.nom) ||
               isFuzzyMatch(normalizedQuery, row.quartier ?? ""),
           );
-          total = rows.length;
+          const seen = new Set(rows.map((row) => row.id));
+          rows = [...rows, ...fuzzyRows.filter((row) => !seen.has(row.id))];
+          total = Math.max(total, rows.length);
           exactNameMatch = rows.some((row) => row.nom_normalise === normalizedQuery);
         }
       }
@@ -384,6 +443,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           row,
           item: toSummary(row, origin),
           exact: row.nom_normalise === normalizedQuery,
+          fuzzy: Boolean(normalizedQuery) && isFuzzyMatch(normalizedQuery, row.nom),
         }))
         .filter(
           ({ item }) =>
@@ -395,6 +455,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       const items = candidates
         .sort((a, b) => {
           if (a.exact !== b.exact) return a.exact ? -1 : 1;
+          if (intent === "texte" && a.fuzzy !== b.fuzzy) return a.fuzzy ? -1 : 1;
           if (!normalizedQuery && origin) {
             return (
               (a.item.distanceM ?? Number.POSITIVE_INFINITY) -

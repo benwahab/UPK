@@ -1,11 +1,11 @@
 # Architecture technique — UPK v2
 
-| | |
-| --- | --- |
-| **Version** | 1.0 |
-| **Statut** | À valider |
+|               |                              |
+| ------------- | ---------------------------- |
+| **Version**   | 1.0                          |
+| **Statut**    | À valider                    |
 | **Référence** | `docs/CAHIER_DES_CHARGES.md` |
-| **Exécution** | `docs/PLAN_DE_TRAVAIL.md` |
+| **Exécution** | `docs/PLAN_DE_TRAVAIL.md`    |
 
 ---
 
@@ -68,46 +68,54 @@ Playwright, Maestro, GitHub Actions.
 ## 3. Décisions d'architecture (ADR)
 
 ### ADR-001 — Deux interfaces, un domaine partagé
+
 Un seul code React Native Web serait plus simple, mais sacrifie le SEO et la
 qualité d'usage desktop. On partage donc `domain`, `api`, `db` et les tokens,
 pas les composants d'écran.
 
 ### ADR-002 — D1 (SQLite) plutôt que Postgres
+
 Volume attendu (< 100 000 lieux), besoins géographiques simples, coût et
 latence. On renonce à PostGIS et aux fonctions SQL avancées. La distance est
 calculée en TypeScript après un préfiltre par boîte englobante.
-*Réversible :* la couche `db` isole Drizzle ; un passage à Hyperdrive + Postgres
+_Réversible :_ la couche `db` isole Drizzle ; un passage à Hyperdrive + Postgres
 ne toucherait que `packages/db`.
 
 ### ADR-003 — tRPC plutôt que server functions
+
 Le mobile ne peut pas consommer les server functions de TanStack Start. tRPC
 donne un contrat unique, typé, utilisable par les deux clients avec TanStack
 Query.
 
 ### ADR-004 — Better Auth
+
 Sessions, vérification d'e-mail, réinitialisation, adaptateur D1, client Expo
 avec stockage sécurisé. Évite de réécrire une authentification maison.
 
 ### ADR-005 — R2 privé + proxy Worker
+
 Bucket privé. Le Worker vérifie le jeton de soumission, le type MIME et la
 taille, puis écrit l'objet. La lecture passe par `/api/photos/{key}` avec un
 cache immuable. Les URLs signées restent une option si la livraison directe
 devient nécessaire.
 
 ### ADR-006 — Recherche : FTS5 + boîte englobante + distance en TS
+
 1. `MATCH` FTS5 (tokenizer `unicode61 remove_diacritics 2`) ;
 2. préfiltre `latitude BETWEEN … AND longitude BETWEEN …` ;
 3. calcul Haversine en TypeScript sur les candidats ;
 4. si position connue : tri distance croissante ; sinon pertinence puis distance.
-Évite de dépendre de fonctions mathématiques SQL dont la disponibilité sur D1
-doit être vérifiée.
+   Évite de dépendre de fonctions mathématiques SQL dont la disponibilité sur D1
+   doit être vérifiée.
 
 ### ADR-007 — Autorisation dans la couche service
+
 D1 n'a pas de RLS. Chaque procédure passe par un wrapper qui exige une session
 et une permission. **Refus par défaut.** Toute requête de repository est
 contrainte par l'identité de l'appelant.
 
 ### ADR-008 — PWA installable desktop et mobile, app native différée
+
 La v1.0 sort en PWA installable sur desktop et mobile. Le Play Store n'est pas
 requis au lancement : il ajoute une review, un test fermé de 14 jours et une
 seconde chaîne de distribution pour un besoin non démontré. Si une présence
@@ -117,18 +125,33 @@ est différé à la v1.1, uniquement si un besoin natif réel apparaît (SQLite
 50 fiches, push, background sync).
 
 ### ADR-009 — Visiteur sans compte
+
 Aucune inscription pour chercher, consulter, proposer ou signaler.
 
 ### ADR-010 — Pas de file d'écriture hors-ligne en v1
+
 Le hors-ligne est en lecture seule. Les écritures hors-ligne sont refusées avec
 un message explicite. Une file de synchronisation sera étudiée en v2.
 
 ### ADR-011 — Trois langues au lancement, dont l'arabe (RTL)
+
 Français, anglais et arabe dès la v1. L'arabe impose le RTL : on utilise des
 propriétés CSS logiques (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) et jamais
 `left`/`right`. Les URL sont localisées (`/fr`, `/en`, `/ar`) pour le SEO. Les
 chiffres restent latins pour les téléphones et les distances. Le haoussa et le
 zarma viendront après, sans refonte, grâce au même catalogue.
+
+### ADR-012 — Assistant vocal côté navigateur, sans service cloud
+
+La reconnaissance et la synthèse utilisent les API du navigateur. Aucun
+enregistrement audio n'est envoyé à UPK et aucun fournisseur vocal n'est
+ajouté. Le parseur d'intentions est pur et testé dans `packages/domain` ; les
+messages sont dans `packages/i18n` ; l'interface est un composant client monté
+dans le layout localisé. La langue de l'assistant est indépendante de la
+langue de l'URL : le français, l'anglais et l'arabe sont pris en charge, le
+haoussa et le zarma sont proposés en mode expérimental selon les voix
+installées sur l'appareil. En cas d'indisponibilité, la saisie écrite reste
+toujours accessible. Voir [`ASSISTANT.md`](./ASSISTANT.md).
 
 ## 4. Base de données
 
@@ -256,9 +279,13 @@ négligeable sur 200 lignes.
 Sans `q`, catégorie ni position, l'accueil ne lance aucune requête : il affiche
 une aide et le formulaire. Le bouton « Autour de moi » ajoute `lat`/`lng` à
 l'URL et déclenche le tri par distance. La recherche vocale est une amélioration
-progressive via la Web Speech API (`fr-FR`, `en-US`, `ar-SA`) ; le bouton est
-masqué si le navigateur ne la supporte pas, et le texte reconnu remplit la
-requête.
+progressive via la Web Speech API (`fr-FR`, `en-US`, `ar-SA`, `ha-NG`, `dje`) ;
+le bouton est masqué si le navigateur ne la supporte pas, et le texte reconnu
+remplit la requête. Un second bouton ouvre l'assistant conversationnel, qui
+comprend catégorie, quartier, ville, nom et questions complémentaires, puis
+transmet la demande au même moteur. Les corrections sont proposées, jamais
+substituées sans confirmation. Le message de lieu introuvable renvoie vers le
+formulaire de contribution existant. Détail : [`ASSISTANT.md`](./ASSISTANT.md).
 
 ### 4.5 Migrations
 
@@ -273,7 +300,7 @@ requête.
 
 ```ts
 export const approvePlace = procedure("admin.moderation.approve")
-  .input(approvePlaceInput)              // Zod, packages/domain
+  .input(approvePlaceInput) // Zod, packages/domain
   .use(requireAuth)
   .use(requirePermission("validation_lieux"))
   .mutation(async ({ ctx, input }) => {
@@ -331,6 +358,7 @@ avec `statut_publication='en_attente'` et `statut_verification='a_verifier'` ;
 elle n'apparaît dans la recherche qu'après passage à `valide`.
 
 **Flux.**
+
 1. `contributions.create` (public) : rate limit 5/h/IP, Turnstile, validation
    Zod (coordonnées du Sahel), insertion puis audit `contribution.create`.
 2. `moderation.pending` (admin) liste les propositions ; `approve` passe le
@@ -377,11 +405,13 @@ lecture `/api/photos/...` ont été vérifiés sur staging.
 ## 8. Hors-ligne
 
 ### Web
+
 - App-shell précaché par le service worker (`apps/web/public/sw.js`).
 - 50 dernières navigations en cache, page `/offline` en repli.
 - Page de repli hors-ligne.
 
 ### Mobile
+
 - Dernières 50 fiches + favoris en SQLite local (`expo-sqlite`).
 - Images en cache disque (`expo-image`).
 - Bandeau « hors-ligne » et date de dernière synchronisation.
@@ -440,18 +470,18 @@ Cron (hebdomadaire)
 
 ## 12. Sécurité
 
-| Menace | Contre-mesure |
-| --- | --- |
-| Élévation de privilège | Autorisation en couche service, refus par défaut |
-| Spam de propositions | Turnstile + rate limiting + quota par IP |
-| Injection SQL | Drizzle + requêtes paramétrées uniquement |
-| Injection de filtre | Jamais de concaténation dans un `LIKE`/`MATCH` |
-| Téléversement malveillant | Type MIME, taille, chemin contrôlés serveur |
-| Fuite de secrets | `wrangler secret`, jamais dans le bundle |
-| Falsification du journal | Écriture uniquement via le service, pas d'endpoint public |
-| XSS | Échappement par défaut, CSP stricte ; `dangerouslySetInnerHTML` réservé au CSS statique inliné |
-| CSRF | Cookies `SameSite=Lax` + vérification d'origine |
-| Abus de scraping | Rate limiting + cache |
+| Menace                    | Contre-mesure                                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------------------------- |
+| Élévation de privilège    | Autorisation en couche service, refus par défaut                                               |
+| Spam de propositions      | Turnstile + rate limiting + quota par IP                                                       |
+| Injection SQL             | Drizzle + requêtes paramétrées uniquement                                                      |
+| Injection de filtre       | Jamais de concaténation dans un `LIKE`/`MATCH`                                                 |
+| Téléversement malveillant | Type MIME, taille, chemin contrôlés serveur                                                    |
+| Fuite de secrets          | `wrangler secret`, jamais dans le bundle                                                       |
+| Falsification du journal  | Écriture uniquement via le service, pas d'endpoint public                                      |
+| XSS                       | Échappement par défaut, CSP stricte ; `dangerouslySetInnerHTML` réservé au CSS statique inliné |
+| CSRF                      | Cookies `SameSite=Lax` + vérification d'origine                                                |
+| Abus de scraping          | Rate limiting + cache                                                                          |
 
 **En-têtes HTTP** : ajoutés par `apps/web/src/start.ts` —
 `Content-Security-Policy` (Turnstile et tuiles OSM autorisés),
@@ -474,6 +504,7 @@ Un seul dépôt, une seule branche (`main`). Aucune pull request, aucune branche
 de fonctionnalité.
 
 ### Pipeline web — à chaque push sur `main`
+
 ```
 push main
   ├─ pnpm install --frozen-lockfile
@@ -489,6 +520,7 @@ push main
 
 En v1.0, la PWA mobile est livrée par le pipeline web : il n'y a pas de build
 mobile séparé.
+
 ```
 workflow_dispatch
   ├─ lint + typecheck + tests
@@ -497,6 +529,7 @@ workflow_dispatch
 ```
 
 ### Qualité sans branches
+
 - Le pipeline s'exécute à chaque push ; un commit rouge est corrigé
   immédiatement par un commit suivant.
 - Aucun déploiement en production si lint, typecheck ou tests échouent.
@@ -504,6 +537,7 @@ workflow_dispatch
 - Couverture minimale : 70 % sur `packages/domain` et `packages/api`.
 
 ### Retour arrière
+
 - Code : `git revert <sha>` puis redéploiement.
 - Base : migrations additives uniquement ; une correction est une nouvelle
   migration, jamais une modification.
@@ -511,23 +545,23 @@ workflow_dispatch
 
 ## 15. Tests
 
-| Niveau | Outil | Périmètre |
-| --- | --- | --- |
-| Unitaire | Vitest | Domaine, normalisation, scoring, permissions |
-| Intégration | Vitest + better-sqlite3 | Repositories D1 sur les migrations réelles (`0001_init.sql`) |
-| D1 réelle | Wrangler / API D1 | FTS5, latence SQL, seed |
-| Web E2E | Playwright | Recherche, fiche, proposition, admin |
-| PWA mobile | Playwright + Lighthouse | Installation, hors-ligne, budgets 2 Go / 3G |
-| Mobile natif (v1.1) | Maestro | Recherche, fiche, appel, hors-ligne |
-| Charge | k6 | Recherche à 50 req/s |
+| Niveau              | Outil                   | Périmètre                                                    |
+| ------------------- | ----------------------- | ------------------------------------------------------------ |
+| Unitaire            | Vitest                  | Domaine, normalisation, scoring, permissions                 |
+| Intégration         | Vitest + better-sqlite3 | Repositories D1 sur les migrations réelles (`0001_init.sql`) |
+| D1 réelle           | Wrangler / API D1       | FTS5, latence SQL, seed                                      |
+| Web E2E             | Playwright              | Recherche, fiche, proposition, admin                         |
+| PWA mobile          | Playwright + Lighthouse | Installation, hors-ligne, budgets 2 Go / 3G                  |
+| Mobile natif (v1.1) | Maestro                 | Recherche, fiche, appel, hors-ligne                          |
+| Charge              | k6                      | Recherche à 50 req/s                                         |
 
 ## 16. Environnements et secrets
 
-| Environnement | Base | Usage |
-| --- | --- | --- |
-| `local` | D1 locale `upk` (Miniflare, `apps/web/.wrangler/state`) | Développement |
-| `staging` | D1 `upk-staging` | `https://upk-staging.benwahab111.workers.dev` |
-| `production` | D1 `upk` | `https://upk.benwahab111.workers.dev` (production initiale ; domaine personnalisé à définir) |
+| Environnement | Base                                                    | Usage                                                                                        |
+| ------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `local`       | D1 locale `upk` (Miniflare, `apps/web/.wrangler/state`) | Développement                                                                                |
+| `staging`     | D1 `upk-staging`                                        | `https://upk-staging.benwahab111.workers.dev`                                                |
+| `production`  | D1 `upk`                                                | `https://upk.benwahab111.workers.dev` (production initiale ; domaine personnalisé à définir) |
 
 Le build staging se fait avec `CLOUDFLARE_ENV=staging pnpm --filter @upk/web build`
 puis `wrangler deploy` depuis `apps/web`. `wrangler deploy --env staging` sur le
@@ -580,22 +614,22 @@ Ces chiffres mesurent le harnais Node/better-sqlite3, pas D1.
 **Mesures sur D1 réelle** (base `upk`, 1 546 lieux, 20 requêtes par terme,
 API D1, `MATCH` + `bm25` + filtres, `LIMIT 20`) :
 
-| Terme | SQL p50 | SQL p95 |
-| --- | --- | --- |
-| pharmacie | 0,79 ms | 4,90 ms |
-| ecole | 0,96 ms | 3,15 ms |
+| Terme           | SQL p50 | SQL p95 |
+| --------------- | ------- | ------- |
+| pharmacie       | 0,79 ms | 4,90 ms |
+| ecole           | 0,96 ms | 3,15 ms |
 | station service | 0,76 ms | 1,37 ms |
-| banque | 0,65 ms | 0,90 ms |
+| banque          | 0,65 ms | 0,90 ms |
 
 **Mesures bout-en-bout** (Worker `upk-staging`, 30 requêtes par terme, D1
 distante incluse, repository + scoring) :
 
-| Terme | p50 | p95 |
-| --- | --- | --- |
-| pharmacie | 16–21 ms | 24–48 ms |
-| ecole | 19–20 ms | 23–28 ms |
+| Terme           | p50      | p95      |
+| --------------- | -------- | -------- |
+| pharmacie       | 16–21 ms | 24–48 ms |
+| ecole           | 19–20 ms | 23–28 ms |
 | station service | 19–20 ms | 23–27 ms |
-| banque | 19–21 ms | 24–31 ms |
+| banque          | 19–21 ms | 24–31 ms |
 
 Le budget de 400 ms est largement tenu. FTS5, `bm25` et
 `unicode61 remove_diacritics 2` fonctionnent sur D1 ; la recherche arabe

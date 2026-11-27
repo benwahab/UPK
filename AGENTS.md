@@ -62,6 +62,33 @@ pnpm -C apps/web exec wrangler deploy
   différé en v1.1 (TWA en priorité, Expo seulement si besoin natif prouvé).
 - Le dépôt reste sur une seule branche `main`, sans tag ni pull request.
 
+## État au 2026-11-21 (assistant vocal et recherche intelligente)
+
+- Assistant monté dans `apps/web/src/routes/$locale.tsx` ; panneau accessible
+  sur toutes les pages, champ écrit toujours disponible.
+- Accueil vocal une fois par ouverture (`greetedThisOpen`), heure locale via
+  `Intl.DateTimeFormat` : Bonjour 05:00–13:59, Bonsoir sinon. Désactivation
+  persistée dans `localStorage` (`upk-assistant-greeting`).
+- Langues : `fr`, `en`, `ar` ; `ha` (`ha-NG`) et `za` (`dje`) expérimentaux.
+  La voix dépend des API et voix système du navigateur ; ne pas promettre une
+  qualité acoustique non testée sur appareil réel.
+- `packages/domain/src/assistant.ts` : parseur pur (salutation, catégorie,
+  proximité, nom, question complémentaire), alias fr/en/ar/ha/za, période de
+  salutation et fuseau.
+- `packages/i18n/src/assistant.ts` : messages des cinq langues, dont les
+  messages exacts de lieu introuvable et d'incompréhension.
+- Recherche : alias de catégories multilingues, repli flou même quand FTS
+  renvoie des résultats, correction proposée (jamais substituée), quartiers et
+  villes fautifs. Le nom exact reste prioritaire.
+- Aucun résultat : message exact + lien vers `/$locale/contribuer`. Aucun
+  nouveau circuit de contribution.
+- Tests : 28 domaine, 10 i18n, 33 API, 19 E2E mobile (1 PWA ignoré sans
+  `E2E_BASE_URL`), 6 typechecks, lint vert. Les tests vocaux simulent les API
+  navigateur ; un test micro réel reste à faire sur Android 2 Go / 3G.
+- Build client : 853 306 octets, +87 972 octets par rapport à la référence
+  (765 334) ; chunk assistant ~15,9 ko (5,2 ko gzip). Voir
+  `docs/ASSISTANT.md`.
+
 ## État au 2026-11-27 (S3, catalogue Sahel)
 
 - Migration `0004_sahel_geo.sql` appliquée en production : pays, coordonnées
@@ -144,7 +171,7 @@ pnpm -C apps/web exec wrangler deploy
   `export CLOUDFLARE_API_TOKEN="$CLOUDFARE_API_TOKEN"` avant toute commande
   distante.
 - `pnpm dev` lit `apps/web/.dev.vars` ; `wrangler dev --config
-  infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
+infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - Modération : `ADMIN_EMAILS` doit contenir l'e-mail exact du compte ;
   `moderation.me` renvoie `isAdmin`. En production c'est un secret Worker
   (`wrangler secret put`), pas une variable de `wrangler.toml`. `approve` passe le lieu à `valide` +
@@ -189,3 +216,12 @@ pnpm -C apps/web exec wrangler deploy
 - Secrets dans le dépôt.
 - Modification d'une migration déjà appliquée.
 - Réécriture de l'historique Git.
+
+- Assistant : ne pas redéclarer `Window.SpeechRecognition` dans plusieurs
+  fichiers ; `apps/web/src/lib/speech.ts` utilise un type local, `voice-search`
+  garde le sien. Deux déclarations globales incompatibles cassent le typecheck.
+- Assistant : les tests E2E doivent attendre `networkidle` avant de cliquer le
+  bouton flottant, sinon le clic précède l'hydratation React.
+- Assistant : `localStorage` est utilisé uniquement pour les préférences
+  (`upk-assistant-greeting`, `upk-assistant-language`) ; aucun transcript ni
+  audio n'est stocké par UPK.

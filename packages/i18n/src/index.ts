@@ -36,3 +36,5 @@ export function formatDate(locale: Locale, date: Date): string {
   const tag = locale === "ar" ? "ar-u-nu-latn" : locale;
   return new Intl.DateTimeFormat(tag, { dateStyle: "medium" }).format(date);
 }
+
+export * from "./assistant";

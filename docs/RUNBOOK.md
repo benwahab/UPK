@@ -86,10 +86,11 @@ pnpm e2e                         # sinon navigateur Playwright
 - `pnpm e2e` démarre Vite sur `127.0.0.1:5173` et prépare la D1 locale.
 - Pour tester un déploiement existant :
   `E2E_BASE_URL=https://upk-staging.benwahab111.workers.dev pnpm e2e`.
-- 11 parcours : accueil vide, recherche, catégorie, proximité, vocal simulé,
-  absence de JavaScript, photos proposées, confidentialité, bandeau
-  d'installation mobile et cache du service worker. Les projets `chromium`
-  et `mobile-chrome` (Pixel 5) sont exécutés.
+- 20 parcours : accueil vide, recherche, catégorie, proximité, vocal simulé,
+  assistant (accueil matin/soir, langue, correction, questions complémentaires,
+  lieu introuvable), absence de JavaScript, photos proposées, confidentialité,
+  bandeau d'installation mobile et cache du service worker. Les projets
+  `chromium` et `mobile-chrome` (Pixel 5) sont exécutés.
 - `pnpm e2e --project=mobile-chrome` ne lance que le mobile.
 - Le test PWA est ignoré sans `E2E_BASE_URL` ; il vérifie le cache `upk-v4-pages`.
 - En CI, le workflow installe Chromium puis exécute `pnpm e2e`.
@@ -157,13 +158,13 @@ done
 
 ## 6. Secrets
 
-| Nom | Où | Usage |
-| --- | --- | --- |
-| `BETTER_AUTH_SECRET` | Worker staging/production | Signature des sessions |
-| `TURNSTILE_SECRET_KEY` | Worker staging/production | Anti-abus formulaires |
-| `RATE_LIMIT_SALT` | Worker production | Hachage des IP du rate limit |
-| `ADMIN_EMAILS` | Secret Worker en production, variable en staging/local | Comptes modérateurs |
-| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Hors Worker | Non utilisés : le binding `PHOTOS` suffit |
+| Nom                                        | Où                                                     | Usage                                     |
+| ------------------------------------------ | ------------------------------------------------------ | ----------------------------------------- |
+| `BETTER_AUTH_SECRET`                       | Worker staging/production                              | Signature des sessions                    |
+| `TURNSTILE_SECRET_KEY`                     | Worker staging/production                              | Anti-abus formulaires                     |
+| `RATE_LIMIT_SALT`                          | Worker production                                      | Hachage des IP du rate limit              |
+| `ADMIN_EMAILS`                             | Secret Worker en production, variable en staging/local | Comptes modérateurs                       |
+| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Hors Worker                                            | Non utilisés : le binding `PHOTOS` suffit |
 
 `wrangler secret put <NOM> --name <worker>` ; jamais dans Git, jamais dans un
 `.dev.vars` versionné.
@@ -179,7 +180,7 @@ avant l'ouverture publique.
 1. `BETTER_AUTH_URL` vaut `https://upk.benwahab111.workers.dev` dans
    `infra/wrangler.toml`.
 2. `SITE_URL=https://upk.benwahab111.workers.dev VITE_TURNSTILE_SITE_KEY=<clé> \
-   pnpm --filter @upk/web build` (config production par défaut).
+pnpm --filter @upk/web build` (config production par défaut).
 3. Définir les secrets Worker :
    `wrangler secret put BETTER_AUTH_SECRET --name upk`,
    `wrangler secret put ADMIN_EMAILS --name upk`,
@@ -239,6 +240,15 @@ avant l'ouverture publique.
 - **`/api/uploads` ou `/api/photos/*` en 503** : binding `PHOTOS` absent du
   Worker déployé ou bucket supprimé ; vérifier `dist/server/wrangler.json` et
   `wrangler r2 bucket list`.
+- **Assistant silencieux** : le navigateur peut bloquer l'autoplay ; toucher
+  « Activer la voix ». Vérifier aussi que le volume et la voix système de la
+  langue choisie sont disponibles. La saisie écrite reste le repli.
+- **Micro indisponible** : `SpeechRecognition` n'existe pas sur tous les
+  navigateurs (surtout iOS) ; utiliser le champ texte. Pour le haoussa et le
+  zarma, la qualité dépend des voix installées et doit être validée sur
+  appareil réel.
+- **Salutation à la mauvaise heure** : l'heure vient du fuseau de l'appareil,
+  pas du serveur ; vérifier le réglage automatique de l'heure sur le téléphone.
 
 ## 10. Checklist avant déploiement
 

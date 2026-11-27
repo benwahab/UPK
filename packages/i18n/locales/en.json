@@ -135,6 +135,7 @@
   "search.intent.ville": "City: {name}",
   "search.intent.categorie": "Category: {name}",
   "search.approximate": "No exact name found for “{query}”. Nearby results:",
+  "search.didYouMean": "Did you mean “{name}”?",
   "place.address": "Address",
   "place.hours": "Opening hours",
   "place.website": "Website",

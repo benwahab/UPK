@@ -3,3 +3,5 @@ export * from "./distance";
 export * from "./score";
 export * from "./place";
 export * from "./contribution";
+
+export * from "./assistant";

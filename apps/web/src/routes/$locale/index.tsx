@@ -3,12 +3,13 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { createClientOnlyFn } from "@tanstack/react-start";
 import {
   formatDistance,
+  isFuzzyMatch,
   localeSchema,
   type Locale,
   type PlaceSummary,
   type SearchResult,
 } from "@upk/domain";
-import { t } from "@upk/i18n";
+import { assistantText, t } from "@upk/i18n";
 import { lazy, Suspense, useEffect, useRef, useState, type FormEvent } from "react";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
@@ -108,6 +109,11 @@ function Home() {
     staleTime: 30_000,
     enabled: typeof window !== "undefined" && hasSearch,
   });
+
+  const suggestion =
+    results.data && q && !results.data.exactNameMatch
+      ? results.data.items.find((item) => isFuzzyMatch(q, item.nom))
+      : undefined;
 
   const autoLocated = useRef(false);
 
@@ -356,19 +362,40 @@ function Home() {
                   ? t(locale, "search.intent.quartier").replace("{name}", results.data.label)
                   : results.data.intent === "ville"
                     ? t(locale, "search.intent.ville").replace("{name}", results.data.label)
-                    : t(locale, "search.intent.categorie").replace(
-                        "{name}",
-                        results.data.label,
-                      )}
+                    : t(locale, "search.intent.categorie").replace("{name}", results.data.label)}
               </p>
             )}
             {results.data.intent === "texte" && q && !results.data.exactNameMatch && (
               <p role="status" className="mt-2 text-sm text-amber-800">
                 {t(locale, "search.approximate").replace("{query}", q)}
+                {suggestion && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setInput(suggestion.nom);
+                      searchWithFreshPosition({
+                        q: suggestion.nom,
+                        category: category || undefined,
+                      });
+                    }}
+                    className="ms-1 font-medium underline"
+                  >
+                    {t(locale, "search.didYouMean").replace("{name}", suggestion.nom)}
+                  </button>
+                )}
               </p>
             )}
             {results.data.items.length === 0 ? (
-              <p className="mt-4">{t(locale, "search.empty")}</p>
+              <div className="mt-4 space-y-3">
+                <p className="whitespace-pre-line">{assistantText(locale, "assistant.notFound")}</p>
+                <Link
+                  to="/$locale/contribuer"
+                  params={{ locale }}
+                  className="inline-block font-medium text-[var(--upk-primary)] underline"
+                >
+                  {assistantText(locale, "assistant.contribute")}
+                </Link>
+              </div>
             ) : (
               <>
                 <button

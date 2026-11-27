@@ -135,6 +135,25 @@ describe("repositories D1", () => {
     expect(result.items.map((place) => place.id)).toContain("p1");
   });
 
+  it("propose le nom exact sans remplacer le lieu recherché", async () => {
+    const result = await places.search({ q: "pharmacie du plateu", limit: 20 });
+    expect(result.intent).toBe("texte");
+    expect(result.exactNameMatch).toBe(false);
+    expect(result.items[0]?.nom).toBe("Pharmacie du Plateau");
+  });
+
+  it("reconnaît les catégories anglaises", async () => {
+    const result = await places.search({ q: "pharmacy", limit: 20 });
+    expect(result.intent).toBe("categorie");
+    expect(result.items.map((place) => place.id)).toContain("p1");
+  });
+
+  it("tolère une faute sur un quartier sans changer l'intention", async () => {
+    const result = await places.search({ q: "Yantalaa", limit: 20 });
+    expect(result.intent).toBe("quartier");
+    expect(result.items.map((place) => place.id)).toEqual(["p3"]);
+  });
+
   it("ne liste pas tout le catalogue pour une requête sans jeton", async () => {
     const result = await places.search({ q: "...", limit: 20 });
     expect(result.items).toEqual([]);

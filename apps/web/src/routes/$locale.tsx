@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, redirect, useRouterState } from "@tanstack/react-router";
 import { localeSchema, type Locale } from "@upk/domain";
 import { t } from "@upk/i18n";
+import { VoiceAssistant } from "../components/voice-assistant";
 import { useDocumentTitle } from "../lib/use-document-title";
 
 const OG_LOCALES: Record<Locale, string> = { fr: "fr_FR", en: "en_US", ar: "ar_AR" };
@@ -40,5 +41,10 @@ function LocaleLayout() {
       ? `${t(locale, "app.name")} — ${t(locale, "home.title")}`
       : null,
   );
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <VoiceAssistant locale={locale} />
+    </>
+  );
 }

@@ -135,6 +135,7 @@
   "search.intent.ville": "المدينة: {name}",
   "search.intent.categorie": "الفئة: {name}",
   "search.approximate": "لم يتم العثور على اسم مطابق لـ «{query}». نتائج قريبة:",
+  "search.didYouMean": "هل تقصد «{name}»؟",
   "place.address": "العنوان",
   "place.hours": "ساعات العمل",
   "place.website": "الموقع",
