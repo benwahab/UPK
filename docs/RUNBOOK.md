@@ -145,7 +145,7 @@ done
 ## 7. Déploiement production (M5)
 
 État au 2026-11-21 : production sur
-`https://upk.benwahab111.workers.dev` (version `65d244f8`), migrations `0003`
+`https://upk.benwahab111.workers.dev` (version `ca7af247`), migrations `0003`
 et `0004` appliquées, catalogue Sahel importé, en-têtes de sécurité, CSRF et
 Workers Logs actifs. L'assistant vocal et la recherche intelligente sont
 déployés ; les 10 parcours E2E de l'assistant passent aussi contre la

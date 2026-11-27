@@ -84,7 +84,7 @@ pnpm -C apps/web exec wrangler d1 execute upk --local \
 - Build client : 853 681 octets, +88 347 octets par rapport à la référence
   (765 334) ; chunk assistant ~15,9 ko (5,2 ko gzip). Voir
   `docs/ASSISTANT.md`.
-- Production : version `65d244f8` déployée sur
+- Production : version `ca7af247` déployée sur
   `https://upk.benwahab111.workers.dev` ; 10 parcours E2E assistant validés
   contre la production.
 
