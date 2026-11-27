@@ -171,10 +171,10 @@ Mesure du build client après intégration :
 
 | Élément                                       | Taille                           |
 | --------------------------------------------- | -------------------------------- |
-| Total `apps/web/dist/client`                  | 853 306 octets                   |
+| Total `apps/web/dist/client`                  | 853 681 octets                   |
 | Total avant l'assistant (référence)           | 765 334 octets                   |
-| Écart total                                   | +87 972 octets (+11,5 %)         |
-| Chunk contenant l'assistant (`distance-*.js`) | 15 901 octets, 5 151 octets gzip |
+| Écart total                                   | +88 347 octets (+11,5 %)         |
+| Chunk contenant l'assistant (`distance-*.js`) | 15 901 octets, 5 116 octets gzip |
 
 Le découpage des routes déplace une partie du code entre `index` et
 `_locale` ; l'écart total est donc plus fiable que la variation d'un seul
@@ -190,14 +190,14 @@ pnpm --filter @upk/i18n test     # 10 tests
 pnpm --filter @upk/api test      # 33 tests
 pnpm typecheck                   # 6 projets
 pnpm lint
-pnpm e2e --project=mobile-chrome # 19 tests, 1 PWA ignoré sans E2E_BASE_URL
+pnpm e2e --project=mobile-chrome # 20 tests, 1 PWA ignoré sans E2E_BASE_URL
 ```
 
-Les parcours E2E de l'assistant couvrent : accueil du matin, accueil du soir,
-absence de répétition après navigation, désactivation, recherche vocale de
-catégorie avec GPS frais, incompréhension puis saisie écrite, message de lieu
-introuvable, correction non silencieuse, question complémentaire et changement
-de langue.
+Les 10 parcours E2E de l'assistant couvrent : accueil du matin, accueil du
+soir, absence de répétition après navigation, désactivation, autoplay bloqué
+et activation au premier geste, recherche vocale de catégorie avec GPS frais,
+incompréhension puis saisie écrite, message de lieu introuvable, correction
+non silencieuse, question complémentaire et changement de langue.
 
 ## 10. Fichiers à modifier
 

@@ -136,11 +136,16 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
       onBlocked: () => {
         setPhase("idle");
         setNeedsGesture(true);
+        setVoiceNotice(assistantText(language, "assistant.voiceNotAllowed"));
       },
       onError: (code) => {
         setPhase("idle");
-        if (code === "not-allowed") setNeedsGesture(true);
-        else setVoiceNotice(assistantText(language, "assistant.voiceError"));
+        if (code === "not-allowed") {
+          setNeedsGesture(true);
+          setVoiceNotice(assistantText(language, "assistant.voiceNotAllowed"));
+        } else {
+          setVoiceNotice(assistantText(language, "assistant.voiceError"));
+        }
       },
     });
     if (!speakRef.current) {
@@ -174,11 +179,16 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
       onBlocked: () => {
         setPhase("idle");
         setNeedsGesture(true);
+        setVoiceNotice(assistantText(language, "assistant.voiceNotAllowed"));
       },
       onError: (code) => {
         setPhase("idle");
-        if (code === "not-allowed") setNeedsGesture(true);
-        else setVoiceNotice(assistantText(language, "assistant.voiceUnavailable"));
+        if (code === "not-allowed") {
+          setNeedsGesture(true);
+          setVoiceNotice(assistantText(language, "assistant.voiceNotAllowed"));
+        } else {
+          setVoiceNotice(assistantText(language, "assistant.voiceUnavailable"));
+        }
       },
     });
     if (!speakRef.current) {
@@ -200,12 +210,18 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
     if (!needsGesture) return;
     const activate = () => {
       setNeedsGesture(false);
+      setVoiceNotice(null);
       if (greetedThisOpen.value) {
         const text = lastSpokenRef.current || greetingText();
         setPhase("speaking");
         speakRef.current = speak(text, language, {
           onStart: () => setPhase("speaking"),
           onEnd: () => setPhase("idle"),
+          onBlocked: () => {
+            setPhase("idle");
+            setNeedsGesture(true);
+            setVoiceNotice(assistantText(language, "assistant.voiceNotAllowed"));
+          },
           onError: () => setPhase("idle"),
         });
       } else {
@@ -243,8 +259,10 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
     }
     if (!next) {
       stopSpeaking();
+      setVoiceNotice(assistantText(language, "assistant.greetingOff"));
       return;
     }
+    setVoiceNotice(assistantText(language, "assistant.greetingOn"));
     if (!greetedThisOpen.value) deliverGreeting(true);
   }
 
@@ -486,6 +504,8 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
     if (!clean) return;
     setInput("");
     append("user", clean);
+    recognitionRef.current?.abort();
+    recognitionRef.current = null;
     setPhase("thinking");
     setVoiceNotice(null);
     const intent = parseAssistantQuery(clean);
@@ -525,6 +545,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
     setVoiceNotice(null);
     setPhase("listening");
     let received = false;
+    let failed = false;
     recognitionRef.current = startListening(language, {
       onResult: (text) => {
         received = true;
@@ -532,11 +553,12 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
         void send(text);
       },
       onError: () => {
+        failed = true;
         setPhase("idle");
         say(assistantText(language, "assistant.listeningError"));
       },
       onEnd: () => {
-        if (!received) setPhase("idle");
+        if (!received && !failed) setPhase("idle");
         recognitionRef.current = null;
       },
     });

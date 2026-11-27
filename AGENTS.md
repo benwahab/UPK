@@ -82,14 +82,14 @@ pnpm -C apps/web exec wrangler deploy
   villes fautifs. Le nom exact reste prioritaire.
 - Aucun résultat : message exact + lien vers `/$locale/contribuer`. Aucun
   nouveau circuit de contribution.
-- Tests : 28 domaine, 10 i18n, 33 API, 19 E2E mobile (1 PWA ignoré sans
+- Tests : 28 domaine, 10 i18n, 33 API, 20 E2E mobile (1 PWA ignoré sans
   `E2E_BASE_URL`), 6 typechecks, lint vert. Les tests vocaux simulent les API
   navigateur ; un test micro réel reste à faire sur Android 2 Go / 3G.
-- Build client : 853 306 octets, +87 972 octets par rapport à la référence
+- Build client : 853 681 octets, +88 347 octets par rapport à la référence
   (765 334) ; chunk assistant ~15,9 ko (5,2 ko gzip). Voir
   `docs/ASSISTANT.md`.
 - Production : version `e75ad0a2` déployée sur
-  `https://upk.benwahab111.workers.dev` ; 9 parcours E2E assistant validés
+  `https://upk.benwahab111.workers.dev` ; 10 parcours E2E assistant validés
   contre la production.
 
 ## État au 2026-11-27 (S3, catalogue Sahel)

@@ -63,6 +63,6 @@ photos optionnelles (3 max, 5 Mo) sont stockées dans les buckets privés
 et `0004`, R2, Better Auth, en-têtes de sécurité, CSRF et Workers Logs. Les
 sauvegardes D1 sont déposées dans `upk-backups`. Turnstile utilise encore la
 clé de test en production : la remplacer avant l'ouverture publique. Les
-parcours E2E Playwright couvrent désormais l'assistant vocal (19 tests mobiles
+parcours E2E Playwright couvrent désormais l'assistant vocal (20 tests mobiles
 verts, 1 test PWA ignoré sans `E2E_BASE_URL`). Lighthouse mobile :
 100/100/100/100, LCP 0,8 s.

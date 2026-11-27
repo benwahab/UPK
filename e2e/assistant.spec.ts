@@ -1,13 +1,16 @@
 import { expect, test, type Page } from "@playwright/test";
 
 type AssistantWindow = Window & {
-  __assistant?: { transcript: string; spoken: string[] };
+  __assistant?: { transcript: string; blocked?: boolean; spoken: string[] };
 };
 
-async function installFakeSpeech(page: Page, options: { transcript?: string; now?: string } = {}) {
+async function installFakeSpeech(
+  page: Page,
+  options: { transcript?: string; now?: string; blocked?: boolean } = {},
+) {
   await page.addInitScript(
-    ({ transcript, now }) => {
-      const state = { transcript, spoken: [] as string[] };
+    ({ transcript, now, blocked }) => {
+      const state = { transcript, blocked, spoken: [] as string[] };
       (window as AssistantWindow).__assistant = state;
 
       if (now) {
@@ -47,6 +50,7 @@ async function installFakeSpeech(page: Page, options: { transcript?: string; now
         ],
         speak: (utterance: FakeUtterance) => {
           state.spoken.push(utterance.text);
+          if (blocked) return;
           synth.speaking = true;
           setTimeout(() => {
             synth.speaking = false;
@@ -92,7 +96,11 @@ async function installFakeSpeech(page: Page, options: { transcript?: string; now
         value: FakeSpeechRecognition,
       });
     },
-    { transcript: options.transcript ?? "Trouve une pharmacie près de moi", now: options.now },
+    {
+      transcript: options.transcript ?? "Trouve une pharmacie près de moi",
+      now: options.now,
+      blocked: options.blocked ?? false,
+    },
   );
 }
 
@@ -126,6 +134,16 @@ test.describe("assistant vocal UPK", () => {
     await expect
       .poll(() => page.evaluate(() => (window as AssistantWindow).__assistant?.spoken[0]))
       .toContain("Bonsoir et bienvenue sur UPK !");
+  });
+
+  test("propose d'activer la voix quand l'autoplay est bloqué", async ({ page }) => {
+    await installFakeSpeech(page, { now: "2026-11-21T08:00:00Z", blocked: true });
+    await page.goto("/fr");
+    await expect(page.getByRole("button", { name: "Activer la voix" })).toBeVisible({
+      timeout: 5_000,
+    });
+    await page.getByRole("button", { name: /assistant vocal/ }).click();
+    await expect(page.getByText(/lecture automatique est bloquée/)).toBeVisible();
   });
 
   test("respecte la désactivation de l'accueil vocal", async ({ page }) => {

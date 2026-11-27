@@ -86,9 +86,9 @@ pnpm e2e                         # sinon navigateur Playwright
 - `pnpm e2e` démarre Vite sur `127.0.0.1:5173` et prépare la D1 locale.
 - Pour tester un déploiement existant :
   `E2E_BASE_URL=https://upk-staging.benwahab111.workers.dev pnpm e2e`.
-- 20 parcours : accueil vide, recherche, catégorie, proximité, vocal simulé,
-  assistant (accueil matin/soir, langue, correction, questions complémentaires,
-  lieu introuvable), absence de JavaScript, photos proposées, confidentialité,
+- 21 parcours : accueil vide, recherche, catégorie, proximité, vocal simulé,
+  assistant (accueil matin/soir, autoplay bloqué, langue, correction, questions
+  complémentaires, lieu introuvable), absence de JavaScript, photos proposées, confidentialité,
   bandeau d'installation mobile et cache du service worker. Les projets
   `chromium` et `mobile-chrome` (Pixel 5) sont exécutés.
 - `pnpm e2e --project=mobile-chrome` ne lance que le mobile.
@@ -175,7 +175,7 @@ done
 `https://upk.benwahab111.workers.dev` (version `e75ad0a2`), migrations `0003`
 et `0004` appliquées, catalogue Sahel importé, en-têtes de sécurité, CSRF et
 Workers Logs actifs. L'assistant vocal et la recherche intelligente sont
-déployés ; les 9 parcours E2E de l'assistant passent aussi contre la
+déployés ; les 10 parcours E2E de l'assistant passent aussi contre la
 production. Turnstile utilise encore la clé de test : à remplacer
 avant l'ouverture publique.
 
