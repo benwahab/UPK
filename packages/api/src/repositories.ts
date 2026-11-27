@@ -356,6 +356,35 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
         baseConditions.push(sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`);
       }
 
+      // Le comptage n'a pas besoin des jointures de présentation (catégorie,
+      // région et ville). Des sous-requêtes ciblées conservent les mêmes filtres
+      // tout en évitant de joindre ces tables pour chaque ligne comptée.
+      const countConditions: SQL[] = [
+        sql`p.statut_publication = ${PUBLISHED}`,
+        sql`p.actif = 1`,
+      ];
+      if (categorySlug) {
+        countConditions.push(
+          sql`p.category_id = (SELECT id FROM categories WHERE slug = ${categorySlug} LIMIT 1)`,
+        );
+      }
+      if (input.regionSlug) {
+        countConditions.push(
+          sql`p.region_id IN (SELECT id FROM regions WHERE slug = ${input.regionSlug})`,
+        );
+      }
+      if (input.villeSlug) {
+        countConditions.push(
+          sql`p.ville_zone_id IN (SELECT id FROM villes_zones WHERE slug = ${input.villeSlug})`,
+        );
+      }
+      if (geoFilter) countConditions.push(geoFilter);
+      if (origin && input.radiusKm) {
+        const box = boundingBox(origin, input.radiusKm * 1000);
+        countConditions.push(sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`);
+        countConditions.push(sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`);
+      }
+
       const offset = decodeOffset(input.cursor);
       const queryRows = async (conditions: SQL[], fromFts: boolean) => {
         const where = sql.join(conditions, sql` AND `);
@@ -382,8 +411,12 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           ORDER BY ${exactOrder}${fromFts ? sql`rank ASC, ` : distanceOrder}p.nom ASC, p.id ASC
           LIMIT ${input.limit} OFFSET ${offset}
         `);
+        const countFrom = fromFts
+          ? sql`places_fts JOIN places p ON p.rowid = places_fts.rowid`
+          : sql`places p`;
+        const countWhere = fromFts ? where : sql.join(countConditions, sql` AND `);
         const count = await db.get<{ total: number }>(sql`
-          SELECT COUNT(*) AS total FROM ${from} ${PLACE_JOINS} WHERE ${where}
+          SELECT COUNT(*) AS total FROM ${countFrom} WHERE ${countWhere}
         `);
         return { rows, total: Number(count?.total ?? 0) };
       };
