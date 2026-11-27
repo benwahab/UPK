@@ -88,6 +88,9 @@ pnpm -C apps/web exec wrangler deploy
 - Build client : 853 306 octets, +87 972 octets par rapport à la référence
   (765 334) ; chunk assistant ~15,9 ko (5,2 ko gzip). Voir
   `docs/ASSISTANT.md`.
+- Production : version `e75ad0a2` déployée sur
+  `https://upk.benwahab111.workers.dev` ; 9 parcours E2E assistant validés
+  contre la production.
 
 ## État au 2026-11-27 (S3, catalogue Sahel)
 

@@ -59,7 +59,7 @@ supporte. La migration `0003` et la tranche S2 sont déployées sur staging
 (`dd213a9d`), avec le compte `admin@upk.test`. L'upload R2 est actif : les
 photos optionnelles (3 max, 5 Mo) sont stockées dans les buckets privés
 `upk-photos` et `upk-photos-staging`. La production est déployée sur
-`https://upk.benwahab111.workers.dev` (`8e322315`) avec les migrations `0003`
+`https://upk.benwahab111.workers.dev` (`e75ad0a2`) avec les migrations `0003`
 et `0004`, R2, Better Auth, en-têtes de sécurité, CSRF et Workers Logs. Les
 sauvegardes D1 sont déposées dans `upk-backups`. Turnstile utilise encore la
 clé de test en production : la remplacer avant l'ouverture publique. Les

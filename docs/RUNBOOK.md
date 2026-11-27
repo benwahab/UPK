@@ -171,10 +171,12 @@ done
 
 ## 7. Déploiement production (M5)
 
-État au 2026-11-27 : production sur
-`https://upk.benwahab111.workers.dev` (version `8e322315`), migrations `0003`
+État au 2026-11-21 : production sur
+`https://upk.benwahab111.workers.dev` (version `e75ad0a2`), migrations `0003`
 et `0004` appliquées, catalogue Sahel importé, en-têtes de sécurité, CSRF et
-Workers Logs actifs. Turnstile utilise encore la clé de test : à remplacer
+Workers Logs actifs. L'assistant vocal et la recherche intelligente sont
+déployés ; les 9 parcours E2E de l'assistant passent aussi contre la
+production. Turnstile utilise encore la clé de test : à remplacer
 avant l'ouverture publique.
 
 1. `BETTER_AUTH_URL` vaut `https://upk.benwahab111.workers.dev` dans
