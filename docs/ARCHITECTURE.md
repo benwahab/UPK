@@ -51,8 +51,9 @@ upk/
 │   ├── api/                  Routeur tRPC + procédures
 │   ├── db/                   Schéma Drizzle, migrations, repositories
 │   ├── i18n/                 Catalogues fr/en/ar, formatage, RTL
-│   ├── ui/                   Design tokens (web + native)
-│   └── config/               ESLint, TypeScript, Tailwind partagés
+│   └── ui/                   Design tokens (web + native)
+├── eslint.config.js          ESLint partagé
+├── tsconfig.base.json        TypeScript partagé
 ├── infra/
 │   ├── wrangler.toml
 │   └── scripts/              seed, import OSM, vérifications
