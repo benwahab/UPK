@@ -51,10 +51,6 @@ pnpm -C apps/web exec wrangler d1 execute upk --local \
   --config ../../infra/wrangler.toml --persist-to .wrangler/state \
   --file=/tmp/seed.sql
 
-# Staging
-CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
-pnpm -C apps/web exec wrangler deploy
-```
 
 ## Décisions structurantes
 
@@ -228,3 +224,11 @@ infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - Assistant : `localStorage` est utilisé uniquement pour les préférences
   (`upk-assistant-greeting`, `upk-assistant-language`) ; aucun transcript ni
   audio n'est stocké par UPK.
+
+
+## Environnements Cloudflare
+
+- Un seul environnement distant est autorisé : production (`upk`).
+- Ne jamais ajouter `[env.staging]`, `CLOUDFLARE_ENV=staging`, `--env staging`, un Worker `upk-staging`, une base `upk-staging` ou un bucket `upk-photos-staging`.
+- Les tests automatisés et fonctionnels se font en local. Toute vérification distante se fait sur `upk`, avec précaution et sans données destructives.
+- L'ancien staging a été retiré ; ne pas le recréer.

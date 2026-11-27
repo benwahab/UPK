@@ -29,7 +29,7 @@ pnpm dev
 - Ajouter aussi `TURNSTILE_SECRET_KEY` (clé de test `1x000…AA` en local),
   `ADMIN_EMAILS` et `RATE_LIMIT_SALT` dans les deux fichiers.
 - L'état D1 local est `apps/web/.wrangler/state`.
-- `/api/poc` est réservé au staging (`APP_ENV=staging`) ; en local il renvoie 404.
+- `/api/poc` est une ancienne route de mesure ; elle ne fait pas partie des parcours de production.
 - Vérifier : `curl http://127.0.0.1:8787/` renvoie 200 ; inscription via
   `POST /api/auth/sign-up/email`.
 
@@ -46,15 +46,15 @@ pnpm dev
 
 - `ADMIN_EMAILS` liste les comptes modérateurs (séparés par des virgules).
   En local : `admin@upk.test` ; le mot de passe temporaire est dans
-  `UPK_STAGING_ADMIN_PASSWORD` (fichier local, jamais versionné).
+  `UPK_PROD_ADMIN_PASSWORD` (fichier local, jamais versionné).
 - `TURNSTILE_SECRET_KEY` et `VITE_TURNSTILE_SITE_KEY` utilisent les clés de
-  test Cloudflare en local/staging. La production initiale utilise aussi les
+  test Cloudflare en local. La production initiale utilise aussi les
   clés de test pour l'instant : les remplacer avant l'ouverture publique.
 - En-têtes de sécurité : `apps/web/src/start.ts` ajoute CSP, HSTS, nosniff,
   `frame-ancestors 'none'`, `Referrer-Policy` et `Permissions-Policy`. La CSP
   autorise Turnstile (`challenges.cloudflare.com`) et les tuiles OSM.
 - Workers Logs : `[observability] enabled = true` dans `infra/wrangler.toml`
-  (production et staging). Sentry n'est pas encore branché.
+  (production uniquement). Sentry n'est pas encore branché.
 - Parcours de vérification :
   1. `/fr/contribuer` : soumettre un lieu. Il reste invisible en recherche.
   2. Se connecter avec un compte de `ADMIN_EMAILS`, puis ouvrir
@@ -68,8 +68,7 @@ pnpm dev
     --config ../../infra/wrangler.toml --persist-to .wrangler/state \
     --command "SELECT action, resultat, cible_id, created_at FROM journal_admin ORDER BY created_at DESC LIMIT 10"
   ```
-- R2 est actif : buckets privés `upk-photos` (production) et
-  `upk-photos-staging` (staging), binding `PHOTOS`. Le formulaire propose
+- R2 est actif : bucket privé `upk-photos` en production, binding `PHOTOS`. Le formulaire propose
   jusqu'à 3 photos (JPEG/PNG/WebP, 5 Mo max). Vérifier après déploiement :
   `wrangler r2 bucket list`, puis un upload depuis `/fr/contribuer` et un
   `GET /api/photos/places/...` qui renvoie l'image en 200.
@@ -85,7 +84,7 @@ pnpm e2e                         # sinon navigateur Playwright
 
 - `pnpm e2e` démarre Vite sur `127.0.0.1:5173` et prépare la D1 locale.
 - Pour tester un déploiement existant :
-  `E2E_BASE_URL=https://upk-staging.benwahab111.workers.dev pnpm e2e`.
+  `E2E_BASE_URL=https://upk.benwahab111.workers.dev pnpm e2e`.
 - 21 parcours : accueil vide, recherche, catégorie, proximité, vocal simulé,
   assistant (accueil matin/soir, autoplay bloqué, langue, correction, questions
   complémentaires, lieu introuvable), absence de JavaScript, photos proposées, confidentialité,
@@ -95,32 +94,9 @@ pnpm e2e                         # sinon navigateur Playwright
 - Le test PWA est ignoré sans `E2E_BASE_URL` ; il vérifie le cache `upk-v4-pages`.
 - En CI, le workflow installe Chromium puis exécute `pnpm e2e`.
 
-## 3. Staging
+## 3. Environnement distant unique
 
-```bash
-export CLOUDFLARE_API_TOKEN="$CLOUDFARE_API_TOKEN"
-SITE_URL=https://upk-staging.benwahab111.workers.dev \
-VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA \
-CLOUDFLARE_ENV=staging pnpm --filter @upk/web build
-pnpm -C apps/web exec wrangler deploy
-# BETTER_AUTH_SECRET est déjà défini sur staging ; ne le régénérer que si
-# nécessaire (cela invalide les sessions).
-```
-
-- URL : `https://upk-staging.benwahab111.workers.dev`.
-- D1 : `upk-staging` (`fcfcb0f4-a79d-42b7-86c4-0ccc9eead1ee`).
-- R2 : `upk-photos-staging` (binding `PHOTOS`).
-- **Ne pas** utiliser `wrangler deploy --env staging` sur le config généré :
-  il déploie `upk` (production).
-- Mesure : `curl "https://upk-staging.benwahab111.workers.dev/api/poc?q=pharmacie&runs=30"`.
-- Lighthouse mobile (3G/2 Go simulés) :
-  `CHROME_PATH=/usr/bin/chromium npx --yes lighthouse@12.8.2 https://upk-staging.benwahab111.workers.dev/fr --form-factor=mobile --throttling-method=simulate --only-categories=performance,accessibility,best-practices,seo`.
-  Résultat de référence : 100/100/100/100, LCP 0,8 s.
-- Le compte admin de staging (`admin@upk.test`) existe et `moderation.me`
-  renvoie `isAdmin: true`. Le staging utilise les clés Turnstile de test.
-- Le token Cloudflare est enregistré sous `CLOUDFARE_API_TOKEN` (coquille) ;
-  Wrangler attend `CLOUDFLARE_API_TOKEN`. Exporter avant toute commande :
-  `export CLOUDFLARE_API_TOKEN="$CLOUDFARE_API_TOKEN"`.
+UPK ne dispose que d'un seul environnement Cloudflare distant : le Worker `upk`, la base D1 `upk` et le bucket R2 `upk-photos`. Les tests automatisés se font en local. Ne jamais définir `CLOUDFLARE_ENV=staging`, utiliser `--env staging` ou recréer des ressources `upk-staging`.
 
 ## 4. Migrations D1
 
@@ -129,9 +105,6 @@ pnpm -C apps/web exec wrangler deploy
 pnpm -C apps/web exec wrangler d1 migrations apply upk --local \
   --config ../../infra/wrangler.toml --persist-to .wrangler/state -y
 
-# staging
-pnpm -C apps/web exec wrangler d1 migrations apply upk-staging --remote \
-  --env staging --config ../../infra/wrangler.toml -y
 
 # production
 pnpm -C apps/web exec wrangler d1 migrations apply upk --remote \
@@ -158,13 +131,13 @@ done
 
 ## 6. Secrets
 
-| Nom                                        | Où                                                     | Usage                                     |
-| ------------------------------------------ | ------------------------------------------------------ | ----------------------------------------- |
-| `BETTER_AUTH_SECRET`                       | Worker staging/production                              | Signature des sessions                    |
-| `TURNSTILE_SECRET_KEY`                     | Worker staging/production                              | Anti-abus formulaires                     |
-| `RATE_LIMIT_SALT`                          | Worker production                                      | Hachage des IP du rate limit              |
-| `ADMIN_EMAILS`                             | Secret Worker en production, variable en staging/local | Comptes modérateurs                       |
-| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Hors Worker                                            | Non utilisés : le binding `PHOTOS` suffit |
+| Nom                                        | Où                                             | Usage                                     |
+| ------------------------------------------ | ---------------------------------------------- | ----------------------------------------- |
+| `BETTER_AUTH_SECRET`                       | Worker de production                           | Signature des sessions                    |
+| `TURNSTILE_SECRET_KEY`                     | Worker de production                           | Anti-abus formulaires                     |
+| `RATE_LIMIT_SALT`                          | Worker production                              | Hachage des IP du rate limit              |
+| `ADMIN_EMAILS`                             | Secret Worker en production, variable en local | Comptes modérateurs                       |
+| `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Hors Worker                                    | Non utilisés : le binding `PHOTOS` suffit |
 
 `wrangler secret put <NOM> --name <worker>` ; jamais dans Git, jamais dans un
 `.dev.vars` versionné.
@@ -224,14 +197,10 @@ pnpm --filter @upk/web build` (config production par défaut).
 
 - **500 `HTTPError` sur `/api/auth/*`** : `BETTER_AUTH_SECRET` absent →
   `wrangler secret put`.
-- **`no such table: places_fts`** : mauvaise base locale (build staging au lieu
-  de production) ou migrations non appliquées ; vérifier
+- **`no such table: places_fts`** : mauvaise base locale ou migrations non appliquées ; vérifier
   `dist/server/wrangler.json` (`name`, `d1_databases`).
 - **`BEGIN`/`COMMIT` refusés par D1** : retirer du SQL.
-- **`/api/poc` 404** : `APP_ENV=production` ; route réservée au staging et au
-  développement.
-- **`wrangler deploy --env staging` déploie `upk`** : utiliser
-  `CLOUDFLARE_ENV=staging` au build.
+- **`/api/poc` 404** : `APP_ENV=production` ; route de diagnostic désactivée en production.
 - **`moderation.me` renvoie `isAdmin: false`** : l'e-mail du compte n'est pas
   exactement dans `ADMIN_EMAILS` ou n'est pas vérifié ; recréer la session
   après correction.

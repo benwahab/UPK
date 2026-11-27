@@ -22,26 +22,3 @@ migrations_dir = "../packages/db/migrations"
 binding = "PHOTOS"
 bucket_name = "upk-photos"
 
-[env.staging]
-name = "upk-staging"
-
-[env.staging.observability]
-enabled = true
-
-[env.staging.vars]
-APP_ENV = "staging"
-BETTER_AUTH_URL = "https://upk-staging.benwahab111.workers.dev"
-ADMIN_EMAILS = "admin@upk.test"
-RATE_LIMIT_SALT = "upk-staging-rate-limit"
-# Clé de test Turnstile (publique, toujours valide). Remplacer en production.
-TURNSTILE_SECRET_KEY = "1x0000000000000000000000000000000AA"
-
-[[env.staging.r2_buckets]]
-binding = "PHOTOS"
-bucket_name = "upk-photos-staging"
-
-[[env.staging.d1_databases]]
-binding = "DB"
-database_name = "upk-staging"
-database_id = "fcfcb0f4-a79d-42b7-86c4-0ccc9eead1ee"
-migrations_dir = "../packages/db/migrations"
