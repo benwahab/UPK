@@ -412,7 +412,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           LIMIT ${input.limit} OFFSET ${offset}
         `);
         const countFrom = fromFts
-          ? sql`places_fts JOIN places p ON p.rowid = places_fts.rowid`
+          ? sql`places_fts JOIN places p ON p.rowid = places_fts.rowid ${PLACE_JOINS}`
           : sql`places p`;
         const countWhere = fromFts ? where : sql.join(countConditions, sql` AND `);
         const count = await db.get<{ total: number }>(sql`
