@@ -438,7 +438,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
         rows = [];
         total = 0;
       } else if (origin && !input.radiusKm && !useFtsQuery) {
-        const requiredRows = input.limit + offset;
+        const requiredRows = input.limit;
         let searchRadiusKm = 2;
         const maxSearchRadiusKm = 20_000;
         let complete = false;
