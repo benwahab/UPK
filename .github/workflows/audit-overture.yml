@@ -1,0 +1,47 @@
+name: Audit Overture coverage
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "infra/scripts/audit-overture.py"
+      - ".github/workflows/audit-overture.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: upk-overture-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout UPK main
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install DuckDB
+        run: python -m pip install --upgrade duckdb
+
+      - name: Validate audit script
+        run: python -m py_compile infra/scripts/audit-overture.py
+
+      - name: Compare Overture with existing OSM catalogue
+        run: python infra/scripts/audit-overture.py --out overture-audit
+
+      - name: Upload country reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: upk-overture-coverage-audit
+          path: overture-audit/
+          if-no-files-found: error
+          retention-days: 14
