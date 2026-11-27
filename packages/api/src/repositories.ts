@@ -357,7 +357,12 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       }
 
       const offset = decodeOffset(input.cursor);
-      const queryRows = async (conditions: SQL[], fromFts: boolean, countOnly = false) => {
+      const queryRows = async (
+        conditions: SQL[],
+        fromFts: boolean,
+        countOnly = false,
+        skipCount = false,
+      ) => {
         const where = sql.join(conditions, sql` AND `);
         const from = fromFts
           ? sql`places_fts JOIN places p ON p.rowid = places_fts.rowid`
@@ -384,6 +389,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
               ORDER BY ${exactOrder}${fromFts ? sql`rank ASC, ` : distanceOrder}p.nom ASC, p.id ASC
               LIMIT ${input.limit} OFFSET ${offset}
             `);
+        if (skipCount) return { rows, total: 0 };
         // Le comptage n'a pas besoin des jointures d'affichage.
         // Les filtres géographiques et de catégorie sont résolus par sous-requêtes.
         const countConditions: SQL[] = [
@@ -443,7 +449,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
             sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`,
             sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`,
           ];
-          const nearby = await queryRows(boundedConditions, false);
+          const nearby = await queryRows(boundedConditions, false, false, true);
           rows = nearby.rows;
           const farthestDistance = rows.reduce((farthest, row) => {
             const distance = haversineMetres(origin, {
