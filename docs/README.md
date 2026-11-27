@@ -7,8 +7,9 @@ Point d'entrée de la reconstruction UPK v2.
 | [`CAHIER_DES_CHARGES.md`](./CAHIER_DES_CHARGES.md) | Ce que le produit doit faire, pour qui, avec quels critères d'acceptation | Commanditaire, équipe           |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md)             | Comment c'est construit : stack, schéma, API, sécurité, CI/CD             | Équipe technique                |
 | [`ASSISTANT.md`](./ASSISTANT.md)                   | Assistant vocal, compréhension des demandes, limites réelles et tests     | Équipe technique, commanditaire |
+| [`OVERTURE-AUDIT.md`](./OVERTURE-AUDIT.md)         | Audit Overture Maps, dédoublonnage OSM, intégration préparée              | Équipe technique, commanditaire |
 | [`PLAN_DE_TRAVAIL.md`](./PLAN_DE_TRAVAIL.md)       | Quand et dans quel ordre : sprints, jalons, checklists                    | Tous                            |
-| [`RUNBOOK.md`](./RUNBOOK.md)                       | Procédures : local, staging, migrations, secrets, incidents               | Équipe technique                |
+| [`RUNBOOK.md`](./RUNBOOK.md)                       | Procédures : local, production, migrations, secrets, incidents            | Équipe technique                |
 | [`PORTABILITY.md`](./PORTABILITY.md)               | Ancienne documentation de portabilité (v1)                                | Archive                         |
 
 ## Données
@@ -19,7 +20,8 @@ Point d'entrée de la reconstruction UPK v2.
 | [`../seed/geonames-sahel-2026-11-27.json`](../seed/geonames-sahel-2026-11-27.json) | 1 197 villes, 3 340 quartiers et hiérarchie administrative (GeoNames) |
 | [`../seed/categories-2026-11-27.json`](../seed/categories-2026-11-27.json)         | 16 catégories traduites fr/en/ar                                      |
 | [`../seed/niamey-2026-08-30.json`](../seed/niamey-2026-08-30.json)                 | Snapshot historique : 1 546 lieux de Niamey                           |
-| [`../seed/ATTRIBUTION.md`](../seed/ATTRIBUTION.md)                                 | Attribution ODbL, CC BY 4.0 et empreintes d'intégrité                 |
+| [`../seed/ATTRIBUTION.md`](../seed/ATTRIBUTION.md)                                 | Attribution ODbL, CC BY 4.0, Overture et empreintes d'intégrité       |
+| [`./overture/`](./overture/)                                                       | Audit des 1 136 candidats Overture et SQL d'intégration préparés      |
 
 ## Ordre de lecture recommandé
 
@@ -51,14 +53,13 @@ mobile, le Play Store est différé en v1.1. L'assistant vocal et la recherche
 intelligente sont documentés dans `ASSISTANT.md` (ADR-012).
 
 S0 à S3 sont livrés : monorepo, POC D1/FTS5 sur D1 réelle, catalogue Sahel
-de 41 566 lieux, Better Auth, recherche et fiches, PWA, contribution,
+de 41 558 lieux dans le seed (41 566 annoncés en production, écart à expliquer), Better Auth, recherche et fiches, PWA, contribution,
 signalements, modération et journal d'audit. L'accueil reste simple : aucune liste n'est
 chargée sans recherche, la géolocalisation affiche les lieux du plus proche au
 plus éloigné et la recherche vocale est proposée quand le navigateur la
-supporte. La migration `0003` et la tranche S2 sont déployées sur staging
-(`dd213a9d`), avec le compte `admin@upk.test`. L'upload R2 est actif : les
-photos optionnelles (3 max, 5 Mo) sont stockées dans les buckets privés
-`upk-photos` et `upk-photos-staging`. La production est déployée sur
+supporte. L'ancien staging a été retiré ; un seul environnement distant subsiste, la
+production `upk`. L'upload R2 est actif : les photos optionnelles (3 max,
+5 Mo) sont stockées dans le bucket privé `upk-photos`. La production est déployée sur
 `https://upk.benwahab111.workers.dev` (`ca7af247`) avec les migrations `0003`
 et `0004`, R2, Better Auth, en-têtes de sécurité, CSRF et Workers Logs. Les
 sauvegardes D1 sont déposées dans `upk-backups`. Turnstile utilise encore la

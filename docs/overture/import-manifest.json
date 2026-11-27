@@ -1,0 +1,10 @@
+{
+  "release": "2026-11-18.0",
+  "audit_date": "2026-11-21",
+  "new_places": 26,
+  "enrichments": 16,
+  "new_ids_sha256": "1fa5cc974539aa7dd9b83d1e8f43d5eac20d72e3110b3b98b103d7a899664806",
+  "import_new_sha256": "03d9420fafc327a774de6f30a7839745196177e7937705ace84290828615b66e",
+  "enrich_osm_sha256": "60861f980b81d85587c31906e72f6a5cde88f5ebe22cb2883dd70d1ebeeae4b7",
+  "production_executed": false
+}

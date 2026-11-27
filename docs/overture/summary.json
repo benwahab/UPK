@@ -1,0 +1,36 @@
+{
+  "snapshot": "2026-11-18.0",
+  "date_audit": "2026-11-21",
+  "source_rows": 1136,
+  "raw_rows": 1136,
+  "decisions": {
+    "DUPLICATE_OSM": 34,
+    "DUPLICATE_OVERTURE": 2,
+    "INVALID_LOCATION": 11,
+    "NEEDS_REVIEW": 913,
+    "NOT_RELEVANT": 128,
+    "REJECTED": 6,
+    "VALIDATED_ENRICHMENT": 16,
+    "VALIDATED_NEW": 26
+  },
+  "flags": {
+    "anomalie_contact": 7,
+    "categorie_hors_perimetre": 92,
+    "categorie_non_mappee": 92,
+    "localite_incoherente": 12,
+    "nom_administratif": 42,
+    "nom_etranger": 8,
+    "nom_exact_existe_osm_ailleurs": 224,
+    "nom_naturel": 24
+  },
+  "osm_candidates": 41558,
+  "osm_strong_matches": 50,
+  "overture_strong_matches": 3,
+  "web_verified_new": 26,
+  "osm_exact_name_elsewhere": 224,
+  "notes": [
+    "Les scores Overture ne valident pas une existence.",
+    "Aucun candidat n'est importé par ce script.",
+    "Les correspondances faibles restent NEEDS_REVIEW."
+  ]
+}

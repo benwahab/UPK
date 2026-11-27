@@ -23,6 +23,34 @@
 - **Traçabilité** : chaque lieu conserve `osm_id`, `osm_type`, `source`,
   `source_url`, `licence_source`, `importe_le` et `osm_tags`.
 
+
+## Candidats Overture Maps (`docs/overture/`)
+
+- **Source** : Overture Maps Foundation, thème Places, release `2026-11-18.0`.
+- **Zone** : Niger, Mali, Burkina Faso.
+- **Volume audité** : 1 136 candidats, dont 26 nouveaux lieux validés par une
+  page officielle et 16 enrichissements de fiches OSM.
+- **Licences** : CDLA-Permissive-2.0 pour les sources Meta, Microsoft,
+  PinMeTo, Uberall, etc. ; Apache 2.0 pour Foursquare ; CC0 pour AllThePlaces ;
+  ODbL pour les composants issus d’OpenStreetMap. La licence exacte dépend de
+  la source de chaque enregistrement.
+- **Attribution** : « © Overture Maps Foundation — données Overture Maps,
+  release 2026-11-18.0 ». Pour les données dérivées d’OSM :
+  « © les contributeurs OpenStreetMap ».
+- **Traçabilité** : chaque ligne d’audit conserve `source_version`,
+  `source_url`, `licence_source`, `candidat_id`, la décision et, pour les
+  lieux validés, l’URL de vérification dans `metadata`.
+- **Empreintes** :
+  - `UPK-revue-candidats-Overture_2.csv` :
+    `6643eecf2ace4549d00a3529600ce2123d0e0a2aacec476676ff8bc3290c402d`
+  - `upk-overture-candidats-a-verifier_2.csv` :
+    `d39082519262390bac9fa34c467e7e7cd7d06bd9d681dfedf7bdbd1f7fb99095`
+  - `docs/overture/validated-new.csv` :
+    `bf3e8c2e4b969ae43471eacbc42bfb73e8d5fbcd21142d02c378c59e625a62e2`
+
+Ces fichiers ne sont pas des seeds D1 : ils documentent l’audit. Aucune
+donnée Overture n’est importée en production par le dépôt.
+
 ## Obligations ODbL
 
 Toute diffusion publique de données dérivées doit :

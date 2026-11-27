@@ -129,6 +129,33 @@ done
 - Vérifier : `SELECT COUNT(*) FROM places` = 41 566 ; `places_fts` = 41 566.
 - Sauvegarder avant et après : `bash infra/scripts/backup-d1.sh`.
 
+## 5 bis. Intégration Overture contrôlée
+
+L’audit Overture est préparé mais non exécuté en production.
+
+```bash
+python3 infra/scripts/audit-overture.py
+python3 infra/scripts/import-overture.py
+```
+
+Fichiers produits dans `docs/overture/` : `validated-new.csv` (26 lieux),
+`enrichments-osm.csv` (16 fiches), `import-new.sql`, `enrich-osm.sql`,
+`rollback-new.sql` et `import-manifest.json`.
+
+Procédure :
+
+1. `pnpm backup:d1` et noter le bookmark Time Travel.
+2. Vérifier `SELECT COUNT(*) FROM places` et `SELECT COUNT(*) FROM categories`
+   en production ; expliquer l’écart 41 558 (seed) / 41 566 (annoncé).
+3. Exécuter `import-new.sql`, vérifier 26 lignes `source='overture'`.
+4. Exécuter `enrich-osm.sql`, vérifier 16 lignes `source='osm+overture'`.
+5. Tester les recherches, le sitemap et les E2E.
+6. En cas d’échec : `rollback-new.sql` pour les nouveaux lieux ; D1 Time
+   Travel ou sauvegarde pour les enrichissements.
+
+Ne pas importer les 913 `NEEDS_REVIEW` sans revue humaine. Les 26 nouveaux
+lieux ont une page officielle accessible, pas une validation terrain.
+
 ## 6. Secrets
 
 | Nom                                        | Où                                             | Usage                                     |

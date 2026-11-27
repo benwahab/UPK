@@ -1,0 +1,1137 @@
+﻿pays,code_pays,nom,categorie,confiance,localite,telephone,site_web,latitude,longitude,statut,points_a_verifier
+Niger,NE,Université Privée Diaba Lompo,college_university,0.822,Niamey,+22787237375,http://www.updlniger.com/,13.775400202363,1.9751358032227,,contrôle visuel et dédoublonnage
+Niger,NE,Sirba River,historic_site,0.804,,,,13.7730555556,1.66111111111,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Téra Department,government_office,0.808,Téra,,,14.010555555556,0.75305555555556,,aucun contact
+Niger,NE,"Arya Vidyalaya Inter College-Tera,Baghpat",high_school,0.897,Téra,+22799946482,http://www.avintercollegetera.org/,14.0106,0.753056,,contrôle visuel et dédoublonnage
+Niger,NE,American International School of Niamey,school,0.808,Niamey,+22720723942,http://www.aisniamey.org/,13.5510833,2.022637,,contrôle visuel et dédoublonnage
+Niger,NE,Soudouré Zarma Bene,historic_site,0.8,,,,13.5833333333,2.0,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Département de Ouallam,government_office,0.803,,,,14.315326600000002,2.0660274999999992,,nom administratif/géographique; localité absente; aucun contact
+Niger,NE,Ouallam,government_office,0.815,,,,14.31342619,2.08748331,,localité absente; aucun contact
+Niger,NE,Ouallam,government_office,0.815,,,,14.318611111111,2.0863888888889,,localité absente; aucun contact
+Niger,NE,Département de Ouallam,government_office,0.806,,,,14.3172,2.0864,,nom administratif/géographique; localité absente; aucun contact
+Niger,NE,Lycée Aliguran,private_school,0.864,Niamey,+22788004665,,13.564612362475,2.0831322669983,,contrôle visuel et dédoublonnage
+Niger,NE,Hôpital De Référence Niamey,hospital,0.916,Niamey,,,13.5837067,2.0838117,,aucun contact
+Niger,NE,Université de Niamey,college_university,0.802,Niamey,,http://uam.refer.ne/,13.503431,2.090412,,contrôle visuel et dédoublonnage
+Niger,NE,Ecoles de l'Amitié Nigéro-Turque,private_school,0.968,Niamey,+22790424247,http://ne.ecolesmaarif.org/country/1051,13.553344252419,2.0843982696533,,contrôle visuel et dédoublonnage
+Niger,NE,ESPA MT,college_university,0.853,Niamey,+22775000569,http://www.espa-mt.com/,13.540851844423,2.0824788525792,,contrôle visuel et dédoublonnage
+Niger,NE,Hotel Le Capitole,hotel,0.952,Yantala Haut,+22720350107,,13.54081702,2.08282433,,contrôle visuel et dédoublonnage
+Niger,NE,IAT Niger,college_university,0.948,Niamey,+22720752940,www.iatniger.org,13.53223369,2.08155028,,contrôle visuel et dédoublonnage
+Niger,NE,Nijer Türkiye Dostluk Hastanesi,hospital,0.87,Niamey,+22720350122,https://nijerturkhastanesi.saglik.gov.tr/,13.536318167467,2.0814138015772,,contrôle visuel et dédoublonnage
+Niger,NE,Ambassade de France au Niger,embassy,0.855,Ambassades,+22720724019,https://ne.ambafrance.org/,13.52509972,2.07925878,,contrôle visuel et dédoublonnage
+Niger,NE,Commune V,historic_site,0.802,Niamey,+22791600556,,13.50561029279,2.0738917216678,,nom administratif/géographique
+Niger,NE,U.S. Embassy Niamey,embassy,0.941,Niamey,+22720733169,https://ne.usembassy.gov/,13.535625787810057,2.0747222048712506,,contrôle visuel et dédoublonnage
+Niger,NE,Gadafawa Market,shopping,0.808,Niamey,,,13.548092230061274,2.0665284550041276,,aucun contact
+Niger,NE,"India in Niger (Embassy of India, Niamey)",embassy,0.899,Niamey,+22720370029,http://www.indembniamey.gov.in/,13.52779382,2.06916401,,contrôle visuel et dédoublonnage
+Niger,NE,Fayel Appart-Hotel,hotel,0.885,Niamey,+22720374868,www.lesresidencesfayel.com,13.52964684,2.0631321,,contrôle visuel et dédoublonnage
+Niger,NE,Al kawthar centre educatif/Creche,preschool,0.85,Niamey,+22790522212,,13.540120420964584,2.0640697050528045,,contrôle visuel et dédoublonnage
+Niger,NE,Roniers Doum,hotel,0.95,Niamey,+22720723138,http://www.lesroniersdoum.com/,13.52871342,2.05213206,,contrôle visuel et dédoublonnage
+Niger,NE,Ecole Peralta,elementary_school,0.886,Niamey,+22780060502,https://ecoleperalta.org/,13.528618504825,2.051124573627,,contrôle visuel et dédoublonnage
+Niger,NE,Eden's Parc and Lounge,restaurant,0.864,Niamey,+22799596563,,13.50489215,2.04340668,,contrôle visuel et dédoublonnage
+Niger,NE,Institut Polytechnique Maga Issaka -IPMI -ex LAMI,high_school,0.813,Niamey,+22795430274,,13.505603217685,2.14121,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Niamey,+22720340031,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.5138903,2.1440107,open,contrôle visuel et dédoublonnage
+Niger,NE,Gare de Niamey,train_station,0.817,Niamey,,,13.4985,2.13545,,aucun contact
+Niger,NE,Great Mosque of Niamey,muslim_place_of_worship,0.823,Niamey,+22795124288,http://fr.wikipedia.org/wiki/index.html?curid=5928478,13.52221544,2.13309075,,contrôle visuel et dédoublonnage
+Niger,NE,Soluxe hotel restaurant Niger,hotel,0.917,Niamey,,,13.49837714255153,2.1197813924306517,,aucun contact
+Niger,NE,ISTANBUL fashion 227,clothing_store,0.929,Niamey,+22791101212,https://www.facebook.com/Istanbulfashion227,13.51658095,2.12256922,,contrôle visuel et dédoublonnage
+Niger,NE,Good food,restaurant,0.889,Niamey,+22784448888,,13.5088556,2.12315383,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Niamey,+22720731001,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.507547,2.1235287,open,contrôle visuel et dédoublonnage
+Niger,NE,Swiss Umef University of Niger.,college_university,0.905,Niamey,+22792923333,http://umefuni-afrique.swiss/,13.53705433,2.12510733,,contrôle visuel et dédoublonnage
+Niger,NE,"Embassy of Pakistan, Niamey",embassy,0.828,Niamey,+22720753257,http://www.mofa.gov.pk/niger,13.5373497,2.1201899,,contrôle visuel et dédoublonnage
+Niger,NE,Point D Voyages,travel_service,0.859,Niamey,+22770009900,,13.510242069081,2.1204132934525,,contrôle visuel et dédoublonnage
+Niger,NE,CEG Lazaret,high_school,0.869,Niamey,,,13.550397,2.117242,,aucun contact
+Niger,NE,CURE Hopital de Enfants,hospital,0.879,Banifandou 1,+22790596591,http://cure.org/niger,13.5511372,2.11649118,,contrôle visuel et dédoublonnage
+Niger,NE,Al kawthar centre educatif/Creche,preschool,0.85,Niamey,+22790522212,,13.516259387864237,2.1163849680970235,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.955,Niamey,+22720731001,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.5164238,2.1169051,open,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Niamey,+22720733101,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.5122377,2.1121152,open,contrôle visuel et dédoublonnage
+Niger,NE,Agnon Plus,auto_parts_store,0.802,Niamey,+22795398836,,13.5141658,2.1113534,,contrôle visuel et dédoublonnage
+Niger,NE,Hecf Niger.,college_university,0.869,Niamey,+22790786049,http://hecfniger.com/,13.534229630046282,2.112545350077153,,contrôle visuel et dédoublonnage
+Niger,NE,Centre Nigérien de Promotion Touristique,travel_service,0.856,Niamey,+22720732447,http://www.visit-niger.com/,13.51142,2.1109,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Niamey,+22794523068,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.5096677,2.1098615,open,contrôle visuel et dédoublonnage
+Niger,NE,General Seyni Kountche Stadium,stadium_arena,0.901,Niamey,+22789893221,,13.52718673,2.10892855,,contrôle visuel et dédoublonnage
+Niger,NE,Swiss Umef University of Niger.,college_university,0.879,Niamey,+22792923333,http://umefuni-afrique.swiss/,13.51395,2.1092,,contrôle visuel et dédoublonnage
+Niger,NE,Groupe BADAR,travel_service,0.831,Niamey,+22796989686,http://agencebadar.com/,13.5214,2.1053,,contrôle visuel et dédoublonnage
+Niger,NE,Coris Bank International Niger,bank,0.868,Niamey,+22720340408,https://niger.coris.bank/,13.5214,2.1053,,contrôle visuel et dédoublonnage
+Niger,NE,Clinique Sahatt,health_care,0.874,Niamey,+22788371717,,13.5214,2.1053,,contrôle visuel et dédoublonnage
+Niger,NE,Institut Polytechnique Maga Issaka -IPMI -ex LAMI,high_school,0.809,Niamey,+22795430274,,13.5214,2.1053,,contrôle visuel et dédoublonnage
+Niger,NE,Noom Hotel Niamey,hotel,0.964,Niamey,+22723023030,https://www.noomhotels.com/noom-hotel-niamey/,13.51198423,2.10586714,,contrôle visuel et dédoublonnage
+Niger,NE,Gouvernorat Région de Niamey,government_office,0.829,Niamey,+22720732725,,13.508676450205924,2.105837648152469,,nom administratif/géographique
+Niger,NE,L'école de santé ISESS,school,0.825,Niamey,+22796991351,,13.508744246145525,2.1059390568087064,,contrôle visuel et dédoublonnage
+Niger,NE,Ecole Supérieure des Télécommunications - EST,school,0.868,Niamey,+22720723055,http://www.est.ne/,13.522102360027676,2.1069801467615212,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Niamey,+22720744998,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.5165435,2.1070032,open,contrôle visuel et dédoublonnage
+Niger,NE,Niamey Mall & Residence,shopping_mall,0.877,Niamey,,http://www.niameymall-residence.com/,13.514674428297,2.1072829372716,,contrôle visuel et dédoublonnage
+Niger,NE,Musée National du Niger (MNN),museum,0.803,Niamey,+22720734321,,13.51136111,2.10730556,,contrôle visuel et dédoublonnage
+Niger,NE,CCFN,arts_and_entertainment,0.875,Niamey,,http://www.delcampe.net/,13.513119943524625,2.1075031936492086,,contrôle visuel et dédoublonnage
+Niger,NE,Niamey II,historic_site,0.818,Niamey,,,13.511944444444,2.1077777777778,,aucun contact
+Niger,NE,Grand Hôtel du Niger,hotel,0.964,Niamey,+22720732152,http://www.grandhotelniger.com/,13.50524045,2.11049153,,contrôle visuel et dédoublonnage
+Niger,NE,Commune V,historic_site,0.802,Niamey,+22791600556,,13.501388888889,2.0986111111111,,nom administratif/géographique
+Niger,NE,Complexe scolaire privé Yasmina,middle_school,0.843,Niamey,,,13.5174409,2.1013061,,aucun contact
+Niger,NE,Radisson Blu Hotel and Conference Center,hotel,1.0,Niamey,+22723231111,https://www.radissonhotels.com/en-us/hotels/radisson-blu-conference-niamey,13.51292469,2.10415403,,contrôle visuel et dédoublonnage
+Niger,NE,New York Restaurant and Bar,restaurant,0.958,Niamey,+22723231111,https://publuu.com/flip-book/80273/418623,13.5124998,2.10407061,,contrôle visuel et dédoublonnage
+Niger,NE,ZAXI,restaurant,0.97,Niamey,+22723231111,https://publuu.com/flip-book/80273/418654,13.51265552,2.10390979,,contrôle visuel et dédoublonnage
+Niger,NE,Université Abdou Moumouni de Niamey,college_university,0.801,Niamey,+22720315072,https://fr.wikipedia.org/wiki/Université_Abdou-Moumouni,13.5206943,2.103555,,contrôle visuel et dédoublonnage
+Niger,NE,Bravia Hotel Niamey,hotel,0.969,Niamey,+22788147633,http://www.braviahotels.com/,13.52182859,2.0998906,,contrôle visuel et dédoublonnage
+Niger,NE,Haute Autorité Nigérienne à l'Energie Atomique HANEA,government_office,0.813,Niamey,+22720725077,https://twitter.com/haneaniger,13.52982,2.09783,,contrôle visuel et dédoublonnage
+Niger,NE,TecnoNiger,mobile_phone_store,0.831,Niamey,+22799727203,https://www.tecno-mobile.com/home/#/,13.542744423816808,2.095459909528778,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Niamey,+22720731001,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.5248183,2.0948706,open,contrôle visuel et dédoublonnage
+Niger,NE,Boulevard Vip,restaurant,0.804,Niamey,+22791999991,,13.52424239,2.09395004,,contrôle visuel et dédoublonnage
+Niger,NE,Club Mooky,bar,0.814,Niamey,+22780914055,,13.52231456,2.09455738,,contrôle visuel et dédoublonnage
+Niger,NE,Lami Café,cafe,0.888,Niamey,+22790186161,http://lamicafe.com/menu,13.52915794,2.09587781,,contrôle visuel et dédoublonnage
+Niger,NE,Baaklini chateau 1,grocery_store,0.936,Niamey,+22780696969,,13.52193877,2.09621313,,contrôle visuel et dédoublonnage
+Niger,NE,École Petits Pas,elementary_school,0.803,Niamey,,,13.532530265228,2.0920199395991004,,aucun contact
+Niger,NE,Ecole Alliance Internationale Niger,preschool,0.95,Niamey,+22788606641,https://ecolealliance.com/,13.5263796,2.0919099,,contrôle visuel et dédoublonnage
+Niger,NE,CES Wadata 21,elementary_school,0.871,Niamey,,,13.5263796,2.0919099,,aucun contact
+Niger,NE,Musée National Boubou Hama,museum,0.862,Niamey,,,13.52638,2.09191,,aucun contact
+Niger,NE,Palais Presidentiel,government_office,0.814,,,,13.515768983232146,2.0936772476667183,,localité absente; aucun contact
+Niger,NE,NİJer TÜRkİYe Dostluk Hastanesİ,hospital,0.823,Niamey,+22720350122,,13.5354875,2.09129838,,contrôle visuel et dédoublonnage
+Niger,NE,Hôpital De Référence Niamey,hospital,0.901,Niamey,,,13.586595316585058,2.091686988523845,,aucun contact
+Niger,NE,Université Privée Elite De Niamey - UPEN,school,0.854,Niamey,+22796504695,http://elite-niamey.com/,13.566155181819,2.11409142864,,contrôle visuel et dédoublonnage
+Niger,NE,CEG Lazaret,high_school,0.872,Niamey,,,13.586059896674044,2.12018997000132,,aucun contact
+Niger,NE,Cabinet Medical Fatouma_Zara,health_care,0.877,Niamey,+22780461717,https://badamassi28.wixsite.com/cabinet-med-fatoumaz,13.576281558012,2.1299277309177,,contrôle visuel et dédoublonnage
+Niger,NE,Agnon Plus,auto_parts_store,0.809,Niamey,+22795398836,,13.477348492907424,2.1785702686179897,,contrôle visuel et dédoublonnage
+Niger,NE,Diori Hamani International Airport,airport,0.96,Niamey,+22780078349,http://www.aeroport-niamey.com,13.47655325,2.17696461,,contrôle visuel et dédoublonnage
+Niger,NE,Base aérienne 101 Niamey,airport,0.83,Niamey,,,13.481667,2.170278,,aucun contact
+Niger,NE,Aéroport international Diori Hamani,airport,0.812,Niamey,,http://www.aeroport-niamey.com/,13.481666666667,2.1702777777778,,contrôle visuel et dédoublonnage
+Niger,NE,IIM Université de Niamey,college_university,0.868,Niamey,+22720744014,,13.50488,2.14926,,contrôle visuel et dédoublonnage
+Niger,NE,Université islamique de Say,college_university,0.832,Say,,http://www.universite-say.com/,13.136957999314227,2.341059984086526,,contrôle visuel et dédoublonnage
+Niger,NE,Université islamique de Say,college_university,0.832,Say,,http://www.universite-say.com/,13.137,2.34,,contrôle visuel et dédoublonnage
+Niger,NE,Polyclinique Magori,health_care,0.87,Niamey,+22720741291,https://www.polycliniquemagori.org/,13.179291637087,2.7798843383789,,contrôle visuel et dédoublonnage
+Niger,NE,Gadabedji Reserve,national_park,0.803,Niamey,,http://en.wikipedia.org/wiki/Gadabedji_Reserve,12.599722222222,2.6,,contrôle visuel et dédoublonnage
+Niger,NE,Dosso Reserve,national_park,0.812,,,,12.599722222222,2.6,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Hôtel  & Résidence Toubal.,lodging,0.872,Dosso,+22797367641,http://Hoteltoubal.com/,13.055900825667,3.2052612304688,,contrôle visuel et dédoublonnage
+Niger,NE,Université de Dosso,college_university,0.806,Dosso,,http://www.univ-dosso.ne,13.051668498804373,3.1600808890667667,,contrôle visuel et dédoublonnage
+Niger,NE,Institut IAPE,private_school,0.873,Dosso,+22789191974,,12.990256720043,3.1702423095703,,contrôle visuel et dédoublonnage
+Niger,NE,Hotel Toubal,hotel,0.863,Dosso,+22797311101,,13.01049436,3.19808047,,contrôle visuel et dédoublonnage
+Niger,NE,Université de Dosso,college_university,0.806,Dosso,,http://www.univ-dosso.ne,13.0476,3.2006,,contrôle visuel et dédoublonnage
+Niger,NE,Hôtel Zigui,hotel,0.802,Dosso,+22796662881,,13.0444,3.19472,,contrôle visuel et dédoublonnage
+Niger,NE,Filingué,government_office,0.8,,,,14.350858684424345,3.32232312999496,,localité absente; aucun contact
+Niger,NE,Gaya Airport (Niger),airport,0.802,Gaya,+22796399437,,11.883,3.433,,contrôle visuel et dédoublonnage
+Niger,NE,Gaya Airport (Niger),airport,0.802,Gaya,+22796399437,,11.8898,3.4275,,contrôle visuel et dédoublonnage
+Niger,NE,Kéita,historic_site,0.804,,,,14.7612665,5.7746358,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Kéita,historic_site,0.804,,,,14.755009192343003,5.7740251756922,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Département de Madaoua,government_office,0.805,Madaoua,,,14.071164415231,5.9610637743082,,nom administratif/géographique; aucun contact
+Niger,NE,Bureau of Quarantine-Bacolod Station,government_office,0.846,,+63344661168,,15.012691695785,5.625,,localité absente; indicatif téléphonique incohérent
+Niger,NE,Stade d'Arlit,stadium_arena,0.82,Arlit,,http://es.wikipedia.org/wiki/Estadio_de_Arlit,18.73333333,7.38333333,,contrôle visuel et dédoublonnage
+Niger,NE,Arlit Department,government_office,0.82,Arlit,,,18.736944444444,7.3852777777778,,aucun contact
+Niger,NE,Arlit Department,government_office,0.82,Arlit,,,18.7345119095,7.38053901452,,aucun contact
+Niger,NE,Tchadoua,historic_site,0.808,,,,13.54805556,7.44916667,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Boulangerie - Pâtisserie - La Racine,bakery,0.857,Maradi,+22799675807,http://boulangerielaracine.websites.co.in/,13.4917,7.09639,,contrôle visuel et dédoublonnage
+Niger,NE,KALLA Transah MALL - Maradi,real_estate_service,0.884,Maradi,+22799000093,http://www.kallatransamall.com/,13.4917,7.09639,,contrôle visuel et dédoublonnage
+Niger,NE,O'mafet de Maradi,restaurant,0.807,Maradi,+22796041371,,13.4976913,7.1090432,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Maradi,+22720410280,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.49392244,7.11017551,open,contrôle visuel et dédoublonnage
+Niger,NE,Universite De Maradi,college_university,0.932,Maradi,+22720410132,http://www.univ-maradi.ne/,13.492074866734205,7.128771793402589,,contrôle visuel et dédoublonnage
+Niger,NE,Complexe Ophtalmologique Makkah-Maradi,health_care,0.961,Maradi,+22796519012,http://www.al-basar.com/,13.490932099807246,7.133246489938812,,contrôle visuel et dédoublonnage
+Niger,NE,KALLA Transah MALL - Maradi,real_estate_service,0.883,Maradi,+22799000093,http://www.kallatransamall.com/,13.487641372626001,7.119438574391899,,contrôle visuel et dédoublonnage
+Niger,NE,Hôtel Horizon,hotel,0.872,,+22798656579,,13.48827627,7.11644377,,localité absente
+Niger,NE,Abalak Department,government_office,0.812,Abalak,,,15.446237591110002,6.264497386297501,,aucun contact
+Niger,NE,Nimet Ev Tekstil�,shopping,0.829,Konya,+5359221202,,13.2,8.66667,,indicatif téléphonique incohérent
+Niger,NE,Dogo Chaibou,historic_site,0.804,,,,13.4991666667,9.01694444444,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Aéroport international de Zinder,airport,0.803,Zinder,,http://www.ourairports.com/airports/DRZR/,13.775692481368091,8.983179143483412,,contrôle visuel et dédoublonnage
+Niger,NE,Birni House Hôtel,hotel,0.885,Zinder,+22796870111,,13.797029308896667,8.973010002666049,,contrôle visuel et dédoublonnage
+Niger,NE,MoneyGram,money_transfer_service,0.95,Zinder,+22720650717,https://www.moneygram.com/r/ne/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.80186158,8.98503743,open,contrôle visuel et dédoublonnage
+Niger,NE,Université André Salifou de Zinder,college_university,0.934,Mirriah,+22720512920,http://www.uas.edu.ne/,13.8432263,8.9865633,,contrôle visuel et dédoublonnage
+Niger,NE,CSP Albert Einstein,private_school,0.881,Zinder,+22799958151,https://www.instagram.com/csp_albert_einstein/,13.8374848,8.9878477,,contrôle visuel et dédoublonnage
+Niger,NE,CSP L'excellence,elementary_school,0.864,Zinder,+22792057275,,13.8053,8.9883,,contrôle visuel et dédoublonnage
+Niger,NE,Université de Zinder,college_university,0.81,Zinder,+2270916074854,,13.805159,8.9883,,contrôle visuel et dédoublonnage
+Niger,NE,Groupe Scolaire Fogasso,private_school,0.856,Tibiri,+22796587308,http://www.gscolairefogasso.com/,14.43685,8.65007,,contrôle visuel et dédoublonnage
+Niger,NE,Tessaoua Airport,airport,0.805,Tessaoua,,http://id.wikipedia.org/wiki/index.html?curid=870227,13.756968,8.020568,,contrôle visuel et dédoublonnage
+Niger,NE,Aérodrome de Tessaoua,airport,0.813,,,,13.767,8.017,,localité absente; aucun contact
+Niger,NE,Tessaoua Department,government_office,0.818,,,,13.757222222222,7.9872222222222,,localité absente; aucun contact
+Niger,NE,Mayahi,government_office,0.804,Mayahi,,,14.1,7.6,,aucun contact
+Niger,NE,Canaan Baptist Church Malali Kaduna.,christian_place_of_worship,0.848,Malali,,,14.27905,7.69793,,aucun contact
+Niger,NE,CSP OASIS Agadez,private_school,0.902,Agadez,+22791650146,,16.984627198164,7.9429436,,contrôle visuel et dédoublonnage
+Niger,NE,Hôtel Etoile Du Ténéré,hotel,0.9,Agadez,+22791410799,,16.95146352,7.96937805,,contrôle visuel et dédoublonnage
+Niger,NE,Universite Jibril OUMAR - UJO d'Agadez,college_university,0.863,Agadez,+22720440101,http://www.univ-agadez.edu.ne/,16.97314,7.98974,,contrôle visuel et dédoublonnage
+Niger,NE,Aéroport international Mano Dayak (Agadez),airport,0.895,,,http://es.wikipedia.org/wiki/Aeropuerto_Internacional_Mano_Dayak,16.962222222222,7.9902777777778,,localité absente
+Niger,NE,Aéroport international Mano Dayak (Agadez),airport,0.895,Agadez,,http://es.wikipedia.org/wiki/Aeropuerto_Internacional_Mano_Dayak,16.965997222222,8.0001138888889,,contrôle visuel et dédoublonnage
+Niger,NE,Mont Gréboun,historic_site,0.804,,,,20.0,8.58333333,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,Aïr and Ténéré Addax Sanctuary,national_park,0.8,,,http://en.wikipedia.org/wiki/index.html?curid=19177605,19.484444444444,9.5036111111111,,localité absente; lieu à confirmer sur carte
+Niger,NE,Taghmert,historic_site,0.8,,,,18.93444444,9.15638889,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,ROLCC NG,christian_place_of_worship,0.842,Niamey,,https://www.rolccniger.org/,16.687608129399,9.9310827255249,,contrôle visuel et dédoublonnage
+Niger,NE,Aérodrome de Gouré,airport,0.809,Gouré,,,13.9836,10.2749,,aucun contact
+Niger,NE,Aérodrome de Gouré,airport,0.809,Gouré,,,13.9854383,10.2646167,,aucun contact
+Niger,NE,Commune de Matankari,government_office,0.875,Dogondoutchi,+22798317639,,15.969911154744,11.10237121582,,nom administratif/géographique
+Niger,NE,Djado Plateau,historic_site,0.802,,,,20.983,12.333,,localité absente; aucun contact; lieu à confirmer sur carte
+Niger,NE,École coranique ibnu masoud diffa,college_university,0.955,Diffa,+22796574540,http://www.private-school-402-business.site/,13.3155465,12.6114247,,contrôle visuel et dédoublonnage
+Niger,NE,Sabony Complex School,college_university,0.838,,+244287996024,http://Sabony.org/,16.636191878398,12.65625,,localité absente; indicatif téléphonique incohérent
+Niger,NE,Bilma Department,government_office,0.822,,,,18.685277777778,12.916388888889,,localité absente; aucun contact
+Niger,NE,Erg of Bilma,historic_site,0.806,,,,18.195,14.0,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Cercle de Kéniéba,government_office,0.816,,,,12.666666666667,-11.0,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Hôtel Faleme,hotel,0.847,Kéniéba,+22375396770,,12.8441,-11.2311,,contrôle visuel et dédoublonnage
+Mali,ML,Kéniéba Airport,travel_service,0.834,Kéniéba,+22369388823,http://fa.wikipedia.org/wiki/%41%31%48%2F%AF%27%47_%A9%CC%46%CC%28%27,12.83989564,-11.25271893,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Kounda,+22344977777,https://find.shell.com/ml/fuel/10095037-shell-kenieba/fr_ML,12.917061,-11.332746,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Loulo,+22344977777,https://find.shell.com/ml/fuel/10128545-shell-loulo/fr_ML,13.084904,-11.390522,open,contrôle visuel et dédoublonnage
+Mali,ML,Hôtel Bouna,hotel,0.89,Kayes,+22321523560,,14.45,-11.4333,,contrôle visuel et dédoublonnage
+Mali,ML,Complexe scolaire dallaba de Kayes CSDK,high_school,0.84,Kayes,+22376022323,https://complexe-scolaire-dallaba-de-kayes-29.webself.net/,14.45,-11.4333,,contrôle visuel et dédoublonnage
+Mali,ML,IFP de Kayes,education,0.882,Kayes,+22379090209,http://www.makankonte92.blogspot.com/,14.45,-11.4333,,contrôle visuel et dédoublonnage
+Mali,ML,Lycée Dougoukolo Konaré de Kayes,high_school,0.81,Kayes,+22398800368,http://ldkkayes.e-monsite.com/,14.450092500000169,-11.440277100001708,,contrôle visuel et dédoublonnage
+Mali,ML,Abdoulaye Macoro Sissoko,stadium_arena,0.812,Kayes,+22376226322,http://en.wikipedia.org/wiki/index.html?curid=6273536,14.43536771,-11.43983508,,contrôle visuel et dédoublonnage
+Mali,ML,Stade Abdoulaye Makoro Cissoko,stadium_arena,0.803,Kayes,,http://en.wikipedia.org/wiki/index.html?curid=6273536,14.435241,-11.439925,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kayes,+22366774645,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,14.43091308,-11.46361915,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Kayes,,https://totalenergies.ml/,14.45356843,-11.46895474,,contrôle visuel et dédoublonnage
+Mali,ML,Hôtel Kamankolè Palace,hotel,0.801,,,,14.457248128502233,-11.465434874060993,,localité absente; aucun contact
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kayes,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,14.45495717,-11.46020163,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kayes,,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,14.45127763,-11.43784554,open,contrôle visuel et dédoublonnage
+Mali,ML,Aéroport international de Kayes Dag Dag,airport,0.834,Kayes,,http://id.wikipedia.org/wiki/Bandar_Udara_Kayes,14.481111111111,-11.404444444444,,contrôle visuel et dédoublonnage
+Mali,ML,Aéroport international de Kayes Dag Dag,airport,0.834,Kayes,,http://id.wikipedia.org/wiki/Bandar_Udara_Kayes,14.481057,-11.40126,,contrôle visuel et dédoublonnage
+Mali,ML,Gouina Hydroelectric Plant,historic_site,0.802,,,,14.0140277778,-11.1098444444,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Bafoulabé Airport,airport,0.811,,,http://fa.wikipedia.org/wiki/%41%31%48%2F%AF%27%47_%28%27%41%48%44%27%28,13.8,-10.85,,localité absente
+Mali,ML,Commune de Koniakary,social_or_community_service,0.938,Koniakary,+22366823601,http://www.koniakary.ml/,14.578892085000115,-10.899567250001304,,nom administratif/géographique
+Mali,ML,Cercle de Kayes,government_office,0.801,,,,14.5,-11.5,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Shell,gas_station,0.99,Kayes,+22344977777,https://find.shell.com/ml/fuel/10095036-shell-kayes-exit/fr_ML,14.47295854,-11.51338755,open,contrôle visuel et dédoublonnage
+Mali,ML,Burger & Co,fast_food_restaurant,0.823,Bamako,+22382636363,http://www.burgerandcomali.com/,12.629107080953148,-8.014642083653904,,contrôle visuel et dédoublonnage
+Mali,ML,Université du Sahel de Bamako,college_university,0.874,Bamako,+22320220645,http://www.universitesahel.com/,12.629107080953148,-8.014642083653904,,contrôle visuel et dédoublonnage
+Mali,ML,ABIA MALI,elementary_school,0.848,Bamako,+22391235098,http://abiamali.com/,12.629107080953148,-8.014642083653904,,contrôle visuel et dédoublonnage
+Mali,ML,ABIA MALI,elementary_school,0.848,Bamako,+22391235098,http://abiamali.com/,12.632166459434,-8.0163985490799,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376974403,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.629865,-8.01858443,open,contrôle visuel et dédoublonnage
+Mali,ML,Embassy of the United States of America,embassy,0.946,Bamako,+22320702300,https://ml.usembassy.gov/embassy/embassy/,12.62984124,-8.01890549,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320706100,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.635326,-8.0187016,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell Select,convenience_store,0.8,Bamako,,https://find.shell.com/ml/fuel/10095038-kwame-kruma-2,12.637292,-8.017834,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10131408-shell-centre-islamique/fr_ML,12.643282,-8.016564,open,contrôle visuel et dédoublonnage
+Mali,ML,Clinical Pasteur,hospital,0.922,Bamako,+22372291010,http://Cliniquepasteurmali.com/,12.63285464,-8.02037319,,contrôle visuel et dédoublonnage
+Mali,ML,ecole maintien de la paix,college_university,0.848,Bamako,,www.empbamako.org,12.62685709207059,-8.018973767313115,,contrôle visuel et dédoublonnage
+Mali,ML,CNPM,social_or_community_service,0.834,Bamako,+22320216311,http://www.cnpm.ml/,12.630344101605095,-8.021628246329243,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22394949420,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.62355696,-8.02165732,open,contrôle visuel et dédoublonnage
+Mali,ML,Sup' Management,college_university,0.827,Bamako,+22378012020,http://www.supmanagement.ml/,12.6268177,-8.0231917,,contrôle visuel et dédoublonnage
+Mali,ML,Burger & Co,fast_food_restaurant,0.849,Bamako,+22382636363,http://www.burgerandcomali.com/,12.636468950000566,-8.023975599999787,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376203986,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.64197407,-8.02321559,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320225099,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6495713,-8.0197516,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6344884,-8.0265143,open,contrôle visuel et dédoublonnage
+Mali,ML,Hotel Micasa,hotel,0.913,Bamako,+22320290807,http://www.micasamali.com/,12.63538577,-8.02521895,,contrôle visuel et dédoublonnage
+Mali,ML,Boulangerie Pâtisserie L'Escale Gourmande,bakery,0.867,Bamako,+22370010404,,12.635061405665361,-8.025013251906383,,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.62129228,-8.02594828,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320239961,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6283157,-8.026437,open,contrôle visuel et dédoublonnage
+Mali,ML,Parfums 24 Carats,shopping,0.814,Bamako,+22382821682,,12.631293103041,-8.0282163619995,,contrôle visuel et dédoublonnage
+Mali,ML,Restaurant Colombus Hotel,hotel,0.878,Bamako,,http://www.hotelcolumbus.it/,12.638542906957248,-8.027077509987304,,contrôle visuel et dédoublonnage
+Mali,ML,Discount Market,grocery_store,0.821,Bamako,+22371607070,,12.638618603337,-8.0284430833353,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22374012316,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6334897,-8.032311199999999,open,contrôle visuel et dédoublonnage
+Mali,ML,"Radisson Blu Hotel, Bamako",hotel,1.0,Bamako,+22344290000,https://www.radissonhotels.com/en-us/hotels/radisson-blu-bamako,12.63508849,-8.03090293,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376472374,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6351453,-8.0307018,open,contrôle visuel et dédoublonnage
+Mali,ML,Université montplaisir de Tunis,college_university,0.872,Bamako,+22377074809,,12.62899546,-8.03127921,,contrôle visuel et dédoublonnage
+Mali,ML,Crèche-maternelle SION lumière du monde,preschool,0.869,Bamako,+22362713244,https://malilogistique.com/,12.6273695,-8.0334315,,contrôle visuel et dédoublonnage
+Mali,ML,Lapaire ACI 2000,shopping,0.85,Bamako,+22373599726,https://lapaire.africa/,12.6249943,-8.0350563,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095058-shell-palce-can/fr_ML,12.6267434,-8.03395684,open,contrôle visuel et dédoublonnage
+Mali,ML,Crèche Et Maternelle Éducative Monts & Merveilles Bamako-Mali,elementary_school,0.806,Bamako,+22375262676,,12.637693117642305,-8.032891874460109,,contrôle visuel et dédoublonnage
+Mali,ML,Etablissement Scolaire Aladin,education,0.861,Bamako,+22382081098,,12.638853966658077,-8.032721529205105,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095039-shell-lafiabougou/fr_ML,12.638925,-8.034299,open,contrôle visuel et dédoublonnage
+Mali,ML,Méga Travaux Publics et Particuliers,building_or_construction_service,0.82,Bamako,+22320232313,http://www.mtp-sa.net/,12.638593446262,-8.0345959961414,,contrôle visuel et dédoublonnage
+Mali,ML,Boulangerie Pâtisserie L'Escale Gourmande,bakery,0.868,Bamako,+22370010404,,12.647830086297086,-8.033781293132337,,contrôle visuel et dédoublonnage
+Mali,ML,Université catholique de l'Afrique de l'ouest de Bamako,college_university,0.852,Bamako,+22390068660,http://ucao-uuba.org/,12.647830086297086,-8.033781293132337,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.8,Bamako,,https://find.shell.com/ml/fuel/10128540-shell-kati-point-g,12.689923,-8.030547,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kati,+22376248615,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.71203258,-8.04325885,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22379437358,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.624672,-8.0364505,open,contrôle visuel et dédoublonnage
+Mali,ML,Université du Sahel de Bamako,college_university,0.876,Bamako,+22320220645,http://www.universitesahel.com/,12.63544,-8.03968,,contrôle visuel et dédoublonnage
+Mali,ML,CNPV,government_office,0.839,Bamako,+22368000404,http://www.volontariat.ml/,12.62687227500003,-8.042375175000362,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376789180,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.62834791,-8.04343116,open,contrôle visuel et dédoublonnage
+Mali,ML,Auberge Diatiguiya,hostel,0.857,Kati,+22370160919,,12.69062,-8.04902,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kati,+22378230343,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.7454612,-8.0737625,open,contrôle visuel et dédoublonnage
+Mali,ML,Ecole Privée Bandjougou Camara de Siby,elementary_school,0.832,Siby,,,12.3825,-8.33361,,aucun contact
+Mali,ML,École de Musique de Kirina,school,0.878,Kirina,+22379012723,https://playingforchange.org/ecole-de-musique-de-kirina/,12.3064,-8.15167,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kati,+22375361075,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.56773503,-8.08867633,open,contrôle visuel et dédoublonnage
+Mali,ML,Lycée Mamadou m'Bodj de Sébénikoro-LMBS,elementary_school,0.859,Bamako,+22320235228,http://www.lmbs.ml/,12.58251277145547,-8.077755628613271,,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.57869191,-8.07494017,,contrôle visuel et dédoublonnage
+Mali,ML,Université Yambo Ouologuem de Bamako,college_university,0.895,Kati Ville,,http://www.ulshb.edu.ml/,12.486616894785934,-8.048284674469564,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.4885501,-8.0558931,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376316317,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5982729,-8.0562414,open,contrôle visuel et dédoublonnage
+Mali,ML,Eglise Evangelique Presbyterienne du Mali,christian_place_of_worship,0.881,Bamako,+22320231136,http://eglisepresbyterienne-mali.blog4ever.com/,12.60118439,-8.05648884,,contrôle visuel et dédoublonnage
+Mali,ML,Maya Espace,hotel,0.892,Bamako,+22376433197,,12.608149718457,-8.0516395362464,,contrôle visuel et dédoublonnage
+Mali,ML,GO Etudes,professional_service,0.818,Bamako,+22375279006,http://www.goetudes.com/,12.602567466667113,-8.050773599999957,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095074-shell-sebenikoro/fr_ML,12.60772938,-8.04702735,open,contrôle visuel et dédoublonnage
+Mali,ML,Baco Djicoroni ACI Commissariat De Police 15e Arrondissement,police_station,0.8,Bamako,,,12.605079152857726,-8.0443746473044,,nom administratif/géographique; aucun contact
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376181555,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.61289252,-8.04493662,open,contrôle visuel et dédoublonnage
+Mali,ML,"Chapel Des Vanqueur, Bamako",religious_organization,0.822,Bamako,+22351660098,,12.617759411455,-8.038810847763,,contrôle visuel et dédoublonnage
+Mali,ML,Intecsup,school,0.865,Bamako,,http://intec-sup.com/,12.618944023236791,-8.03809601609006,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095050-shell-djicoroni-para/fr_ML,12.61605606,-8.03845129,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095053-shell-kabala/fr_ML,12.54957344,-8.03357542,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5302245,-8.0301544,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.5582167,-8.0312056,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376227683,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.575774,-8.030149,open,contrôle visuel et dédoublonnage
+Mali,ML,Lycée Mamadou m'Bodj de Sébénikoro-LMBS,elementary_school,0.872,Bamako,+22320235228,http://www.lmbs.ml/,12.585111636374947,-8.025606639392821,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095054-shell-kalabancoro/fr_ML,12.58229471,-8.02374272,open,contrôle visuel et dédoublonnage
+Mali,ML,ITMA,college_university,0.968,Bamako,+22370082323,http://www.itma-mali.com/,12.584826704731,-8.0238604545593,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22398798559,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.58798536,-8.01979075,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10131405-shell-bacodjicoroni-2/fr_ML,12.591676,-8.019993,open,contrôle visuel et dédoublonnage
+Mali,ML,Résidence Nana Palace,resort,0.85,Bamako,+22344388568,http://www.residence-nana-palace.com/,12.5971208,-8.0211872,,contrôle visuel et dédoublonnage
+Mali,ML,Baco Djicoroni ACI Commissariat De Police 15e Arrondissement,police_station,0.816,Bamako,,,12.595536232,-8.022923471,,nom administratif/géographique; aucun contact
+Mali,ML,Université Bazo,college_university,0.848,Bamako,+22377777673,https://universitebazo.com/,12.6174073,-8.0182251,,contrôle visuel et dédoublonnage
+Mali,ML,Groupe Scolaire Les Savoirs,school,0.841,Bamako,+22376516069,,12.579570173577,-8.0184745788574,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376449820,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5783458,-8.0141268,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kati,+22372039927,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.562523,-8.0176454,open,contrôle visuel et dédoublonnage
+Mali,ML,Yanfolila (Mali),arts_and_entertainment,0.802,,,,11.1833333333,-8.15,,localité absente; aucun contact
+Mali,ML,MoneyGram,money_transfer_service,0.95,Yanfolila,+22320225099,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.1780136,-8.1529749,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Yanfolila,+22344977777,https://find.shell.com/ml/fuel/10128543-shell-yanfolila/fr_ML,11.18163079,-8.13901486,open,contrôle visuel et dédoublonnage
+Mali,ML,Cercle de Yanfolila,government_office,0.817,,,,10.916666666667,-8.0833333333333,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Barrage hydroélectrique de Sélingué,historic_site,0.816,Dalabala,,http://en.wikipedia.org/wiki/S%E9lingu%E9_Dam,11.6167,-8.23333,,contrôle visuel et dédoublonnage
+Mali,ML,HOTEL Résidence Kangaba,hotel,0.878,Kangaba,+22378822442,http://www.residencekangaba.net/,11.943491261536112,-8.415563438673582,,contrôle visuel et dédoublonnage
+Mali,ML,Baoulé Kourou,historic_site,0.806,,,,13.9996,-9.4524,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Badinko Faunal Reserve,national_park,0.809,,,,13.494,-10.018,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Yélimané Airport,airport,0.809,,,http://www.ourairports.com/airports/GAYE/,15.133,-10.567,,localité absente
+Mali,ML,Kita Airport,airport,0.817,Kita,,http://fa.wikipedia.org/wiki/%41%31%48%2F%AF%27%47_%A9%CC%2A%27,13.066666666667,-9.4833333333333,,contrôle visuel et dédoublonnage
+Mali,ML,ADF_sarl,shopping,0.866,Bamako,,,12.6109904,-7.9595492,,aucun contact
+Mali,ML,Impact Centre Chretien,christian_place_of_worship,0.95,Bamako,+22373757327,http://www.impactcentrechretien.com/,12.60474096,-7.95949837,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10131402-shell-bougouba/fr_ML,12.651456,-7.955021,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320706800,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.66133174,-7.95552207,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.8,Bamako,,https://find.shell.com/ml/fuel/10095046-shell-banankambougou,12.601758,-7.954327,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6016832,-7.9543837,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.62484775,-7.95492994,,contrôle visuel et dédoublonnage
+Mali,ML,Aeroport international de Bamako-Senou,airport,0.814,Kati,,http://www.aeroport-bamako.com/,12.535126,-7.949553,,contrôle visuel et dédoublonnage
+Mali,ML,BANFPU-1 Rotation-8 MINUSMA Mali,police_station,0.864,Bamako,+22394951543,https://www.police.gov.bd/,12.540523024009659,-7.947557321976039,,contrôle visuel et dédoublonnage
+Mali,ML,Ispatec - Université Privée Bilingue,college_university,0.84,Bamako,+22367878244,http://ispatec.net/,12.540544988281454,-7.9475585513013725,,contrôle visuel et dédoublonnage
+Mali,ML,Boulangerie BTA,bakery,0.853,Bamako,+22379759696,,12.540544988281454,-7.9475585513013725,,contrôle visuel et dédoublonnage
+Mali,ML,Groupe Scolaire Les Savoirs,school,0.841,Bamako,+22376516069,,12.540548211012876,-7.94756468878414,,contrôle visuel et dédoublonnage
+Mali,ML,Crèche Et Maternelle Éducative Monts & Merveilles Bamako-Mali,elementary_school,0.804,Bamako,+22375262676,,12.540548211012876,-7.94756468878414,,contrôle visuel et dédoublonnage
+Mali,ML,HAllE De Bamako SUGU,shopping,0.917,Bamako,+22379258845,http://www.mysugu.com/,12.540548211012876,-7.94756468878414,,contrôle visuel et dédoublonnage
+Mali,ML,Aéroport International Président Modibo Keita,airport,0.871,Kati,,www.aeroport-bamako.com/,12.5405151,-7.9476731,,contrôle visuel et dédoublonnage
+Mali,ML,Aeroport international de Bamako-Senou,airport,0.814,Kati,,http://www.aeroport-bamako.com/,12.535375927370634,-7.9477290048447,,contrôle visuel et dédoublonnage
+Mali,ML,American International School of Bamako,school,0.976,Bamako,+22365300909,https://aisbmali.org/,12.64479321,-7.94775278,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095049-shell-djelibougou/fr_ML,12.663133,-7.947621,open,contrôle visuel et dédoublonnage
+Mali,ML,Les Residences Beti,hotel,0.872,Bamako,+22377288184,https://residencebeti.com/,12.57976243,-7.9473068,,contrôle visuel et dédoublonnage
+Mali,ML,Les Petits Génies,private_school,0.925,Bamako,+22320249212,http://www.lespetitsgeniesaumali.com/,12.66416918,-7.94968302,,contrôle visuel et dédoublonnage
+Mali,ML,Le Savana,restaurant,0.933,Bamako,+22376314156,,12.66302641,-7.9511057,,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.57702194,-7.95062771,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320706042,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6630784,-7.950544099999999,open,contrôle visuel et dédoublonnage
+Mali,ML,Ecosup Alternance,college_university,0.89,Bamako,+22379144114,http://www.ecosupalternance.ml/,12.67309460012162,-7.941126299846971,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10131407-shell-omap/fr_ML,12.571526,-7.940506,open,contrôle visuel et dédoublonnage
+Mali,ML,Senou International Airport,airport,0.819,Bamako,,http://www.aeroport-bamako.com/,12.5377777778,-7.94305555556,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095073-shell-faladie/fr_ML,12.586014,-7.94315,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.58308249,-7.94295876,,contrôle visuel et dédoublonnage
+Mali,ML,Hôtel Le Faso,hotel,0.92,Bamako,+22370044490,,12.58241181,-7.94292715,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320203057,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5879634,-7.9428025,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.58626322,-7.94248941,,contrôle visuel et dédoublonnage
+Mali,ML,Université Privée Ahmed Baba,college_university,0.855,Bamako,+22360833495,http://www.universiteahmedbaba.com/,12.65246005,-7.94174113,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376993171,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.66998616,-7.94233857,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320203134,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.60393194,-7.94567037,open,contrôle visuel et dédoublonnage
+Mali,ML,Bamako-Sénou International Airport (BKO),airport,0.962,Kati,+22366687752,http://www.aeroport-bamako.com,12.541274991305144,-7.946142604348656,,contrôle visuel et dédoublonnage
+Mali,ML,Aéroports du MALI,airport,0.871,Kati,,,12.541190496256107,-7.946419408725257,,aucun contact
+Mali,ML,DigiKréal,grocery_store,0.838,Bamako,+22370626220,,12.51735186,-7.9390074,,contrôle visuel et dédoublonnage
+Mali,ML,BANFPU-1 Rotation-8 MINUSMA Mali,police_station,0.864,Bamako,+22394951543,,12.550511151731,-7.939260006824,,contrôle visuel et dédoublonnage
+Mali,ML,Police Nationale du Mali,police_station,0.807,Bamako,+22320225228,http://www.police.gouv.ml/,12.550361525014,-7.9393199000145,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22370778888,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.58778063,-7.93744885,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22378470004,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5795348,-7.9356215,open,contrôle visuel et dédoublonnage
+Mali,ML,College Noor,education,0.905,Bamako,+22378767643,http://www.collegenour.com/,12.66005234,-7.93378056,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10128542-shell-senou-2/fr_ML,12.49897056,-7.93453774,open,contrôle visuel et dédoublonnage
+Mali,ML,ISFIC Boulkassoumbougou,college_university,0.928,Kati,+22376382821,http://www.isfic.ml/,12.675978477,-7.927975777,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22374393773,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6683334,-7.9286348,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22366965781,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5996737,-7.9289819,open,contrôle visuel et dédoublonnage
+Mali,ML,Stade ouezzin coulibaly,stadium_arena,0.864,Kati,,,12.663267125010826,-7.928852074984467,,aucun contact
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10128549-shell-missabougou-canal/fr_ML,12.63538221,-7.92917223,open,contrôle visuel et dédoublonnage
+Mali,ML,Complexe Scolaire Victoria Soto,preschool,0.918,Bamako,+22366159490,,12.57974067406998,-7.929309199760846,,contrôle visuel et dédoublonnage
+Mali,ML,Twane,restaurant,0.895,Bamako,+22389334444,http://twane.fr/,12.635407454183,-7.9301386800754,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095046-shell-banankambougou/fr_ML,12.60326453,-7.93033447,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095063-shell-senou/fr_ML,12.52443058,-7.93189295,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320703000,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6629398,-7.9328883,open,contrôle visuel et dédoublonnage
+Mali,ML,Collège Royal,high_school,0.934,Bamako,+22371447144,http://www.collegeroyal.ml/,12.726084296948,-7.93212890625,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095041-shell-missabougou/fr_ML,12.62182749,-7.92003345,open,contrôle visuel et dédoublonnage
+Mali,ML,Stade Malien de Bamako,stadium_arena,0.877,Bamako,,http://pl.wikipedia.org/wiki/index.html?curid=1251015,12.60439898,-7.92173524,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22364467834,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.63320754,-7.91843459,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.8,Bamako,,https://find.shell.com/ml/fuel/10128547-shell-magnambougou-secteur-4,12.612988,-7.917704,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Kati,+22370525243,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.68678372,-7.91640715,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22378648189,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6623017,-7.915795,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320241704,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6656439,-7.914402,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Diatoula,+22376387625,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.52310502,-7.91260263,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095047-shell-bankoni/fr_ML,12.660416,-7.960032,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095040-shell-magnambougou/fr_ML,12.60732118,-7.96044676,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22369511173,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6628155,-7.9604594,open,contrôle visuel et dédoublonnage
+Mali,ML,ONOMO Hotel Bamako,resort,0.813,Bamako,+17185464857,https://www.onomohotels.com/,12.5987403,-7.9612087,,indicatif téléphonique incohérent
+Mali,ML,HAllE De Bamako SUGU,shopping,0.895,Bamako,+22379258845,http://www.mysugu.com/,12.594198371851979,-7.962894123707393,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320703000,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.59494544,-7.96205295,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6691787,-7.9620849,open,contrôle visuel et dédoublonnage
+Mali,ML,Hotel la coccinelle,hotel,0.876,Bamako,+22392449093,http://Hotellacoccinelle.com/,12.65953058,-7.9644958,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.95,Bamako,+22344977777,https://find.shell.com/ml/fuel/10128552-shell-halles-de-bamako/fr_ML,12.59302023,-7.9633894,open,contrôle visuel et dédoublonnage
+Mali,ML,Solektra Solar Academy,college_university,0.808,Bamako,+22320211435,http://solaracademy.solektra-international.com/?lang=fr,12.651134955988768,-7.965350526497473,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.8,Bamako,,https://find.shell.com/ml/fuel/10128552-shell-halles-de-bamako,12.590071,-7.965254,,contrôle visuel et dédoublonnage
+Mali,ML,Villa Wilda,hotel,0.92,Bamako,+22392893562,https://qr.menu-touch.fr/?id=11034,12.610903,-7.965167,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376339935,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.60479202,-7.96607336,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095072-shell-avenue-de-l-oua/fr_ML,12.60423588,-7.96961747,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10128548-shell-niamakoro-30-m/fr_ML,12.573306,-7.969926,open,contrôle visuel et dédoublonnage
+Mali,ML,Kings & Queens,fast_food_restaurant,0.865,Bamako,+22391656565,,12.575884254873,-7.9696369171143,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.66870225,-7.96898785,open,contrôle visuel et dédoublonnage
+Mali,ML,L'Ambassade du Danemark au Mali,embassy,0.887,Bamako,+22320705300,http://mali.um.dk/,12.634224454149,-7.9688858985901,,contrôle visuel et dédoublonnage
+Mali,ML,Hotel Tamana,hotel,0.885,Bamako,+22320213715,,12.659439598566124,-7.971709258994172,,contrôle visuel et dédoublonnage
+Mali,ML,Bamako International Church,christian_place_of_worship,0.842,Bamako,+22391803490,,12.59235986,-7.97322098,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376320733,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5974662,-7.9733587,open,contrôle visuel et dédoublonnage
+Mali,ML,Hotel Mandé,hotel,0.819,Bamako,+22320211993,,12.63364892,-7.97423059,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.66627485,-7.97489816,open,contrôle visuel et dédoublonnage
+Mali,ML,École Alphonse De Lamartine,school,0.907,Bamako,+22391696969,https://ecole-alphonsedelamartine.com/,12.64230643378,-7.9761278629303,,contrôle visuel et dédoublonnage
+Mali,ML,Tombouctou BKO,restaurant,0.876,Bamako,+22374484383,,12.655144905511,-7.9760688546594,,contrôle visuel et dédoublonnage
+Mali,ML,Consulat du Bénin au Mali,embassy,0.843,Bamako,+22320212380,http://www.consulatbeninaumali.org/,12.668497827347,-7.9764604568481,,contrôle visuel et dédoublonnage
+Mali,ML,DELTA-C,college_university,0.944,Bamako,+22374877120,http://www.delta-c.net/,12.607348285081436,-7.9757055038994435,,contrôle visuel et dédoublonnage
+Mali,ML,Tombouctou fast food,restaurant,0.899,Bamako,+22374480156,,12.6549721,-7.97510782,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22366743767,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.60700784,-7.97811733,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies ANGEVINS,gas_station,0.85,BAMAKO,,https://totalenergies.ml/,12.6543964,-7.97783191,,contrôle visuel et dédoublonnage
+Mali,ML,Le Byblos Bamako,bar,0.861,Bamako,+22373282101,,12.654647391395,-7.9777162563077,,contrôle visuel et dédoublonnage
+Mali,ML,Shell Select,convenience_store,0.8,Bamako,,https://find.shell.com/ml/fuel/10095055-shell-niamakoro,12.58848,-7.977284,,contrôle visuel et dédoublonnage
+Mali,ML,BENSO music bar,bar,0.833,Bamako,+22399997888,,12.643897674257,-7.9768466949463,,contrôle visuel et dédoublonnage
+Mali,ML,Consulat du Bénin au Mali,embassy,0.857,Bamako,+22320212380,http://www.consulatbeninaumali.org/,12.665378449915,-7.9773187637329,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320225099,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.664215,-7.9786729,open,contrôle visuel et dédoublonnage
+Mali,ML,Hotel Tamana,hotel,0.891,Bamako,+22320213715,,12.658284190659,-7.9800547541097,,contrôle visuel et dédoublonnage
+Mali,ML,Le Loft,hotel,0.904,Bamako,+22320216690,,12.64944146,-7.98093731,,contrôle visuel et dédoublonnage
+Mali,ML,Casa du Fleuve Resto Hotel,hotel,0.925,Bamako,+22320223161,http://casadufleuve.com/,12.62121984,-7.98307141,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320282081,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5674553,-7.9829682,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320218011,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.65412907,-7.98227944,open,contrôle visuel et dédoublonnage
+Mali,ML,Groupe Scolaire Patag,elementary_school,0.855,Bamako,+22376372919,,12.563120876461056,-7.982111159458801,,contrôle visuel et dédoublonnage
+Mali,ML,Burger & Co,fast_food_restaurant,0.849,Bamako,+22382636363,http://www.burgerandcomali.com/,12.564663,-7.982551800000001,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22375287366,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5623626,-7.9808688,open,contrôle visuel et dédoublonnage
+Mali,ML,TOTAL,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.61981141,-7.98475354,,contrôle visuel et dédoublonnage
+Mali,ML,Badala Hotel,hotel,0.93,Bamako,+22320232315,http://badalahotel.net/,12.62551004,-7.98459334,,contrôle visuel et dédoublonnage
+Mali,ML,Centrale Pièces Autos #DC_Auto,auto_parts_store,0.887,Bamako,+22376757552,,12.657172900841,-7.9833118697996,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320706800,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.7149563,-7.98361127,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,,https://totalenergies.ml/,12.5887374,-7.98512695,,contrôle visuel et dédoublonnage
+Mali,ML,Institut des Sciences Appliquées - ISA Mali,middle_school,0.858,Bamako,+22320224421,http://www.isamali.org/,12.616593964419,-7.9855155944824,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22379306734,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5769998,-7.9856457,open,contrôle visuel et dédoublonnage
+Mali,ML,Amandine by Sel et Miel,restaurant,0.861,Bamako,+22376359999,http://www.lamandine-restaurant.com,12.6210419,-7.9856875,,contrôle visuel et dédoublonnage
+Mali,ML,The Sleeping Camel,hotel,0.975,Bamako,+22378175365,http://www.thesleepingcamel.com/,12.62263071,-7.98618647,,contrôle visuel et dédoublonnage
+Mali,ML,Groupe Scolaire Patag,elementary_school,0.849,Bamako,+22376372919,,12.621206913379368,-7.985786051006578,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22365899999,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.58996234,-7.98649493,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095060-shell-sanke/fr_ML,12.57804,-7.986545,open,contrôle visuel et dédoublonnage
+Mali,ML,Université Privée Ahmed Baba,college_university,0.891,Bamako,+22360833495,http://www.universiteahmedbaba.com/,12.64994087500063,-7.987699494999714,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095057-shell-omnisport/fr_ML,12.65904098,-7.98786805,open,contrôle visuel et dédoublonnage
+Mali,ML,"India in Mali (Embassy of India, Bamako)",embassy,0.901,Bamako,+22320220813,https://www.embassyofindiabamako.gov.in/,12.62530354,-7.9885951,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10131401-shell-bozola/fr_ML,12.641496,-7.988593,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376130040,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5657176,-7.9893401,open,contrôle visuel et dédoublonnage
+Mali,ML,ENI-ABT,college_university,0.822,Bamako,,http://www.eni-abt.com/,12.6515036,-7.9915039,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22366149080,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.61879788,-7.98999001,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22321524475,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.638048,-7.9917566,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320203134,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.58866994,-7.99166594,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095032-shell-kalabancoura/fr_ML,12.590492,-7.991757,open,contrôle visuel et dédoublonnage
+Mali,ML,Université Internationale Privée d'Excellence - UIE,college_university,0.812,Bamako,+22378282842,http://uiemali.ac/,12.609184691516003,-7.991840951161399,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10128551-shell-kalaban-coura-2/fr_ML,12.588337,-7.992063,open,contrôle visuel et dédoublonnage
+Mali,ML,WAKA,restaurant,0.878,Bamako,+22344370769,,12.623744950852911,-7.992318303454471,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22366756346,https://www.moneygram.com/r/ml/fr,12.6551863,-7.9933488,open,contrôle visuel et dédoublonnage
+Mali,ML,Hotel Laico (Kempinski) Bamako,hotel,0.829,Bamako,+22373189022,http://Yahoo.fr,12.63835789,-7.99358051,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10128550-shell-quartier-mali/fr_ML,12.6134461,-7.9934616,open,contrôle visuel et dédoublonnage
+Mali,ML,Olympe International Hotel,hotel,0.901,Bamako,+22320729577,,12.60394323,-7.99359509,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376448223,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6038125,-7.9935625,open,contrôle visuel et dédoublonnage
+Mali,ML,TotalEnergies,gas_station,0.85,Bamako,+22366741257,https://totalenergies.ml/,12.5724597,-7.99425266,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Banamba,+22321264168,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.61948046,-7.99466847,open,contrôle visuel et dédoublonnage
+Mali,ML,Consulat Général du Gabon au Mali,embassy,0.847,Bamako,+22363959662,,12.621577527694,-7.9947853088379,,contrôle visuel et dédoublonnage
+Mali,ML,Auberge Diatiguiya,hostel,0.866,Kati,+22370160919,,12.748119600000003,-7.995534500000001,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320706835,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6420151,-7.9961597,open,contrôle visuel et dédoublonnage
+Mali,ML,Chu - Hôpital Gabriel Touré,hospital,0.834,Bamako,,,12.65098581182569,-7.996009167617528,,aucun contact
+Mali,ML,BAZIN Génial .n2,department_store,0.814,Bamako,+22372242585,http://wap.me/+22351880039,12.64741763000816,-7.996452979984393,,contrôle visuel et dédoublonnage
+Mali,ML,ONOMO Hotel Bamako,hotel,0.941,Bamako,+22320706200,www.onomohotel.com,12.63526243,-7.9964371,,contrôle visuel et dédoublonnage
+Mali,ML,Golden Life American Hospital,hospital,0.893,Bamako,+22391221111,http://www.glahospital.com/,12.62354433,-7.99542586,,contrôle visuel et dédoublonnage
+Mali,ML,Meridiana Bamako,lodging,0.822,Bamako,+22379115429,,12.633301056888834,-7.995351415229733,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22378900807,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5646524,-7.9971522,open,contrôle visuel et dédoublonnage
+Mali,ML,Bko Fried Chicken and More,fast_food_restaurant,0.887,Bamako,+22394111195,,12.61623995,-7.99819432,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10131404-shell-chemin-de-fer/fr_ML,12.64804405,-7.99815878,open,contrôle visuel et dédoublonnage
+Mali,ML,ENSup,college_university,0.924,Bamako,+22320222189,http://ensupbamako.edu.ml/,12.6405096,-7.99792,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22320233116,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.6480542,-7.997761,open,contrôle visuel et dédoublonnage
+Mali,ML,Azalai Hotel Dunia,hotel,0.932,Bamako,+22320705200,https://www.azalai.com/azalai-hotel-bamako,12.65018241,-7.9985932,,contrôle visuel et dédoublonnage
+Mali,ML,Layaly Fenikia Restaurant,restaurant,0.918,Bamako,+22367010175,https://beacons.ai/layalyfenikiarestaurant,12.638608,-7.99832215,,contrôle visuel et dédoublonnage
+Mali,ML,Lapaire - Kalaban Coura,shopping,0.85,Bamako,+22392328656,http://www.lapaire.africa/,12.5802542,-7.9989389,,contrôle visuel et dédoublonnage
+Mali,ML,Ecole Hôtelière Chiaka Sidibé,school,0.9,Bamako,+22377208796,https://apfh.net/,12.650062449451557,-7.9989270861220945,,contrôle visuel et dédoublonnage
+Mali,ML,Musée,museum,0.933,Bamako,+22378996709,http://www.museedelafemme.com,12.658476983132248,-7.999320828321652,,contrôle visuel et dédoublonnage
+Mali,ML,Cathédrale De Bamako,christian_place_of_worship,0.959,Bamako,,http://www.cathedrale-bayonne.fr/,12.64324971,-7.99979479,,contrôle visuel et dédoublonnage
+Mali,ML,Azalaï Hotel Bamako,hotel,0.921,Bamako,+22376348730,https://www.azalai.com/azalai-hotel-bamako,12.649772279607348,-7.999521858962392,,contrôle visuel et dédoublonnage
+Mali,ML,CMS centre médico-social de Bamako,hospital,0.93,Bamako,+22320225072,,12.63686,-7.99971,,contrôle visuel et dédoublonnage
+Mali,ML,Université Mary Saint Claire,college_university,0.902,Bamako,+22373616168,http://univmarysaintclaire.com/,12.64963579,-7.999724661,,contrôle visuel et dédoublonnage
+Mali,ML,National Museum,museum,0.947,Bamako,+22320223486,https://musee-national-mali.org/,12.65854102,-7.99969423,,contrôle visuel et dédoublonnage
+Mali,ML,Auto Casse Kany,shopping,0.819,Bamako,+22379575775,,12.6503087,-7.9998088,,contrôle visuel et dédoublonnage
+Mali,ML,Barthelemy Boganda Stadium,stadium_arena,0.818,Bamako,,,12.65041,-8.00005,,aucun contact
+Mali,ML,Université Modibo Kane Dilly,college_university,0.859,Bamako,+22379411634,https://www.tsoft.ml/UMKD,12.65,-8.0,,contrôle visuel et dédoublonnage
+Mali,ML,Endé Logement,lodging,0.843,Bamako,+22375329985,,12.605961,-8.0005494,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22376485369,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.5669677,-8.0004716,open,contrôle visuel et dédoublonnage
+Mali,ML,La PLANTATION,restaurant,0.837,Bamako,+22376761219,,12.645453057938568,-8.000701387610912,,contrôle visuel et dédoublonnage
+Mali,ML,Enko Bamako International School,middle_school,0.893,Bamako,+22371862765,https://www.enkoeducation.com/fr/enko-bamako/home,12.63752882,-8.00070749,,contrôle visuel et dédoublonnage
+Mali,ML,Librairie Papeterie le Larousse,shopping_mall,0.82,Bamako,+22379794040,http://www.librairiepapeterielelarousse.com/,12.64028924,-8.00044249,,contrôle visuel et dédoublonnage
+Mali,ML,Parc National du Mali - Officiel,national_park,0.952,Bamako,+22369303003,,12.6632,-8.00109,,contrôle visuel et dédoublonnage
+Mali,ML,Présidence de la République du Mali,government_office,0.854,Bamako,+22320702000,http://www.koulouba.ml/,12.6635426,-8.0010127,,contrôle visuel et dédoublonnage
+Mali,ML,La Tombouctienne,grocery_store,0.806,Bamako,+22376109061,,12.645,-8.0009,,contrôle visuel et dédoublonnage
+Mali,ML,Villa Wilda,hotel,0.905,Bamako,+22392893562,https://qr.menu-touch.fr/?id=11034,12.645,-8.0009,,contrôle visuel et dédoublonnage
+Mali,ML,L'Ecole Papyrus,school,0.877,Bamako,+22366609898,http://ecolepapyrus.ml/,12.645,-8.0009,,contrôle visuel et dédoublonnage
+Mali,ML,CVS mobile west africa,professional_service,0.836,Bamako,+22375350000,http://www.cvs-mobile.dz/cvs-mobile/,12.645,-8.0009,,contrôle visuel et dédoublonnage
+Mali,ML,Endé Logement,lodging,0.842,Bamako,+22375329985,,12.645,-8.0009,,contrôle visuel et dédoublonnage
+Mali,ML,Complexe Scolaire Lanseni Sountoura,school,0.834,Bamako,+22366282573,,12.647142936606,-8.0013084411621,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22370180888,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.63925484,-8.00286499,open,contrôle visuel et dédoublonnage
+Mali,ML,EPHEP Smart School,college_university,0.9,Bamako,+22399802760,http://www.ephepmali.com/,12.576537015011368,-8.002396061379322,,contrôle visuel et dédoublonnage
+Mali,ML,Pont du roi Fahd,historic_site,0.815,Bamako,,http://es.wikipedia.org/wiki/Puente_del_Rey_Fahd,12.62361111,-8.00477778,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Sikasso,+22320239961,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.63598359,-8.00529256,open,contrôle visuel et dédoublonnage
+Mali,ML,Présidence de la République du Mali,government_office,0.87,Bamako,+22320702000,http://www.koulouba.ml/,12.65895866048,-8.0061622646568,,contrôle visuel et dédoublonnage
+Mali,ML,Shell Select,convenience_store,0.8,Bamako,,https://find.shell.com/ml/fuel/10095059-shell-place-de-l-independance,12.636246,-8.005981,,contrôle visuel et dédoublonnage
+Mali,ML,Montessori Bamako International School,school,0.894,Bamako,+22370226722,https://mbischools.org/contact,12.5693772,-8.0070785,,contrôle visuel et dédoublonnage
+Mali,ML,Azalaï Hotel Bamako,hotel,0.849,Bamako,+22344904944,www.azalaihotels.com,12.62947675,-8.00817849,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.95,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095059-shell-place-de-l-independance/fr_ML,12.64499913,-8.00954616,open,contrôle visuel et dédoublonnage
+Mali,ML,Université EUTG Mali,college_university,0.954,Bamako,+22377254035,http://www.eutg-mali.com/,12.583481134491961,-8.009404551873802,,contrôle visuel et dédoublonnage
+Mali,ML,Centre  Indielou - volet éducation de D.H.A,school,0.843,Bamako,+22376037155,,12.534256930924,-8.0087413819274,,contrôle visuel et dédoublonnage
+Mali,ML,Complexe Scolaire Youchaou : EPY CPY LEKT,high_school,0.864,,+22376295838,https://www.epyschool.org/,12.5639367,-8.0122959,,localité absente
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22392032686,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.535298,-8.0105342,open,contrôle visuel et dédoublonnage
+Mali,ML,Diakauto,auto_parts_store,0.852,Bamako,+22375666600,,12.628352414559,-8.0115890549496,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22366569967,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.61657524,-7.9021147,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095070-shell-yirimadio2/fr_ML,12.608956,-7.904083,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Bamako,+22344977777,https://find.shell.com/ml/fuel/10095068-shell-titibougou/fr_ML,12.669097,-7.906115,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Bamako,+22366745177,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.68350764,-7.89337263,open,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.8,Bamako,,https://find.shell.com/ml/fuel/10128546-shell-moribaboubou,12.690692,-7.8635,,contrôle visuel et dédoublonnage
+Mali,ML,庫里克羅,historic_site,0.809,,,,12.8666666667,-7.56666666667,,écriture/langue à contrôler; localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Shell,gas_station,0.99,Bougouni,+22344977777,https://find.shell.com/ml/fuel/10128544-shell-bougouni/fr_ML,11.42950212,-7.49684524,open,contrôle visuel et dédoublonnage
+Mali,ML,KPU Kab.Kuantan Singingi,government_office,0.804,,+628117683076,http://kab-kuantansingingi.kpu.go.id/,11.896915959499,-6.7253494262695,,localité absente; indicatif téléphonique incohérent
+Mali,ML,Mahandiabani (vattendrag),historic_site,0.804,,,,11.11049,-6.44245,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Cercle de Barouéli,government_office,0.806,,,,13.0,-6.6666666666667,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Médrassa Fawzou-Darayni  مدرسة فوز الدارين,school,0.821,Ségou,+22378727181,,13.427600378587783,-6.273631920227642,,contrôle visuel et dédoublonnage
+Mali,ML,Groupe Hôtel Savane,hotel,0.968,Ségou,+22321320974,http://www.motelsavane.com/,13.43612166885792,-6.277159951742215,,contrôle visuel et dédoublonnage
+Mali,ML,Centre Kassoum Coulibaly - CKC,school,0.808,Ségoukoura,+22372267799,http://www.kassoumcoulibaly.org/,13.4460446,-6.2515038,,contrôle visuel et dédoublonnage
+Mali,ML,Centre de Formation DONI BLON,college_university,0.894,Ségou,+22376301432,,13.449989352507435,-6.251585345011951,,contrôle visuel et dédoublonnage
+Mali,ML,Hôtel l'Auberge,hotel,0.888,Ségou,+22384335555,https://www.hotel-auberge-independance.com/,13.4489925,-6.2647132,,contrôle visuel et dédoublonnage
+Mali,ML,Hôtel Vue de l'Esplanade,hotel,0.953,Ségou,+22384336666,https://hotel-auberge-independance.com/,13.4492917,-6.26736758,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Segou,+22379046729,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.4483331,-6.26729,open,contrôle visuel et dédoublonnage
+Mali,ML,Centre de Formation DONI BLON,college_university,0.918,Ségou,+22376301432,,13.45,-6.26667,,contrôle visuel et dédoublonnage
+Mali,ML,Groupe Hôtel Savane,hotel,0.96,Ségou,+22321320974,,13.45,-6.26667,,contrôle visuel et dédoublonnage
+Mali,ML,Hôtel Du Cinquantenaire,hotel,0.888,Cercle de Sikasso,+22321622955,http://www.hotelducinquantenaire.com/,11.31416997,-5.69724353,,contrôle visuel et dédoublonnage
+Mali,ML,Hamdallaye Sikasso,hospital,0.828,Sikasso,,,11.29955,-5.70055,,aucun contact
+Mali,ML,𝐁𝐨𝐮𝐭𝐢𝐪𝐮𝐞 𝐌𝐞𝐢𝐥𝐥𝐞𝐮𝐫 𝐁𝐚𝐳𝐢𝐧,shopping,0.814,Sikasso,+22376101044,,11.315691783535,-5.6678042,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Sikasso,+22321621016,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.3143393,-5.6699528,open,contrôle visuel et dédoublonnage
+Mali,ML,Bougouni (ort i Mali),historic_site,0.801,Bougouni,,,11.30439,-5.60854,,aucun contact
+Mali,ML,Cercle de Koutiala,government_office,0.828,Koutiala,,,12.333333333333,-5.5833333333333,,nom administratif/géographique; aucun contact
+Mali,ML,Grande mosquée de Djenné,muslim_place_of_worship,0.838,Djénné,,http://zh.wikipedia.org/zh-tw/%70%85%27%05%1F%FA,13.905277777778,-4.5555555555556,,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Tominian,+22320203134,https://www.moneygram.com/r/ml/fr?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.28568794,-4.590795,open,contrôle visuel et dédoublonnage
+Mali,ML,Cercle de San,government_office,0.808,,,,13.3,-4.9,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Ténenkou Cercle,government_office,0.8,,,,14.666666666667,-5.0,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Alèb Talha,historic_site,0.802,,,,16.95058,-3.03846,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,MUSÉE Municipal Toumboutou Koy Batouma,social_or_community_service,0.815,Tombouctou,+22379371091,,16.7701684,-3.0042592,,contrôle visuel et dédoublonnage
+Mali,ML,Bandiagaraklippan (klint i Mali),historic_site,0.809,,,,14.41667,-3.31667,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Hôtel Ambedjele,hotel,0.867,Mopti,+22321421031,http://www.ambedjelehotel.com/,14.51946163771972,-4.129995456259196,,contrôle visuel et dédoublonnage
+Mali,ML,Shell,gas_station,0.99,Sevare,+22344977777,https://find.shell.com/ml/fuel/10095064-shell-sevare/fr_ML,14.52923018,-4.09172704,open,contrôle visuel et dédoublonnage
+Mali,ML,MoneyGram,money_transfer_service,0.95,Sevare,+22320225099,,14.53010446,-4.09152237,open,contrôle visuel et dédoublonnage
+Mali,ML,Aéroport international de Mopti Ambodédjo,airport,0.805,Mopti,,http://id.wikipedia.org/wiki/index.html?curid=206859,14.508612,-4.084167,,contrôle visuel et dédoublonnage
+Mali,ML,Aéroport international de Mopti Ambodédjo,airport,0.805,Mopti,,http://id.wikipedia.org/wiki/index.html?curid=206859,14.5127777778,-4.07944444444,,contrôle visuel et dédoublonnage
+Mali,ML,Aeroport International de Mopti,airport,0.81,Mopti,+22376691199,http://id.wikipedia.org/wiki/index.html?curid=206859,14.51126346,-4.08104255,,contrôle visuel et dédoublonnage
+Mali,ML,Hôpital Somine Dolo,hospital,0.937,Sévaré,,,14.54109545111505,-4.08438396035304,,aucun contact
+Mali,ML,Lycée public de Bandiagara,high_school,0.806,Bandiagara,+22363404424,,14.354060700000003,-3.6130660000000008,,contrôle visuel et dédoublonnage
+Mali,ML,Lycée public de Bandiagara,high_school,0.822,Bandiagara,+22363404424,,14.3480607,-3.6099604,,contrôle visuel et dédoublonnage
+Mali,ML,Goundam Cercle,government_office,0.818,,,,16.397594963375216,-3.66338821531225,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Lac Fati,historic_site,0.82,,,,16.2845514,-3.6845398,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Cercle de Gourma-Rharous,government_office,0.816,,,,16.87959106,-1.92488258,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Cercle de Bourem,government_office,0.817,,,,16.946,-0.313,,nom administratif/géographique; localité absente; aucun contact
+Mali,ML,Gao International Airport,airport,0.827,Gao,,http://www.ourairports.com/airports/GAGO/,16.248333333333,0.0055555555555556,,contrôle visuel et dédoublonnage
+Mali,ML,Gao International Airport,airport,0.827,Gao,,http://www.ourairports.com/airports/GAGO/,16.251792214114758,-0.0070357631257670404,,contrôle visuel et dédoublonnage
+Mali,ML,Gao International Airport,airport,0.827,Gao,,http://www.ourairports.com/airports/GAGO/,16.248333333333,-0.0058333333333333,,contrôle visuel et dédoublonnage
+Mali,ML,Pont de Wabaria,historic_site,0.811,,,,16.194605,-0.028414,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Maison des jeunes de Gao,music_venue,0.897,Gao,+22372963240,,16.282658350001196,-0.04372477500166652,,contrôle visuel et dédoublonnage
+Mali,ML,Clinique Médicale Du Nord,health_care,0.852,Gao,+22367561177,http://www.cliniquedunord.com/,16.265849560000085,-0.04807850000035066,,contrôle visuel et dédoublonnage
+Mali,ML,Clinique Médicale Du Nord,health_care,0.836,Gao,+22367561177,http://www.cliniquedunord.com/,16.2667,-0.05,,contrôle visuel et dédoublonnage
+Mali,ML,Maison des jeunes de Gao,music_venue,0.879,Gao,+22372963240,,16.2667,-0.05,,contrôle visuel et dédoublonnage
+Mali,ML,Tessalit Cercle,government_office,0.803,Bamako,,,20.0,0.16666666666667,,nom administratif/géographique; aucun contact
+Mali,ML,Aérodrome de Tessalit,airport,0.803,Tessalit,,http://fa.wikipedia.org/wiki/%41%31%48%2F%AF%27%47_%2A%33%27%44%CC%2A,20.14465,-0.0058507,,contrôle visuel et dédoublonnage
+Mali,ML,Premium Market Mali,grocery_store,0.828,Bamako,+22374277474,,18.18241928606,-0.28717540204525,,contrôle visuel et dédoublonnage
+Mali,ML,Aït Mouleï,historic_site,0.803,,,,20.2336,-0.9178,,localité absente; aucun contact; lieu à confirmer sur carte
+Mali,ML,Massaley Hotel officiel,hotel,0.9,Bamako,+22372714840,http://www.hotelmassaley.com/,17.096605941844,-0.99968519735153,,contrôle visuel et dédoublonnage
+Mali,ML,Specialty Store Nijmegen,clothing_store,0.802,,+31242036213,http://www.specialtystore.nl/,21.77777883611,-0.79170227050781,,localité absente; indicatif téléphonique incohérent
+Mali,ML,Kidal Airport,airport,0.815,Kidal,,http://en.wikipedia.org/wiki/Kidal_Airport,18.433,1.417,,contrôle visuel et dédoublonnage
+Mali,ML,Bilingual School of Bamako,preschool,0.861,Bamako,+22375109495,,15.284185114076,0.703125,,contrôle visuel et dédoublonnage
+Mali,ML,Cercle d'Abeïbara,historic_site,0.806,,,,19.48878,2.20025,,nom administratif/géographique; localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Gare de Niangoloko,historic_site,0.8,Niangoloko,,,10.272282000000002,-4.9145288,,aucun contact
+Burkina Faso,BF,Groupe Scolaire George Washington - GSGW,school,0.808,Niangoloko,+22620917515,http://www.gsgwonline.com/,10.2779126,-4.9182713,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Commune de Niangoloko-Cité hospitalière de SANTA,hospital,0.967,Niangoloko,+22670286505,,10.267569748890516,-4.926589416966327,,nom administratif/géographique
+Burkina Faso,BF,CEEP Privé LE PETIT MONDE de Banfora,preschool,0.868,Banfora,+22657110455,https://petitmondebanfora.com/,10.65969,-4.90639,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Banfora,,https://bf.totalenergies.com/,10.6285957,-4.7650838,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.999,Banfora,+22625327600,https://find.shell.com/bf/fuel/10123727-shell-banfora,10.634014,-4.76377,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Gare de Banfora,train_station,0.815,Banfora,,,10.645743,-4.763282,,aucun contact
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Banfora,+22620910172,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,10.6382635,-4.7561953,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cascades Palace Hotel,hotel,0.948,Banfora,+22620912828,,10.653881029611712,-4.741069061150127,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Babourou (vattendrag i Burkina Faso),historic_site,0.806,,,,10.1,-4.35,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Koulo (periodiskt vattendrag i Burkina Faso),historic_site,0.806,,,,11.34395,-4.62175,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Falaise de Banfora,historic_site,0.816,,,,10.93333,-4.5,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Farakoba (periodiskt vattendrag i Burkina Faso),historic_site,0.807,,,,11.11615,-4.41337,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo Province,,https://bf.totalenergies.com/,11.133951,-4.3986,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,+22678012636,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.17675759,-4.30631148,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre MURAZ - Burkina Faso,college_university,0.871,Bobo-Dioulasso,+22620970102,http://www.centre-muraz.bf/,11.180275823870506,-4.304886804309283,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Yadega Auto &Moto École,school,0.922,Bobo Dioulasso,+22670222936,,11.16918,-4.29969,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Université Aube Nouvelle / Bobo-Dioulasso,college_university,0.911,Bobo Dioulasso,+22662859886,https://maps.app.goo.gl/17HfKRvBRk1vGJNw9?g_st=ac,11.16918,-4.29969,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,EAC Temple Bethel Colsama,christian_place_of_worship,0.879,Bobo-Dioulasso,+22671071789,http://eacbf-templebethel.org/,11.16918,-4.29969,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,IAMBobo,college_university,0.885,Bobo-Dioulasso,+22603035959,http://www.iamburkina.com/,11.16918,-4.29969,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Commune de Bobo-Dioulasso,government_office,0.906,Bobo-Dioulasso,,https://mairie-bobo.com/,11.16918,-4.29969,,nom administratif/géographique
+Burkina Faso,BF,Ucao Uub,college_university,0.857,Bobo-Dioulasso,+22620962306,http://www.ucao-uub.bf/,11.1691799,-4.2996898,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.17484617,-4.30139663,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Yadega Auto &Moto École,school,0.942,Bobo Dioulasso,+22670222936,,11.198346615324,-4.3020808696747,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Municipal Vinama Thiemounou Djibril,high_school,0.852,Bobo-Dioulasso,+22620972314,,11.2,-4.3,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,+22670272836,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.2102638,-4.3075747,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,car_wash,0.85,Bobo-Dioulasso,+22670958076,https://bf.totalenergies.com/,11.1783536,-4.30723165,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Gare de Bobo-Dioulasso,train_station,0.816,Bobo-Dioulasso,,,11.178522,-4.306885,,aucun contact
+Burkina Faso,BF,Siguin Vousse,bar,0.883,Bobo-Dioulasso,+22620971032,,11.17284417,-4.3068271,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôtel-Restaurant les 2Palmiers,restaurant,0.875,Bobo-Dioulasso,+22620972759,https://hrles2palmiers.com/,11.175742,-4.311128,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-dioulasso,+22674342121,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.1898053,-4.3111168,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Résidence ELOMA,hotel,0.847,Bobo-Dioulasso,+22669231229,,11.187336399750075,-4.310347865565354,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ucao Uub,college_university,0.897,Bobo-Dioulasso,+22620962306,http://www.ucao-uub.bf/,11.223724800000001,-4.31108,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,,https://bf.totalenergies.com/,11.18443232,-4.28650917,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hotel Villa Rose,hotel,0.962,Bobo-Dioulasso,+22620976758,http://www.villarosebobodioulasso.com/,11.17119749,-4.28892585,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Private School Charles Degaulle 1,high_school,0.862,Bobo-Dioulasso,+22670085434,,11.19029944,-4.29429485,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,+22620970247,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.1901528,-4.2952412,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,car_wash,0.85,Bobo-Dioulasso,+22676640529,https://bf.totalenergies.com/,11.18585631,-4.29649416,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Grande Mosquée De Bobo-Dioulasso,christian_place_of_worship,0.92,Bobo-Dioulasso,,,11.185385181,-4.296373827,,aucun contact
+Burkina Faso,BF,Grande Mosquée de Bobo-Dioulasso,muslim_place_of_worship,0.807,Bobo-Dioulasso,,,11.17779554,-4.29602547,,aucun contact
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,+22669664297,https://bf.totalenergies.com/,11.17984917,-4.29688888,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.999,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123725-shell-liberte,11.182585,-4.298551,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,M24 Bobo Dioulasso,convenience_store,0.852,Bobo-Dioulasso,+22655500505,,11.174312867749999,-4.298721098461539,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,+22625496031,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.172736,-4.2968844,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123825-shell-bolomakote,11.167228,-4.296256,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Texas Café Bar & Restaurant,bar,0.898,Bobo-Dioulasso,+22604040407,https://maps.app.goo.gl/S6WFuroBpEyrDLrY9,11.16832,-4.28356,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Tanoudja Résidence Hôtelière,hotel,0.899,Bobo-Dioulasso,+22620982598,http://www.tanoudja.com/,11.162219701434712,-4.283425830575844,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,+22620981621,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.1758442,-4.2825168,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,+22670220537,https://bf.totalenergies.com/,11.18361974,-4.28348377,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Auberge Des Jumeaux,hotel,0.82,Bobo-Dioulasso,+22670231557,,11.1833,-4.2833,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Collège privé la Lumière - Bobo-Dioulasso,middle_school,0.819,Bobo-Dioulasso,+22651848446,,11.1833,-4.2833,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Grande Mosquée De Bobo-Dioulasso,christian_place_of_worship,0.926,Bobo-Dioulasso,,,11.1833,-4.2833,,aucun contact
+Burkina Faso,BF,IFFA /matourkou,college_university,0.86,Bobo-Dioulasso,+22670244702,,11.185140000000002,-4.2782100000000005,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123840-shell-bindougousso,11.18329921,-4.27915686,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Annexe Tanoudja,hotel,0.819,Bobo-Dioulasso,+22601624646,,11.172223150944692,-4.281342090702009,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,ImmoCom / FASO,real_estate_service,0.899,Bobo-Dioulasso,+22676462402,,11.172766444693426,-4.278971751875298,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Scolaire FEZA International,school,0.888,Bobo-Dioulasso,+22654891222,,11.165060305001088,-4.27628359499949,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Amora restaurant,restaurant,0.831,Bobo-Dioulasso,+22660700000,,11.163613,-4.276422,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Wassakay,bar,0.809,Bobo-Dioulasso,+22660076107,,11.18515876,-4.27621375,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Institut Supérieur Privé As-Salam - IAS,college_university,0.845,Bobo-Dioulasso,+22676070679,https://ias-bf.com/,11.172156154233,-4.2666116,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123740-shell-route-ouaga-1,11.171347,-4.267993,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Le Royal Bobo,bar,0.834,Bobo-Dioulasso,+22620974747,,11.170977,-4.270306,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123755-shell-route-dedougou,11.22248015,-4.28468275,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,+22665982934,https://bf.totalenergies.com/,11.24044374,-4.28325262,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Université Aube Nouvelle / Bobo-Dioulasso,college_university,0.939,Bobo Dioulasso,+22662859886,https://maps.app.goo.gl/17HfKRvBRk1vGJNw9?g_st=ac,11.204419226861,-4.3202018737793,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Imprimerie Centrale de Bobo,professional_service,0.841,Bobo-Dioulasso,+22670096812,http://imprimerieicb.e-monsite.com/pages/accueil.html,11.180001713658,-4.31889295578,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,EAC Temple Bethel Colsama,christian_place_of_worship,0.889,Bobo-Dioulasso,+22671071789,http://eacbf-templebethel.org/,11.184152300000001,-4.31835495,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,,https://bf.totalenergies.com/,11.1819677,-4.31545431,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,+22625312323,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.18946743,-4.32191488,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Wifama Hotel,hotel,0.949,Bobo-Dioulasso,+22620980127,,11.19329458,-4.32796915,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123745-shell-route-du-stade,11.183108,-4.330583,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Conseil Régional des Hauts-Bassins,government_office,0.873,Bobo-Dioulasso,+22620976959,http://www.cr.hautsbassins.bf/,11.18652222,-4.33041186,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Collège privé la Lumière - Bobo-Dioulasso,middle_school,0.806,Bobo-Dioulasso,+22651848446,,11.180611666667001,-4.3282366666667,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,+22676620939,https://bf.totalenergies.com/,11.14481232,-4.32825682,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,+22664289557,https://bf.totalenergies.com/,11.12529034,-4.32825655,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Private School Maxwell,high_school,0.898,Bobo-Dioulasso,+22656619696,,11.14796345,-4.33369243,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123857-shell-belle-ville,11.179727,-4.347706,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Barista BF,cafe,0.859,Bobo Dioulasso,+22666031462,,11.181854148881,-4.3575837762475,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La Maison Maxim'A,hotel,0.812,Bobo Dioulasso,,,11.136297653285,-4.3574523925781,,aucun contact
+Burkina Faso,BF,Nayala Province,government_office,0.809,,,,12.633333333333,-4.4166666666667,,nom administratif/géographique; localité absente; aucun contact
+Burkina Faso,BF,Bérégadougou,government_office,0.804,,,,10.766666666667,-4.75,,localité absente; aucun contact
+Burkina Faso,BF,Le Motel De Orodara,hotel,0.873,Orodara,+22673468060,,10.9492,-4.93417,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Orodara,+22625327600,https://find.shell.com/bf/fuel/10123827-shell-orodara,10.98255731,-4.91361768,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Provincia di Kénédougou,government_office,0.803,,,,11.416666666667,-5.0,,localité absente; aucun contact
+Burkina Faso,BF,Kaféré Katara,historic_site,0.809,,,,10.95,-5.16667,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Université Daniel Ouezzin Coulibaly,education,0.886,Dédougou,+22620521270,http://www.univ-dedougou.gov.bf/,12.46143,-3.46702,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Province du Mouhoun,government_office,0.812,,,,12.45,-3.4666666666667,,nom administratif/géographique; localité absente; aucun contact
+Burkina Faso,BF,HOTEL Diarra,hotel,0.833,,+22620520148,,12.453543,-3.455505,,localité absente
+Burkina Faso,BF,Crèche Najaba,preschool,0.883,Dédougou,+22670445050,,12.4883476,-3.4340176,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pharmacie Ave Maria Plus,pharmacy,0.863,Houndé,+22670056767,,11.47174938,-3.52804346,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Nouna,+22625327600,https://find.shell.com/bf/fuel/10123723-shell-nouna-do,12.73292793,-3.85142601,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Mare aux Hippopotames,national_park,0.811,,,http://www.protectedplanet.net/sites/Mare_Aux_Hippopotames_Bird_Reserve,11.6167,-4.1333,,localité absente; lieu à confirmer sur carte
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Bobo-Dioulasso,,https://bf.totalenergies.com/,11.15820971,-4.16866511,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Bobo-Dioulasso,+22620975105,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.16904211,-4.24899993,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bobo-Dioulasso,+22625327600,https://find.shell.com/bf/fuel/10123729-shell-route-ouaga-2,11.170087,-4.253966,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Auberge Des Jumeaux,hotel,0.82,Bobo-Dioulasso,+22670231557,,11.1698623,-4.2531238,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hotel Sya,hotel,0.884,Bobo-Dioulasso,+22676614041,,11.16754572,-4.23935658,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Kéléworo,historic_site,0.803,,,,10.0,-3.95,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Loropeni Provincia de Poni (Burkina Faso),government_office,0.811,,,,10.3,-3.53333333333,,localité absente; aucun contact
+Burkina Faso,BF,Mont Koya,historic_site,0.802,,,,10.2375,-3.0567,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Shell,gas_station,0.99,Gaoua,+22625327600,https://find.shell.com/bf/fuel/10123732-shell-gaoua-2,10.33095494,-3.1953022,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Hôtelier les Cauris de Diki,restaurant,0.884,Gaoua,+22620900808,,10.335910380738481,-3.1799396283809322,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe HÔTelier Les Cauris De Diki,hotel,0.844,Gaoua,+22620900808,,10.2992,-3.25083,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Founzan,+22625327600,https://find.shell.com/bf/fuel/10125742-shell-founzan,11.47655074,-3.23710714,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Mairie de Diébougou officiel,government_office,0.908,Diébougou,+22620905274,,10.9764562,-3.2476088,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Maquis Resto Eldorado,bar,0.856,Diébougou,+22671917115,,10.971900050002532,-3.2490518999707034,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Diébougou Airport,airport,0.814,Kpakpara,,http://en.wikipedia.org/wiki/index.html?curid=40326736,10.948166666667,-3.2498611111111,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Maquis Resto Eldorado,bar,0.85,Diébougou,+22671917115,,10.9617042,-3.2521637,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,college pierre kula de diebougou cpk,high_school,0.954,Diébougou,+22620905293,,10.9617042,-3.2521637,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Province du Sourou,historic_site,0.806,,,,13.25,-3.0,,nom administratif/géographique; localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,La Détente - Café restaurant,cafe,0.854,Boromo,+22654895695,,11.75,-2.93333,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Privé Limanya de Boromo,elementary_school,0.859,Boromo,+22676059511,https://www.unicef.org/bfa/french/,11.75,-2.93333,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ouahabou,arts_and_entertainment,0.801,,,,11.683333333333,-3.1,,localité absente; aucun contact
+Burkina Faso,BF,Ouahabou,arts_and_entertainment,0.801,,,,11.689944000000002,-3.0986050000000005,,localité absente; aucun contact
+Burkina Faso,BF,Résidence Belle Vue de Dissin,hotel,0.837,Dissin,+22620907710,http://burkina-residencebellevue.com/,10.9333,-2.93333,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,"Koumbia, Balé, Burkina Faso",government_office,0.809,,,,11.385605,-2.793012,,localité absente; aucun contact
+Burkina Faso,BF,Ouessa Department,government_office,0.816,,,,11.05,-2.78333333,,localité absente; aucun contact
+Burkina Faso,BF,Marigot de Koudougou,historic_site,0.806,,,,11.91667,-2.86667,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Toma (Burkina Faso),government_office,0.814,,,,12.766666666667,-2.8833333333333,,localité absente; aucun contact
+Burkina Faso,BF,Lycée français Saint Exupéry - OUAGA,high_school,0.887,Ouagadougou,+22625312763,http://www.lfse.org/,12.726084296948,-2.63671875,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Boulkiemdé Province,government_office,0.822,Koudougou,,,12.371691009,-2.59027940221,,nom administratif/géographique; aucun contact
+Burkina Faso,BF,Province du Sanguié,historic_site,0.822,Réo,,,12.316666666667,-2.4666666666667,,nom administratif/géographique; aucun contact
+Burkina Faso,BF,Collège Privé Wendlamita de Ouahigouya,high_school,0.928,Ouahigouya,+22624550625,,13.58106685,-2.42449768,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouahigouya,+22625327600,https://find.shell.com/bf/fuel/10123782-shell-ouahigouya,13.58051786,-2.42230264,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ebaaf telecom,mobile_phone_store,0.845,Ouahigouya,+22678837883,,13.575358976823,-2.4173383712769,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ouahigouya Airport,airport,0.854,Ouahigouya,,http://fa.wikipedia.org/wiki/index.html?curid=1352467,13.56711,-2.416988,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Prowincja Yatenga,historic_site,0.819,Ouahigouya,,,13.58333,-2.41667,,aucun contact
+Burkina Faso,BF,Université Lédéa Bernard Ouédraogo-ULBO,college_university,0.909,Ouahigouya,+22625391101,http://www.mesrsi.gov.bf/,13.5833,-2.41667,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Institut supérieur de gestion de ouahigouya,college_university,0.862,Ouahigouya,+22624553244,http://www.gisgo-sm.com/,13.5833,-2.41667,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ebaaf telecom,mobile_phone_store,0.823,Ouahigouya,+22678837883,,13.5833,-2.41667,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Collège Privé Wendlamita de Ouahigouya,high_school,0.954,Ouahigouya,+22624550625,,13.5833,-2.41667,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouahigouya,+22678270336,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.5717924,-2.4155791,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouahigouya,+22625327600,https://find.shell.com/bf/fuel/10125730-shell-ouahigouya-2,13.53112375,-2.40250894,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Planète Fashion Shop,shopping,0.825,Koudougou,,,12.259638260000008,-2.3916960599999992,,aucun contact
+Burkina Faso,BF,Planète Fashion Shop,shopping,0.822,Koudougou,,,12.259097290898,-2.3915755748749,,aucun contact
+Burkina Faso,BF,Ramonwende Hôtel - RH,hotel,0.951,Koudougou,+22673190000,,12.250339246927188,-2.3855112347203318,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hassan Accessoires Koudougou,mobile_phone_store,0.848,Koudougou,+22674290505,,12.254658946983,-2.3816585575696,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Koudougou,+22679534430,https://bf.totalenergies.com/,12.25469652,-2.379847,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouaga Province,,https://bf.totalenergies.com/,12.325871,-2.371502,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pharmacie Laafia Koudougou,pharmacy,0.807,Koudougou,+22625440060,,12.25,-2.36667,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Koudougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.249642,-2.3608682,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Koudougou,+22625440745,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.2518906,-2.3478063,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Koudougou,+22625327600,https://find.shell.com/bf/fuel/10123752-shell-koudougou-1,12.25318433,-2.34991364,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ramonwende Hôtel - RH,hotel,0.928,Koudougou,+22673190000,,12.2661857,-2.3560897,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Gourcy,+22625327600,https://find.shell.com/bf/fuel/10125744-shell-gourcy-do,13.18691283,-2.35505018,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Paroisse Notre Dame de la Miséricorde,christian_place_of_worship,0.85,Koudougou,+22625441106,,12.25835743,-2.3340154,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Splendid Hotel Koudougou,hotel,0.839,Koudougou,,,12.253340791184794,-2.329484285128077,,aucun contact
+Burkina Faso,BF,Salbisgo-Dapoya,government_office,0.811,,,,12.2,-2.3166666666667,,localité absente; aucun contact
+Burkina Faso,BF,Godin-Oualogtinga,government_office,0.808,,,,12.377895125567012,-2.301287237525773,,localité absente; aucun contact
+Burkina Faso,BF,Yako Airport,airport,0.804,Yako,,,12.9558,-2.27439,,aucun contact
+Burkina Faso,BF,Provincia di Passoré,government_office,0.824,Yako,,,12.95,-2.2666666666667,,aucun contact
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouaga Province,,https://bf.totalenergies.com/,12.96150129,-2.26088984,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,S PASS Telecom,electronics_store,0.887,Yako,+22676678868,,12.96254541,-2.25818082,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Sabou,+22625327600,https://find.shell.com/bf/fuel/10123788-shell-sabou,12.057605,-2.23391078,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôpital de District Saint Maximilien Kolbe de Sabou,hospital,0.871,Sabou,+22673884977,http://cmc-pkolbe.org/,12.060179378451,-2.225933,,nom administratif/géographique
+Burkina Faso,BF,Volta Blanche (periodiskt vattendrag i Burkina Faso),historic_site,0.803,,,,13.08438,-2.13879,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,"Poa, Boulkiemdé",arts_and_entertainment,0.811,,,,12.220736683333,-2.1132747999999997,,localité absente; aucun contact
+Burkina Faso,BF,Leo Airport,airport,0.853,Leo,,http://pl.wikipedia.org/wiki/Port_lotniczy_L%E9o,11.105416666667,-2.1016111111111,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Leo Airport,airport,0.853,Leo,,http://pl.wikipedia.org/wiki/Port_lotniczy_L%E9o,11.102702180000001,-2.09998693,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Province du Boulkiemdé,historic_site,0.813,,,,12.33333,-2.16667,,nom administratif/géographique; localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Province du Loroum,historic_site,0.827,Titao,,,13.766666666667,-2.0666666666667,,nom administratif/géographique; aucun contact
+Burkina Faso,BF,Grand mosque de jelgoji,muslim_place_of_worship,0.855,Djibo,,,14.1027413,-1.6302723,,aucun contact
+Burkina Faso,BF,Koutougou Department,government_office,0.8,,,,13.91666698,-1.63333333,,localité absente; aucun contact
+Burkina Faso,BF,Shell,gas_station,0.99,Tintilou,+22625327600,https://find.shell.com/bf/fuel/10125743-shell-tintilou,12.215201,-1.80405781,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Yentema Rooftop,bar,0.847,Pissy,+22602575757,,12.311890382477,-1.7971175909042,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Bousse,+22625327600,https://find.shell.com/bf/fuel/10123737-shell-bousse,12.66271804,-1.89577425,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pharmacie AVICENNE,pharmacy,0.817,Boussé,+22670393860,,12.6599744,-1.89339524,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée départemental de Séguénéga,high_school,0.809,Séguénéga,,,13.4342438,-1.9614502,,aucun contact
+Burkina Faso,BF,Complexe Scolaire Bangrenoma,education,0.877,Séguénéga,+22678253020,,13.437218962943,-1.9624972343445,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Scolaire Bangrenoma,education,0.874,Séguénéga,+22678253020,,13.435217200000002,-1.9677723,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123837-shell-yimdi,12.29153438,-1.69127384,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Saben,+22670153627,https://bf.totalenergies.com/,12.29154576,-1.69128413,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125737-shell-bassinko,12.404875,-1.666475,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22676718078,https://bf.totalenergies.com/,12.42310979,-1.64355422,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123724-shell-route-ouahigouya,12.419585,-1.640245,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,École Privée de Santé Sainte Colette,private_school,0.924,Ouagadougou,+22670306413,,12.33715099652,-1.6451704502106,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123818-shell-route-ouahigouya-2,12.433001,-1.65252,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ezomaf-Distribution,shopping_mall,0.822,Ouagadougou,+22676600066,http://www.ezomaf-distribution.com/,12.3991184,-1.6146549,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22676658145,https://bf.totalenergies.com/,12.32953114,-1.61856696,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125736-shell-route-bobo,12.329206,-1.619817,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123757-shell-zagtouli,12.326711,-1.628482,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123753-shell-boulmiougou,12.33493854,-1.60043733,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125738-shell-sondogo,12.317347,-1.600192,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125741-shell-tiguindalgue,12.265884,-1.594839,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ecole Privée de Santé Raoul Follereau Fada N'Gourma,private_school,0.922,Ouagadougou,+22670235349,https://epsrf.wordpress.com/,12.249349253252,-1.5910661034286,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123805-shell-bonheur-ville-2,12.28623935,-1.57664965,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22676066703,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.4009329,-1.5886588,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123767-shell-kilwin,12.39036428,-1.57992998,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,,https://bf.totalenergies.com/,12.36752791,-1.59401247,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouaga Ville,+22670153627,https://bf.totalenergies.com/,12.33504631,-1.59947347,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Groupe Scolaire Baasneeré,private_school,0.921,Ouagadougou,+22625430290,,12.335702697114,-1.6016698763712,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125746-shell-kossoghin,12.43359147,-1.54943912,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Milando Ice Café,cafe,0.89,Ouagadougou,+22655507979,,12.361649071428989,-1.550207421426074,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Dubaï Mall,bar,0.823,Ouagadougou,+22658585859,,12.366369900007133,-1.551628000004209,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ouedraogo Service,shopping,0.913,Ouagadougou,+22677170621,https://wa.me/22677170621,12.37966044053052,-1.5515487271450568,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123738-shell-stade-du-4-aout,12.36649428,-1.55283326,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Stade Du 4 Aout Ouagadougou,stadium_arena,0.893,Ouagadougou,,http://fr.wikipedia.org/wiki/index.html?curid=6549924,12.36872909,-1.55352142,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123773-shell-cma-paul-6,12.40354427,-1.55481464,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Eglise Evangélique Grace Academy Wobregre,religious_organization,0.818,Ouagadougou,+22678800327,,12.4623,-1.55479,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cave la Détente de Pazani,restaurant,0.908,Ouagadougou,+22606717161,,12.46243269382,-1.5553379058838,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,INERA,government_office,0.824,Ouagadougou,+22625340271,,12.35288673,-1.55643713,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22670266548,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.38617008,-1.55832009,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125725-shell-kamboinssin,12.48358852,-1.56035343,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123754-shell-pissy,12.34235398,-1.57217917,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Kntechnology (Maison Tecno Pissy),mobile_phone_store,0.851,Ouagadougou,+22663271569,,12.33734709,-1.56960759,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TECNO Mobile Burkina-Faso,mobile_phone_store,0.841,Ouagadougou,+22663271569,,12.3361,-1.56929,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Milano ice café,cafe,0.805,Ouagadougou,+22661970000,,12.344378078673072,-1.5676107902490244,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MAJOR VIP,bar,0.912,Ouagadougou,+22672691877,,12.38781237,-1.5675082,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,SKY FIVE,bar,0.81,Ouagadougou,+22672055101,,12.40293664405825,-1.563707510903491,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Voice Academy Ouagadougou,school,0.87,Ouagadougou,+22658515151,http://www.voiceacademybf.com/,12.33296,-1.56712,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Institut Supérieur Privé Polytechnique - ISPP Officiel,college_university,0.824,Ouagadougou,+22625411133,http://ispp.bf/,12.305111757943,-1.5725829786031,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125748-shell-route-wapassi,12.31934841,-1.56161115,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Providencia - Vêtements & Accessoires,clothing_store,0.865,Ouagadougou,+22670400017,,12.3038144,-1.5591751,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123810-shell-bonheur-ville,12.30835086,-1.55751943,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée de Kienfangué,high_school,0.817,Ouagadougou International Airport,+22677688985,,12.201107480096177,-1.5553138109577616,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Espadrille Shop.,shopping_mall,0.841,Ouagadougou,+22678467103,,12.32262963,-1.55214121,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Kaboré Tambi National Park,national_park,0.816,,,http://it.wikipedia.org/wiki/Parco_Nazionale_di_Kabor%E9_Tambi,11.45,-1.41666666667,,localité absente; lieu à confirmer sur carte
+Burkina Faso,BF,Kandaré,historic_site,0.807,,,,11.68333,-1.46667,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Centrale,restaurant,0.906,Ouagadougou,+22661546363,,12.32231651,-1.5487343,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123855-shell-cissin,12.33084328,-1.54853835,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Le Talier de Gradifa,restaurant,0.872,Ouagadougou,+22677907272,,12.321302620042555,-1.5454643650013822,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell Select,convenience_store,0.8,Ouagadougou,,,12.319979,-1.541819,,aucun contact
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,,https://bf.totalenergies.com/,12.32855868,-1.54083834,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Scolaire Universalis,middle_school,0.913,Ouagadougou,+22644210373,http://www.csuniversalis.net/,12.3189694,-1.5368797000000003,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôpital National Blaise Compaoré,hospital,0.861,Ouagadougou,,,12.26270345890998,-1.5386149555876232,,aucun contact
+Burkina Faso,BF,Shell,gas_station,0.99,Reo,+22625327600,https://find.shell.com/bf/fuel/10123734-shell-reo,12.2556323,-1.52991838,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,African Touch,restaurant,0.82,Ouagadougou,+22678722626,,12.30359712,-1.53227248,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complex School Universalis,school,0.964,Ouagadougou,+22625382514,http://www.csuniversalis.net/,12.3186263,-1.53478967,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123835-shell-cissin-cite-asecna,12.325022,-1.533127,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La fraîcheur,restaurant,0.876,Ouagadougou,,,12.331878961442,-1.5326061939485,,aucun contact
+Burkina Faso,BF,Restaurant Les Oliviers,restaurant,0.864,Ouagadougou,+22602630303,https://www.tiktok.com/@restaurant.les.ol?_t=8kVy0VCngfO&_r=1,12.32851188,-1.52957946,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22670711387,https://bf.totalenergies.com/,12.31971487,-1.52814597,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,JackPot Ouaga2000,bar,0.821,Ouagadougou,+22661799999,,12.31251266,-1.52899168,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22625412908,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3117468,-1.5290574,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Style de Star,clothing_store,0.832,Ouagadougou,+22661393906,,12.307451180998,-1.52907371521,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22678030446,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3085086,-1.5284353,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123862-shell-nagrin,12.293323,-1.529717,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Nursery Bilingual Mam's Trésor,preschool,0.928,Ouagadougou,+22653942222,,12.30496707,-1.53115603,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22671626161,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.30631354,-1.52524655,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Laico Ouaga 2000 Hotel,hotel,0.962,Ouagadougou,,http://www.laicohotels.com/laico-ouaga-2000/,12.306440579288031,-1.5252581054273884,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,22etsix,clothing_store,0.875,Ouagadougou,+22664992109,,12.31210482,-1.52741466,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Place Vendôme Ouaga,bar,0.802,Ouagadougou,+22654545401,,12.31595272,-1.52763445,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123769-shell-patte-doie,12.333382,-1.52660861,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Les Clefs du Faso,real_estate_service,0.818,Ouagadougou,+22678472047,,12.33348103,-1.5263729,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,IFAG Campus de Burkina Faso,college_university,0.89,Ouagadougou,+22672892531,http://www.ifag.com/campus/campus-de-burkina-faso/,12.329487026758,-1.5249467737121,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Treasure Homes,lodging,0.917,Ouagadougou,+22674117387,https://treasurehomes.africa/,12.3190524,-1.5258608,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Immobilier De Luxe Kabore,real_estate_service,0.838,Ouagadougou,+22653232578,,12.31596888,-1.52339868,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Auto expert detailing,car_wash,0.821,Ouagadougou,+22607138888,,12.31739387,-1.52376777,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,DADOH University,college_university,0.92,Ouagadougou,+22625480786,https://dadohuniversity.com/,12.306435284789,-1.5177878445065,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Treasure Homes,lodging,0.898,Ouagadougou,+22674117387,,12.322312731403553,-1.5189432529309344,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Le Nas Market,grocery_store,0.823,Ouagadougou,+22676282812,,12.31633002,-1.51861512,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,The Garden Restaurant Lounge,restaurant,0.889,Ouagadougou,+22661161515,http://www.villa-integration.com/,12.3069291,-1.51865699,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôtel Résidence Prestige,hotel,0.93,Ouagadougou,+22625374320,http://www.hotelresidenceprestige.com/,12.308886280963316,-1.5178421376269309,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,ISSH Burkina,college_university,0.899,Ouagadougou,+22625376834,https://www.tiktok.com/@issh_burkinafaso,12.315978364671,-1.5174221992493,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22625325990,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3325445,-1.5164673,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,,https://bf.totalenergies.com/,12.32493477,-1.51601981,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123797-shell-ouagarinter,12.33251227,-1.5145774,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Belle Brioche Burkina,bakery,0.926,Ouagadougou,+22655640707,,12.32142,-1.51438,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Baraka lounge,hotel,0.929,Ouagadougou,+22607540707,https://www.tiktok.com/@baraka_lounge?_t=8sMNQqMqmKj&_r=1,12.310287289149,-1.5159409597481,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Crèche Les Chérubins Ouaga.,preschool,0.885,Ouagadougou,+22663294029,,12.30896,-1.51546,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Group School Les Laureats,school,0.945,Ouagadougou,+22625374202,http://www.leslaureats.net/,12.30555469,-1.51483857,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cabinet Cecrab,social_or_community_service,0.841,Ouagadougou,+22651005050,https://www.cecrab.com/,12.301806420926,-1.511435508728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cosy Corner,bar,0.801,Ouagadougou,+22653238888,,12.30134671,-1.51138866,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Scolaire L'Aurore,preschool,0.886,Ouagadougou,+22671716595,,12.320989400000002,-1.5134821,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Sandeco Burkina Faso,shopping,0.882,Ouagadougou,+22625380620,,12.32699629,-1.51245611,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Clinique Les Genêts,hospital,0.913,Ouagadougou,+22625374380,http://www.les-genets.net/,12.3145812,-1.51143169,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Saba Phone,mobile_phone_store,0.865,Ouagadougou,+22670312473,http://www.sabaphone.bf/,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,African Mining School,education,0.861,Ouagadougou,+22607707218,http://www.ams-bf.com/,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre Médical Sagltaaba / ASEFF,hospital,0.906,Ouagadougou,+22670308874,,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,𝐈𝐦𝐩𝐚𝐜𝐭 𝐅𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧,professional_service,0.86,Ouagadougou,+22660106187,http://www.centredeformationsourcedevie.com/,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ecole Supérieure Polytechnique Excelle,college_university,0.888,Ouagadougou,+22665381875,https://esupex.org/,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Faso Telecom,electronics_store,0.904,Ouagadougou,+22674527004,,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Les Chérubins Garden,private_school,0.815,Ouagadougou,+22676696970,https://creche-maternelle-tengandogo.com/,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Universalis,college_university,0.838,Ouagadougou,+22625382514,https://wa.me/message/43M74QUI74FNO1,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Liégeois Market ZAD,restaurant,0.82,Ouagadougou,+22644974544,,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Kiddies - Grandir avec style,shopping,0.827,Ouagadougou,+22678008286,http://m.me/Kiddiesgrandiravecstyle,12.3128484,-1.5107606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,DADOH University,college_university,0.888,Ouagadougou,+22625480786,https://dadohuniversity.com/,12.312016167493,-1.5104699134827,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Restaurant Chez NINI,restaurant,0.864,Ouagadougou,+22672586060,http://www.restaurantcheznini.com/,12.30364048,-1.50596465,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Türkiye in Burkina Faso,embassy,0.883,Ouagadougou,+22625376318,http://ugudugu.be.mfa.gov.tr/,12.30629288822,-1.5063285827637,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,ASCA Burkina,auto_parts_store,0.885,Ouagadougou,+22625509767,http://www.asca-sa.com/,12.311743633214,-1.5072298049927,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Scolaire L'Aurore,preschool,0.892,Ouagadougou,+22671716595,https://complexe-scolaire-laurore.business.site/,12.32748,-1.50516,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22670711493,https://bf.totalenergies.com/,12.33332762,-1.5040445,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Saveurs Bio,shopping,0.824,Ouagadougou,+22664173123,,12.327048600000001,-1.5046455,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre Universitaire Polyvalent du Burkina (CUPB),college_university,0.878,Ouagadougou,+22625505543,,12.31742331,-1.50446209,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Monuments des Martyrs,historic_site,0.913,Ouagadougou,,,12.31232293,-1.50303319,,aucun contact
+Burkina Faso,BF,Ecole Supérieure Polytechnique Excelle,college_university,0.891,Ouagadougou,+22665381875,https://esupex.org/,12.3215265,-1.5038107,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22676777771,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.32431368,-1.50201095,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123811-shell-ouaga-2000,12.325827,-1.502053,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Espace Échangeur 2000,bar,0.95,Ouagadougou,+22606882828,,12.32998277,-1.50203475,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Andal Academy Bilingue,education,0.816,Ouagadougou,+22606065050,,12.32748488,-1.50078577,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Embassy of the United States,embassy,0.951,Ouagadougou,+22670191939,https://bf.usembassy.gov/embassy/ouagadougou/,12.30492012,-1.49721586,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Squashtime Ouaga,stadium_arena,0.861,Ouagadougou,+22664815454,,12.32458244690912,-1.499302299236781,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Royal Garba,restaurant,0.804,Ouagadougou,+22675483133,,12.310969251862332,-1.497807493664461,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,L'Art rouge restaurant et cave à vin,restaurant,0.811,Ouagadougou,+22605864646,,12.30846166,-1.49734031,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Club Hanane Officiel,bar,0.834,Ouagadougou,+22675961010,,12.312688209,-1.496208766,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123771-shell-trame-daccueil,12.322737,-1.493718,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,College Horizon International,middle_school,0.899,Ouagadougou,+22625457272,https://www.collegehorizon.org/,12.30152687,-1.49567328,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3062876,-1.4960929,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Collège Horizon Primaire & Maternelle,middle_school,0.879,Ouagadougou,+22625457272,,12.303190105927,-1.4968013763428,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre Médical Sagltaaba / ASEFF,hospital,0.908,Ouagadougou,+22670308874,,12.273166917339,-1.4937973,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Université Saint Dominique d’Afrique de l’Ouest - USDAO,education,0.856,Doulougou,+22654434040,,11.89301,-1.50606,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22670153627,https://bf.totalenergies.com/,12.26816593,-1.4478521,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,,https://bf.totalenergies.com/,12.2646407,-1.44519927,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125732-shell-rayongo,12.321039,-1.444108,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123820-shell-kouba,12.27811566,-1.45599612,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,African Mining School Officiel,education,0.825,Balkoui,+22662616304,http://www.ams-bf.com/,12.292070103611,-1.4655590057373,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Groupe Scolaire Madina,private_school,0.831,Ouagadougou,+22660562330,http://www.groupescolairemadina.com/,12.293172900834,-1.4647039173724,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,African Mining School,education,0.869,Ouagadougou,+22607707218,http://www.ams-bf.com/,12.28851428786,-1.4622116088867,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123783-shell-karpala,12.320918,-1.462549,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123730-shell-balkuy,12.29364821,-1.46750384,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22663593131,https://bf.totalenergies.com/,12.30321952,-1.47188211,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,ISSH Burkina,college_university,0.898,Ouagadougou,+22625376834,https://www.tiktok.com/@issh_burkinafaso,12.329223775811,-1.4773113158039002,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La francave,shopping,0.888,Ouagadougou,+22625394249,https://www.instagram.com/la_francave/,12.324755850153997,-1.479535500081811,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Building Capacity Institute - BCI,school,0.862,Ouagadougou,+22670209595,http://www.bci-educ.org/,12.306827485521,-1.4776071256278,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Restaurant Mama Africa,restaurant,0.906,Ouagadougou,+22661362121,https://bit.ly/mamaafricabf,12.303688350000888,-1.4753701999977409,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,U.S. Embassy Ouaga,government_office,0.84,Ouagadougou,+22625495300,https://bf.usembassy.gov/,12.301819199587689,-1.4746698105010707,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Chez NINI,restaurant,0.855,Ouagadougou,+22672586060,,12.301825003529013,-1.474674745445685,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125734-shell-sabtoana,12.25046389,-1.49087274,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Universal Institutes Mining Management,college_university,0.806,Ouagadougou,+22677002121,http://www.ui2m.com/,12.28810616,-1.48582174,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Grace Academy Christian Center/ Eglise Evangélique Grace Academy,christian_place_of_worship,0.973,Ouagadougou,+22669320001,,12.30190783,-1.48569249,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pharmacie Karpala,pharmacy,0.897,Ouagadougou,+22625371414,,12.33218538,-1.49264346,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123751-shell-siao,12.34787,-1.490396,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Bazar De Jenny,shopping,0.858,Ouagadougou,+22657496161,https://www.facebook.com/BazarDeJennyBobo?mibextid=ZbWKwL,12.35465556,-1.49109903,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22670655625,https://bf.totalenergies.com/,12.37566217,-1.49352509,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Le Comptoir de L'Annexe,bar,0.838,Ouagadougou,+22667089628,,12.3811786,-1.4912626,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ouaka Hôtel,hotel,0.977,Ouagadougou,+22656151477,http://www.ouakahotel.com/,12.38022184,-1.49150774,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22671391639,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3780995,-1.490625,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre Culturel Islamique AEEMB,muslim_place_of_worship,0.971,Ouagadougou,+22670777476,http://www.aeemb.bf/,12.3760657,-1.4902929,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,ISP La Termitière,school,0.894,Ouagadougou,+22601112525,https://isplatermitiere.com/,12.374930041876018,-1.4885170885359778,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Le Comptoir de L'Annexe,bar,0.838,Ouagadougou,+22667089628,,12.387881207962,-1.4886669137547,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Western Union,money_transfer_service,0.85,Ouagadougou,+22671407654,,12.377437,-1.488179,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pasta & Basta,restaurant,0.908,Ouagadougou,+22655821640,,12.38599934,-1.48681236,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La Belle Etoile,restaurant,0.948,Ouagadougou,+22679919655,,12.37481731,-1.48817899,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Diam's lounge,bar,0.832,Ouagadougou,+22607895656,,12.3594078,-1.48397904,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123750-shell-sanyiri,12.340953,-1.482153,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22676648585,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.34458015,-1.48075926,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125726-shell-wemtenga,12.36745838,-1.48302484,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Western Union,money_transfer_service,0.85,Ouagadougou,+22672396166,https://www.westernunion.com/?utm_source=exnetworkmaps&utm_medium=pml-yext,12.37557,-1.48358,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Maquis Le Block,bar,0.923,Ouagadougou,+22666676263,,12.37461912,-1.48611065,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,DM'S Habillement,clothing_store,0.89,Ouagadougou,+22676609591,,12.421030485937102,-1.4681942524378628,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,DM'S Habillement,clothing_store,0.848,Ouagadougou,+22676609591,,12.425900309495,-1.4665728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ipd-Aos,college_university,0.821,Ouagadougou,+22604331311,http://ipd-aos.dev/,12.392765633,-1.46662585,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Clinique de l'Est,health_care,0.853,Ouagadougou,+22625366674,,12.39753552,-1.46697924,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Nursery Maternal Care La Farandole,preschool,0.886,Ouagadougou,+22656633939,,12.40265369,-1.47011855,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123846-shell-dassasgho,12.39241083,-1.46953893,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôtel des Conférences Ouind Yidé,hotel,0.939,Ouagadougou,+22678016513,http://www.hoteldesconferences.com/,12.39199943,-1.47116051,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Le Stadium Sportsbar,restaurant,0.909,Ouagadougou,+22671773737,,12.40186398,-1.47149486,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôpital Paul6 - Tampouy,hospital,0.891,Ouagadougou,+22675401161,http://hotmail.fr/,12.42129513574395,-1.4780104928728006,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123748-shell-gare-de-l-est,12.391026,-1.475917,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Incassable Ultraflex Protection Pro Sur Mesure,electronics_store,0.885,Ouagadougou,+22662382140,http://www.ultraflexprotectionpro.com/,12.4036812,-1.47311071,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Royal Beach Hotel,hotel,0.836,Ouagadougou,+22625365222,,12.39099198,-1.47387728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Asmahoéléganceshop,clothing_store,0.844,Ouagadougou,+22676190510,,12.36963245,-1.47412158,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123775-shell-boulevard-circulaire,12.37083054,-1.47575733,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Licam Café restau,restaurant,0.866,Ouagadougou,+22658813864,,12.3778957,-1.47722527,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Angle Trading Ouaga,electronics_store,0.848,Ouagadougou,+22674023386,,12.378245056174649,-1.4776611706164913,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Western Union,money_transfer_service,0.85,Ouagadougou,+22625331919,https://www.westernunion.com/?utm_source=exnetworkmaps&utm_medium=pml-yext,12.3751,-1.47954,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123758-shell-secteur-30,12.337319,-1.4708,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,𝐁𝐈𝐌𝐀𝐑𝐀 𝐈𝐌𝐌𝐎𝐁𝐈𝐋𝐈𝐄𝐑,real_estate_service,0.809,Ouagadougou,+22656343434,,12.378789500000003,-1.4695813999999998,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125735-shell-14-yaar,12.36918936,-1.46997066,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Tys Technologies,electronics_store,0.859,Ouagadougou,+22670055565,,12.37615534,-1.4672088,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Eglise des Assemblées de Dieu de Dassasgho,christian_place_of_worship,0.839,Ouagadougou,+22625364040,,12.396414950002185,-1.4654816500282644,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ecole Supérieure de Commerce de Ouagadougou,college_university,0.922,Ouagadouga,+22625370406,http://www.esc-ouaga.com/,12.405928716513,-1.4611194598389,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Private School William Ponty,high_school,0.91,Ouagadougou,+22670741774,,12.39545863,-1.46236936,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,IST Campus Wayalghin,college_university,0.93,Ouagadougou,+22653009800,http://www.istburkina.com/,12.39484271,-1.45990064,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Red Sea Apartments Ouagadougou,historic_site,0.905,Ouagadougou,+22660799960,,12.40377272,-1.45740101,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Tenkodogo,+22678270212,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3968516,-1.4548874,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Crèche Maternelle Les Coccinelles,school,0.882,Ouagadougou,+22666336250,,12.377344938203,-1.4574533700943,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Somwaya Pâtisserie Resto,fast_food_restaurant,0.919,Ouagadougou,+22666068080,,12.378843977147342,-1.4943293142894887,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Espace Akili,restaurant,0.834,Ouagadougou,+22678181833,,12.37575462,-1.49501145,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Institut Privé de Santé Saint Camille de Lellis - IPSCA,college_university,0.805,Ouagadougou,+22625361447,,12.3655916,-1.49596873,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Western Union,money_transfer_service,0.85,Ouagadougou,+22673668990,,12.375135,-1.493923,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Inter Auto-Ecole,school,0.91,Ouagadougou,+22678861197,,12.37376,-1.49382,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Polyclinique Sandof,hospital,0.943,Ouagadougou,+22670715101,,12.35978442,-1.49502405,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Université de l’Unité Africaine / IAM Burkina,college_university,0.908,Ouagadougou,+22625408484,http://www.iamburkina.com/,12.34711935,-1.49437189,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Wendsom (jardin),restaurant,0.855,Ouagadougou,+22669085050,,12.36097266,-1.49708418,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Milite Hôtel,hotel,0.85,Ouagadougou,+22625370723,,12.335464769919,-1.4974774019053,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Institute Superieur Du Génie Électrique,college_university,0.901,Ouagadougou,+22672080000,http://www.isge-bf.org/,12.3391498,-1.49788361,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22676645374,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.33501638,-1.49901692,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La résidence Alice,hotel,0.817,Ouagadougou,+22625372381,,12.33506799,-1.49900322,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Zeinab Shop,clothing_store,0.828,Ouagadougou,+22670104766,,12.34216079,-1.49986473,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Paroisse saint Camille de Dagoën,christian_place_of_worship,0.929,Ouagadougou,+22625361232,,12.36701734,-1.49721415,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Rehoboth Bazin,clothing_store,0.834,Ouagadougou,+22657120404,,12.37157996,-1.4977054,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3688253,-1.4982261,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Université Joseph Ki-Zerbo,college_university,0.903,Ouagadougou,+22625307064,http://www.linguistiquep20.com/,12.3786020233944,-1.5004632028130356,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,University of Ouagadougou,college_university,0.82,Ouagadougou,,,12.37722,-1.50083,,aucun contact
+Burkina Faso,BF,stade Etoile filante de Ouagadougou,stadium_arena,0.819,Ouagadougou,+22672356076,,12.37236115,-1.50233651,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3650659,-1.5015864,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,CRYS Bar,bar,0.87,Ouagadougou,+22625377818,,12.33781865,-1.50192835,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Terrasse Rouge,restaurant,0.846,Ouagadougou,+22671635880,,12.34497659,-1.50459457,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Bouyinga Telecom,mobile_phone_store,0.842,Ouagadougou,+22678642940,,12.368881863613,-1.5058034054309,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hopital Yalgado Ouedraogo,hospital,0.808,Ouagadougou,,,12.383859855019935,-1.5064754737573052,,aucun contact
+Burkina Faso,BF,Baraka Distribution,electronics_store,0.867,Ouagadougou,+22670269261,http://www.baraka.Bf/,12.383859855019935,-1.5064754737573052,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,École nationale d'administration et de magistrature,college_university,0.889,Ouagadougou,+22678988854,,12.37849993,-1.50589278,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123804-shell-tanghin-2,12.39808,-1.504777,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,NTC-school 'De Tulp',school,0.841,Ouagadougou,+22671907835,http://www.stichtingnob.nl/onderwijs/scholenzoeker/nederlandse-school-in-burkina-faso---nobufa.aspx,12.394371,-1.502141,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Sopatel Silmande Hôtel,hotel,0.966,Ouagadougou,+22625356262,http://www.sopatelsilmande.com/,12.39201351,-1.50179949,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Université Ouaga 3s,college_university,0.86,Ouagadougou,+22672911454,http://www.univ-ouaga3s.com/,12.39947435,-1.51236819,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Polyclinique Notre Dame de la Paix - PNDP.,health_care,0.864,Ouagadougou,+22625650722,http://www.pndp.bf/2021,12.40813,-1.50752,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ambassade d'Allemagne à Ouagadougou,embassy,0.839,Ouagadougou,+22625306731,https://ouagadougou.diplo.de/,12.37860591,-1.50787833,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Primature du Burkina Faso,government_office,0.838,Ouagadougou,+22625324456,https://primature.gov.bf/,12.373608700021341,-1.5091702829941858,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Newtech burkina sarl,shopping_mall,0.875,Ouagadougou,+22605800101,,12.366403103725,-1.5101156,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Zompe Store,electronics_store,0.843,Ouagadougou,+22650613333,http://www.zompe-store.com/,12.36639589,-1.51044143,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Bouyinga Telecom,mobile_phone_store,0.838,Ouagadougou,+22678642940,,12.366445408964495,-1.5091781426761528,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,City resto-bar,bar,0.921,Ouagadougou,+22664000000,http://www.CityRestoBar.com/,12.366448490405244,-1.5091900773923574,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Eglise AD Guéta-wend de yagma,christian_place_of_worship,0.829,Ouagadougou,+22676751484,,12.366445408964495,-1.5091781426761528,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Label côtes,cafe,0.876,Ouagadougou,+22607999997,,12.366418332408966,-1.5091193323099819,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Balcon Grill Ouaga,restaurant,0.873,Ouagadougou,+22665000087,,12.36789558,-1.50893694,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123764-shell-zad,12.340092,-1.507696,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ouagadougou Airport (OUA),airport,0.955,Ouagadougou,+22679692968,http://www.aeroport-ouagadougou.com,12.354402,-1.514311,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Mairie de l'arrondissement 1 de Ouagadougou,government_office,0.849,Ouagadougou,+22625310043,,12.354960693374998,-1.5140339071875002,,nom administratif/géographique
+Burkina Faso,BF,Lapaire Koulouba,shopping,0.85,Ouagadougou,+22662642469,https://www.lapaire.africa/,12.3660087,-1.5137963,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Fasotech,electronics_store,0.811,Ouagadougou,+22673737354,https://www.fasotech.net/,12.36588798,-1.51419858,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Mango,clothing_store,0.885,Ouagadougou,+22625334234,https://shop.mango.com/bf/femme,12.36622221,-1.51296248,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Faso Hotel,hotel,0.852,Ouagadougou,+22658870129,,12.36851155,-1.51317689,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Blukids,clothing_store,0.8,Ouagadougou,,https://stores.upim.com/it/burkina-faso/ouagadougou,12.366257,-1.512509,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cheick Khalil Store,shopping_mall,0.827,Ouagadougou,+22673030000,,12.3658838183,-1.5121044513944,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Restaurant la Pléiade,bar,0.878,Ouagadougou,+22671393963,,12.369133550005879,-1.5112467500005538,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Princess Yenenga,restaurant,0.896,Ouagadougou,+22670216315,https://www.princessyenenga.com/,12.37465463,-1.51121441,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Résidence Hôtelière Kawerou Rhk,hotel,0.851,Ouagadougou,+22665910036,https://www.booking.com/hotel/bf/residence-hoteliere-kawerou.html,12.3793514537,-1.5124513953924,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pelican-Ouagadougou,school,0.802,Ouagadougou,,http://fb.com/PelicanOuagadougou,12.381241451202,-1.5168700318179,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hotel de la Liberte,hotel,0.913,Ouagadougou,+22625332363,http://www.hotel-liberte.com/,12.38219598,-1.51608498,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Baraka Distribution,electronics_store,0.879,Ouagadougou,+22670269261,http://www.baraka.Bf/,12.374048850000113,-1.5163004499992712,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22625308870,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3728673,-1.5164069,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Zabre Daaga Village De Telephone Portable Et Accessoores,shopping_mall,0.83,Ouagadougou,+22678921692,,12.365918468939295,-1.5169685118458915,,nom administratif/géographique
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.36852517,-1.51770256,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22678404436,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3636262,-1.5174037,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Saba Phone,mobile_phone_store,0.834,Ouagadougou,+22670312473,http://www.sabaphone.bf/,12.36642,-1.51675,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Perfector Immobilier,real_estate_service,0.897,Ouagadougou,+22652363662,http://www.perfectorimmobilier.com/,12.36223352,-1.51635527,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Musée diocésain de Ouagadougou,museum,0.896,Ouagadougou,+22671259747,http://www.catholique.bf/,12.365511401338114,-1.515878655348708,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La Ruche Ouaga,social_or_community_service,0.829,Ouagadougou,,,12.372867668816298,-1.5154677047730323,,aucun contact
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22676740639,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3709666,-1.51524,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Istci,education,0.877,Ouagadougou,+22625362558,http://www.istic.bf/,12.3695887,-1.51440169,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Orange Burkina,mobile_phone_store,0.869,Ouagadougou,+22625663300,,12.36692009,-1.51491308,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123779-shell-toeyibin,12.339228,-1.517645,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ouagadougou Department,government_office,0.815,Ouagadougou,,,12.35,-1.5166666666667,,aucun contact
+Burkina Faso,BF,Coris Assurances,insurance_agency,0.844,Ouagadougou,+22625332330,http://www.coris-assurances.com/,12.3547363,-1.516783,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Union européenne au Burkina Faso,government_office,0.87,Ouagadougou,+22625492900,https://www.eeas.europa.eu/delegations/burkina-faso_fr?s=86,12.357546379132,-1.5175938606262,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Splendid Hotel,hotel,0.936,Ouagadougou,+22625317278,http://www.splendidhotels.net/,12.3613834,-1.51824856,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La Maison DU DOLO,bar,0.848,Ouagadougou,+22651361010,http://www.umaobf.com/,12.35753985001326,-1.5192108500138053,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hamada Auto Parts,auto_parts_store,0.892,Ouagadougou,+22607767171,http://www.hamadaautoparts.com/,12.35746856,-1.51942196,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Restaurant L'Elysée,restaurant,0.842,Ouagadougou,+22669440698,,12.355417528388173,-1.5191419515030322,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22676594076,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.352886,-1.5178397,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Sonia Hotels Ouagadougou,hotel,0.973,Ouagadougou,+22625334022,,12.35234247,-1.51955157,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,𝐄́𝐜𝐨𝐥𝐞 𝐈𝐧𝐭𝐞𝐫𝐧𝐚𝐭𝐢𝐨𝐧𝐚𝐥𝐞 𝐁𝐢𝐥𝐢𝐧𝐠𝐮𝐞 𝐌𝐚 𝐃𝐨𝐮𝐜𝐞 𝐄𝐧𝐟𝐚𝐧𝐜𝐞,preschool,0.867,Ouagadougou,+22679028202,,12.353417123727,-1.5195465087891,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cell Palace,mobile_phone_store,0.812,Ouagadougou,+22677824545,,12.35679229052,-1.520250546746,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,KTC automotive,shopping,0.838,Ouagadougou,+22678040804,http://www.ktcautomotive.com/,12.36142107,-1.51981197,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123796-shell-ex-gare-routiere,12.374898,-1.520811,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22625493364,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.37403622,-1.52061672,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.998,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123784-shell-rond-point-nations-unies,12.37078952,-1.51993047,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Sonar,insurance_agency,0.919,Ouagadougou,+22625496900,https://www.sonar.bf/,12.36610949,-1.51994601,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Chick Restaurant,restaurant,0.93,Ouagadougou,+22676224476,http://chickrestaurant.strikingly.com/,12.36494004,-1.51910833,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Africa Globale Service 2,professional_service,0.873,Ouagadougou,+22676482215,http://WWW.africaglobaleservice.com/,12.367219459724,-1.5190889835358,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hotel Palm Beach,hotel,0.97,Ouagadougou,+22625310991,http://palmbeach-burkina.com/,12.36209888,-1.51825868,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Faso Afrique Fashion,clothing_store,0.86,Ouagadougou,+22670456099,,12.38223452,-1.52007061,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Institute Polytechnic Private Shalom,college_university,0.888,Ouagadougou,+22625479967,http://www.ipshalombf.org/,12.39676578,-1.51815974,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Fasomart,shopping,0.9,Ouagadougou,+22666065798,http://www.fasomartbf.com/,12.411621255261,-1.5158834550244,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22675466995,https://bf.totalenergies.com/,12.44189437,-1.52142309,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123726-shell-tanghin,12.39125086,-1.5225275,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Célestorium/Ombr Blanch Label,restaurant,0.826,Ouagadougou,+22607600909,,12.38279417,-1.52241804,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Site Des Sculptures Sur Granite De Laongo,historic_site,0.864,Ouagadougou,+22670177139,http://www.ontb.bf/,12.370254600009,-1.5234677999832,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.37063868,-1.52446266,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ouedrago karim,elementary_school,0.883,Ouagadougou,+22679861196,,12.370468187356025,-1.524342925647513,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22625328497,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.36557766,-1.52213022,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,P'tit bazar,bar,0.879,Ouagadougou,+22679223737,,12.369598271983357,-1.522149945012395,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Scimas Supermarché,grocery_store,0.882,Ouagadougou,+22625306280,,12.37043,-1.52181,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.998,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123744-shell-sobca,12.370717,-1.522033,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Omar Phone,shopping,0.868,Ouagadougou,+22654909422,,12.371186633333792,-1.5212930666695554,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Scimas Supermarché,grocery_store,0.896,Ouagadougou,+22625306280,,12.368460235,-1.5215930975,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Secrets De Femmes prêt à porter,clothing_store,0.872,Ouagadougou,+22674420780,,12.34931223,-1.52255825,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Université Saint Thomas d'Aquin,college_university,0.933,Ouagadougou,+22625407788,https://www.usta.bf/,12.361465967347,-1.5243530273438,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hotel Kavana Ouagadougou,hotel,0.981,Ouagadougou,+22668981111,,12.35992901,-1.52676851,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123760-shell-route-de-po,12.355049,-1.527311,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3686873,-1.5279227,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ville  de Ouagadougou,government_office,0.833,Ouagadougou,,,12.368770497657,-1.5271961688995,,aucun contact
+Burkina Faso,BF,Enko Ouaga,school,0.875,Ouagadougou,+22667829001,https://www.enkoeducation.com/fr/enko-ouaga/home,12.36857,-1.5271,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée privé des Nations,high_school,0.888,Ouagadougou,+22666696576,,12.36857,-1.5271,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Mairie Centrale ( Hotel de Ville de Ouagadougou ),hotel,0.804,Ouagadougou,,,12.368027952334723,-1.5271989667048884,,aucun contact
+Burkina Faso,BF,Cathedral of Our Lady of Immaculate Conception,christian_place_of_worship,0.832,Ouagadougou,,http://it.wikipedia.org/wiki/index.html?curid=3161088,12.36192651,-1.52701536,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Maison de l’Entreprise du Burkina Faso - Officiel,government_office,0.87,Ouagadougou,+22670530684,https://www.me.bf/,12.371176529433896,-1.5253109250555095,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Chambre de Commerce et d'Industrie du Burkina Faso,government_office,0.821,Ouagadougou,+22625306114,http://www.cci.bf/,12.37070594,-1.52531746,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre Commercial Hage Matériaux,shopping,0.865,Ouagadougou,+22625301045,http://www.groupehage.bf/,12.370204826466669,-1.5247042106743547,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Boutique Saoudien Officiel,clothing_store,0.802,Ouagadougou,,,12.370204826466669,-1.5247042106743547,,aucun contact
+Burkina Faso,BF,Lycée Municipal Vénégré,high_school,0.811,Ouagadougou,,,12.370204826466669,-1.5247042106743547,,aucun contact
+Burkina Faso,BF,Ecole  Privée de Santé Saint Jean Paul,school,0.869,Ouagadougou,+22625401214,,12.370204826466669,-1.5247042106743547,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Africa Globale Service 2,professional_service,0.862,Ouagadougou,+22676482215,http://WWW.africaglobaleservice.com/,12.370204826466669,-1.5247042106743547,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shelter Missionary Notre Dame de Lorette,hotel,0.824,Ouagadougou,+22670805880,http://www.lorette-bf.com/,12.37147688,-1.52482475,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123768-shell-sankariare,12.379019,-1.528229,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22673668990,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3777398,-1.5282766,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,CNSS Burkina Faso,government_office,0.907,Ouagadougou,+22625306078,https://www.cnss.bf/,12.3698097,-1.5287101,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22670109394,https://bf.totalenergies.com/,12.36252808,-1.52861536,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouagadougou,+22666529452,https://bf.totalenergies.com/,12.3637842,-1.52812271,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Comptoir des Cafés,cafe,0.903,Ouagadougou,+22664892626,,12.35681299,-1.53264369,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Vortex Shop Burkindi,clothing_store,0.879,Ouagadougou,+22676012055,,12.33433348,-1.53338368,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Sonabel CBC Ouagadougou,government_office,0.952,Ouagadougou,+22625306211,,12.36405434,-1.53443157,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123861-shell-cite-an-3,12.37768202,-1.53211086,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Bargo4mode,clothing_store,0.901,Ouagadougou,+22670793894,,12.39737654,-1.53145799,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pharmacie Zoungrana,pharmacy,0.894,Ouagadougou,+22625409875,,12.39796027,-1.52948158,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Paroisse Christ Roi de l'Univers de Pissy,religious_organization,0.874,Ouagadougou,+22625435352,,12.356740959986467,-1.5351900061551444,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Palm Beach Hôtel Yennenga,hotel,0.826,Ouagadougou,+22625308774,,12.3571851,-1.5352728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Boulangerie Mafati,bakery,0.88,Ouagadougou,+22654251953,,12.3571851,-1.5352728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre de formation professionnelle 2A-N,education,0.808,Ouagadougou,+22607755385,https://www.cfp2an.com/,12.3571851,-1.5352728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Yacouba Boutique,mobile_phone_store,0.859,Ouagadougou,+22670047961,,12.3571851,-1.5352728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,E.TI Global Services,real_estate_service,0.834,Ouagadougou,+22670847203,,12.3571851,-1.5352728,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre LaTermitière,social_or_community_service,0.939,Ouagadougou,+22607373864,http://www.cdc-latermitiere.com/,12.351555729115747,-1.5363709258687877,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Boulangerie Mafati,bakery,0.892,Ouagadougou,+22654251953,,12.34198123,-1.53659842,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22625328491,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3552647,-1.5380624,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Paradis Numerique,electronics_store,0.862,Ouagadougou,+22678612121,,12.35604535,-1.53933879,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,La Plénitude,school,0.811,Ouagadougou,+22678895119,,12.36257,-1.5403,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Municipal Vénégré,high_school,0.812,Ouagadougou,,,12.362644700044044,-1.5402820499843706,,aucun contact
+Burkina Faso,BF,"Hôtel Avenir, Ouagadougou BF",hotel,0.806,Ouagadougou,+22625340621,http://www.hotelavenir.net/,12.36505402257551,-1.5444407974804664,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Groupe Esco - Iges,college_university,0.869,Ouagadougou,+22625343915,https://www.esco-iges.com/,12.36195107,-1.54366203,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123733-shell-gounghin,12.353461,-1.542479,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôtel Don Camillo,hotel,0.814,Ouagadougou,+22625342783,,12.351201117102,-1.5452979,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Jonathan Electronics,mobile_phone_store,0.848,Ouagadougou,+22678421148,,12.357627268349237,-1.5456316423459566,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Mixte de Gounghin-CEMIN,high_school,0.804,Ouagadougou,+22652703298,,12.3523304,-1.5453654,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Eglise De Kologh Naba,christian_place_of_worship,0.81,Ouagadougou,+22625306549,,12.37735206,-1.54674636,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3781095,-1.5462839,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée de l'Alliance Chrétienne - Ouagadougou - LAC,high_school,0.909,Ouagadougou,+22671029230,http://lyceelac.net/,12.435906004146,-1.5463256835938,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,CIPD AD Wendintoumde,religious_organization,0.956,Ouagadougou,,,12.445796208564,-1.5476131439209,,aucun contact
+Burkina Faso,BF,Shell,gas_station,0.99,Kongoussi,+22625327600,https://find.shell.com/bf/fuel/10123759-shell-kongoussi,13.31936,-1.52574,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Église Évangélique Réformée du Burkina Faso,christian_place_of_worship,0.886,Kongoussi,+22670146616,,13.3180635,-1.5249024,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Kongoussi,+22678270541,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,13.324611,-1.5268639,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Église Évangélique Réformée du Burkina Faso,christian_place_of_worship,0.865,Kongoussi,+22670146616,,13.3258,-1.53472,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre de formation professionnelle de référence de Ziniaré (CFPR-Z),college_university,0.891,Ziniaré,+22672400808,http://www.cfprz.bf/,12.57554911396324,-1.331605035451762,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123735-shell-route-fada,12.4390297,-1.36031953,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Escale Village Loumbila,restaurant,0.848,Loumbila,+22657470000,,12.54296133,-1.37866462,,nom administratif/géographique
+Burkina Faso,BF,Shell,gas_station,0.999,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123761-shell-route-loumbila,12.458177,-1.428875,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Sougri Doogo,hotel,0.896,Loumbila,+22666806325,,12.47868409,-1.42810605,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Privé CANA,private_school,0.823,Ouagadougou,+22656612313,,12.407772174748,-1.425959,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cours Privé Elisa,middle_school,0.803,Ouagadougou,+22625412201,,12.393363359913,-1.4367928503634,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Cité De David,christian_place_of_worship,0.831,Ouagadougou,+22676718214,,12.376812545375,-1.4198152364436,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125747-shell-usta,12.38483926,-1.42085682,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10123848-shell-nioko-1,12.4115475,-1.41976795,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Ouagadougou,+22671440061,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,12.3806982,-1.4122185,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,AD Temple Bethesda1,religious_organization,0.831,Ouagadougou,+22670938812,,12.36366,-1.41572,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lagon Lodge Hotel Loumbila,restaurant,0.928,Loumbila,+22678437878,http://www.lagonlodge.com/,12.51299945,-1.39932902,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Barrage de Loumbila,historic_site,0.813,,,,12.49222,-1.40111,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Shell,gas_station,0.99,Koubri,+22625327600,https://find.shell.com/bf/fuel/10123762-shell-koubri,12.205129,-1.410289,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125733-shell-kouba-2,12.2399002,-1.43022553,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125729-shell-yagma,12.25526,-1.375818,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Bassemyam,government_office,0.804,,,,12.0667,-1.33333,,localité absente; aucun contact
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Oubritenga,,https://bf.totalenergies.com/,12.6103617,-1.2611009,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Emergence Ziniare,bar,0.827,Ziniaré,,,12.5822,-1.29833,,aucun contact
+Burkina Faso,BF,Shell,gas_station,0.99,Ziniare,+22625327600,https://find.shell.com/bf/fuel/10125731-shell-ziniare-2-do,12.584939,-1.292904,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Eglise Evangelique Baptiste De La Vie Nouvelle,religious_organization,0.893,Ouagadougou,+22671993257,,12.520988923254,-1.2780857758001,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ziniare,+22625327600,https://find.shell.com/bf/fuel/10123747-shell-ziniare,12.58820897,-1.30136575,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Nagréongo,+22625325000,https://bf.totalenergies.com/,12.42175556,-1.14483265,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.8,Kombissiri,,,12.05048,-1.20435,,aucun contact
+Burkina Faso,BF,Lycee Provincial de Pô,high_school,0.896,Pô,,,11.173545,-1.13449667,,aucun contact
+Burkina Faso,BF,Espace Barbara,bar,0.82,Pô,+22670232828,,11.1697,-1.145,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Toece,+22625327600,https://find.shell.com/bf/fuel/10123790-shell-toece,11.82341112,-1.26319351,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouaga Province,,https://bf.totalenergies.com/,11.83423572,-1.26537623,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Manga,+22625327600,https://find.shell.com/bf/fuel/10123873-shell-manga,11.679499,-1.088075,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Auberge Les Heritiers,hotel,0.848,Kaya,+22624451424,,13.07770885,-1.07713292,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Ouagadougou,+22625327600,https://find.shell.com/bf/fuel/10125745-shell-kaya-2-do,13.07371816,-1.07537822,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Centre Hospitalier Régional de Kaya,hospital,0.937,Kaya,+22624453036,,13.08641,-1.08271,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Kaya,+22625327600,https://find.shell.com/bf/fuel/10123776-shell-kaya,13.03683525,-1.08408759,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Bomboré gold mine,historic_site,0.81,,,,12.22527,-0.90302,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Shell,gas_station,0.99,Mogtédo,+22625327600,https://find.shell.com/bf/fuel/10125728-shell-mogtedo,12.28638024,-0.83755056,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,TotalEnergies,gas_station,0.85,Ouaga Province,,https://bf.totalenergies.com/,13.16805186,-0.82733295,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Beguedo,+22625327600,https://find.shell.com/bf/fuel/10123872-shell-beguedo,11.810191,-0.713337,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Gom-Boussougou,+22625327600,https://find.shell.com/bf/fuel/10123774-shell-dindeogo,11.35409052,-0.70003128,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,BAR Lemaama,bar,0.805,Piéla,+22672633695,http://WWW.BARLEMAAMA.COM/,12.7103,-0.1325,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Bogande Airport,airport,0.804,Bogandé,,http://pl.wikipedia.org/wiki/index.html?curid=2024601,12.983,-0.167,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Komassou,historic_site,0.805,,,,13.46138,-0.29641,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Lycée Privé Saint Gilbert de Pouytenga,elementary_school,0.858,Pouytenga,+22660306030,http://www.bonel-school.net/LPSGP,12.2525,-0.426944,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Privé Saint Gilbert de Pouytenga,elementary_school,0.859,Pouytenga,+22660306030,http://www.bonel-school.net/LPSGP,12.25071332,-0.4291886200000001,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Pouytenga,+22625327600,https://find.shell.com/bf/fuel/10123749-shell-pouytenga,12.24425028,-0.43063874,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Fada N'gourma,+22625327600,https://find.shell.com/bf/fuel/10123781-shell-fada,12.059643,-0.36969,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Privé Saint  Antoine De Koupéla\LPSAK,school,0.921,Koupéla,+22672723838,,12.18254826907032,-0.3542155100696516,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Maison Des  Hotes Cyprien,hotel,0.806,Koupéla,,,12.180797250110787,-0.35021769981235995,,aucun contact
+Burkina Faso,BF,White Stone,hotel,0.89,Koupéla,+22652279031,,12.17668548,-0.35729562,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Province du Kouritenga,historic_site,0.801,,,,12.2,-0.3,,nom administratif/géographique; localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Hotel Tieba,hotel,0.841,Tenkodogo,+22624669782,,11.783723533820824,-0.37626327970343826,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Tenkodogo,,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.7929805,-0.3723955,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.99,Tenkodogo,+22625327600,https://find.shell.com/bf/fuel/10123792-shell-tenkodogo,11.79477736,-0.37313394,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôtel Laafi,hotel,0.961,Tenkodogo,+22670207018,,11.79600265,-0.37371554,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Tenkodogo,+22666292904,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.7883733,-0.3706425,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pharmacie TIBO,pharmacy,0.823,Tenkodogo,+22661361515,,11.78607402,-0.36906993,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,MoneyGram,money_transfer_service,0.95,Tenkodogo,+22624710033,https://www.moneygram.com/r/bf/en?utm_source=google&utm_medium=organic&utm_campaign=gbp,11.7858818,-0.3695169,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Hôtel Tiéba,hotel,0.816,Tenkodogo,+22624669782,www.hoteltieba.com,11.7858839,-0.36951602,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée privé Thomas Sankara de Tenkodogo,high_school,0.83,Tenkodogo,+22674868148,,11.7803877,-0.3668808,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Scolaire Privéle BON Berger De Tenkodogo,elementary_school,0.823,Tenkodogo,+22670233065,,11.78,-0.369722,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Complexe Scolaire Privéle BON Berger De Tenkodogo,elementary_school,0.833,Tenkodogo,+22670233065,,11.801018050000629,-0.3775589499986491,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.8,Zorgho,,,11.57559,-0.46219,,aucun contact
+Burkina Faso,BF,Centre Eco-Touristique de Bagré Officiel,lodging,0.877,Tenkodogo,+22661240909,,11.514749885039524,-0.5430111650693691,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Mine de Youla,historic_site,0.822,,,,11.1018756,-0.4685229,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Shell,gas_station,0.99,Zorgho,+22625327600,https://find.shell.com/bf/fuel/10123742-shell-zorgho,12.24509483,-0.64065354,open,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Tabernacle de la Gloire de Dieu,christian_place_of_worship,0.849,Pouytenga,+22676668675,,12.2448797,-0.6415066,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Provincial de Boulsa,high_school,0.96,Boulsa,+22672746535,,12.6513638,-0.5716041699999999,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Lycée Provincial de Boulsa,high_school,0.953,Boulsa,+22672746535,,12.65098951757,-0.56742207147181,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Gorom Gorom Airport,airport,0.806,Gorom-Gorom,,http://www.ourairports.com/airports/DFEG/,14.454166666667,-0.21888888888889,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Kuin Deni Hotel,hotel,0.816,Dori,+22674745720,,14.02731,-0.0331199,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,CHR de Dori,hospital,0.836,Dori,+22624464035,,14.035988155123,-0.03473997,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Mare de Dori,historic_site,0.816,,,,14.0459,-0.03726,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Bamguèl Kobi,historic_site,0.809,,,,14.46629,-0.79017,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Aribinda Airport,airport,0.842,Aribinda,,http://en.wikipedia.org/wiki/Aribinda_Airport,14.217024,-0.883003,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Aribinda Airport,airport,0.842,Aribinda,,http://en.wikipedia.org/wiki/Aribinda_Airport,14.215277777778,-0.89555555555556,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Pogol Krinkriadé,historic_site,0.806,,,,14.56834,-1.05972,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Gorol Daké,historic_site,0.805,,,,14.68507,-1.04687,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Ouaïré Kérboulé,historic_site,0.808,,,,14.54232,-1.26785,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Drive (retrait piéton),shopping,0.8,Saint-Lizier,,,13.00157,1.07404,,aucun contact
+Burkina Faso,BF,Singou Reserve,historic_site,0.807,,,http://en.wikipedia.org/wiki/index.html?curid=18077849,11.639,1.0,,localité absente; lieu à confirmer sur carte
+Burkina Faso,BF,Pama Reserve,national_park,0.812,,,http://pl.wikipedia.org/wiki/index.html?curid=1163997,11.43666667,0.7675,,localité absente; lieu à confirmer sur carte
+Burkina Faso,BF,Koul Péolgo,historic_site,0.806,,,,11.04714,0.74962,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Tankougounadié,historic_site,0.804,,,,13.60333333,0.74611111,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Banga Boulla,historic_site,0.802,,,,13.5717,0.7231,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Sebba Airport,airport,0.814,Sebba,,,13.45660237,0.50277283,,aucun contact
+Burkina Faso,BF,Banga Balé,historic_site,0.802,,,,13.279,0.2328,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Fada N'gourma Airport,airport,0.821,Fada N'Gourma,,http://pl.wikipedia.org/wiki/Port_lotniczy_Fada_N'gourma,12.033,0.35,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Panache Hotel,hotel,0.923,Fada N'Gourma,+22624770373,,12.06023463,0.36945867,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Ecole Nationale d’Ingénierie Supérieure de Fada N'Gourma - Ensi-F,college_university,0.87,Fada N'Gourma,+22624770440,https://ensif.org/,12.07961008425,0.362548828125,,contrôle visuel et dédoublonnage
+Burkina Faso,BF,Shell,gas_station,0.8,Laye,,,12.315898,1.464881,,aucun contact
+Burkina Faso,BF,Tapoa,historic_site,0.809,,,,12.13726,1.42797,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Arly Airport,airport,0.804,,,,11.596642065974189,1.4811147180064668,,localité absente; aucun contact
+Burkina Faso,BF,Parc National de l'Arly,park,0.804,,,,11.58333,1.46667,,localité absente; aucun contact; lieu à confirmer sur carte
+Burkina Faso,BF,Hôtel Bahanma Le Gacilien,hotel,0.883,Diapaga,+22670710369,http://www.hotel-gacilien.com/,12.0706354,1.7890159,,contrôle visuel et dédoublonnage

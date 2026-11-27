@@ -1,0 +1,57 @@
+name: Overture audit
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "UPK-revue-candidats-Overture_2.csv"
+      - "upk-overture-candidats-a-verifier_2.csv"
+      - "seed/osm-sahel-2026-11-27.json"
+      - "seed/geonames-sahel-2026-11-27.json"
+      - "infra/scripts/audit-overture.py"
+      - "infra/scripts/import-overture.py"
+      - "docs/overture/**"
+      - ".github/workflows/overture-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile audit scripts
+        run: |
+          python3 -m py_compile infra/scripts/audit-overture.py
+          python3 -m py_compile infra/scripts/import-overture.py
+
+      - name: Run Overture audit
+        run: python3 infra/scripts/audit-overture.py
+
+      - name: Generate integration SQL
+        run: python3 infra/scripts/import-overture.py
+
+      - name: Verify generated files are reproducible
+        run: |
+          if [ -n "$(git status --porcelain -- docs/overture)" ]; then
+            git status --short -- docs/overture
+            echo "Les fichiers générés ne sont pas reproductibles." >&2
+            exit 1
+          fi
+
+      - name: Upload audit artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: overture-audit
+          path: docs/overture/
+          if-no-files-found: error
+          retention-days: 30
