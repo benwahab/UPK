@@ -122,8 +122,9 @@ Points à traiter avant ouverture publique :
 
 - **Turnstile utilise encore la clé de test** ;
 - le mot de passe admin local doit être remplacé avant l’ouverture ;
-- `docs/README.md` parle encore de staging et de buckets `upk-photos-staging`,
-  ce qui contredit `AGENTS.md` et le runbook actuel ;
+- `docs/README.md` parlait encore de staging et de buckets `upk-photos-staging` ;
+  ce texte a été corrigé pendant cet audit, mais d’autres historiques peuvent
+  encore mentionner l’ancien environnement ;
 - les versions de production citées ne sont pas homogènes (`ca7af247` dans le
   runbook, `8e322315` dans `AGENTS.md`) ;
 - l’état local D1 de ce poste est ancien (1 548 lieux, 9 catégories) : il ne
@@ -135,10 +136,10 @@ La documentation est riche et exploitable, mais elle a divergé :
 
 | Sujet | Incohérence |
 | --- | --- |
-| Staging | `docs/README.md` décrit encore staging et ses buckets ; `AGENTS.md` et `RUNBOOK.md` disent staging retiré |
+| Staging | `docs/README.md` a été corrigé ; `AGENTS.md` et `RUNBOOK.md` décrivent un seul environnement |
 | Volume OSM | 41 566 annoncés vs 41 558 dans le seed |
 | Version production | `ca7af247` vs `8e322315` selon le document |
-| Audit Overture | `docs/OVERTURE-AUDIT.md`, `infra/scripts/audit-overture.py` et le workflow annoncés dans l’historique de mission étaient **absents** du dépôt |
+| Audit Overture | `docs/OVERTURE-AUDIT.md`, `infra/scripts/audit-overture.py` et le workflow étaient absents avant cet audit ; ils sont désormais ajoutés |
 | Tests | compteurs E2E différents selon les documents (20, 21, 39…) |
 
 Ces écarts ne bloquent pas le produit, mais ils bloquent une **ouverture
@@ -428,8 +429,8 @@ Aucune de ces étapes n’a été exécutée sur `upk` pendant cet audit.
    indépendante.
 2. **Rejouer l’audit sur l’export exact de production** (41 566 lignes) et
    ajouter les identifiants Overture/GERS si l’export les fournit.
-3. **Corriger la documentation** : staging retiré, compteur OSM, versions de
-   production, compteurs de tests.
+3. **Poursuivre la correction documentaire** : compteur OSM, versions de
+   production, compteurs de tests et mentions historiques de staging.
 4. **Traiter Turnstile et le mot de passe admin** avant ouverture publique.
 5. **Ajouter l’attribution Overture** dans les mentions légales et
    `seed/ATTRIBUTION.md`.
@@ -447,8 +448,8 @@ Aucune de ces étapes n’a été exécutée sur `upk` pendant cet audit.
 Le dépôt est techniquement cohérent et conforme à l’architecture Cloudflare
 demandée. La recherche, la provenance OSM et les garde-fous de sécurité sont
 solides. Les principaux risques sont documentaires et opérationnels :
-staging encore décrit, compteurs divergents, Turnstile de test, versions de
-production contradictoires.
+incohérences résiduelles dans les historiques, compteurs divergents, Turnstile
+de test, versions de production contradictoires.
 
 L’audit Overture est terminé : **1 136 candidats examinés**, **50
 correspondances OSM fortes**, **34 doublons OSM**, **16 enrichissements**,
