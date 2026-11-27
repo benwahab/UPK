@@ -331,7 +331,7 @@ elle n'apparaît dans la recherche qu'après passage à `valide`.
 
 **Flux.**
 1. `contributions.create` (public) : rate limit 5/h/IP, Turnstile, validation
-   Zod (coordonnées du Niger), insertion puis audit `contribution.create`.
+   Zod (coordonnées du Sahel), insertion puis audit `contribution.create`.
 2. `moderation.pending` (admin) liste les propositions ; `approve` passe le
    lieu à `valide` + `verifie` et renseigne `modere_par` / `modere_le`. Une
    précision GPS supérieure à 20 m exige `forceGps: true`.
@@ -543,8 +543,10 @@ Git.**
 2. Supprimer toute dépendance et tout artefact Lovable (`@lovable.dev/*`,
    `lovable-tagger`, `lovable-error-reporting`, `previewAuthStorage`,
    `.lovable/`, `LOVABLE_CRON_SECRET`).
-3. Les 1 546 lieux de Niamey sont déjà extraits dans
-   `seed/niamey-2026-08-30.json`.
+3. Le catalogue courant couvre le Sahel : 41 566 lieux, 1 197 villes,
+   3 340 quartiers et 16 catégories (`seed/osm-sahel-2026-11-27.json`,
+   `seed/geonames-sahel-2026-11-27.json`). Le snapshot historique de Niamey
+   reste `seed/niamey-2026-08-30.json`.
 4. Tenter un export runtime de l'ancienne base (comptes, photos, propositions)
    **avant** toute coupure définitive.
 5. Importer le seed dans D1 via `infra/scripts/seed.ts`.
@@ -554,8 +556,8 @@ Git.**
 
 ## 18. Limites à valider avant production
 
-- Taille maximale d'une base D1 et stratégie d'archivage. **Ordre de grandeur :
-  1 546 lieux ≈ 1 Mo.**
+- Taille maximale d'une base D1 et stratégie d'archivage. **Mesuré : 41 566
+  lieux + index FTS ≈ 35 Mo, compatible avec les limites D1.**
 - Nombre maximal de paramètres liés par requête (impact sur les imports par
   lots).
 - Temps CPU maximal par requête Worker (impact sur l'import Overpass).

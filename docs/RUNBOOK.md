@@ -91,7 +91,7 @@ pnpm e2e                         # sinon navigateur Playwright
   d'installation mobile et cache du service worker. Les projets `chromium`
   et `mobile-chrome` (Pixel 5) sont exécutés.
 - `pnpm e2e --project=mobile-chrome` ne lance que le mobile.
-- Le test PWA est ignoré sans `E2E_BASE_URL` ; il vérifie le cache `upk-v3-pages`.
+- Le test PWA est ignoré sans `E2E_BASE_URL` ; il vérifie le cache `upk-v4-pages`.
 - En CI, le workflow installe Chromium puis exécute `pnpm e2e`.
 
 ## 3. Staging
@@ -140,16 +140,20 @@ pnpm -C apps/web exec wrangler d1 migrations apply upk --remote \
 - Migrations additives uniquement ; ne jamais modifier une migration appliquée.
 - `d1 execute` refuse `BEGIN`/`COMMIT` : le seed n'en contient pas.
 
-## 5. Seed
+## 5. Catalogue Sahel
 
 ```bash
-pnpm seed:sql > /tmp/seed.sql
-pnpm -C apps/web exec wrangler d1 execute upk --remote \
-  --config ../../infra/wrangler.toml --file=/tmp/seed.sql
+python3 infra/scripts/import-sahel.py --out /tmp/upk-sahel-sql
+for file in /tmp/upk-sahel-sql/*.sql; do
+  pnpm -C apps/web exec wrangler d1 execute upk --remote \
+    --config ../../infra/wrangler.toml --file="$file" -y
+done
 ```
 
-- 1 546 lieux, 9 catégories ; inserts idempotents (`ON CONFLICT DO NOTHING`).
-- Vérifier : `SELECT COUNT(*) FROM places` = 1 546 ; `places_fts` = 1 546.
+- 41 566 lieux, 1 197 villes, 3 340 quartiers, 16 catégories ; inserts
+  idempotents (`ON CONFLICT ... DO UPDATE`).
+- Vérifier : `SELECT COUNT(*) FROM places` = 41 566 ; `places_fts` = 41 566.
+- Sauvegarder avant et après : `bash infra/scripts/backup-d1.sh`.
 
 ## 6. Secrets
 
@@ -166,10 +170,11 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
 
 ## 7. Déploiement production (M5)
 
-État au 2026-11-26 : production initiale déployée sur
-`https://upk.benwahab111.workers.dev` (version `f76c19c5`), migration `0003`
-appliquée, en-têtes de sécurité et Workers Logs actifs. Turnstile utilise
-encore la clé de test : à remplacer avant l'ouverture publique.
+État au 2026-11-27 : production sur
+`https://upk.benwahab111.workers.dev` (version `8e322315`), migrations `0003`
+et `0004` appliquées, catalogue Sahel importé, en-têtes de sécurité, CSRF et
+Workers Logs actifs. Turnstile utilise encore la clé de test : à remplacer
+avant l'ouverture publique.
 
 1. `BETTER_AUTH_URL` vaut `https://upk.benwahab111.workers.dev` dans
    `infra/wrangler.toml`.

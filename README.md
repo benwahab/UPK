@@ -1,6 +1,6 @@
 # UPK — Votre guide local
 
-Moteur de recherche local et annuaire d'établissements pour le Niger.
+Moteur de recherche local et annuaire d'établissements pour le Sahel : Niger, Mali et Burkina Faso.
 
 - **Web et mobile** : TanStack Start (SSR, PWA installable desktop + mobile) sur Cloudflare Workers.
 - **Play Store** : différé en v1.1 (TWA ou Expo selon besoin natif).
@@ -10,11 +10,11 @@ Moteur de recherche local et annuaire d'établissements pour le Niger.
 
 ```
 apps/web        application web (SSR + PWA desktop + mobile)
-apps/mobile     Expo (v1.1, si besoin natif)
+apps/mobile     prévu v1.1 (Expo, si besoin natif)
 packages/       domaine, API, base, i18n, UI
 infra/          Wrangler, scripts de seed
 docs/           cahier des charges, architecture, plan de travail
-seed/           données OpenStreetMap (ODbL)
+seed/           OpenStreetMap (ODbL) et GeoNames (CC BY 4.0)
 ```
 
 ## Commandes

@@ -17,7 +17,14 @@ import { listCategories, searchPlaces } from "../../server/places";
 
 const PlaceMap = lazy(createClientOnlyFn(() => import("../../components/place-map.client")));
 
-const EMPTY_RESULTS: SearchResult = { items: [], total: 0, nextCursor: null };
+const EMPTY_RESULTS: SearchResult = {
+  items: [],
+  total: 0,
+  nextCursor: null,
+  intent: "texte",
+  label: null,
+  exactNameMatch: true,
+};
 
 function coordinate(value: unknown, min: number, max: number): number | undefined {
   const parsed =
@@ -130,19 +137,47 @@ function Home() {
     });
   }
 
+  function searchWithFreshPosition(next: { q?: string; category?: string }) {
+    if (!hasPosition) {
+      navigateSearch(next);
+      return;
+    }
+    if (!("geolocation" in navigator)) {
+      setLocationError(true);
+      navigateSearch(next);
+      return;
+    }
+    setLocationError(false);
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocating(false);
+        navigateSearch({
+          ...next,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      () => {
+        setLocating(false);
+        setLocationError(true);
+        navigateSearch(next);
+      },
+      { enableHighAccuracy: true, timeout: 10_000, maximumAge: 0 },
+    );
+  }
+
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const next = input.trim();
     setVoiceError(false);
-    navigateSearch({ q: next || undefined, category: category || undefined, lat, lng });
+    searchWithFreshPosition({ q: next || undefined, category: category || undefined });
   }
 
   function changeCategory(value: string) {
-    navigateSearch({
+    searchWithFreshPosition({
       q: input.trim() || undefined,
       category: value || undefined,
-      lat,
-      lng,
     });
   }
 
@@ -168,7 +203,7 @@ function Home() {
         setLocating(false);
         setLocationError(true);
       },
-      { enableHighAccuracy: false, timeout: 10_000, maximumAge: 60_000 },
+      { enableHighAccuracy: true, timeout: 10_000, maximumAge: 0 },
     );
   }
 
@@ -182,7 +217,7 @@ function Home() {
   function voiceResult(text: string) {
     setVoiceError(false);
     setInput(text);
-    navigateSearch({ q: text, category: category || undefined, lat, lng });
+    searchWithFreshPosition({ q: text, category: category || undefined });
   }
 
   return (
@@ -315,6 +350,23 @@ function Home() {
             <p className="text-sm text-[var(--upk-muted-fg)]">
               {results.data.total} {t(locale, "search.results")}
             </p>
+            {results.data.label && results.data.intent !== "nom" && (
+              <p className="mt-1 text-sm font-medium text-[var(--upk-primary)]">
+                {results.data.intent === "quartier"
+                  ? t(locale, "search.intent.quartier").replace("{name}", results.data.label)
+                  : results.data.intent === "ville"
+                    ? t(locale, "search.intent.ville").replace("{name}", results.data.label)
+                    : t(locale, "search.intent.categorie").replace(
+                        "{name}",
+                        results.data.label,
+                      )}
+              </p>
+            )}
+            {results.data.intent === "texte" && q && !results.data.exactNameMatch && (
+              <p role="status" className="mt-2 text-sm text-amber-800">
+                {t(locale, "search.approximate").replace("{query}", q)}
+              </p>
+            )}
             {results.data.items.length === 0 ? (
               <p className="mt-4">{t(locale, "search.empty")}</p>
             ) : (

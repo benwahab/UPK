@@ -1,0 +1,21 @@
+{
+  "snapshot": "2026-11-27",
+  "categories": [
+    {"slug":"pharmacie","nom":"Pharmacie","ordre":1,"icone":"cross","translations":{"fr":"Pharmacie","en":"Pharmacy","ar":"صيدلية"}},
+    {"slug":"sante","nom":"Santé","ordre":2,"icone":"heart-pulse","translations":{"fr":"Santé","en":"Health","ar":"صحة"}},
+    {"slug":"restaurant","nom":"Restaurant","ordre":3,"icone":"utensils","translations":{"fr":"Restaurant","en":"Restaurant","ar":"مطعم"}},
+    {"slug":"hotel","nom":"Hôtel","ordre":4,"icone":"bed","translations":{"fr":"Hôtel","en":"Hotel","ar":"فندق"}},
+    {"slug":"banque","nom":"Banque","ordre":5,"icone":"landmark","translations":{"fr":"Banque","en":"Bank","ar":"بنك"}},
+    {"slug":"distributeur","nom":"Distributeur","ordre":6,"icone":"credit-card","translations":{"fr":"Distributeur","en":"ATM","ar":"صراف آلي"}},
+    {"slug":"station-service","nom":"Station-service","ordre":7,"icone":"fuel","translations":{"fr":"Station-service","en":"Fuel station","ar":"محطة وقود"}},
+    {"slug":"garage","nom":"Garage","ordre":8,"icone":"wrench","translations":{"fr":"Garage","en":"Garage","ar":"ورشة سيارات"}},
+    {"slug":"ecole","nom":"École","ordre":9,"icone":"graduation-cap","translations":{"fr":"École","en":"School","ar":"مدرسة"}},
+    {"slug":"marche","nom":"Marché","ordre":10,"icone":"shopping-basket","translations":{"fr":"Marché","en":"Market","ar":"سوق"}},
+    {"slug":"administration","nom":"Administration","ordre":11,"icone":"building-columns","translations":{"fr":"Administration","en":"Government office","ar":"إدارة"}},
+    {"slug":"commerce","nom":"Commerce","ordre":12,"icone":"store","translations":{"fr":"Commerce","en":"Shop","ar":"متجر"}},
+    {"slug":"transport","nom":"Transport","ordre":13,"icone":"bus","translations":{"fr":"Transport","en":"Transport","ar":"نقل"}},
+    {"slug":"loisirs","nom":"Loisirs","ordre":14,"icone":"trees","translations":{"fr":"Loisirs","en":"Leisure","ar":"ترفيه"}},
+    {"slug":"services-professionnels","nom":"Services professionnels","ordre":15,"icone":"briefcase","translations":{"fr":"Services professionnels","en":"Professional services","ar":"خدمات مهنية"}},
+    {"slug":"lieu-culte","nom":"Lieu de culte","ordre":16,"icone":"place-of-worship","translations":{"fr":"Lieu de culte","en":"Place of worship","ar":"مكان عبادة"}}
+  ]
+}

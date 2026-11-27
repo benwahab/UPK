@@ -64,6 +64,16 @@ export const Route = createFileRoute("/$locale/places/$id")({
   component: PlaceDetail,
 });
 
+function safeWebsite(value: string | null): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(/^https?:\/\//i.test(value) ? value : `https://${value.replace(/^\/\//, "")}`);
+    return url.protocol === "http:" || url.protocol === "https:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 function PlaceDetail() {
   const { locale: rawLocale, id } = Route.useParams();
   const locale: Locale = localeSchema.parse(rawLocale);
@@ -109,6 +119,8 @@ function PlaceDetail() {
     );
   }
 
+  const website = safeWebsite(place.siteWeb);
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
       <Link
@@ -122,7 +134,48 @@ function PlaceDetail() {
       <p className="mt-2 text-lg text-[var(--upk-muted-fg)]">
         {place.categorieNom}
         {place.quartier ? ` · ${place.quartier}` : place.ville ? ` · ${place.ville}` : ""}
+        {place.region ? ` · ${place.region}` : ""}
       </p>
+      {(place.adresse ||
+        place.horaires ||
+        website ||
+        place.description) && (
+        <dl className="mt-6 grid gap-3 rounded-xl border border-[var(--upk-border)] p-4 text-sm sm:grid-cols-2">
+          {place.adresse && (
+            <div>
+              <dt className="font-medium">{t(locale, "place.address")}</dt>
+              <dd className="text-[var(--upk-muted-fg)]">{place.adresse}</dd>
+            </div>
+          )}
+          {place.horaires && (
+            <div>
+              <dt className="font-medium">{t(locale, "place.hours")}</dt>
+              <dd className="text-[var(--upk-muted-fg)]">{place.horaires}</dd>
+            </div>
+          )}
+          {website && (
+            <div>
+              <dt className="font-medium">{t(locale, "place.website")}</dt>
+              <dd>
+                <a
+                  href={website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="break-all text-[var(--upk-primary)]"
+                >
+                  {website}
+                </a>
+              </dd>
+            </div>
+          )}
+          {place.description && (
+            <div className="sm:col-span-2">
+              <dt className="font-medium">{t(locale, "place.description")}</dt>
+              <dd className="text-[var(--upk-muted-fg)]">{place.description}</dd>
+            </div>
+          )}
+        </dl>
+      )}
       <nav className="mt-4 flex gap-3 text-sm" aria-label={t(locale, "nav.language")}>
         {(["fr", "en", "ar"] as const).map((code) => (
           <Link

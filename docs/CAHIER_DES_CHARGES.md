@@ -38,7 +38,7 @@ conservées dans `seed/`.
 
 ## 3. Vision et principes directeurs
 
-**Vision.** Permettre à toute personne au Niger de trouver, en moins de trente
+**Vision.** Permettre à toute personne au Niger, au Mali et au Burkina Faso de trouver, en moins de trente
 secondes, où se trouve ce dont elle a besoin, et d'agir immédiatement : appeler,
 écrire, s'y rendre.
 

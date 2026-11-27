@@ -8,10 +8,24 @@ import {
   uniqueIndex,
 } from "drizzle-orm/sqlite-core";
 
+export const countries = sqliteTable("countries", {
+  code: text("code").primaryKey(),
+  nom: text("nom").notNull(),
+  phonePrefix: text("phone_prefix"),
+  source: text("source").notNull(),
+  licence: text("licence"),
+  updatedAt: text("updated_at").notNull(),
+});
+
 export const regions = sqliteTable("regions", {
   id: text("id").primaryKey(),
   nom: text("nom").notNull(),
   slug: text("slug").notNull(),
+  countryCode: text("country_code"),
+  latitude: real("latitude"),
+  longitude: real("longitude"),
+  source: text("source"),
+  geonamesId: text("geonames_id"),
 });
 
 export const departements = sqliteTable("departements", {
@@ -19,6 +33,10 @@ export const departements = sqliteTable("departements", {
   regionId: text("region_id").notNull(),
   nom: text("nom").notNull(),
   slug: text("slug").notNull(),
+  latitude: real("latitude"),
+  longitude: real("longitude"),
+  source: text("source"),
+  geonamesId: text("geonames_id"),
 });
 
 export const communes = sqliteTable("communes", {
@@ -26,6 +44,10 @@ export const communes = sqliteTable("communes", {
   departementId: text("departement_id").notNull(),
   nom: text("nom").notNull(),
   slug: text("slug").notNull(),
+  latitude: real("latitude"),
+  longitude: real("longitude"),
+  source: text("source"),
+  geonamesId: text("geonames_id"),
 });
 
 export const villesZones = sqliteTable("villes_zones", {
@@ -35,7 +57,35 @@ export const villesZones = sqliteTable("villes_zones", {
   slug: text("slug").notNull(),
   latitude: real("latitude"),
   longitude: real("longitude"),
+  type: text("type").notNull().default("ville"),
+  nomNormalise: text("nom_normalise"),
+  population: integer("population"),
+  source: text("source"),
+  geonamesId: text("geonames_id"),
+  countryCode: text("country_code"),
 });
+
+export const quartiers = sqliteTable(
+  "quartiers",
+  {
+    id: text("id").primaryKey(),
+    villeZoneId: text("ville_zone_id").notNull(),
+    communeId: text("commune_id"),
+    nom: text("nom").notNull(),
+    slug: text("slug").notNull(),
+    nomNormalise: text("nom_normalise").notNull(),
+    latitude: real("latitude"),
+    longitude: real("longitude"),
+    source: text("source").notNull(),
+    geonamesId: text("geonames_id"),
+    licenceSource: text("licence_source"),
+    createdAt: text("created_at").notNull(),
+  },
+  (table) => [
+    index("quartiers_ville_idx").on(table.villeZoneId),
+    index("quartiers_nom_idx").on(table.nomNormalise),
+  ],
+);
 
 export const categories = sqliteTable(
   "categories",
@@ -97,6 +147,11 @@ export const places = sqliteTable(
     moderePar: text("modere_par"),
     modereLe: text("modere_le"),
     langue: text("langue").notNull().default("fr"),
+    countryCode: text("country_code"),
+    quartierId: text("quartier_id"),
+    quartierNormalise: text("quartier_normalise"),
+    sourceUrl: text("source_url"),
+    osmTags: text("osm_tags"),
     actif: integer("actif").notNull().default(1),
     createdAt: text("created_at").notNull(),
     updatedAt: text("updated_at").notNull(),
@@ -112,6 +167,9 @@ export const places = sqliteTable(
       table.createdAt,
     ),
     index("places_tel_idx").on(table.telephoneNormalise),
+    index("places_country_idx").on(table.countryCode),
+    index("places_quartier_idx").on(table.quartierId),
+    index("places_nom_normalise_idx").on(table.nomNormalise),
     uniqueIndex("places_osm_idx").on(table.osmId, table.osmType),
   ],
 );

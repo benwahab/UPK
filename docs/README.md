@@ -14,8 +14,11 @@ Point d'entrée de la reconstruction UPK v2.
 
 | Fichier | Contenu |
 | --- | --- |
-| [`../seed/niamey-2026-08-30.json`](../seed/niamey-2026-08-30.json) | 1 546 lieux OpenStreetMap de Niamey, avec coordonnées |
-| [`../seed/ATTRIBUTION.md`](../seed/ATTRIBUTION.md) | Attribution ODbL et empreinte d'intégrité |
+| [`../seed/osm-sahel-2026-11-27.json`](../seed/osm-sahel-2026-11-27.json) | 41 558 lieux OpenStreetMap au Niger, Mali et Burkina Faso |
+| [`../seed/geonames-sahel-2026-11-27.json`](../seed/geonames-sahel-2026-11-27.json) | 1 197 villes, 3 340 quartiers et hiérarchie administrative (GeoNames) |
+| [`../seed/categories-2026-11-27.json`](../seed/categories-2026-11-27.json) | 16 catégories traduites fr/en/ar |
+| [`../seed/niamey-2026-08-30.json`](../seed/niamey-2026-08-30.json) | Snapshot historique : 1 546 lieux de Niamey |
+| [`../seed/ATTRIBUTION.md`](../seed/ATTRIBUTION.md) | Attribution ODbL, CC BY 4.0 et empreintes d'intégrité |
 
 ## Ordre de lecture recommandé
 
@@ -43,17 +46,17 @@ Les trois documents sont en version 1.0. Le choix « web mobile-first » est
 consigné (ADR-008) : la v1.0 sort en application web installable desktop +
 mobile, le Play Store est différé en v1.1.
 
-S0 à S2 sont livrés : monorepo, POC D1/FTS5 sur D1 réelle, seed des 1 546
-lieux, Better Auth, recherche et fiches, PWA, contribution, signalements,
-modération et journal d'audit. L'accueil reste simple : aucune liste n'est
+S0 à S3 sont livrés : monorepo, POC D1/FTS5 sur D1 réelle, catalogue Sahel
+de 41 566 lieux, Better Auth, recherche et fiches, PWA, contribution,
+signalements, modération et journal d'audit. L'accueil reste simple : aucune liste n'est
 chargée sans recherche, la géolocalisation affiche les lieux du plus proche au
 plus éloigné et la recherche vocale est proposée quand le navigateur la
 supporte. La migration `0003` et la tranche S2 sont déployées sur staging
 (`dd213a9d`), avec le compte `admin@upk.test`. L'upload R2 est actif : les
 photos optionnelles (3 max, 5 Mo) sont stockées dans les buckets privés
-`upk-photos` et `upk-photos-staging`. La production initiale est déployée sur
-`https://upk.benwahab111.workers.dev` (`f76c19c5`) avec la migration `0003`,
-R2, Better Auth, en-têtes de sécurité et Workers Logs configurés. Les
+`upk-photos` et `upk-photos-staging`. La production est déployée sur
+`https://upk.benwahab111.workers.dev` (`8e322315`) avec les migrations `0003`
+et `0004`, R2, Better Auth, en-têtes de sécurité, CSRF et Workers Logs. Les
 sauvegardes D1 sont déposées dans `upk-backups`. Turnstile utilise encore la
 clé de test en production : la remplacer avant l'ouverture publique. Les 11 parcours E2E
 Playwright sont exécutés en desktop et mobile (21 exécutions vertes sur

@@ -10,6 +10,8 @@ function createTestDb() {
   sqlite.pragma("foreign_keys = ON");
   const migration = new URL("../../db/migrations/0001_init.sql", import.meta.url);
   sqlite.exec(readFileSync(migration, "utf8"));
+  const geoMigration = new URL("../../db/migrations/0004_sahel_geo.sql", import.meta.url);
+  sqlite.exec(readFileSync(geoMigration, "utf8"));
 
   const db = drizzle(sqlite, { schema });
   const now = new Date().toISOString();
@@ -68,6 +70,33 @@ function createTestDb() {
     now,
     now,
   );
+  insertPlace.run(
+    "p4",
+    "AAA Pharmacie lointaine",
+    "aaa pharmacie lointaine",
+    "cat_pharmacie",
+    "Ouagadougou",
+    12.37,
+    -1.52,
+    null,
+    null,
+    "source_fiable",
+    now,
+    now,
+  );
+
+  sqlite.exec(`
+    INSERT INTO regions (id, nom, slug, country_code) VALUES ('r1', 'Niamey', 'niamey', 'NE');
+    INSERT INTO departements (id, region_id, nom, slug) VALUES ('d1', 'r1', 'Niamey', 'niamey');
+    INSERT INTO communes (id, departement_id, nom, slug) VALUES ('c1', 'd1', 'Niamey', 'niamey');
+    INSERT INTO villes_zones (id, commune_id, nom, slug, nom_normalise, latitude, longitude)
+      VALUES ('v1', 'c1', 'Niamey', 'niamey', 'niamey', 13.51, 2.11);
+    INSERT INTO quartiers (id, ville_zone_id, commune_id, nom, slug, nom_normalise, latitude, longitude, source, created_at)
+      VALUES ('q1', 'v1', 'c1', 'Plateau', 'plateau', 'plateau', 13.511, 2.112, 'test', '2026-01-01'),
+             ('q2', 'v1', 'c1', 'Yantala', 'yantala', 'yantala', 13.53, 2.13, 'test', '2026-01-01');
+    UPDATE places SET quartier_id = 'q1' WHERE id = 'p1';
+    UPDATE places SET quartier_id = 'q2' WHERE id = 'p3';
+  `);
 
   return db;
 }
@@ -83,6 +112,35 @@ describe("repositories D1", () => {
     expect(result.total).toBeGreaterThanOrEqual(1);
   });
 
+  it("privilégie le nom exact même si un autre lieu est plus proche", async () => {
+    const result = await places.search({
+      q: "Pharmacie du Plateau",
+      lat: 13.53,
+      lng: 2.13,
+      limit: 20,
+    });
+    expect(result.intent).toBe("nom");
+    expect(result.exactNameMatch).toBe(true);
+    expect(result.items[0]?.id).toBe("p1");
+  });
+
+  it("recherche un quartier sans le remplacer par la proximité", async () => {
+    const result = await places.search({ q: "Yantala", lat: 13.511, lng: 2.112, limit: 20 });
+    expect(result.intent).toBe("quartier");
+    expect(result.items.map((place) => place.id)).toEqual(["p3"]);
+  });
+
+  it("tolère une faute de frappe", async () => {
+    const result = await places.search({ q: "pharmachie du plateu", limit: 20 });
+    expect(result.items.map((place) => place.id)).toContain("p1");
+  });
+
+  it("ne liste pas tout le catalogue pour une requête sans jeton", async () => {
+    const result = await places.search({ q: "...", limit: 20 });
+    expect(result.items).toEqual([]);
+    expect(result.total).toBe(0);
+  });
+
   it("recherche arabe normalisée", async () => {
     const result = await places.search({ q: "صيدلية", limit: 20 });
     expect(result.items.map((place) => place.id)).toContain("p3");
@@ -91,6 +149,16 @@ describe("repositories D1", () => {
   it("filtre par catégorie", async () => {
     const result = await places.search({ categorySlug: "ecole", limit: 20 });
     expect(result.items.map((place) => place.id)).toEqual(["p2"]);
+  });
+
+  it("tronque après le tri par distance, pas avant", async () => {
+    const result = await places.search({
+      categorySlug: "pharmacie",
+      lat: 13.511,
+      lng: 2.112,
+      limit: 1,
+    });
+    expect(result.items[0]?.id).toBe("p1");
   });
 
   it("calcule la distance et applique le rayon", async () => {
@@ -104,7 +172,7 @@ describe("repositories D1", () => {
 
   it("classe les résultats du plus proche au plus éloigné", async () => {
     const result = await places.search({ lat: 13.53, lng: 2.13, limit: 20 });
-    expect(result.items.map((place) => place.id)).toEqual(["p3", "p2", "p1"]);
+    expect(result.items.map((place) => place.id)).toEqual(["p3", "p2", "p1", "p4"]);
     const distances = result.items.map((place) => place.distanceM ?? Number.POSITIVE_INFINITY);
     expect(distances).toEqual([...distances].sort((a, b) => a - b));
   });
@@ -120,6 +188,6 @@ describe("repositories D1", () => {
   });
 
   it("liste les identifiants publiés", async () => {
-    expect(await places.listPublishedIds()).toEqual(["p1", "p2", "p3"]);
+    expect(await places.listPublishedIds()).toEqual(["p1", "p2", "p3", "p4"]);
   });
 });

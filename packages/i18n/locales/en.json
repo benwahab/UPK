@@ -5,7 +5,7 @@
   "nav.about": "About",
   "nav.language": "Language",
   "home.title": "Your local guide",
-  "home.subtitle": "Find a place near you in Niger.",
+  "home.subtitle": "Find a place near you in Niger, Mali and Burkina Faso.",
   "search.placeholder": "Pharmacy, restaurant, garage…",
   "search.button": "Search",
   "search.category": "Category",
@@ -130,5 +130,15 @@
   "common.close": "Close",
   "common.retry": "Retry",
   "common.required": "required",
-  "common.cancel": "Cancel"
+  "common.cancel": "Cancel",
+  "search.intent.quartier": "Neighbourhood: {name}",
+  "search.intent.ville": "City: {name}",
+  "search.intent.categorie": "Category: {name}",
+  "search.approximate": "No exact name found for “{query}”. Nearby results:",
+  "place.address": "Address",
+  "place.hours": "Opening hours",
+  "place.website": "Website",
+  "place.city": "City",
+  "place.region": "Region",
+  "place.description": "Description"
 }

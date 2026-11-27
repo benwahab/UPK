@@ -1,4 +1,4 @@
-import { createMiddleware, createStart } from "@tanstack/react-start";
+import { createCsrfMiddleware, createMiddleware, createStart } from "@tanstack/react-start";
 
 const securityHeaders = createMiddleware({ type: "request" }).server(async ({ next }) => {
   const result = await next();
@@ -36,6 +36,10 @@ const securityHeaders = createMiddleware({ type: "request" }).server(async ({ ne
   return result;
 });
 
+const csrf = createCsrfMiddleware({
+  filter: (ctx) => ctx.handlerType === "serverFn",
+});
+
 export const startInstance = createStart(() => ({
-  requestMiddleware: [securityHeaders],
+  requestMiddleware: [securityHeaders, csrf],
 }));

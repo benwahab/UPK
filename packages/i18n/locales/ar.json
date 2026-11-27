@@ -5,7 +5,7 @@
   "nav.about": "حول",
   "nav.language": "اللغة",
   "home.title": "دليلك المحلي",
-  "home.subtitle": "اعثر على مكان قريب منك في النيجر.",
+  "home.subtitle": "اعثر على مكان قريب منك في النيجر ومالي وبوركينا فاسو.",
   "search.placeholder": "صيدلية، مطعم، ورشة…",
   "search.button": "بحث",
   "search.category": "الفئة",
@@ -130,5 +130,15 @@
   "common.close": "إغلاق",
   "common.retry": "إعادة المحاولة",
   "common.required": "مطلوب",
-  "common.cancel": "إلغاء"
+  "common.cancel": "إلغاء",
+  "search.intent.quartier": "الحي: {name}",
+  "search.intent.ville": "المدينة: {name}",
+  "search.intent.categorie": "الفئة: {name}",
+  "search.approximate": "لم يتم العثور على اسم مطابق لـ «{query}». نتائج قريبة:",
+  "place.address": "العنوان",
+  "place.hours": "ساعات العمل",
+  "place.website": "الموقع",
+  "place.city": "المدينة",
+  "place.region": "المنطقة",
+  "place.description": "الوصف"
 }

@@ -19,6 +19,7 @@ function createTestDb() {
     "0001_init.sql",
     "0002_auth.sql",
     "0003_contribution_moderation.sql",
+    "0004_sahel_geo.sql",
   ]) {
     const path = new URL(`../../db/migrations/${file}`, import.meta.url);
     sqlite.exec(readFileSync(path, "utf8"));

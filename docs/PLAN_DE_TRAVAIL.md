@@ -193,6 +193,16 @@ vérifiée), T3.6 (Lighthouse mobile 100/100/100/100, LCP 0,8 s) et T3.9
 (Playwright Pixel 5) sont livrés. T3.2, T3.4 et la décision T3.7/T3.8 restent
 à traiter.
 
+**État au 2026-11-27.** Le catalogue passe de 1 546 lieux (Niamey) à
+**41 566 lieux** couvrant le Niger, le Mali et le Burkina Faso, avec
+1 197 villes, 3 340 quartiers, 16 catégories traduites et la hiérarchie
+administrative complète. La recherche gère les intentions quartier/ville/
+catégorie/nom exact. Les tests unitaires (48), le typecheck (6 projets), le
+lint et les 10 parcours E2E mobiles sont verts. La production tourne la
+version `8e322315`. Restent avant ouverture publique : Turnstile réel,
+domaine personnalisé, Sentry, rotation du mot de passe admin et complément
+de photos terrain.
+
 ## 7. Sprint 4 — Administration (2 semaines)
 
 **Objectif :** l'équipe pilote la plateforme en toute sécurité. Les comptes

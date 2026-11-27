@@ -41,15 +41,15 @@ export const Route = createFileRoute("/sitemap.xml")({
           );
         }
 
+        // Une seule URL par fiche : les versions fr/en/ar sont déclarées en
+        // hreflang. Trois URLs par fiche dépasseraient la limite de 50 000.
         for (const id of ids) {
-          for (const locale of LOCALES) {
-            entries.push(
-              `<url><loc>${escapeXml(`${origin}/${locale}/places/${id}`)}</loc>${alternates(
-                origin,
-                `/places/${id}`,
-              )}</url>`,
-            );
-          }
+          entries.push(
+            `<url><loc>${escapeXml(`${origin}/fr/places/${id}`)}</loc>${alternates(
+              origin,
+              `/places/${id}`,
+            )}</url>`,
+          );
         }
 
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join("\n")}\n</urlset>\n`;

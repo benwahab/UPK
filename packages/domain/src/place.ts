@@ -34,6 +34,12 @@ export type PlaceSummary = {
   categorieNom: string;
   quartier: string | null;
   ville: string | null;
+  region: string | null;
+  adresse: string | null;
+  description: string | null;
+  horaires: string | null;
+  siteWeb: string | null;
+  pays: string | null;
   latitude: number;
   longitude: number;
   telephone: string | null;
@@ -42,10 +48,15 @@ export type PlaceSummary = {
   photos: PlacePhoto[];
 };
 
+export type SearchIntent = "nom" | "categorie" | "quartier" | "ville" | "texte";
+
 export type SearchResult = {
   items: PlaceSummary[];
   nextCursor: string | null;
   total: number;
+  intent: SearchIntent;
+  label: string | null;
+  exactNameMatch: boolean;
 };
 
 export const placeIdSchema = z.object({ id: z.string().min(1) });

@@ -62,9 +62,35 @@ pnpm -C apps/web exec wrangler deploy
   différé en v1.1 (TWA en priorité, Expo seulement si besoin natif prouvé).
 - Le dépôt reste sur une seule branche `main`, sans tag ni pull request.
 
+## État au 2026-11-27 (S3, catalogue Sahel)
+
+- Migration `0004_sahel_geo.sql` appliquée en production : pays, coordonnées
+  administratives, quartiers, provenance OSM.
+- Catalogue : **41 566 lieux** (NE 6 986, ML 22 610, BF 11 962),
+  **32 régions**, **162 départements**, **157 communes**, **1 197 villes**,
+  **3 340 quartiers**, **16 catégories** avec traductions fr/en/ar.
+- Données : 1 244 téléphones, 1 716 adresses, 384 sites web ; 21 785 lieux
+  rattachés à un quartier. Aucune donnée inventée : les champs absents restent
+  NULL et la provenance est conservée (`source_url`, `osm_tags`).
+- Recherche : détection d'intention (quartier, ville, catégorie, nom exact),
+  filtrage géographique avant tri, nom exact prioritaire, repli tolérant aux
+  fautes, avertissement « aucun nom exact ».
+- GPS : `maximumAge: 0` et haute précision ; une recherche ou un changement de
+  catégorie rafraîchit la position au lieu de réutiliser une position périmée.
+- Sitemap : une URL par fiche avec alternates `hreflang` (41 569 URLs, sous la
+  limite de 50 000).
+- Seeds : `seed/osm-sahel-2026-11-27.json`,
+  `seed/geonames-sahel-2026-11-27.json`,
+  `seed/categories-2026-11-27.json` ; import via
+  `infra/scripts/import-sahel.py`.
+- Sécurité : middleware CSRF TanStack pour les server functions, en-têtes CSP/HSTS.
+- Production : version `8e322315` au 27/11/2026. Compte admin `admin@upk.test`
+  créé ; mot de passe local ignoré dans `UPK_PROD_ADMIN_PASSWORD` (à faire
+  tourner avant ouverture publique). `ADMIN_EMAILS` contient cet e-mail.
+
 ## État au 2026-11-22 (S0–S2)
 
-- Monorepo pnpm 12 + Turborepo ; 7 projets ; lint, typecheck et 42 tests verts.
+- Monorepo pnpm 12 + Turborepo ; 6 projets ; lint, typecheck et 48 tests verts.
 - `packages/domain` (13 tests), `packages/i18n` (5), `packages/api` (24).
 - D1 `upk` et `upk-staging` migrées et seedées : 1 546 lieux, 9 catégories.
 - Better Auth : route `/api/auth/$`, inscription + `get-session` vérifiées en
@@ -155,7 +181,8 @@ pnpm -C apps/web exec wrangler deploy
 - `docs/ARCHITECTURE.md` — choix techniques, ADR, schémas.
 - `docs/PLAN_DE_TRAVAIL.md` — sprints, jalons, checklists.
 - `docs/RUNBOOK.md` — procédures local, staging, migrations, secrets, incidents.
-- `seed/` — données OpenStreetMap (ODbL), 1 546 lieux de Niamey.
+- `seed/` — OpenStreetMap (ODbL) et GeoNames (CC BY 4.0), catalogue Sahel
+  (41 566 lieux) + snapshot historique de Niamey.
 
 ## Interdits
 

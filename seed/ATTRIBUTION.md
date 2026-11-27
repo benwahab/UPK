@@ -9,6 +9,20 @@
 - **Licence** : ODbL 1.0 (Open Database License).
 - **Attribution obligatoire** : « © les contributeurs OpenStreetMap ».
 
+## Fichiers `osm-sahel-2026-11-27.json` et `geonames-sahel-2026-11-27.json`
+
+- **Sources** : OpenStreetMap (extraits Geofabrik Niger, Mali, Burkina Faso)
+  et GeoNames (NE, ML, BF).
+- **Zone** : Niger, Mali, Burkina Faso.
+- **Snapshot** : 27 novembre 2026.
+- **Volume** : 41 558 lieux OSM, 3 pays, 32 régions, 162 départements,
+  157 communes, 1 197 villes et 3 340 quartiers.
+- **Licences** : ODbL 1.0 pour OpenStreetMap ; CC BY 4.0 pour GeoNames.
+- **Attribution** : « © les contributeurs OpenStreetMap » et
+  « Données géographiques : GeoNames (CC BY 4.0) ».
+- **Traçabilité** : chaque lieu conserve `osm_id`, `osm_type`, `source`,
+  `source_url`, `licence_source`, `importe_le` et `osm_tags`.
+
 ## Obligations ODbL
 
 Toute diffusion publique de données dérivées doit :
@@ -38,10 +52,22 @@ Chaque lieu du fichier porte :
   (vérifiable avec `sha256sum seed/niamey-2026-08-30.json`)
 - Nombre de lieux : **1 546**
 - Lieux avec coordonnées : **1 546** (100 %)
+- Empreinte SHA-256 de `osm-sahel-2026-11-27.json` :
+  `4be8a8c65564e52148e01704b38d6ebe73d49c6cea7965c799856b1d7a7c6de6`
+- Empreinte SHA-256 de `geonames-sahel-2026-11-27.json` :
+  `40eac562912cdbe995db9cdec6badf77af36b04d6178f18fa84e2abc5bdd5c3c`
+- Empreinte SHA-256 de `categories-2026-11-27.json` :
+  `1f22929f7bb247adc7f11204e10e253a739f453cc1061c129f988724b1adee4c`
 
 ## Régénération
 
-Ce fichier est un instantané. Pour des données fraîches ou une couverture
-nationale, utiliser le pipeline `seed/scripts/import-osm.ts` (voir
-`docs/ARCHITECTURE.md`), qui interroge Overpass par région et conserve la même
-traçabilité.
+Les fichiers sont des instantanés. Pour régénérer le catalogue :
+
+```bash
+# Extraits Geofabrik + archives GeoNames, puis :
+python3 infra/scripts/import-sahel.py --out /tmp/upk-sahel-sql
+```
+
+Le pipeline conserve la même traçabilité et n'invente ni adresse, ni
+téléphone. Les rattachements quartier/commune sont déterministes : tag
+`addr:*` lorsqu'il existe, sinon plus proche centroïde dans un rayon borné.

@@ -10,11 +10,11 @@ test("le service worker met les pages en cache", async ({ page }) => {
   await page.reload();
   await page.waitForFunction(async () => {
     const keys = await caches.keys();
-    return keys.includes("upk-v3-pages");
+    return keys.includes("upk-v4-pages");
   });
 
   const paths = await page.evaluate(async () => {
-    const cache = await caches.open("upk-v3-pages");
+    const cache = await caches.open("upk-v4-pages");
     return (await cache.keys()).map((request) => new URL(request.url).pathname);
   });
 
