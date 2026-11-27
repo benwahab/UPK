@@ -357,7 +357,7 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       }
 
       const offset = decodeOffset(input.cursor);
-      const queryRows = async (conditions: SQL[], fromFts: boolean) => {
+      const queryRows = async (conditions: SQL[], fromFts: boolean, countOnly = false) => {
         const where = sql.join(conditions, sql` AND `);
         const from = fromFts
           ? sql`places_fts JOIN places p ON p.rowid = places_fts.rowid`
@@ -374,14 +374,16 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
                 (p.longitude - ${origin.lng}) * (p.longitude - ${origin.lng}) *
                 ${Math.cos((origin.lat * Math.PI) / 180) ** 2}) ASC, `
             : sql``;
-        const rows = await db.all<PlaceRow>(sql`
-          SELECT ${PLACE_COLUMNS}, ${rank} AS rank
-          FROM ${from}
-          ${PLACE_JOINS}
-          WHERE ${where}
-          ORDER BY ${exactOrder}${fromFts ? sql`rank ASC, ` : distanceOrder}p.nom ASC, p.id ASC
-          LIMIT ${input.limit} OFFSET ${offset}
-        `);
+        const rows = countOnly
+          ? []
+          : await db.all<PlaceRow>(sql`
+              SELECT ${PLACE_COLUMNS}, ${rank} AS rank
+              FROM ${from}
+              ${PLACE_JOINS}
+              WHERE ${where}
+              ORDER BY ${exactOrder}${fromFts ? sql`rank ASC, ` : distanceOrder}p.nom ASC, p.id ASC
+              LIMIT ${input.limit} OFFSET ${offset}
+            `);
         // Le comptage n'a pas besoin des jointures d'affichage.
         // Les filtres géographiques et de catégorie sont résolus par sous-requêtes.
         const countConditions: SQL[] = [
@@ -420,14 +422,53 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       };
 
       const useFtsQuery = useFts && Boolean(ftsQuery);
-      // Une requête sans jeton exploitable ne doit pas lister tout le catalogue.
-      let { rows, total } =
-        normalizedQuery && intent === "texte" && !useFtsQuery
-          ? { rows: [] as PlaceRow[], total: 0 }
-          : await queryRows(
-              useFtsQuery ? [...baseConditions, sql`places_fts MATCH ${ftsQuery}`] : baseConditions,
-              useFtsQuery,
-            );
+      // Une recherche GPS sans rayon élargit progressivement sa zone.
+      // Dès que les N premiers résultats sont entièrement dans le cercle exploré,
+      // aucun lieu situé hors de la zone ne peut les dépasser en distance.
+      // Cela évite de trier tout le catalogue pour ne renvoyer que quelques lieux.
+      let rows: PlaceRow[] = [];
+      let total = 0;
+      if (normalizedQuery && intent === "texte" && !useFtsQuery) {
+        rows = [];
+        total = 0;
+      } else if (origin && !input.radiusKm && !useFtsQuery) {
+        const requiredRows = input.limit + offset;
+        let searchRadiusKm = 2;
+        const maxSearchRadiusKm = 20_000;
+        let complete = false;
+        while (!complete) {
+          const box = boundingBox(origin, searchRadiusKm * 1000);
+          const boundedConditions = [
+            ...baseConditions,
+            sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`,
+            sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`,
+          ];
+          const nearby = await queryRows(boundedConditions, false);
+          rows = nearby.rows;
+          const farthestDistance = rows.reduce((farthest, row) => {
+            const distance = haversineMetres(origin, {
+              lat: row.latitude,
+              lng: row.longitude,
+            });
+            return Math.max(farthest, distance);
+          }, 0);
+          complete =
+            rows.length >= requiredRows && farthestDistance <= searchRadiusKm * 1000;
+          if (complete || searchRadiusKm >= maxSearchRadiusKm) break;
+          searchRadiusKm = Math.min(searchRadiusKm * 2, maxSearchRadiusKm);
+        }
+        // Le total reste exact, mais cette requête ne récupère aucune ligne :
+        // la lecture des lieux est limitée à la zone nécessaire au classement.
+        const countResult = await queryRows(baseConditions, false, true);
+        total = countResult.total;
+      } else {
+        const result = await queryRows(
+          useFtsQuery ? [...baseConditions, sql`places_fts MATCH ${ftsQuery}`] : baseConditions,
+          useFtsQuery,
+        );
+        rows = result.rows;
+        total = result.total;
+      }
 
       let exactNameMatch =
         intent !== "texte" || !normalizedQuery
