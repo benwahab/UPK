@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { createClientOnlyFn } from "@tanstack/react-start";
 import {
   formatDistance,
   isFuzzyMatch,
@@ -10,14 +9,13 @@ import {
   type SearchResult,
 } from "@upk/domain";
 import { assistantText, t } from "@upk/i18n";
-import { lazy, Suspense, useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { AdCarousel } from "../../components/ad-carousel";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
 import { listCategories } from "../../server/places";
 
-const PlaceMap = lazy(createClientOnlyFn(() => import("../../components/place-map.client")));
 
 const EMPTY_RESULTS: SearchResult = {
   items: [],
@@ -76,7 +74,6 @@ function Home() {
   const [initial, categories] = Route.useLoaderData();
   const navigate = useNavigate({ from: "/$locale/" });
   const [input, setInput] = useState(q ?? "");
-  const [showMap, setShowMap] = useState(false);
   const [locating, setLocating] = useState(false);
   const [freshPosition, setFreshPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationBlocked, setLocationBlocked] = useState(false);
@@ -445,45 +442,11 @@ function Home() {
                 </Link>
               </div>
             ) : (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setShowMap((value) => !value)}
-                  aria-expanded={showMap}
-                  className="mt-3 rounded-lg border border-[var(--upk-border)] bg-[var(--upk-card)] px-4 py-2 text-sm font-medium"
-                >
-                  {t(locale, showMap ? "search.hideMap" : "search.showMap")}
-                </button>
-                <div
-                  className={
-                    showMap ? "mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_360px]" : "mt-4"
-                  }
-                >
-                  <ul className="flex flex-col gap-3">
-                    {resultsData.items.map((place) => (
-                      <PlaceCard key={place.id} place={place} locale={locale} />
-                    ))}
-                  </ul>
-                  {showMap && (
-                    <div className="lg:sticky lg:top-4">
-                      <Suspense
-                        fallback={
-                          <p className="text-[var(--upk-muted-fg)]">
-                            {t(locale, "search.mapLoading")}
-                          </p>
-                        }
-                      >
-                        <PlaceMap
-                          places={resultsData.items}
-                          locale={locale}
-                          label={t(locale, "search.map")}
-                          className="h-80 w-full rounded-xl lg:h-[480px]"
-                        />
-                      </Suspense>
-                    </div>
-                  )}
-                </div>
-              </>
+              <ul className="mt-4 flex flex-col gap-3">
+                {resultsData.items.map((place) => (
+                  <PlaceCard key={place.id} place={place} locale={locale} />
+                ))}
+              </ul>
             )}
           </>
         )}
