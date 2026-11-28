@@ -80,15 +80,10 @@ type BeforeInstallPromptEvent = Event & {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const [updateReady, setUpdateReady] = useState(false);
-  const [showLaunchSplash, setShowLaunchSplash] = useState(true);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
   const updateRequested = useRef(false);
 
-  useEffect(() => {
-    const splashTimer = window.setTimeout(() => setShowLaunchSplash(false), 1100);
-    return () => window.clearTimeout(splashTimer);
-  }, []);
 
   useEffect(() => {
     if (!import.meta.env.PROD || !("serviceWorker" in navigator)) return;
@@ -165,7 +160,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {showLaunchSplash && <div className="upk-launch-splash" role="status" aria-label="UPK"><img src="/icon-512.png" alt="UPK" /></div>}
       <div className="fixed end-3 top-3 z-40 rounded-full border border-[var(--upk-border)] bg-[var(--upk-card)] shadow-sm">
         <ThemeToggle locale={locale} />
       </div>
