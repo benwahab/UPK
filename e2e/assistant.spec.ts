@@ -150,7 +150,6 @@ test.describe("assistant vocal UPK", () => {
     await page.addInitScript(() => window.localStorage.setItem("upk-assistant-greeting", "off"));
     await installFakeSpeech(page, { now: "2026-11-21T08:00:00Z" });
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await page.waitForTimeout(1_000);
     expect(
       await page.evaluate(() => (window as AssistantWindow).__assistant?.spoken.length ?? 0),
@@ -168,7 +167,6 @@ test.describe("assistant vocal UPK", () => {
   test("comprend une catégorie vocale et utilise la position fraîche", async ({ page }) => {
     await installFakeSpeech(page);
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /assistant vocal/ }).click();
     await page.getByRole("button", { name: "Parler à l’assistant" }).click();
 
@@ -180,7 +178,6 @@ test.describe("assistant vocal UPK", () => {
   test("propose l'écrit après une incompréhension vocale", async ({ page }) => {
     await installFakeSpeech(page, { transcript: "..." });
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /assistant vocal/ }).click();
     await page.getByRole("button", { name: "Parler à l’assistant" }).click();
 
@@ -199,7 +196,6 @@ test.describe("assistant vocal UPK", () => {
   test("affiche le message de contribution quand le lieu est introuvable", async ({ page }) => {
     await installFakeSpeech(page);
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /assistant vocal/ }).click();
     await page.getByLabel("Écrivez votre recherche…").fill("zzzz introuvable");
     await page.getByRole("button", { name: "Envoyer" }).click();
@@ -211,7 +207,6 @@ test.describe("assistant vocal UPK", () => {
   test("propose une correction sans remplacer le lieu recherché", async ({ page }) => {
     await installFakeSpeech(page);
     await page.goto("/fr?q=pharmacie%20des%20arene");
-    await page.waitForLoadState("networkidle");
     await expect(page.getByRole("status").filter({ hasText: "Aucun nom exact" })).toBeVisible();
     const suggestion = page.getByRole("button", { name: /Vouliez-vous dire/ });
     await expect(suggestion).toBeVisible();
@@ -223,7 +218,6 @@ test.describe("assistant vocal UPK", () => {
   test("répond à une question complémentaire sans relancer la recherche", async ({ page }) => {
     await installFakeSpeech(page);
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /assistant vocal/ }).click();
     await page.getByRole("button", { name: "Parler à l’assistant" }).click();
     await expect(page).toHaveURL(/category=pharmacie/);
@@ -238,7 +232,6 @@ test.describe("assistant vocal UPK", () => {
   test("change de langue sans changer automatiquement la langue de recherche", async ({ page }) => {
     await installFakeSpeech(page);
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await page.getByRole("button", { name: /assistant vocal/ }).click();
     await page.getByLabel("Langue de l’assistant").selectOption("en");
     await expect(page.getByPlaceholder("Type your search…")).toBeVisible();
