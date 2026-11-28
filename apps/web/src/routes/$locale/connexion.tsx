@@ -200,6 +200,13 @@ function LoginPage() {
         <section className="upk-auth-card">
           <div className="upk-auth-card-top">
             <Link to="/$locale" params={{ locale }} className="upk-auth-logo" aria-label="UPK accueil"><img src="/upk-logo.png" alt="UPK" width={216} height={92} className="h-auto w-28" /></Link>
+            <Link
+              to="/$locale"
+              params={{ locale }}
+              className="inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--upk-border)] px-4 text-sm font-semibold text-[var(--upk-muted-fg)] transition-colors hover:bg-[var(--upk-muted)] hover:text-[var(--upk-fg)]"
+            >
+              {locale === "en" ? "Back to search" : locale === "ar" ? "العودة إلى البحث" : "Retour à la recherche"}
+            </Link>
           </div>
 
           <div className="upk-auth-heading">
