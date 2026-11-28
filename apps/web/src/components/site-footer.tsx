@@ -5,9 +5,9 @@ import { t } from "@upk/i18n";
 export function SiteFooter({ locale }: { locale: Locale }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const onHome = pathname === `/${locale}` || pathname === `/${locale}/`;
-  const linkClass = "py-3 hover:text-[var(--upk-fg)] hover:underline";
+  const linkClass = "py-1 hover:text-[var(--upk-fg)] hover:underline";
   return (
-    <footer className="border-t border-[var(--upk-border)] px-4 pb-2 pt-3 text-xs text-[var(--upk-muted-fg)]">
+    <footer className="border-t border-[var(--upk-border)] px-4 pb-1 pt-1.5 text-[11px] leading-tight text-[var(--upk-muted-fg)]">
       <nav
         className="mx-auto flex max-w-3xl flex-wrap justify-center gap-x-5"
         aria-label={t(locale, "footer.legal")}
@@ -40,7 +40,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </Link>
         )}
       </nav>
-      <p className="mt-1 text-center">
+      <p className="mt-0.5 text-center">
         {t(locale, "footer.copyright").replace("{year}", String(new Date().getFullYear()))}
       </p>
       <p className="mt-1 text-center">{t(locale, "footer.attribution")}</p>
