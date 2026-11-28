@@ -199,7 +199,7 @@ function LoginPage() {
 
         <section className="upk-auth-card">
           <div className="upk-auth-card-top">
-            <Link to="/$locale" params={{ locale }} className="upk-auth-logo" aria-label="UPK accueil">UPK<span>.</span></Link>
+            <Link to="/$locale" params={{ locale }} className="upk-auth-logo" aria-label="UPK accueil"><img src="/upk-logo.png" alt="UPK" width={216} height={92} className="h-auto w-28" /></Link>
       </nav>
           </div>
 
