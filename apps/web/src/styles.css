@@ -21,3 +21,32 @@ body {
   font-family: var(--upk-font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+
+/* PWA launch splash: brand mark on the requested Mint Cream background. */
+.upk-launch-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: #F5FFFA;
+  opacity: 1;
+  animation: upk-splash-fade 240ms ease-out 760ms forwards;
+  pointer-events: none;
+}
+
+.upk-launch-splash img {
+  display: block;
+  width: min(42vw, 180px);
+  height: min(42vw, 180px);
+  object-fit: contain;
+}
+
+@keyframes upk-splash-fade {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .upk-launch-splash { animation: none; }
+}
