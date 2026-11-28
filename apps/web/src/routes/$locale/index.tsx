@@ -98,6 +98,28 @@ function Home() {
   const navigate = useNavigate({ from: "/$locale/" });
   const [input, setInput] = useState(q ?? "");
   const inputSuggestion = INPUT_ALIASES[normalizeSearch(input)] ?? null;
+  const [suggestionQuery, setSuggestionQuery] = useState("");
+  useEffect(() => {
+    const timeout = window.setTimeout(() => setSuggestionQuery(input.trim()), 350);
+    return () => window.clearTimeout(timeout);
+  }, [input]);
+  const liveSuggestions = useQuery({
+    queryKey: ["live-place-suggestions", suggestionQuery],
+    queryFn: () =>
+      getTrpcClient().search.places.query({
+        q: suggestionQuery,
+        limit: 8,
+      }),
+    enabled: normalizeSearch(suggestionQuery).length >= 3,
+    staleTime: 15_000,
+  });
+  const liveSuggestionItems = (liveSuggestions.data?.items ?? [])
+    .filter(
+      (item) =>
+        normalizeSearch(item.nom) !== normalizeSearch(suggestionQuery) &&
+        isFuzzyMatch(suggestionQuery, item.nom),
+    )
+    .slice(0, 5);
   const [locating, setLocating] = useState(false);
   const [freshPosition, setFreshPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationBlocked, setLocationBlocked] = useState(false);
@@ -320,6 +342,31 @@ function Home() {
               {inputSuggestion}
             </button>
           </p>
+        )}
+        {liveSuggestionItems.length > 0 && (
+          <div
+            className="mt-2 overflow-hidden rounded-xl border border-[var(--upk-border)] bg-[var(--upk-card)] shadow-sm"
+            role="listbox"
+            aria-label={locale === "ar" ? "اقتراحات الأماكن" : locale === "en" ? "Place suggestions" : "Suggestions de lieux"}
+          >
+            {liveSuggestionItems.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                role="option"
+                aria-selected="false"
+                className="flex min-h-11 w-full flex-col items-start border-b border-[var(--upk-border)] px-3 py-2 text-start last:border-b-0 hover:bg-[var(--upk-muted)]"
+                onClick={() => {
+                  setInput(item.nom);
+                  setSuggestionQuery("");
+                  searchWithFreshPosition({ q: item.nom, category: category || undefined });
+                }}
+              >
+                <span className="text-sm font-semibold">{item.nom}</span>
+                <span className="text-xs text-[var(--upk-muted-fg)]">{item.categorieNom}{item.quartier ? ` · ${item.quartier}` : ""}</span>
+              </button>
+            ))}
+          </div>
         )}
         {category && <input type="hidden" name="category" value={category} />}
 
