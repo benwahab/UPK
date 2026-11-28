@@ -59,6 +59,8 @@ const CATEGORY_INTENTS: Record<string, string> = {
   hopital: "sante",
   hopitaux: "sante",
   clinique: "sante",
+  clinic: "sante",
+  clinics: "sante",
   cliniques: "sante",
   dispensaire: "sante",
   dispensaires: "sante",
