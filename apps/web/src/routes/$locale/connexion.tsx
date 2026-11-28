@@ -119,7 +119,7 @@ function LoginPage() {
         setError(t(locale, "login.passwordHint"));
         return;
       }
-      if (password !== confirmPassword) {
+      if (!existingAccountSession && password !== confirmPassword) {
         setError(t(locale, "login.passwordMismatch"));
         return;
       }
