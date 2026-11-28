@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeArabic, normalizeLatin, normalizePhone, normalizeSearch } from "./normalize";
+import { isFuzzyMatch, normalizeArabic, normalizeLatin, normalizePhone, normalizeSearch } from "./normalize";
 
 describe("normalizeLatin", () => {
   it("supprime les accents et la casse", () => {
@@ -36,5 +36,11 @@ describe("normalizePhone", () => {
   });
   it("rejette un numéro invalide", () => {
     expect(normalizePhone("123")).toBeNull();
+  });
+});
+
+describe("isFuzzyMatch", () => {
+  it("retrouve un lieu avec une faute et un nom incomplet", () => {
+    expect(isFuzzyMatch("marcher alb", "Marché Albarka")).toBe(true);
   });
 });
