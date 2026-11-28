@@ -314,16 +314,19 @@ export type AssistantIntent =
   | { kind: "unknown"; raw: string };
 
 function containsPhrase(text: string, phrase: string): boolean {
-  return ` ${text} `.includes(` ${phrase} `);
+  const normalizedPhrase = normalizeSearch(phrase);
+  return ` ${text} `.includes(` ${normalizedPhrase} `);
 }
 
 function removePhrase(text: string, phrase: string): string {
-  return ` ${text} `.replace(` ${phrase} `, " ").replace(/\s+/g, " ").trim();
+  const normalizedPhrase = normalizeSearch(phrase);
+  return ` ${text} `.replace(` ${normalizedPhrase} `, " ").replace(/\s+/g, " ").trim();
 }
 
 function stripPrefix(text: string, prefix: string): string | null {
-  if (text === prefix) return "";
-  if (text.startsWith(`${prefix} `)) return text.slice(prefix.length).trim();
+  const normalizedPrefix = normalizeSearch(prefix);
+  if (text === normalizedPrefix) return "";
+  if (text.startsWith(`${normalizedPrefix} `)) return text.slice(normalizedPrefix.length).trim();
   return null;
 }
 
@@ -415,7 +418,7 @@ export function travelModeForText(raw: string): TravelMode | null {
 }
 
 export function travelSearchIntent(mode: TravelMode): Extract<AssistantIntent, { kind: "search" }> {
-  const query = mode === "plane" ? "aeroport" : mode === "bus_station" ? "gare routiere" : mode === "bus" ? "bus" : "gare";
+  const query = mode === "plane" ? "aeroport" : mode === "bus" || mode === "bus_station" ? "gare routiere" : "gare";
   return { kind: "search", raw: query, query, categorySlug: "transport", proximity: false };
 }
 
