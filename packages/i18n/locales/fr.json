@@ -198,5 +198,7 @@
   "login.rejected": "Votre demande n'a pas été validée. Veuillez contacter l'équipe UPK pour connaître la suite.",
   "login.noApplication": "Aucune demande de compte n'est associée à cette adresse. Créez votre demande pour accéder à UPK.",
   "login.submitted": "Votre demande a été envoyée. Votre compte restera en attente jusqu'à sa vérification et sa confirmation.",
-  "login.applicationError": "Le compte a été créé, mais la demande n'a pas pu être enregistrée. Reconnectez-vous et contactez l'équipe UPK."
+  "login.applicationError": "Le compte a été créé, mais la demande n'a pas pu être enregistrée. Reconnectez-vous et contactez l'équipe UPK.",
+  "login.confirmPassword": "Confirmer le mot de passe",
+  "login.passwordMismatch": "Les deux mots de passe ne correspondent pas."
 }
