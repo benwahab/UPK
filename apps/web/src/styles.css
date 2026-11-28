@@ -254,3 +254,26 @@ body {
   background: linear-gradient(135deg, #ff946f, #ff8057);
   box-shadow: 0 9px 22px rgb(0 0 0 / 25%);
 }
+
+
+/* Finition de l'espace de conversation Ben */
+.ben-panel {
+  isolation: isolate;
+  backdrop-filter: blur(22px);
+}
+.ben-chat-scroll {
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #e6cfc1 transparent;
+}
+.ben-chat-scroll::-webkit-scrollbar { width: 6px; }
+.ben-chat-scroll::-webkit-scrollbar-thumb { border-radius: 999px; background: #e6cfc1; }
+.ben-launcher-attention {
+  animation-duration: 4s;
+  box-shadow: 0 8px 24px rgb(175 82 47 / 22%);
+}
+@media (max-width: 640px) {
+  .ben-panel {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
