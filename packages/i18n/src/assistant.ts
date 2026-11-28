@@ -27,12 +27,12 @@ export const assistantVoiceSupport: Record<AssistantLanguage, "native" | "experi
 
 const fr = {
   "assistant.name": "Ben",
-  "assistant.welcome": "Bonjour, je suis Ben, votre assistant. Comment puis-je vous aider aujourd’hui ?",
+  "assistant.welcome": "Bonjour, je suis Ben. Que puis-je faire pour vous aujourd’hui ?",
   "assistant.open": "Ouvrir l’assistant vocal",
   "assistant.close": "Fermer l’assistant",
   "assistant.language": "Langue de l’assistant",
-  "assistant.greetingMorning": "Bonjour et bienvenue sur UPK !",
-  "assistant.greetingEvening": "Bonsoir et bienvenue sur UPK !",
+  "assistant.greetingMorning": "Bonjour, je suis Ben. Que puis-je faire pour vous aujourd’hui ?",
+  "assistant.greetingEvening": "Bonjour, je suis Ben. Que puis-je faire pour vous aujourd’hui ?",
   "assistant.ask": "Que souhaitez-vous rechercher aujourd’hui ?",
   "assistant.listening": "Écoute…",
   "assistant.thinking": "Je cherche…",
@@ -89,12 +89,12 @@ type AssistantKey = keyof typeof fr;
 
 const en: Record<AssistantKey, string> = {
   "assistant.name": "Ben",
-  "assistant.welcome": "Hello, I’m Ben, your assistant. How can I help you today?",
+  "assistant.welcome": "Hello, I’m Ben. What can I do for you today?",
   "assistant.open": "Open the voice assistant",
   "assistant.close": "Close assistant",
   "assistant.language": "Assistant language",
-  "assistant.greetingMorning": "Good morning and welcome to UPK!",
-  "assistant.greetingEvening": "Good evening and welcome to UPK!",
+  "assistant.greetingMorning": "Hello, I’m Ben. What can I do for you today?",
+  "assistant.greetingEvening": "Hello, I’m Ben. What can I do for you today?",
   "assistant.ask": "What would you like to search for today?",
   "assistant.listening": "Listening…",
   "assistant.thinking": "Searching…",
@@ -146,12 +146,12 @@ const en: Record<AssistantKey, string> = {
 
 const ar: Record<AssistantKey, string> = {
   "assistant.name": "Ben",
-  "assistant.welcome": "مرحبًا، أنا Ben، مساعدك. كيف يمكنني مساعدتك اليوم؟",
+  "assistant.welcome": "مرحبًا، أنا Ben. ماذا يمكنني أن أفعل من أجلك اليوم؟",
   "assistant.open": "فتح المساعد الصوتي",
   "assistant.close": "إغلاق المساعد",
   "assistant.language": "لغة المساعد",
-  "assistant.greetingMorning": "صباح الخير ومرحبًا بك في UPK!",
-  "assistant.greetingEvening": "مساء الخير ومرحبًا بك في UPK!",
+  "assistant.greetingMorning": "مرحبًا، أنا Ben. ماذا يمكنني أن أفعل من أجلك اليوم؟",
+  "assistant.greetingEvening": "مرحبًا، أنا Ben. ماذا يمكنني أن أفعل من أجلك اليوم؟",
   "assistant.ask": "ماذا تريد أن تبحث عنه اليوم؟",
   "assistant.listening": "أستمع…",
   "assistant.thinking": "أبحث…",
