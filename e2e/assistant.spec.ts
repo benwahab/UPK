@@ -242,6 +242,6 @@ test.describe("assistant vocal UPK", () => {
     await page.getByRole("button", { name: /assistant vocal/ }).click();
     await page.getByLabel("Langue de l’assistant").selectOption("en");
     await expect(page.getByPlaceholder("Type your search…")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "UPK Assistant" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /^Ben/ })).toBeVisible();
   });
 });
