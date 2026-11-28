@@ -150,5 +150,9 @@
   "place.unverified": "À vérifier",
   "place.details": "Détails",
   "footer.copyright": "© {year} UPK — Votre guide local",
-  "nav.shortcuts": "Raccourcis"
+  "nav.shortcuts": "Raccourcis",
+  "search.locationBlockedTitle": "La localisation est indispensable",
+  "search.locationBlockedGps": "Activez le GPS dans les réglages de votre téléphone, puis réessayez. UPK ne peut pas effectuer de recherche sans votre position actuelle.",
+  "search.locationBlockedPermission": "Autorisez l’accès à votre position pour UPK dans les paramètres du navigateur ou de l’application, puis réessayez. Aucune recherche ne sera lancée sans cette autorisation.",
+  "search.locationBlockedUnsupported": "La géolocalisation n’est pas disponible sur cet appareil ou dans ce navigateur. UPK ne peut pas effectuer de recherche sans position GPS."
 }
