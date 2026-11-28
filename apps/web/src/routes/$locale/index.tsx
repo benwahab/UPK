@@ -52,9 +52,7 @@ export const Route = createFileRoute("/$locale/")({
     lng: search.lng,
   }),
   loader: ({ params, deps }) => {
-    const hasQuery = Boolean(
-      deps.q || deps.category || (deps.lat !== undefined && deps.lng !== undefined),
-    );
+    const hasQuery = Boolean(deps.q);
     return Promise.all([
       hasQuery
         ? searchPlaces({
@@ -94,7 +92,8 @@ function Home() {
   const [locationError, setLocationError] = useState(false);
   const [voiceError, setVoiceError] = useState(false);
   const hasPosition = lat !== undefined && lng !== undefined;
-  const hasSearch = Boolean(q || category || hasPosition);
+  // UPK n'affiche aucun résultat tant qu'une recherche textuelle n'a pas été saisie.
+  const hasSearch = Boolean(q);
   const results = useQuery({
     queryKey: ["search", q, category, lat, lng],
     queryFn: () =>
@@ -107,7 +106,7 @@ function Home() {
       }),
     initialData: initial,
     staleTime: 30_000,
-    enabled: typeof window !== "undefined" && hasSearch,
+    enabled: typeof window !== "undefined" && Boolean(q),
   });
 
   const suggestion =
@@ -115,21 +114,6 @@ function Home() {
       ? results.data.items.find((item) => isFuzzyMatch(q, item.nom))
       : undefined;
 
-  const autoLocated = useRef(false);
-
-  useEffect(() => {
-    if (autoLocated.current || hasSearch || !("permissions" in navigator)) return;
-    let cancelled = false;
-    void navigator.permissions
-      .query({ name: "geolocation" })
-      .then((status) => {
-        if (!cancelled && status.state === "granted") locate();
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-    };
-  }, [hasSearch]);
 
   function navigateSearch(next: { q?: string; category?: string; lat?: number; lng?: number }) {
     void navigate({
@@ -188,7 +172,6 @@ function Home() {
   }
 
   function locate() {
-    autoLocated.current = true;
     if (!("geolocation" in navigator)) {
       setLocationError(true);
       return;
@@ -249,14 +232,6 @@ function Home() {
             className="py-3.5 hover:text-[var(--upk-fg)] hover:underline"
           >
             {t(locale, "nav.propose")}
-          </Link>
-          <Link
-            to="/$locale"
-            params={{ locale }}
-            search={{ q: "pharmacie" }}
-            className="py-3.5 hover:text-[var(--upk-fg)] hover:underline"
-          >
-            {t(locale, "nav.pharmacies")}
           </Link>
         </nav>
       </div>
@@ -388,7 +363,7 @@ function Home() {
           {t(locale, "search.voiceError")}
         </p>
       )}
-      {hasPosition && (
+      {hasSearch && hasPosition && (
         <p className="mt-2 flex flex-wrap items-center gap-3 text-sm text-[var(--upk-muted-fg)]">
           <span>{t(locale, "search.sortedByDistance")}</span>
           <button
