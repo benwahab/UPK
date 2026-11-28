@@ -192,6 +192,24 @@ const PROXIMITY_PHRASES = [
   "sambu",
 ];
 
+const RIVERFRONT_PHRASES = [
+  "au bord du fleuve",
+  "au bord de fleuve",
+  "bord du fleuve",
+  "bord de fleuve",
+  "pres du fleuve",
+  "pres de la riviere",
+  "au bord de la riviere",
+  "sur les rives du fleuve",
+  "sur la rive du fleuve",
+  "riverfront",
+  "riverside",
+  "by the river",
+  "near the river",
+  "على ضفاف النهر",
+  "بجانب النهر",
+];
+
 const LEAD_PHRASES = [
   "je cherche",
   "je voudrais",
@@ -423,11 +441,21 @@ export function parseAssistantQuery(raw: string): AssistantIntent {
   }
   text = stripArticles(text).trim();
 
+  let riverfront = false;
+  for (const phrase of RIVERFRONT_PHRASES) {
+    if (containsPhrase(text, phrase)) {
+      riverfront = true;
+      text = removePhrase(text, phrase);
+    }
+  }
+
   const category = findCategory(text);
   if (category) {
     const withoutCategory = removePhrase(text, category.alias);
     const location = locationAfterConnector(withoutCategory);
-    const query = location ?? (hasMeaningfulWords(withoutCategory) ? text : null);
+    const query = riverfront
+      ? "fleuve"
+      : location ?? (hasMeaningfulWords(withoutCategory) ? text : null);
     return { kind: "search", raw, query, categorySlug: category.slug, proximity };
   }
 
