@@ -7,8 +7,8 @@ import {
 } from "./assistant";
 
 describe("catalogues assistant", () => {
-  it("couvrent les cinq langues", () => {
-    expect(assistantLanguages).toEqual(["fr", "en", "ar", "ha", "za"]);
+  it("couvrent les trois langues prises en charge", () => {
+    expect(assistantLanguages).toEqual(["fr", "en", "ar"]);
     for (const language of assistantLanguages) {
       expect(assistantLanguageLabels[language].trim()).not.toBe("");
     }
@@ -32,9 +32,7 @@ describe("catalogues assistant", () => {
     );
   });
 
-  it("marquent le haoussa et le zarma comme expérimentaux", () => {
-    expect(assistantVoiceSupport.fr).toBe("native");
-    expect(assistantVoiceSupport.ha).toBe("experimental");
-    expect(assistantVoiceSupport.za).toBe("experimental");
+  it("déclarent les trois langues prises en charge pour la voix", () => {
+    expect(assistantVoiceSupport).toEqual({ fr: "native", en: "native", ar: "native" });
   });
 });
