@@ -607,7 +607,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
             type="button"
             onClick={() => setOpen(true)}
             aria-label={assistantText(language, "assistant.open")}
-            className="flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#f28a24] px-4 text-white shadow-lg transition hover:brightness-110 focus:ring-2 focus:ring-[#f28a24] focus:ring-offset-2 focus:outline-none"
+            className="flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#ff6b35] px-4 text-[#0a0a14] shadow-lg transition hover:brightness-110 focus:ring-2 focus:ring-[#ff6b35] focus:ring-offset-2 focus:outline-none"
           >
             <span className="text-sm font-semibold">Ben</span>
           </button>
@@ -673,7 +673,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 key={message.id}
                 className={
                   message.role === "user"
-                    ? "ms-auto max-w-[90%] rounded-xl bg-[#f28a24] px-3 py-2 text-sm text-white"
+                    ? "ms-auto max-w-[90%] rounded-xl bg-[#ff6b35] px-3 py-2 text-sm text-[#0a0a14]"
                     : "me-auto max-w-[95%] rounded-xl border border-[#343434] bg-[#1b1b1b] px-3 py-2 text-sm text-white"
                 }
               >
@@ -771,7 +771,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 onChange={(event) => setInput(event.target.value)}
                 placeholder={assistantText(language, "assistant.inputPlaceholder")}
                 aria-label={assistantText(language, "assistant.inputPlaceholder")}
-                className="min-w-0 flex-1 rounded-lg border border-[#3b3b3b] bg-[#191919] px-3 py-2 text-sm text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#f28a24]"
+                className="min-w-0 flex-1 rounded-lg border border-[#3b3b3b] bg-[#191919] px-3 py-2 text-sm text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#ff6b35]"
               />
               <button
                 type="button"

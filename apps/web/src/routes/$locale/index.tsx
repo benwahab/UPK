@@ -262,7 +262,7 @@ function Home() {
       <form
         method="get"
         action={`/${locale}`}
-        className="mt-12 flex flex-col gap-3 rounded-2xl border border-[var(--upk-border)] bg-[var(--upk-card)] p-3 shadow-sm dark:shadow-[0_12px_40px_rgba(242,138,36,0.08)] sm:mt-16"
+        className="mt-12 flex flex-col gap-3 rounded-2xl border border-[var(--upk-border)] bg-[var(--upk-card)] p-3 shadow-sm dark:shadow-[0_12px_40px_rgba(255,107,53,0.1)] sm:mt-16"
         onSubmit={submit}
       >
         <div className="flex gap-2">
