@@ -13,7 +13,7 @@ const demoMedia: AdMedia[] = [
 
 export function AdCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeAd = demoMedia[activeIndex];
+  const activeAd = demoMedia[activeIndex] ?? demoMedia[0]!;
 
   useEffect(() => {
     if (activeAd.type !== "image" || demoMedia.length < 2) return;
