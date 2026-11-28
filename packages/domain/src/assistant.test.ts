@@ -46,6 +46,24 @@ describe("compréhension des demandes", () => {
     });
   });
 
+  it("comprend un restaurant au bord du fleuve comme catégorie avec critère descriptif", () => {
+    expect(parseAssistantQuery("Trouve-moi un restaurant au bord du fleuve")).toMatchObject({
+      kind: "search",
+      categorySlug: "restaurant",
+      query: "fleuve",
+    });
+    expect(parseAssistantQuery("Je cherche un restaurant près du fleuve")).toMatchObject({
+      kind: "search",
+      categorySlug: "restaurant",
+      query: "fleuve",
+    });
+    expect(parseAssistantQuery("Find a restaurant by the river")).toMatchObject({
+      kind: "search",
+      categorySlug: "restaurant",
+      query: "fleuve",
+    });
+  });
+
   it("comprend un quartier", () => {
     expect(parseAssistantQuery("Je cherche le quartier Yantala.")).toMatchObject({
       kind: "search",
