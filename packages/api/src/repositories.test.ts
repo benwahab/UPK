@@ -94,7 +94,7 @@ function createTestDb() {
     INSERT INTO quartiers (id, ville_zone_id, commune_id, nom, slug, nom_normalise, latitude, longitude, source, created_at)
       VALUES ('q1', 'v1', 'c1', 'Plateau', 'plateau', 'plateau', 13.511, 2.112, 'test', '2026-01-01'),
              ('q2', 'v1', 'c1', 'Yantala', 'yantala', 'yantala', 13.53, 2.13, 'test', '2026-01-01');
-    UPDATE places SET quartier_id = 'q1' WHERE id = 'p1';
+    UPDATE places SET quartier_id = 'q1', region_id = 'r1', ville_zone_id = 'v1' WHERE id = 'p1';
     UPDATE places SET quartier_id = 'q2' WHERE id = 'p3';
   `);
 
@@ -170,6 +170,18 @@ describe("repositories D1", () => {
     expect(result.items.map((place) => place.id)).toEqual(["p2"]);
   });
 
+  it("conserve le comptage exact avec un filtre par région", async () => {
+    const result = await places.search({ regionSlug: "niamey", limit: 20 });
+    expect(result.items.map((place) => place.id)).toEqual(["p1"]);
+    expect(result.total).toBe(1);
+  });
+
+  it("conserve le comptage exact avec un filtre par ville", async () => {
+    const result = await places.search({ villeSlug: "niamey", limit: 20 });
+    expect(result.items.map((place) => place.id)).toEqual(["p1"]);
+    expect(result.total).toBe(1);
+  });
+
   it("tronque après le tri par distance, pas avant", async () => {
     const result = await places.search({
       categorySlug: "pharmacie",
@@ -194,6 +206,12 @@ describe("repositories D1", () => {
     expect(result.items.map((place) => place.id)).toEqual(["p3", "p2", "p1", "p4"]);
     const distances = result.items.map((place) => place.distanceM ?? Number.POSITIVE_INFINITY);
     expect(distances).toEqual([...distances].sort((a, b) => a - b));
+  });
+
+  it("limite la lecture GPS aux lieux proches tout en conservant le total exact", async () => {
+    const result = await places.search({ lat: 13.53, lng: 2.13, limit: 1 });
+    expect(result.items.map((place) => place.id)).toEqual(["p3"]);
+    expect(result.total).toBe(4);
   });
 
   it("lit un lieu par identifiant", async () => {

@@ -207,12 +207,15 @@ infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - `docs/ARCHITECTURE.md` — choix techniques, ADR, schémas.
 - `docs/PLAN_DE_TRAVAIL.md` — sprints, jalons, checklists.
 - `docs/RUNBOOK.md` — procédures local, staging, migrations, secrets, incidents.
+- `docs/OVERTURE-AUDIT.md` — comparaison Overture/OSM, chiffres, limites et règles d'intégration.
 - `seed/` — OpenStreetMap (ODbL) et GeoNames (CC BY 4.0), catalogue Sahel
   (41 566 lieux) + snapshot historique de Niamey.
 
 ## État au 2026-11-21 (audit Overture)
 
-- Audit reproductible : `python3 infra/scripts/audit-overture.py` puis
+- Audit de couverture lecture seule : `python3 infra/scripts/audit-overture-coverage.py`
+  (DuckDB, workflow `.github/workflows/audit-overture.yml`).
+- Audit de classement et import : `python3 infra/scripts/audit-overture.py` puis
   `python3 infra/scripts/import-overture.py`.
 - 1 136 candidats Overture (`2026-11-18.0`) : 26 `VALIDATED_NEW`,
   16 `VALIDATED_ENRICHMENT`, 34 `DUPLICATE_OSM`, 2 `DUPLICATE_OVERTURE`,
@@ -231,9 +234,9 @@ infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
   ont été testés sur SQLite temporaire avant l’exécution production.
 - Workflow `.github/workflows/overture-audit.yml` : audit + vérification de
   reproductibilité, aucun déploiement.
-- Écarts documentaires à corriger : 41 558 lieux dans le seed contre 41 592
-  en production après import, staging encore décrit dans certains historiques,
-  versions de production `ca7af247` / `8e322315` non homogènes.
+- Compteurs : 41 558 dans le seed, 41 566 avant import (+8 contributions),
+  41 592 après import (+26 Overture). Staging encore décrit dans certains
+  historiques ; versions de production `ca7af247` / `8e322315` non homogènes.
 
 ## Interdits
 

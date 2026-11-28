@@ -17,6 +17,11 @@ python3 infra/scripts/import-overture.py
 Les deux scripts n’utilisent que la bibliothèque standard Python et ne
 touchent ni à D1 ni à Cloudflare.
 
+Audit de couverture initial, en lecture seule avec DuckDB :
+`python3 infra/scripts/audit-overture-coverage.py` (workflow
+`Audit Overture coverage`). Il interroge les GeoParquet Overture et le seed OSM,
+sans accès D1/R2.
+
 ## Décisions
 
 | Décision | Nombre | Suite |

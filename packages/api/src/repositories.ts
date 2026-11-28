@@ -357,11 +357,19 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
       }
 
       const offset = decodeOffset(input.cursor);
-      const queryRows = async (conditions: SQL[], fromFts: boolean) => {
+      const queryRows = async (
+        conditions: SQL[],
+        fromFts: boolean,
+        countOnly = false,
+        skipCount = false,
+        forceGeoIndex = false,
+      ) => {
         const where = sql.join(conditions, sql` AND `);
         const from = fromFts
           ? sql`places_fts JOIN places p ON p.rowid = places_fts.rowid`
-          : sql`places p`;
+          : forceGeoIndex
+            ? sql`places p INDEXED BY places_geo_idx`
+            : sql`places p`;
         const rank = fromFts ? sql`bm25(places_fts)` : sql`0`;
         const exactOrder = normalizedQuery
           ? sql`CASE WHEN p.nom_normalise = ${normalizedQuery} THEN 0 ELSE 1 END, `
@@ -374,29 +382,102 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
                 (p.longitude - ${origin.lng}) * (p.longitude - ${origin.lng}) *
                 ${Math.cos((origin.lat * Math.PI) / 180) ** 2}) ASC, `
             : sql``;
-        const rows = await db.all<PlaceRow>(sql`
-          SELECT ${PLACE_COLUMNS}, ${rank} AS rank
-          FROM ${from}
-          ${PLACE_JOINS}
-          WHERE ${where}
-          ORDER BY ${exactOrder}${fromFts ? sql`rank ASC, ` : distanceOrder}p.nom ASC, p.id ASC
-          LIMIT ${input.limit} OFFSET ${offset}
-        `);
+        const rows = countOnly
+          ? []
+          : await db.all<PlaceRow>(sql`
+              SELECT ${PLACE_COLUMNS}, ${rank} AS rank
+              FROM ${from}
+              ${PLACE_JOINS}
+              WHERE ${where}
+              ORDER BY ${exactOrder}${fromFts ? sql`rank ASC, ` : distanceOrder}p.nom ASC, p.id ASC
+              LIMIT ${input.limit} OFFSET ${offset}
+            `);
+        if (skipCount) return { rows, total: 0 };
+        // Le comptage n'a pas besoin des jointures d'affichage.
+        // Les filtres géographiques et de catégorie sont résolus par sous-requêtes.
+        const countConditions: SQL[] = [
+          sql`p.statut_publication = ${PUBLISHED}`,
+          sql`p.actif = 1`,
+        ];
+        if (categorySlug) {
+          countConditions.push(sql`p.category_id IN (
+            SELECT id FROM categories WHERE slug = ${categorySlug}
+          )`);
+        }
+        if (input.regionSlug) {
+          countConditions.push(sql`p.region_id IN (
+            SELECT id FROM regions WHERE slug = ${input.regionSlug}
+          )`);
+        }
+        if (input.villeSlug) {
+          countConditions.push(sql`p.ville_zone_id IN (
+            SELECT id FROM villes_zones WHERE slug = ${input.villeSlug}
+          )`);
+        }
+        if (geoFilter) countConditions.push(geoFilter);
+        if (origin && input.radiusKm) {
+          const box = boundingBox(origin, input.radiusKm * 1000);
+          countConditions.push(sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`);
+          countConditions.push(sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`);
+        }
+        // Inclure aussi les conditions propres aux replis (ex. recherche tolérante).
+        // Elles suivent toujours les filtres de base dans le tableau transmis.
+        countConditions.push(...conditions.slice(baseConditions.length));
+        const countWhere = sql.join(countConditions, sql` AND `);
         const count = await db.get<{ total: number }>(sql`
-          SELECT COUNT(*) AS total FROM ${from} ${PLACE_JOINS} WHERE ${where}
+          SELECT COUNT(*) AS total FROM ${from} WHERE ${countWhere}
         `);
         return { rows, total: Number(count?.total ?? 0) };
       };
 
       const useFtsQuery = useFts && Boolean(ftsQuery);
-      // Une requête sans jeton exploitable ne doit pas lister tout le catalogue.
-      let { rows, total } =
-        normalizedQuery && intent === "texte" && !useFtsQuery
-          ? { rows: [] as PlaceRow[], total: 0 }
-          : await queryRows(
-              useFtsQuery ? [...baseConditions, sql`places_fts MATCH ${ftsQuery}`] : baseConditions,
-              useFtsQuery,
-            );
+      // Une recherche GPS sans rayon élargit progressivement sa zone.
+      // Dès que les N premiers résultats sont entièrement dans le cercle exploré,
+      // aucun lieu situé hors de la zone ne peut les dépasser en distance.
+      // Cela évite de trier tout le catalogue pour ne renvoyer que quelques lieux.
+      let rows: PlaceRow[] = [];
+      let total = 0;
+      if (normalizedQuery && intent === "texte" && !useFtsQuery) {
+        rows = [];
+        total = 0;
+      } else if (origin && !input.radiusKm && !useFtsQuery) {
+        const requiredRows = input.limit;
+        let searchRadiusKm = 2;
+        const maxSearchRadiusKm = 20_000;
+        let complete = false;
+        while (!complete) {
+          const box = boundingBox(origin, searchRadiusKm * 1000);
+          const boundedConditions = [
+            ...baseConditions,
+            sql`p.latitude BETWEEN ${box.minLat} AND ${box.maxLat}`,
+            sql`p.longitude BETWEEN ${box.minLng} AND ${box.maxLng}`,
+          ];
+          const nearby = await queryRows(boundedConditions, false, false, true, true);
+          rows = nearby.rows;
+          const farthestDistance = rows.reduce((farthest, row) => {
+            const distance = haversineMetres(origin, {
+              lat: row.latitude,
+              lng: row.longitude,
+            });
+            return Math.max(farthest, distance);
+          }, 0);
+          complete =
+            rows.length >= requiredRows && farthestDistance <= searchRadiusKm * 1000;
+          if (complete || searchRadiusKm >= maxSearchRadiusKm) break;
+          searchRadiusKm = Math.min(searchRadiusKm * 2, maxSearchRadiusKm);
+        }
+        // Le total reste exact, mais cette requête ne récupère aucune ligne :
+        // la lecture des lieux est limitée à la zone nécessaire au classement.
+        const countResult = await queryRows(baseConditions, false, true);
+        total = countResult.total;
+      } else {
+        const result = await queryRows(
+          useFtsQuery ? [...baseConditions, sql`places_fts MATCH ${ftsQuery}`] : baseConditions,
+          useFtsQuery,
+        );
+        rows = result.rows;
+        total = result.total;
+      }
 
       let exactNameMatch =
         intent !== "texte" || !normalizedQuery
@@ -412,13 +493,14 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
           .split(" ")
           .filter((token) => token.length >= 3 && !stopwords.has(token));
         if (tokens.length > 0) {
-          const likeConditions = tokens.map(
-            (token) =>
-              sql`(p.nom_normalise LIKE ${`%${token.slice(0, 3)}%`} OR p.quartier_normalise LIKE ${`%${token.slice(0, 3)}%`})`,
-          );
+          // FTS5 prefix search narrows fuzzy candidates without scanning every
+          // published place with leading-wildcard LIKE predicates.
+          const fallbackFtsQuery = tokens
+            .map((token) => `"${token.slice(0, 3)}"*`)
+            .join(" OR ");
           const fallback = await queryRows(
-            [...baseConditions, sql`(${sql.join(likeConditions, sql` OR `)})`],
-            false,
+            [...baseConditions, sql`places_fts MATCH ${fallbackFtsQuery}`],
+            true,
           );
           const fuzzyRows = fallback.rows.filter(
             (row) =>

@@ -54,6 +54,37 @@ PWA, contribution, modération, R2, Better Auth, en-têtes de sécurité et
 assistant vocal. L’audit Overture arrive donc sur un catalogue existant, pas
 sur une base vide.
 
+## 1 bis. Audit de couverture Overture (27 novembre 2026)
+
+Le premier audit, en lecture seule, a interrogé directement les GeoParquet
+publics d’Overture et le seed OSM. Il a servi de point de départ ; l’audit de
+classement de la section 3 reprend ensuite les 1 136 candidats à confiance
+élevée.
+
+Référentiel OSM du seed du 27 novembre 2026 : **41 558** lieux
+(Niger 6 986, Mali 22 610, Burkina Faso 11 962).
+
+| Pays | Lieux Overture avec pays ISO | Confiance ≥ 0,70 | Doublons probables OSM | Candidats UPK ≥ 0,70 | Candidats UPK ≥ 0,80 |
+|---|---:|---:|---:|---:|---:|
+| Niger | 1 737 | 559 | 60 | 388 | 156 |
+| Mali | 4 117 | 1 022 | 130 | 654 | 363 |
+| Burkina Faso | 8 390 | 2 020 | 194 | 1 201 | 617 |
+| **Total** | **14 244** | **3 601** | **384** | **2 243** | **1 136** |
+
+Les 1 136 résultats à confiance ≥ 0,80 sont des **candidats à vérifier**, pas
+1 136 lieux confirmés. Le rapprochement de couverture utilise le nom exact ou
+très proche à moins de 100 m, ou un téléphone/site identique à moins de 500 m ;
+les entrées sans code pays ISO sont exclues.
+
+Script de couverture : `infra/scripts/audit-overture-coverage.py`.
+Workflow : `Audit Overture coverage` (lecture seule, aucun accès D1/R2).
+Rapport et échantillons du run :
+https://github.com/benwahab/UPK/actions/runs/46059207205
+
+L’audit de classement plus strict de la section 3 explique pourquoi ces 384
+doublons probables ne deviennent que **50 correspondances OSM fortes** après
+contrôle des homonymes, chaînes et centroïdes partagés.
+
 ---
 
 ## 2. Audit du dépôt
@@ -83,11 +114,11 @@ sur une base vide.
 - Provenance : `osm_id`, `osm_type`, `source_url`, `licence_source`,
   `importe_le`, `osm_tags`.
 
-**Écart documentaire** : `AGENTS.md`, `docs/README.md` et `docs/RUNBOOK.md`
-annoncent **41 566** lieux, alors que le fichier `seed/osm-sahel-2026-11-27.json`
-en contient **41 558**. L’écart de 8 doit être expliqué avant de figer un
-compteur public. Il peut provenir de 8 contributions publiées après le
-snapshot, mais ce n’est pas démontré.
+**Compteurs** : le fichier `seed/osm-sahel-2026-11-27.json` contient
+**41 558** lieux ; la production en comptait **41 566** avant l’import, soit
+**8 contributions** publiées après le seed, puis **41 592** après les **26**
+lieux Overture. Les documents sont désormais alignés sur ces trois valeurs. Le
+détail des 8 contributions reste à documenter si un compteur public est figé.
 
 ### 2.3 Recherche et assistant
 
@@ -137,9 +168,9 @@ La documentation est riche et exploitable, mais elle a divergé :
 | Sujet | Incohérence |
 | --- | --- |
 | Staging | `docs/README.md` a été corrigé ; `AGENTS.md` et `RUNBOOK.md` décrivent un seul environnement |
-| Volume OSM | 41 566 annoncés vs 41 558 dans le seed ; 41 592 après import Overture |
+| Volume OSM | 41 558 dans le seed, 41 566 avant import, 41 592 après ; documents alignés |
 | Version production | `ca7af247` vs `8e322315` selon le document |
-| Audit Overture | `docs/OVERTURE-AUDIT.md`, `infra/scripts/audit-overture.py` et le workflow étaient absents avant cet audit ; ils sont désormais ajoutés |
+| Audit Overture | audit de couverture et workflow ajoutés par les commits distants ; classement, import et journal ajoutés par cet audit |
 | Tests | compteurs E2E différents selon les documents (20, 21, 39…) |
 
 Ces écarts ne bloquent pas le produit, mais ils bloquent une **ouverture
