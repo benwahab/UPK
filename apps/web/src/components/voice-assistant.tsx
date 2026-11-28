@@ -300,12 +300,39 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
     setVoiceNotice(null);
     const origin = await originFor(intent);
     try {
-      const result = await getTrpcClient().search.places.query({
+      let result = await getTrpcClient().search.places.query({
         ...(intent.query ? { q: intent.query } : {}),
         ...(intent.categorySlug ? { categorySlug: intent.categorySlug } : {}),
         ...(origin ? { lat: origin.lat, lng: origin.lng } : {}),
         limit: 20,
       });
+
+      // Si le critère descriptif n'est pas renseigné dans les fiches,
+      // ne pas conclure qu'il n'existe aucun établissement de cette catégorie.
+      if (result.items.length === 0 && intent.categorySlug && intent.query) {
+        const categoryResult = await getTrpcClient().search.places.query({
+          categorySlug: intent.categorySlug,
+          ...(origin ? { lat: origin.lat, lng: origin.lng } : {}),
+          limit: 20,
+        });
+        if (categoryResult.items.length > 0) {
+          lastResultRef.current = categoryResult;
+          lastIndexRef.current = 0;
+          setLastResult(categoryResult);
+          setLastIndex(0);
+          say(
+            assistantText(language, "assistant.criteriaUnavailable", {
+              count: categoryResult.total,
+              category: categoryResult.label ?? intent.categorySlug,
+              criterion: intent.query,
+            }),
+            { places: categoryResult.items.slice(0, 4) },
+          );
+          navigateSearch({ ...intent, query: null }, origin);
+          return;
+        }
+      }
+
       lastResultRef.current = result;
       lastIndexRef.current = 0;
       setLastResult(result);
