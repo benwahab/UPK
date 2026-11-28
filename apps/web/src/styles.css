@@ -162,3 +162,95 @@ body {
 .ben-launcher-attention { animation: ben-launcher-attention 2.2s ease-in-out infinite; }
 .ben-launcher-attention:hover, .ben-launcher-attention:focus-visible { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .ben-launcher-attention { animation: none; } }
+
+
+/* Thème sombre de l'authentification : connexion et création de compte. */
+:root[data-theme="dark"] .upk-auth-shell {
+  --auth-ink: #f3f4f6;
+  --auth-muted: #a1a1aa;
+  --auth-primary: #ff8057;
+  --auth-primary-deep: #ff8057;
+  color: var(--auth-ink);
+  background:
+    radial-gradient(ellipse at 12% 18%, rgb(125 65 42 / 24%), transparent 34%),
+    radial-gradient(ellipse at 88% 82%, rgb(88 52 38 / 22%), transparent 36%),
+    linear-gradient(135deg, #171719 0%, #202022 48%, #292321 100%);
+}
+:root[data-theme="dark"] .upk-auth-shell::before,
+:root[data-theme="dark"] .upk-auth-shell::after {
+  border-color: rgb(255 255 255 / 9%);
+}
+:root[data-theme="dark"] .upk-auth-brand-copy {
+  color: #b8bbc2;
+}
+:root[data-theme="dark"] .upk-auth-orbit {
+  border-color: rgb(255 255 255 / 12%);
+  background: rgb(255 255 255 / 3%);
+  box-shadow: inset 0 0 45px rgb(255 255 255 / 4%);
+}
+:root[data-theme="dark"] .upk-auth-orbit-core {
+  border-color: rgb(255 128 87 / 25%);
+  background: rgb(35 35 38 / 90%);
+  color: #ff8057;
+  box-shadow: 0 0 55px rgb(255 128 87 / 12%);
+}
+:root[data-theme="dark"] .upk-auth-card {
+  border-color: rgb(255 255 255 / 12%);
+  background: rgb(25 25 28 / 91%);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 42%), inset 0 1px 0 rgb(255 255 255 / 6%);
+}
+:root[data-theme="dark"] .upk-auth-logo {
+  color: #f3f4f6;
+}
+:root[data-theme="dark"] .upk-auth-input {
+  border-color: #45454a;
+  color: #f3f4f6;
+  background: rgb(15 15 17 / 88%);
+  color-scheme: dark;
+}
+:root[data-theme="dark"] .upk-auth-input:focus {
+  border-color: #ff8057;
+  box-shadow: 0 0 0 3px rgb(255 128 87 / 16%);
+}
+:root[data-theme="dark"] .upk-auth-input::placeholder {
+  color: #777780;
+}
+:root[data-theme="dark"] .upk-auth-type-switch {
+  border-color: #39393e;
+  background: rgb(15 15 17 / 65%);
+}
+:root[data-theme="dark"] .upk-auth-type-switch button.active {
+  color: #171719;
+  background: #ff8057;
+  box-shadow: 0 5px 14px rgb(0 0 0 / 25%);
+}
+:root[data-theme="dark"] .upk-auth-password button {
+  color: #b8bbc2;
+}
+:root[data-theme="dark"] .upk-auth-gps {
+  border-color: rgb(255 128 87 / 25%);
+  background: rgb(255 128 87 / 7%);
+}
+:root[data-theme="dark"] .upk-auth-gps button {
+  border-color: rgb(255 128 87 / 30%);
+  color: #ff9a79;
+  background: #292326;
+}
+:root[data-theme="dark"] .upk-auth-gps-ok {
+  color: #71d6a0;
+}
+:root[data-theme="dark"] .upk-auth-notice {
+  border-color: #285b43;
+  color: #a8e7c2;
+  background: #14291f;
+}
+:root[data-theme="dark"] .upk-auth-error {
+  border-color: #71392f;
+  color: #ffb6a5;
+  background: #321c19;
+}
+:root[data-theme="dark"] .upk-auth-submit {
+  color: #171719;
+  background: linear-gradient(135deg, #ff946f, #ff8057);
+  box-shadow: 0 9px 22px rgb(0 0 0 / 25%);
+}
