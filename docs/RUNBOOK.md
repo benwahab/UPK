@@ -124,9 +124,11 @@ for file in /tmp/upk-sahel-sql/*.sql; do
 done
 ```
 
-- 41 566 lieux, 1 197 villes, 3 340 quartiers, 16 catégories ; inserts
-  idempotents (`ON CONFLICT ... DO UPDATE`).
-- Vérifier : `SELECT COUNT(*) FROM places` = 41 566 ; `places_fts` = 41 566.
+- 41 566 lieux avant Overture (41 592 après l’intégration), 1 197 villes,
+  3 340 quartiers, 16 catégories ; inserts idempotents
+  (`ON CONFLICT ... DO UPDATE`).
+- Vérifier après Overture : `SELECT COUNT(*) FROM places` = 41 592 ;
+  `places_fts` = 41 592.
 - Sauvegarder avant et après : `bash infra/scripts/backup-d1.sh`.
 
 ## 5 bis. Intégration Overture contrôlée
@@ -175,10 +177,11 @@ lieux ont une page officielle accessible, pas une validation terrain.
 
 ## 7. Déploiement production (M5)
 
-État au 2026-11-21 : production sur
-`https://upk.benwahab111.workers.dev` (version `ca7af247`), migrations `0003`
-et `0004` appliquées, catalogue Sahel importé, en-têtes de sécurité, CSRF et
-Workers Logs actifs. L'assistant vocal et la recherche intelligente sont
+État au 2026-11-28 : production sur
+`https://upk.benwahab111.workers.dev`, migrations `0003` et `0004` appliquées,
+catalogue Sahel et Overture importés, en-têtes de sécurité, CSRF et Workers
+Logs actifs. Le déploiement est automatique après une CI verte sur `main` ; la
+procédure manuelle ci-dessous reste le recours d’urgence. L'assistant vocal et la recherche intelligente sont
 déployés ; les 10 parcours E2E de l'assistant passent aussi contre la
 production. Turnstile utilise encore la clé de test : à remplacer
 avant l'ouverture publique.

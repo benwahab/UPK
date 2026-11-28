@@ -156,8 +156,8 @@ Points à traiter avant ouverture publique :
 - `docs/README.md` parlait encore de staging et de buckets `upk-photos-staging` ;
   ce texte a été corrigé pendant cet audit, mais d’autres historiques peuvent
   encore mentionner l’ancien environnement ;
-- les versions de production citées ne sont pas homogènes (`ca7af247` dans le
-  runbook, `8e322315` dans `AGENTS.md`) ;
+- les versions de production citées sont historiques (`ca7af247`, `8e322315`) ;
+  le déploiement est désormais automatique après une CI verte sur `main` ;
 - l’état local D1 de ce poste est ancien (1 548 lieux, 9 catégories) : il ne
   représente pas le catalogue Sahel et ne doit pas servir de référence.
 
@@ -169,7 +169,7 @@ La documentation est riche et exploitable, mais elle a divergé :
 | --- | --- |
 | Staging | `docs/README.md` a été corrigé ; `AGENTS.md` et `RUNBOOK.md` décrivent un seul environnement |
 | Volume OSM | 41 558 dans le seed, 41 566 avant import, 41 592 après ; documents alignés |
-| Version production | `ca7af247` vs `8e322315` selon le document |
+| Version production | SHA historiques ; déploiement automatique après CI sur `main` |
 | Audit Overture | audit de couverture et workflow ajoutés par les commits distants ; classement, import et journal ajoutés par cet audit |
 | Tests | compteurs E2E différents selon les documents (20, 21, 39…) |
 

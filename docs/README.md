@@ -60,10 +60,11 @@ plus éloigné et la recherche vocale est proposée quand le navigateur la
 supporte. L'ancien staging a été retiré ; un seul environnement distant subsiste, la
 production `upk`. L'upload R2 est actif : les photos optionnelles (3 max,
 5 Mo) sont stockées dans le bucket privé `upk-photos`. La production est déployée sur
-`https://upk.benwahab111.workers.dev` (`ca7af247`) avec les migrations `0003`
-et `0004`, R2, Better Auth, en-têtes de sécurité, CSRF et Workers Logs. Les
+`https://upk.benwahab111.workers.dev` avec les migrations `0003` et `0004`,
+R2, Better Auth, en-têtes de sécurité, CSRF et Workers Logs. Le déploiement
+est automatique après une CI verte sur `main` ; dernier contrôle le 2026-11-28. Les
 sauvegardes D1 sont déposées dans `upk-backups`. Turnstile utilise encore la
 clé de test en production : la remplacer avant l'ouverture publique. Les
-parcours E2E Playwright couvrent désormais l'assistant vocal (20 tests mobiles
-verts, 1 test PWA ignoré sans `E2E_BASE_URL`). Lighthouse mobile :
+parcours E2E Playwright couvrent désormais l'assistant vocal (20 exécutions
+desktop + mobile vertes, 1 test PWA ignoré sans `E2E_BASE_URL`). Lighthouse mobile :
 100/100/100/100, LCP 0,8 s.

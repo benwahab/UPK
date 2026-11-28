@@ -206,12 +206,13 @@ infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - `docs/CAHIER_DES_CHARGES.md` — périmètre, exigences, critères d'acceptation.
 - `docs/ARCHITECTURE.md` — choix techniques, ADR, schémas.
 - `docs/PLAN_DE_TRAVAIL.md` — sprints, jalons, checklists.
-- `docs/RUNBOOK.md` — procédures local, staging, migrations, secrets, incidents.
+- `docs/RUNBOOK.md` — procédures local, production, migrations, secrets, incidents.
 - `docs/OVERTURE-AUDIT.md` — comparaison Overture/OSM, chiffres, limites et règles d'intégration.
 - `seed/` — OpenStreetMap (ODbL) et GeoNames (CC BY 4.0), catalogue Sahel
-  (41 566 lieux) + snapshot historique de Niamey.
+  (41 558 dans le seed, 41 592 en production après Overture) + snapshot
+  historique de Niamey.
 
-## État au 2026-11-21 (audit Overture)
+## État au 2026-11-28 (audit Overture)
 
 - Audit de couverture lecture seule : `python3 infra/scripts/audit-overture-coverage.py`
   (DuckDB, workflow `.github/workflows/audit-overture.yml`).
@@ -235,8 +236,9 @@ infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
 - Workflow `.github/workflows/overture-audit.yml` : audit + vérification de
   reproductibilité, aucun déploiement.
 - Compteurs : 41 558 dans le seed, 41 566 avant import (+8 contributions),
-  41 592 après import (+26 Overture). Staging encore décrit dans certains
-  historiques ; versions de production `ca7af247` / `8e322315` non homogènes.
+  41 592 après import (+26 Overture). Le staging n'existe plus ; les SHA de
+  production `ca7af247` / `8e322315` sont historiques, le déploiement est
+  automatique après une CI verte sur `main`.
 
 ## Interdits
 

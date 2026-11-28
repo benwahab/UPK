@@ -343,7 +343,7 @@ rendues côté serveur via `createServerFn` (`apps/web/src/server/places.ts`).
 `apps/web/src/routes/api/auth/$.ts` ; instance `apps/web/src/lib/auth.server.ts`
 (cache par isolate) ; tables `user`, `session`, `account`, `verification`
 (migration `0002_auth.sql`) ; secret `BETTER_AUTH_SECRET`. Inscription et
-`get-session` vérifiés en local (workerd) et sur le staging.
+`get-session` vérifiés en local (workerd) et en production initiale.
 
 **Administration.** Les adresses listées dans `ADMIN_EMAILS` reçoivent la
 permission `moderation:write` ; `moderation.me` expose `isAdmin` à l'interface.
@@ -374,8 +374,8 @@ résultat, avant/après). Aucune route publique ne permet de le modifier.
 **Rate limiting.** Table D1 `rate_limits` (scope + hash d'IP salé, fenêtre
 d'une heure). Le sel vient de `RATE_LIMIT_SALT`.
 
-**Anti-abus.** Turnstile : clé de test en staging et sur la production
-initiale, clé réelle à installer avant l'ouverture publique. Le secret reste
+**Anti-abus.** Turnstile : clé de test sur la production initiale, clé réelle à
+installer avant l'ouverture publique. Le secret reste
 côté Worker ; sans secret, les écritures sont refusées. En local,
 `TURNSTILE_SECRET_KEY` peut utiliser la clé de test Cloudflare.
 
@@ -398,9 +398,9 @@ soumission, limite à 10 envois par heure et par fiche, contrôle le type MIME
   (Cloudflare Images ou Worker) pour les vignettes.
 
 **État au 2026-11-26.** R2 est actif sur le compte Cloudflare. Les bindings
-`PHOTOS` sont déclarés dans `infra/wrangler.toml` ; les buckets
-`upk-photos` et `upk-photos-staging` sont privés. Un upload réel et une
-lecture `/api/photos/...` ont été vérifiés sur staging.
+`PHOTOS` sont déclarés dans `infra/wrangler.toml` ; le bucket
+`upk-photos` est privé. Un upload réel et une lecture `/api/photos/...` ont été
+vérifiés sur la production initiale.
 
 ## 8. Hors-ligne
 
@@ -491,7 +491,7 @@ Cron (hebdomadaire)
 
 ## 13. Observabilité
 
-- **Workers Logs** : activés par `[observability]` (production et staging).
+- **Workers Logs** : activés par `[observability]` (production).
 - **Sentry** : prévu, DSN non encore configuré.
 - **Workers Analytics Engine** : prévu pour latence, erreurs et volume.
 - **Logs structurés** JSON avec identifiant de requête.
@@ -512,8 +512,8 @@ push main
   ├─ typecheck
   ├─ vitest
   ├─ build
-  ├─ deploy staging (si tout est vert)
-  └─ deploy production (déclenchement manuel depuis main)
+  ├─ e2e Playwright
+  └─ CI verte → workflow « Deploy production » → wrangler deploy
 ```
 
 ### Pipeline mobile (v1.1) — déclenchement manuel depuis `main`
@@ -560,12 +560,11 @@ workflow_dispatch
 | Environnement | Base                                                    | Usage                                                                                        |
 | ------------- | ------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | `local`       | D1 locale `upk` (Miniflare, `apps/web/.wrangler/state`) | Développement                                                                                |
-| `staging`     | D1 `upk-staging`                                        | `https://upk-staging.benwahab111.workers.dev`                                                |
 | `production`  | D1 `upk`                                                | `https://upk.benwahab111.workers.dev` (production initiale ; domaine personnalisé à définir) |
 
-Le build staging se fait avec `CLOUDFLARE_ENV=staging pnpm --filter @upk/web build`
-puis `wrangler deploy` depuis `apps/web`. `wrangler deploy --env staging` sur le
-config généré déploie le Worker de production `upk` : ne pas l'utiliser.
+Un seul environnement distant existe. L'ancien staging a été retiré : ne pas
+recréer `upk-staging`, `upk-photos-staging`, ni utiliser `CLOUDFLARE_ENV=staging`
+ou `wrangler deploy --env staging`.
 
 **Secrets** : `BETTER_AUTH_SECRET`, `TURNSTILE_SECRET_KEY`, `RATE_LIMIT_SALT`,
 `SENTRY_DSN`, `GEONAMES_USERNAME`. R2 passe par le binding `PHOTOS`, sans clé
@@ -578,7 +577,8 @@ Git.**
 2. Supprimer toute dépendance et tout artefact Lovable (`@lovable.dev/*`,
    `lovable-tagger`, `lovable-error-reporting`, `previewAuthStorage`,
    `.lovable/`, `LOVABLE_CRON_SECRET`).
-3. Le catalogue courant couvre le Sahel : 41 566 lieux, 1 197 villes,
+3. Le catalogue courant couvre le Sahel : 41 592 lieux (41 558 OSM + 26
+   Overture + 8 contributions), 1 197 villes,
    3 340 quartiers et 16 catégories (`seed/osm-sahel-2026-11-27.json`,
    `seed/geonames-sahel-2026-11-27.json`). Le snapshot historique de Niamey
    reste `seed/niamey-2026-08-30.json`.
@@ -591,7 +591,7 @@ Git.**
 
 ## 18. Limites à valider avant production
 
-- Taille maximale d'une base D1 et stratégie d'archivage. **Mesuré : 41 566
+- Taille maximale d'une base D1 et stratégie d'archivage. **Mesuré : 41 592
   lieux + index FTS ≈ 35 Mo, compatible avec les limites D1.**
 - Nombre maximal de paramètres liés par requête (impact sur les imports par
   lots).
@@ -599,7 +599,7 @@ Git.**
 - Disponibilité des fonctions FTS5 et du tokenizer `unicode61` sur D1.
   **Vérifié : disponible, y compris `bm25`.**
 - Comportement de `wrangler d1 migrations apply` en préversion.
-  **Vérifié : OK sur `upk` et `upk-staging`.**
+  **Vérifié : OK sur `upk`.**
 - Coût R2 pour les photos à l'échelle prévue.
 - Comportement de FTS5 sur l'arabe (tokenizer, normalisation des harakat).
   **Vérifié : « صيدلية » retrouve « صيدلية النور » après normalisation.**
@@ -621,7 +621,7 @@ API D1, `MATCH` + `bm25` + filtres, `LIMIT 20`) :
 | station service | 0,76 ms | 1,37 ms |
 | banque          | 0,65 ms | 0,90 ms |
 
-**Mesures bout-en-bout** (Worker `upk-staging`, 30 requêtes par terme, D1
+**Mesures bout-en-bout** (Worker `upk`, 30 requêtes par terme, D1
 distante incluse, repository + scoring) :
 
 | Terme           | p50      | p95      |
