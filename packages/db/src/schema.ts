@@ -330,3 +330,35 @@ export const verifications = sqliteTable(
   },
   (table) => [index("verifications_identifier_idx").on(table.identifier)],
 );
+
+
+// Candidatures de création de comptes professionnels et de modération.
+export const accountApplications = sqliteTable(
+  "account_applications",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id").notNull().unique().references(() => users.id, { onDelete: "cascade" }),
+    accountType: text("account_type").notNull(),
+    firstName: text("first_name"),
+    lastName: text("last_name"),
+    phone: text("phone").notNull(),
+    organizationName: text("organization_name"),
+    establishmentType: text("establishment_type"),
+    city: text("city").notNull(),
+    commune: text("commune").notNull(),
+    neighborhood: text("neighborhood").notNull(),
+    interventionSector: text("intervention_sector"),
+    latitude: real("latitude").notNull(),
+    longitude: real("longitude").notNull(),
+    gpsAccuracy: real("gps_accuracy").notNull(),
+    status: text("status").notNull().default("pending"),
+    reviewedBy: text("reviewed_by"),
+    reviewedAt: text("reviewed_at"),
+    createdAt: text("created_at").notNull(),
+    updatedAt: text("updated_at").notNull(),
+  },
+  (table) => [
+    index("account_applications_status_idx").on(table.status, table.createdAt),
+    index("account_applications_geo_idx").on(table.latitude, table.longitude),
+  ],
+);
