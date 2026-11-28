@@ -111,7 +111,7 @@ function LoginPage() {
         return;
       }
 
-      if (!gps) {
+      if (accountType === "professional" && !gps) {
         setError(t(locale, "login.gpsRequired"));
         return;
       }
@@ -156,9 +156,9 @@ function LoginPage() {
           commune: commune.trim(),
           neighborhood: neighborhood.trim(),
           interventionSector: interventionSector.trim(),
-          latitude: gps.latitude,
-          longitude: gps.longitude,
-          gpsAccuracy: gps.accuracy,
+          latitude: accountType === "professional" ? gps?.latitude ?? null : null,
+          longitude: accountType === "professional" ? gps?.longitude ?? null : null,
+          gpsAccuracy: accountType === "professional" ? gps?.accuracy ?? null : null,
         }),
       });
       if (!applicationResponse.ok) {
@@ -222,8 +222,8 @@ function LoginPage() {
             {isSignup && (
               <>
                 <div className="upk-auth-type-switch" role="group" aria-label={t(locale, "login.accountType")}>
-                  <button type="button" className={accountType === "professional" ? "active" : ""} onClick={() => setAccountType("professional")}>{t(locale, "login.professional")}</button>
-                  <button type="button" className={accountType === "moderation" ? "active" : ""} onClick={() => setAccountType("moderation")}>{t(locale, "login.moderation")}</button>
+                  <button type="button" className={accountType === "professional" ? "active" : ""} onClick={() => { setAccountType("professional"); setGps(null); }}>{t(locale, "login.professional")}</button>
+                  <button type="button" className={accountType === "moderation" ? "active" : ""} onClick={() => { setAccountType("moderation"); setGps(null); }}>{t(locale, "login.moderation")}</button>
                 </div>
 
                 {accountType === "moderation" ? (
@@ -284,7 +284,7 @@ function LoginPage() {
               </label>
             )}
 
-            {isSignup && (
+            {isSignup && accountType === "professional" && (
               <div className="upk-auth-gps">
                 <div>
                   <strong>{t(locale, "login.gpsTitle")}</strong>
