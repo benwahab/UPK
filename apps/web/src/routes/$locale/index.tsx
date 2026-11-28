@@ -164,7 +164,6 @@ function Home() {
       category: category || undefined,
     });
     // La position de l'URL n'est jamais considérée comme une position fraîche.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function searchWithFreshPosition(next: { q?: string; category?: string }) {
