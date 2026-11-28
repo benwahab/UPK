@@ -395,7 +395,7 @@ function locationAfterConnector(text: string): string | null {
   return null;
 }
 
-export type TravelMode = "plane" | "bus" | "train";
+export type TravelMode = "plane" | "bus" | "bus_station" | "train";
 
 export function isTravelRequest(raw: string): boolean {
   const text = normalizeSearch(raw);
@@ -410,13 +410,14 @@ export function isTravelRequest(raw: string): boolean {
 export function travelModeForText(raw: string): TravelMode | null {
   const text = normalizeSearch(raw);
   if (["avion", "aeroport", "airplane", "plane", "flight", "by air", "مطار", "طائرة"].some((word) => text.includes(normalizeSearch(word)))) return "plane";
-  if (["bus", "autocar", "auto gare", "autogare", "gare routiere", "gare de bus", "coach", "station de bus", "حافلة", "حافله"].some((word) => text.includes(normalizeSearch(word)))) return "bus";
+  if (["auto gare", "autogare", "gare routiere", "gare de bus", "station de bus", "محطة الحافلات"].some((word) => text.includes(normalizeSearch(word)))) return "bus_station";
+  if (["bus", "autocar", "coach", "حافلة", "حافله"].some((word) => text.includes(normalizeSearch(word)))) return "bus";
   if (["train", "gare ferroviaire", "chemin de fer", "by train", "قطار"].some((word) => text.includes(normalizeSearch(word)))) return "train";
   return null;
 }
 
 export function travelSearchIntent(mode: TravelMode): Extract<AssistantIntent, { kind: "search" }> {
-  const query = mode === "plane" ? "aeroport" : mode === "bus" ? "gare routiere" : "gare";
+  const query = mode === "plane" ? "aeroport" : mode === "bus_station" ? "gare routiere" : mode === "bus" ? "bus" : "gare";
   return { kind: "search", raw: query, query, categorySlug: "transport", proximity: false };
 }
 
