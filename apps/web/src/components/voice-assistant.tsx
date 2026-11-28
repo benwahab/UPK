@@ -614,9 +614,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
         >
           <header className="flex items-center justify-between gap-2 border-b border-[var(--upk-border)] p-3">
             <div className="min-w-0">
-              <h2 className="truncate text-sm font-semibold">Ben · 
-                {assistantText(language, "assistant.name")}
-              </h2>
+              <div className="flex items-center gap-3"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#ffb18e] to-[#e45a35] text-base font-black text-white shadow-md">B</span><div className="min-w-0"><h2 className="truncate text-base font-bold tracking-tight text-[#28231f]">Ben</h2><p className="text-[11px] text-[#8d7e73]">{assistantText(language, "assistant.name")}</p></div></div>
               <label className="mt-1 flex items-center gap-1 text-[11px] text-[var(--upk-muted-fg)]">
                 <span className="sr-only">{assistantText(language, "assistant.language")}</span>
                 <select
@@ -657,7 +655,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
 
           <div className="flex-1 space-y-2 overflow-y-auto p-3" aria-live="polite">
             {messages.length === 0 && (
-              <div className="rounded-xl border border-[#343434] bg-[#181818] p-3 text-sm"><p className="font-semibold text-white">Ben</p><p className="mt-1 text-white/80">{assistantText(language, "assistant.welcome")}</p></div>
+              <div className="mx-auto flex min-h-full max-w-md flex-col items-center justify-center px-3 py-8 text-center"><div className="mb-5 grid h-20 w-20 place-items-center rounded-[1.8rem] bg-gradient-to-br from-[#ffb18e] via-[#ff865e] to-[#e45a35] text-3xl font-black text-white shadow-xl shadow-orange-200/70">B</div><p className="text-xs font-bold uppercase tracking-[.2em] text-[#d56b49]">Ben</p><h3 className="mt-3 text-2xl font-bold tracking-tight text-[#302720]">{assistantText(language, "assistant.welcome")}</h3></div>
             )}
             {messages.map((message) => (
               <div
@@ -771,8 +769,8 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 aria-pressed={phase === "listening"}
                 className={
                   phase === "listening"
-                    ? "rounded-lg bg-[var(--upk-danger)] px-3 py-2 text-[var(--upk-primary-fg)]"
-                    : "rounded-lg border border-[var(--upk-border)] px-3 py-2"
+                    ? "grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#d94b4b] text-white shadow-md"
+                    : "grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#eadfd6] bg-white text-[#6e5a4d] transition hover:bg-[#fff2e9]"
                 }
               >
                 <MicIcon className="h-4 w-4" />
