@@ -42,6 +42,7 @@ function LoginPage() {
   const [neighborhood, setNeighborhood] = useState("");
   const [interventionSector, setInterventionSector] = useState("");
   const [gps, setGps] = useState<GpsPosition | null>(null);
+  const [existingAccountSession, setExistingAccountSession] = useState(false);
   const [locating, setLocating] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -102,6 +103,8 @@ function LoginPage() {
         } else if (status?.status === "rejected") {
           setNotice(t(locale, "login.rejected"));
         } else {
+          setExistingAccountSession(true);
+          setMode("signup");
           setNotice(t(locale, "login.noApplication"));
         }
         return;
@@ -116,19 +119,21 @@ function LoginPage() {
         return;
       }
 
-      const fullName = accountType === "moderation"
-        ? `${firstName.trim()} ${lastName.trim()}`.trim()
-        : organizationName.trim();
-      const signUpResponse = await fetch("/api/auth/sign-up/email", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ email, password, name: fullName }),
-        credentials: "include",
-      });
-      if (!signUpResponse.ok) {
-        const payload = (await signUpResponse.json().catch(() => null)) as { message?: string } | null;
-        setError(payload?.message ?? t(locale, "login.error"));
-        return;
+      if (!existingAccountSession) {
+        const fullName = accountType === "moderation"
+          ? `${firstName.trim()} ${lastName.trim()}`.trim()
+          : organizationName.trim();
+        const signUpResponse = await fetch("/api/auth/sign-up/email", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ email, password, name: fullName }),
+          credentials: "include",
+        });
+        if (!signUpResponse.ok) {
+          const payload = (await signUpResponse.json().catch(() => null)) as { message?: string } | null;
+          setError(payload?.message ?? t(locale, "login.error"));
+          return;
+        }
       }
 
       const applicationResponse = await fetch("/api/account-applications", {
@@ -158,6 +163,7 @@ function LoginPage() {
       }
       setNotice(t(locale, "login.submitted"));
       setMode("signin");
+      setExistingAccountSession(false);
       setPassword("");
     } catch {
       setError(t(locale, "login.error"));
