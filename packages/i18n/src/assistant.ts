@@ -26,7 +26,8 @@ export const assistantVoiceSupport: Record<AssistantLanguage, "native" | "experi
 };
 
 const fr = {
-  "assistant.name": "Assistant UPK",
+  "assistant.name": "Ben",
+  "assistant.welcome": "Bonjour, je suis Ben, votre assistant. Comment puis-je vous aider aujourd’hui ?",
   "assistant.open": "Ouvrir l’assistant vocal",
   "assistant.close": "Fermer l’assistant",
   "assistant.language": "Langue de l’assistant",
@@ -87,7 +88,8 @@ const fr = {
 type AssistantKey = keyof typeof fr;
 
 const en: Record<AssistantKey, string> = {
-  "assistant.name": "UPK Assistant",
+  "assistant.name": "Ben",
+  "assistant.welcome": "Hello, I’m Ben, your assistant. How can I help you today?",
   "assistant.open": "Open the voice assistant",
   "assistant.close": "Close assistant",
   "assistant.language": "Assistant language",
@@ -143,7 +145,8 @@ const en: Record<AssistantKey, string> = {
 };
 
 const ar: Record<AssistantKey, string> = {
-  "assistant.name": "مساعد UPK",
+  "assistant.name": "Ben",
+  "assistant.welcome": "مرحبًا، أنا Ben، مساعدك. كيف يمكنني مساعدتك اليوم؟",
   "assistant.open": "فتح المساعد الصوتي",
   "assistant.close": "إغلاق المساعد",
   "assistant.language": "لغة المساعد",
@@ -196,7 +199,8 @@ const ar: Record<AssistantKey, string> = {
 };
 
 const ha: Record<AssistantKey, string> = {
-  "assistant.name": "Mataimakin UPK",
+  "assistant.name": "Ben",
+  "assistant.welcome": "Sannu, ni ne Ben, mataimakinka. Ta yaya zan taimaka maka yau?",
   "assistant.open": "Buɗe mataimakin murya",
   "assistant.close": "Rufe mataimaki",
   "assistant.language": "Harshen mataimaki",
@@ -251,7 +255,8 @@ const ha: Record<AssistantKey, string> = {
 };
 
 const za: Record<AssistantKey, string> = {
-  "assistant.name": "UPK deece",
+  "assistant.name": "Ben",
+  "assistant.welcome": "Fofo, ay ti Ben, ni ga war ga. Mate no ay ga war gaa?",
   "assistant.open": "Sabu UPK deece",
   "assistant.close": "Daŋ deece",
   "assistant.language": "Deece ton",
