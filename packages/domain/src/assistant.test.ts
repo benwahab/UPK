@@ -3,7 +3,7 @@ import {
   assistantSpeechLanguages,
   greetingPeriod,
   hourInTimeZone,
-  parseAssistantQuery,
+  parseAssistantQuery,\n  isTravelRequest,\n  travelModeForText,\n  travelSearchIntent,
 } from "./assistant";
 
 describe("salutation locale", () => {
@@ -27,6 +27,23 @@ describe("salutation locale", () => {
 });
 
 describe("compréhension des demandes", () => {
+  it("demande une précision pour une demande générale de voyage", () => {
+    expect(isTravelRequest("Je veux voyager")).toBe(true);
+    expect(isTravelRequest("I want to travel")).toBe(true);
+    expect(isTravelRequest("Je cherche un restaurant")).toBe(false);
+  });
+
+  it("reconnaît le moyen de transport choisi et prépare la recherche", () => {
+    expect(travelModeForText("Par avion")).toBe("plane");
+    expect(travelModeForText("Je préfère le bus")).toBe("bus");
+    expect(travelModeForText("Depuis l'auto-gare")).toBe("bus");
+    expect(travelModeForText("En train")).toBe("train");
+    expect(travelModeForText("Je ne sais pas")).toBe(null);
+    expect(travelSearchIntent("bus")).toMatchObject({
+      kind: "search", categorySlug: "transport", query: "gare routiere",
+    });
+  });
+
   it("comprend une catégorie et la proximité en français", () => {
     const intent = parseAssistantQuery("Trouve une pharmacie près de moi.");
     expect(intent).toMatchObject({
