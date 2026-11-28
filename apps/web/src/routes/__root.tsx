@@ -12,12 +12,27 @@ import { ThemeToggle } from "../components/theme-toggle";
 import { absoluteUrl } from "../lib/site";
 import appCss from "../styles.css?inline";
 
+const APPLE_SPLASH_SCREENS = [
+  { width: 1320, height: 2868, cssWidth: 440, cssHeight: 956, ratio: 3 },
+  { width: 1206, height: 2622, cssWidth: 402, cssHeight: 874, ratio: 3 },
+  { width: 1290, height: 2796, cssWidth: 430, cssHeight: 932, ratio: 3 },
+  { width: 1179, height: 2556, cssWidth: 393, cssHeight: 852, ratio: 3 },
+  { width: 1284, height: 2778, cssWidth: 428, cssHeight: 926, ratio: 3 },
+  { width: 1170, height: 2532, cssWidth: 390, cssHeight: 844, ratio: 3 },
+  { width: 1125, height: 2436, cssWidth: 375, cssHeight: 812, ratio: 3 },
+  { width: 1242, height: 2688, cssWidth: 414, cssHeight: 896, ratio: 3 },
+  { width: 828, height: 1792, cssWidth: 414, cssHeight: 896, ratio: 2 },
+  { width: 1242, height: 2208, cssWidth: 414, cssHeight: 736, ratio: 3 },
+  { width: 750, height: 1334, cssWidth: 375, cssHeight: 667, ratio: 2 },
+  { width: 640, height: 1136, cssWidth: 320, cssHeight: 568, ratio: 2 },
+];
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#F5FFFA" },
+      { name: "theme-color", content: "#FFFFFF" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-title", content: "UPK" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
@@ -38,6 +53,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "icon", href: "/icon-192.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      ...APPLE_SPLASH_SCREENS.map((screen) => ({
+        rel: "apple-touch-startup-image",
+        href: `/splash/splash-${screen.width}x${screen.height}.png`,
+        media: `(device-width: ${screen.cssWidth}px) and (device-height: ${screen.cssHeight}px) and (-webkit-device-pixel-ratio: ${screen.ratio}) and (orientation: portrait)`,
+      })),
     ],
   }),
   shellComponent: RootShell,
