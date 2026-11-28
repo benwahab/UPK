@@ -85,7 +85,7 @@ function Home() {
   const hasPosition =
     freshPosition !== null && lat === freshPosition.lat && lng === freshPosition.lng;
   // UPK n'affiche aucun résultat tant qu'une recherche textuelle n'a pas été saisie.
-  const hasSearch = Boolean(q);
+  const hasSearch = Boolean(q) && hasPosition;
   const results = useQuery({
     queryKey: ["search", q, category, lat, lng],
     queryFn: () =>
