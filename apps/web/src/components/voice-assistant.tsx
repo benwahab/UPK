@@ -304,7 +304,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
     setVoiceNotice(null);
     const origin = await originFor(intent);
     try {
-      let result = await getTrpcClient().search.places.query({
+      const result = await getTrpcClient().search.places.query({
         ...(intent.query ? { q: intent.query } : {}),
         ...(intent.categorySlug ? { categorySlug: intent.categorySlug } : {}),
         ...(origin ? { lat: origin.lat, lng: origin.lng } : {}),
