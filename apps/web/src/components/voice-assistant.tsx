@@ -160,7 +160,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
       language,
       period === "morning" ? "assistant.greetingMorning" : "assistant.greetingEvening",
     );
-    return `${greeting} ${assistantText(language, "assistant.ask")}`;
+    return assistantText(language, "assistant.welcome");
   }
 
   function deliverGreeting(appendMessage: boolean) {
@@ -591,7 +591,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
   return (
     <>
       {!open && (
-        <div className="fixed bottom-20 end-4 z-40 flex flex-col items-end gap-2">
+        <div className="fixed bottom-5 end-4 z-40 flex flex-col items-end gap-2">
           {needsGesture && greetingEnabled && (
             <button
               type="button"
@@ -608,9 +608,9 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
             type="button"
             onClick={() => setOpen(true)}
             aria-label={assistantText(language, "assistant.open")}
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--upk-primary)] text-[var(--upk-primary-fg)] shadow-lg transition hover:opacity-90 focus:ring-2 focus:ring-[var(--upk-primary)] focus:ring-offset-2 focus:outline-none"
+            className="flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#f28a24] px-4 text-white shadow-lg transition hover:brightness-110 focus:ring-2 focus:ring-[#f28a24] focus:ring-offset-2 focus:outline-none"
           >
-            <MicIcon className="h-6 w-6" />
+            <span className="text-sm font-semibold">Ben</span>
           </button>
         </div>
       )}
@@ -620,11 +620,11 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
           role="dialog"
           aria-label={assistantText(language, "assistant.name")}
           dir={assistantIsRtl(language) ? "rtl" : "ltr"}
-          className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-h-[min(78vh,42rem)] w-auto max-w-md flex-col overflow-hidden rounded-2xl border border-[var(--upk-border)] bg-[var(--upk-bg)] shadow-2xl sm:end-4 sm:start-auto sm:mx-0 sm:w-[24rem]"
+          className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-h-[min(78vh,42rem)] w-auto max-w-md flex-col overflow-hidden rounded-2xl border border-[#343434] bg-[#101010] text-white shadow-2xl sm:end-4 sm:start-auto sm:mx-0 sm:w-[24rem]"
         >
           <header className="flex items-center justify-between gap-2 border-b border-[var(--upk-border)] p-3">
             <div className="min-w-0">
-              <h2 className="truncate text-sm font-semibold">
+              <h2 className="truncate text-sm font-semibold">Ben · 
                 {assistantText(language, "assistant.name")}
               </h2>
               <label className="mt-1 flex items-center gap-1 text-[11px] text-[var(--upk-muted-fg)]">
@@ -667,17 +667,15 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
 
           <div className="flex-1 space-y-2 overflow-y-auto p-3" aria-live="polite">
             {messages.length === 0 && (
-              <p className="text-xs text-[var(--upk-muted-fg)]">
-                {assistantText(language, "assistant.ask")}
-              </p>
+              <div className="rounded-xl border border-[#343434] bg-[#181818] p-3 text-sm"><p className="font-semibold text-white">Ben</p><p className="mt-1 text-white/80">{assistantText(language, "assistant.welcome")}</p></div>
             )}
             {messages.map((message) => (
               <div
                 key={message.id}
                 className={
                   message.role === "user"
-                    ? "ms-auto max-w-[90%] rounded-xl bg-[var(--upk-primary)] px-3 py-2 text-sm text-[var(--upk-primary-fg)]"
-                    : "me-auto max-w-[95%] rounded-xl bg-[var(--upk-muted)] px-3 py-2 text-sm"
+                    ? "ms-auto max-w-[90%] rounded-xl bg-[#f28a24] px-3 py-2 text-sm text-white"
+                    : "me-auto max-w-[95%] rounded-xl border border-[#343434] bg-[#1b1b1b] px-3 py-2 text-sm text-white"
                 }
               >
                 <p className="whitespace-pre-line">{message.text}</p>
@@ -774,7 +772,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 onChange={(event) => setInput(event.target.value)}
                 placeholder={assistantText(language, "assistant.inputPlaceholder")}
                 aria-label={assistantText(language, "assistant.inputPlaceholder")}
-                className="min-w-0 flex-1 rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--upk-primary)]"
+                className="min-w-0 flex-1 rounded-lg border border-[#3b3b3b] bg-[#191919] px-3 py-2 text-sm text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#f28a24]"
               />
               <button
                 type="button"
