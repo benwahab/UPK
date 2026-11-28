@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 type AdMedia =
   | { type: "image"; src: string; alt: string; href?: string }
@@ -11,83 +11,80 @@ const demoMedia: AdMedia[] = [
   { type: "image", src: "/upk-logo.png", alt: "UPK — aperçu de l’espace publicitaire" },
 ];
 
-function MediaCard({ item }: { item: AdMedia }) {
-  const content =
-    item.type === "video" ? (
+export function AdCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeAd = demoMedia[activeIndex];
+
+  useEffect(() => {
+    if (activeAd.type !== "image" || demoMedia.length < 2) return;
+    const timeout = window.setTimeout(() => {
+      setActiveIndex((index) => (index + 1) % demoMedia.length);
+    }, 10_000);
+    return () => window.clearTimeout(timeout);
+  }, [activeIndex, activeAd.type]);
+
+  const advance = () => {
+    setActiveIndex((index) => (index + 1) % demoMedia.length);
+  };
+
+  const media =
+    activeAd.type === "video" ? (
       <video
+        key={activeAd.src}
         className="h-full w-full object-contain"
-        src={item.src}
-        poster={item.poster}
+        src={activeAd.src}
+        poster={activeAd.poster}
         muted
-        loop
         autoPlay
         playsInline
-        preload="metadata"
+        controls
+        preload="auto"
+        onEnded={advance}
         aria-label="Publicité vidéo"
       />
     ) : (
-      <img className="h-full w-full object-contain p-3" src={item.src} alt={item.alt} />
+      <img
+        key={activeAd.src}
+        className="h-full w-full object-contain"
+        src={activeAd.src}
+        alt={activeAd.alt}
+      />
     );
 
   return (
-    <div className="h-[118px] w-[270px] shrink-0 overflow-hidden rounded-2xl border border-[var(--upk-border)] bg-[var(--upk-card)] sm:h-[132px] sm:w-[310px]">
-      {item.href ? (
-        <a href={item.href} target="_blank" rel="noreferrer" className="block h-full w-full">
-          {content}
-        </a>
-      ) : (
-        content
-      )}
-    </div>
-  );
-}
-
-export function AdCarousel() {
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const videos = track.querySelectorAll("video");
-    const tryPlay = () => videos.forEach((video) => void video.play().catch(() => {}));
-    tryPlay();
-    document.addEventListener("visibilitychange", tryPlay);
-    return () => document.removeEventListener("visibilitychange", tryPlay);
-  }, []);
-
-  const repeated = [...demoMedia, ...demoMedia];
-
-  return (
-    <aside className="mx-auto mt-auto w-full max-w-5xl overflow-hidden px-3 pb-4 pt-5" aria-label="Espace publicitaire">
-      <div className="mb-3 flex items-center justify-center">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--upk-muted-fg)]">
+    <aside
+      className="mx-auto mt-auto w-full max-w-5xl px-3 pb-5 pt-5"
+      aria-label="Espace publicitaire"
+    >
+      <div className="mb-3 text-center">
+        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--upk-muted-fg)]">
           Espace publicitaire
         </span>
       </div>
-      <div className="upk-ad-viewport overflow-hidden">
-        <div ref={trackRef} className="upk-ad-track flex w-max gap-3">
-          {repeated.map((item, index) => (
-            <MediaCard key={`${item.src}-${index}`} item={item} />
+      <div className="mx-auto aspect-video w-full overflow-hidden rounded-2xl border border-[var(--upk-border)] bg-[var(--upk-card)] shadow-sm">
+        {activeAd.href ? (
+          <a
+            href={activeAd.href}
+            target="_blank"
+            rel="noreferrer"
+            className="block h-full w-full"
+          >
+            {media}
+          </a>
+        ) : (
+          media
+        )}
+      </div>
+      {demoMedia.length > 1 && (
+        <div className="mt-3 flex items-center justify-center gap-2" aria-label="Position dans les annonces">
+          {demoMedia.map((item, index) => (
+            <span
+              key={`${item.src}-${index}`}
+              className={`h-1.5 rounded-full transition-all ${index === activeIndex ? "w-6 bg-[var(--upk-fg)]" : "w-1.5 bg-[var(--upk-muted-fg)]/40"}`}
+            />
           ))}
         </div>
-      </div>
-      <style>{`
-        @keyframes upk-ad-scroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-        .upk-ad-track {
-          animation: upk-ad-scroll 32s linear infinite;
-          will-change: transform;
-        }
-        .upk-ad-viewport:hover .upk-ad-track,
-        .upk-ad-viewport:focus-within .upk-ad-track {
-          animation-play-state: paused;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .upk-ad-track { animation: none; }
-        }
-      `}</style>
+      )}
     </aside>
   );
 }
