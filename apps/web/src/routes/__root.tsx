@@ -161,24 +161,34 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="fixed end-3 top-1.5 z-40 flex items-center gap-1 rounded-full border border-[var(--upk-border)] bg-[var(--upk-bg)]/90 p-1 shadow-sm backdrop-blur">
-        <nav aria-label="Language" className="flex items-center gap-0.5">
-          {(["fr", "en", "ar"] as const).map((code) => (
-            <a
-              key={code}
-              href={`/${code}${localizedPath === "/" ? "" : localizedPath}`}
-              lang={code}
-              aria-current={locale === code ? "page" : undefined}
-              className={`flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-[11px] font-bold transition-all duration-200 motion-reduce:transition-none hover:-translate-y-0.5 hover:scale-105 active:scale-95 ${
-                locale === code
-                  ? "bg-[var(--upk-primary)] text-[var(--upk-primary-fg)] shadow-sm"
-                  : "text-[var(--upk-muted-fg)] hover:bg-[var(--upk-muted)] hover:text-[var(--upk-fg)]"
-              }`}
-            >
-              {code.toUpperCase()}
+        {localizedPath === "/" ? (
+          <>
+            <a href={`/${locale}`} aria-label="UPK accueil" className="flex h-8 items-center px-2">
+              <img src="/upk-logo.png" alt="UPK" width={96} height={41} className="h-7 w-auto" />
             </a>
-          ))}
-        </nav>
-        <span aria-hidden="true" className="h-5 w-px bg-[var(--upk-border)]" />
+          </>
+        ) : (
+          <>
+            <nav aria-label="Language" className="flex items-center gap-0.5">
+              {(["fr", "en", "ar"] as const).map((code) => (
+                <a
+                  key={code}
+                  href={`/${code}${localizedPath === "/" ? "" : localizedPath}`}
+                  lang={code}
+                  aria-current={locale === code ? "page" : undefined}
+                  className={`flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-[11px] font-bold transition-all duration-200 motion-reduce:transition-none hover:-translate-y-0.5 hover:scale-105 active:scale-95 ${
+                    locale === code
+                      ? "bg-[var(--upk-primary)] text-[var(--upk-primary-fg)] shadow-sm"
+                      : "text-[var(--upk-muted-fg)] hover:bg-[var(--upk-muted)] hover:text-[var(--upk-fg)]"
+                  }`}
+                >
+                  {code.toUpperCase()}
+                </a>
+              ))}
+            </nav>
+            <span aria-hidden="true" className="h-5 w-px bg-[var(--upk-border)]" />
+          </>
+        )}
         <ThemeToggle locale={locale} />
       </div>
       <div className="flex min-h-svh flex-col">
