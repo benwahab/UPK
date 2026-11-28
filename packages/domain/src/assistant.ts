@@ -1,6 +1,6 @@
 import { normalizeSearch } from "./normalize";
 
-export const assistantLanguages = ["fr", "en", "ar", "ha", "za"] as const;
+export const assistantLanguages = ["fr", "en", "ar"] as const;
 export type AssistantLanguage = (typeof assistantLanguages)[number];
 
 export function isAssistantLanguage(value: string): value is AssistantLanguage {
@@ -11,8 +11,6 @@ export const assistantSpeechLanguages: Record<AssistantLanguage, string> = {
   fr: "fr-FR",
   en: "en-US",
   ar: "ar-SA",
-  ha: "ha-NG",
-  za: "dje",
 };
 
 export type GreetingPeriod = "morning" | "evening";
