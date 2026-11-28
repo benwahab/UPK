@@ -204,8 +204,8 @@ const ha: Record<AssistantKey, string> = {
   "assistant.open": "Buɗe mataimakin murya",
   "assistant.close": "Rufe mataimaki",
   "assistant.language": "Harshen mataimaki",
-  "assistant.greetingMorning": "Sannu, ni ne Ben. Ta yaya zan taimaka maka?"
-  "assistant.greetingEvening": "Barka da yamma, ni ne Ben. Ta yaya zan taimaka maka?"
+  "assistant.greetingMorning": "Sannu, ni ne Ben. Ta yaya zan taimaka maka?",
+  "assistant.greetingEvening": "Barka da yamma, ni ne Ben. Ta yaya zan taimaka maka?",
   "assistant.ask": "Me kuke nema yau?",
   "assistant.listening": "Ina saurare…",
   "assistant.thinking": "Ina bincike…",
