@@ -276,7 +276,7 @@ function LoginPage() {
               </div>
               {isSignup && <small>{t(locale, "login.passwordHint")}</small>}
             </label>
-            {isSignup && (
+            {isSignup && !existingAccountSession && (
               <label className={labelClass}>{t(locale, "login.confirmPassword")}
                 <input className={inputClass} type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={8} autoComplete="new-password" />
               </label>
