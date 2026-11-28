@@ -5,12 +5,13 @@ const baseURL = (process.env.E2E_BASE_URL ?? "http://127.0.0.1:5173").replace(/\
 export default defineConfig({
   testDir: "./e2e",
   timeout: 30_000,
+  globalTimeout: process.env.CI ? 12 * 60 * 1000 : 0,
   expect: { timeout: 10_000 },
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI
-    ? [["github"], ["html", { open: "never" }]]
+    ? [["line"], ["html", { open: "never" }]]
     : [["list"], ["html", { open: "never" }]],
   use: {
     baseURL,
