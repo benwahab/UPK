@@ -9,6 +9,7 @@ jobs:
   quality:
     # Playwright 1.55 ne supporte pas encore ubuntu-26.04 (ubuntu-latest).
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
