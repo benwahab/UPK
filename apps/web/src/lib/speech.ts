@@ -126,8 +126,8 @@ function pickVoice(language: AssistantLanguage): SpeechSynthesisVoice | null {
 
   // The Web Speech API has no standard gender field. Prefer an explicit
   // platform gender hint, then well-known masculine voice labels.
-  const maleLabels = /(?:^|[\s_-])(male|masculin|homme|man|男)(?:$|[\s_-])/i;
-  const femaleLabels = /(?:^|[\s_-])(female|feminin|féminin|femme|woman|女)(?:$|[\s_-])/i;
+  const maleLabels = /(?:^|[\\s_-])(male|masculin|homme|man|男|ذكر|رجل|ذكوري|رجالي)(?:$|[\\s_-])/i;
+  const femaleLabels = /(?:^|[\\s_-])(female|feminin|féminin|femme|woman|女|أنثى|امرأة|نسائي|نسائية)(?:$|[\\s_-])/i;
   const withGender = matching as Array<SpeechSynthesisVoice & { gender?: string }>;
   return (
     withGender.find((voice) => voice.gender?.toLowerCase() === "male") ??
