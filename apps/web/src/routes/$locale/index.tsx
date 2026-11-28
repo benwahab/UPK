@@ -3,6 +3,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   formatDistance,
   isFuzzyMatch,
+  normalizeSearch,
   localeSchema,
   type Locale,
   type PlaceSummary,
@@ -16,6 +17,29 @@ import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
 import { listCategories } from "../../server/places";
 
+
+const INPUT_ALIASES: Record<string, string> = {
+  clinique: "clinic",
+  cliniques: "clinics",
+  clinic: "clinique",
+  clinics: "cliniques",
+  pharmacie: "pharmacy",
+  pharmacies: "pharmacies",
+  pharmacy: "pharmacie",
+  pharmacies: "pharmacies",
+  hôpital: "hospital",
+  hopital: "hospital",
+  hopitaux: "hospitals",
+  hospital: "hôpital",
+  hospitals: "hôpitaux",
+  école: "school",
+  ecole: "school",
+  schools: "écoles",
+  school: "école",
+  mosquée: "mosque",
+  mosquee: "mosque",
+  mosque: "mosquée",
+};
 
 const EMPTY_RESULTS: SearchResult = {
   items: [],
@@ -74,6 +98,7 @@ function Home() {
   const [initial, categories] = Route.useLoaderData();
   const navigate = useNavigate({ from: "/$locale/" });
   const [input, setInput] = useState(q ?? "");
+  const inputSuggestion = INPUT_ALIASES[normalizeSearch(input)] ?? null;
   const [locating, setLocating] = useState(false);
   const [freshPosition, setFreshPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [locationBlocked, setLocationBlocked] = useState(false);
@@ -282,6 +307,21 @@ function Home() {
             />
           </div>
         </div>
+        {inputSuggestion && normalizeSearch(input) !== normalizeSearch(inputSuggestion) && (
+          <p className="mt-2 text-sm text-[var(--upk-muted-fg)]" role="status">
+            {locale === "fr" ? "Suggestion :" : locale === "ar" ? "اقتراح:" : "Suggestion:"}{" "}
+            <button
+              type="button"
+              className="font-semibold text-[var(--upk-primary-text)] underline"
+              onClick={() => {
+                setInput(inputSuggestion);
+                searchWithFreshPosition({ q: inputSuggestion, category: category || undefined });
+              }}
+            >
+              {inputSuggestion}
+            </button>
+          </p>
+        )}
         {category && <input type="hidden" name="category" value={category} />}
 
         <button type="submit" className="sr-only">
