@@ -113,7 +113,7 @@ function Home() {
 
 
   function navigateSearch(next: { q?: string; category?: string; lat?: number; lng?: number }) {
-    void navigate({
+    return navigate({
       search: {
         ...(next.q ? { q: next.q } : {}),
         ...(next.category ? { category: next.category } : {}),
@@ -142,10 +142,11 @@ function Home() {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        setLocating(false);
-        setFreshPosition(fresh);
         setLocationBlocked(false);
-        navigateSearch({ ...next, ...fresh });
+        void navigateSearch({ ...next, ...fresh }).then(() => {
+          setLocating(false);
+          setFreshPosition(fresh);
+        });
       },
       (error) => {
         setLocating(false);
