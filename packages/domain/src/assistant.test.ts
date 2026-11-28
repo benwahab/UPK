@@ -64,6 +64,31 @@ describe("compréhension des demandes", () => {
     });
   });
 
+  it("comprend plusieurs formulations naturelles de recherche par critère", () => {
+    for (const request of [
+      "Trouve-moi un restaurant au bord du fleuve",
+      "Je cherche un restaurant près du fleuve",
+      "Un restaurant sur les rives du fleuve",
+      "Find a restaurant by the river",
+      "Find a riverside restaurant",
+      "أبحث عن مطعم على ضفاف النهر",
+    ]) {
+      expect(parseAssistantQuery(request)).toMatchObject({
+        kind: "search",
+        categorySlug: "restaurant",
+        query: "fleuve",
+      });
+    }
+  });
+
+  it("conserve un critère descriptif générique après la catégorie", () => {
+    expect(parseAssistantQuery("Je cherche un restaurant avec terrasse")).toMatchObject({
+      kind: "search",
+      categorySlug: "restaurant",
+      query: "restaurant avec terrasse",
+    });
+  });
+
   it("comprend un quartier", () => {
     expect(parseAssistantQuery("Je cherche le quartier Yantala.")).toMatchObject({
       kind: "search",
