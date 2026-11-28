@@ -102,7 +102,7 @@ export function VoiceSearch({
       aria-label={label}
       aria-pressed={listening}
       title={label}
-      className="rounded-lg border border-[var(--upk-border)] px-3 py-3 text-[var(--upk-fg)] focus:ring-2 focus:ring-[var(--upk-primary)] focus:outline-none"
+      className="flex size-11 items-center justify-center rounded-full text-[var(--upk-muted-fg)] hover:text-[var(--upk-primary-text)] focus:ring-2 focus:ring-[var(--upk-ring)] focus:outline-none aria-pressed:text-[var(--upk-primary-text)]"
     >
       <svg
         aria-hidden="true"

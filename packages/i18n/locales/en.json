@@ -35,8 +35,8 @@
   "common.loading": "Loading…",
   "common.error": "Something went wrong.",
   "footer.attribution": "© OpenStreetMap contributors",
-  "nav.privacy": "Privacy",
-  "nav.terms": "Terms",
+  "nav.privacy": "Privacy policy",
+  "nav.terms": "Terms of use",
   "nav.contact": "Contact",
   "nav.login": "Sign in",
   "nav.admin": "Moderation",
@@ -143,5 +143,12 @@
   "place.region": "Region",
   "place.description": "Description",
   "theme.toDark": "Switch to dark theme",
-  "theme.toLight": "Switch to light theme"
+  "theme.toLight": "Switch to light theme",
+  "nav.pro": "Pro area",
+  "nav.pharmacies": "On-call pharmacies",
+  "search.all": "All",
+  "place.unverified": "To verify",
+  "place.details": "Details",
+  "footer.copyright": "© {year} UPK — Your local guide",
+  "nav.shortcuts": "Shortcuts"
 }

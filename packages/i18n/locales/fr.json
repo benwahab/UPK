@@ -35,8 +35,8 @@
   "common.loading": "Chargement…",
   "common.error": "Une erreur est survenue.",
   "footer.attribution": "© les contributeurs OpenStreetMap",
-  "nav.privacy": "Confidentialité",
-  "nav.terms": "Conditions",
+  "nav.privacy": "Politique de confidentialité",
+  "nav.terms": "Conditions d'utilisation",
   "nav.contact": "Contact",
   "nav.login": "Connexion",
   "nav.admin": "Modération",
@@ -143,5 +143,12 @@
   "place.region": "Région",
   "place.description": "Description",
   "theme.toDark": "Passer au thème sombre",
-  "theme.toLight": "Passer au thème clair"
+  "theme.toLight": "Passer au thème clair",
+  "nav.pro": "Espace pro",
+  "nav.pharmacies": "Pharmacies de garde",
+  "search.all": "Tout",
+  "place.unverified": "À vérifier",
+  "place.details": "Détails",
+  "footer.copyright": "© {year} UPK — Votre guide local",
+  "nav.shortcuts": "Raccourcis"
 }

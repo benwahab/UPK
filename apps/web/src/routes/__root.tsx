@@ -160,11 +160,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="fixed end-3 top-3 z-40 rounded-full border border-[var(--upk-border)] bg-[var(--upk-card)] shadow-sm">
+      <div className="fixed end-3 top-1.5 z-40 rounded-full bg-[var(--upk-bg)]/80 backdrop-blur">
         <ThemeToggle locale={locale} />
       </div>
-      <Outlet />
-      <SiteFooter locale={locale} />
+      <div className="flex min-h-svh flex-col">
+        <div className="flex flex-1 flex-col">
+          <Outlet />
+        </div>
+        <SiteFooter locale={locale} />
+      </div>
       {updateReady && (
         <div
           role="status"

@@ -143,5 +143,12 @@
   "place.region": "المنطقة",
   "place.description": "الوصف",
   "theme.toDark": "التبديل إلى المظهر الداكن",
-  "theme.toLight": "التبديل إلى المظهر الفاتح"
+  "theme.toLight": "التبديل إلى المظهر الفاتح",
+  "nav.pro": "فضاء المهنيين",
+  "nav.pharmacies": "صيدليات المناوبة",
+  "search.all": "الكل",
+  "place.unverified": "قيد التحقق",
+  "place.details": "التفاصيل",
+  "footer.copyright": "© {year} UPK — دليلك المحلي",
+  "nav.shortcuts": "روابط سريعة"
 }
