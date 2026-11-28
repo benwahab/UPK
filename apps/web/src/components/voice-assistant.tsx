@@ -610,18 +610,18 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
           role="dialog"
           aria-label={assistantText(language, "assistant.name")}
           dir={assistantIsRtl(language) ? "rtl" : "ltr"}
-          className="fixed inset-x-3 bottom-3 z-50 mx-auto flex max-h-[min(78vh,42rem)] w-auto max-w-md flex-col overflow-hidden rounded-2xl border border-[#343434] bg-[#101010] text-white shadow-2xl sm:end-4 sm:start-auto sm:mx-0 sm:w-[24rem]"
+          className="ben-panel fixed inset-x-0 bottom-0 z-50 mx-auto flex h-[min(88svh,46rem)] max-h-[46rem] w-full max-w-xl flex-col overflow-hidden rounded-t-[2rem] border border-white/70 bg-[#fffaf6] text-[#252321] shadow-[0_28px_90px_rgba(65,38,24,0.24)] sm:inset-x-auto sm:bottom-5 sm:end-5 sm:h-[min(82vh,46rem)] sm:rounded-[2rem]"
         >
-          <header className="flex items-center justify-between gap-2 border-b border-[var(--upk-border)] p-3">
+          <header className="flex items-center justify-between gap-3 border-b border-[#eee3da] bg-white/85 px-5 py-4">
             <div className="min-w-0">
               <div className="flex items-center gap-3"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#ffb18e] to-[#e45a35] text-base font-black text-white shadow-md">B</span><div className="min-w-0"><h2 className="truncate text-base font-bold tracking-tight text-[#28231f]">Ben</h2><p className="text-[11px] text-[#8d7e73]">{assistantText(language, "assistant.name")}</p></div></div>
-              <label className="mt-1 flex items-center gap-1 text-[11px] text-[var(--upk-muted-fg)]">
+              <label className="mt-2 flex items-center gap-1 text-[11px] text-[#85766c]">
                 <span className="sr-only">{assistantText(language, "assistant.language")}</span>
                 <select
                   value={language}
                   onChange={(event) => changeLanguage(event.target.value as AssistantLanguage)}
                   aria-label={assistantText(language, "assistant.language")}
-                  className="max-w-[8rem] rounded border border-[var(--upk-border)] bg-[var(--upk-bg)] px-1 py-0.5"
+                  className="max-w-[8rem] rounded-full border border-[#eadfd6] bg-white px-2.5 py-1 text-xs text-[#51463f] outline-none focus:ring-2 focus:ring-[#f08a62]"
                 >
                   {assistantLanguages.map((code) => (
                     <option key={code} value={code}>
@@ -637,7 +637,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                   type="button"
                   onClick={stopSpeaking}
                   aria-label={assistantText(language, "assistant.stop")}
-                  className="rounded-lg border border-[var(--upk-border)] px-2 py-1 text-[11px]"
+                  className="rounded-full border border-[#eadfd6] bg-white px-3 py-2 text-[11px] font-semibold text-[#62534a]"
                 >
                   {assistantText(language, "assistant.stop")}
                 </button>
@@ -646,14 +646,14 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label={assistantText(language, "assistant.close")}
-                className="rounded-lg border border-[var(--upk-border)] px-2 py-1 text-sm"
+                className="grid h-9 w-9 place-items-center rounded-full bg-[#f6eee8] text-xl text-[#66564c] transition hover:bg-[#f0e2d8]"
               >
                 ×
               </button>
             </div>
           </header>
 
-          <div className="flex-1 space-y-2 overflow-y-auto p-3" aria-live="polite">
+          <div className="ben-chat-scroll flex-1 space-y-4 overflow-y-auto px-4 py-5 sm:px-5" aria-live="polite">
             {messages.length === 0 && (
               <div className="mx-auto flex min-h-full max-w-md flex-col items-center justify-center px-3 py-8 text-center"><div className="mb-5 grid h-20 w-20 place-items-center rounded-[1.8rem] bg-gradient-to-br from-[#ffb18e] via-[#ff865e] to-[#e45a35] text-3xl font-black text-white shadow-xl shadow-orange-200/70">B</div><p className="text-xs font-bold uppercase tracking-[.2em] text-[#d56b49]">Ben</p><h3 className="mt-3 text-2xl font-bold tracking-tight text-[#302720]">{assistantText(language, "assistant.welcome")}</h3></div>
             )}
@@ -662,8 +662,8 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 key={message.id}
                 className={
                   message.role === "user"
-                    ? "ms-auto max-w-[90%] rounded-xl bg-[#ff6b35] px-3 py-2 text-sm text-[#0b0b0c]"
-                    : "me-auto max-w-[95%] rounded-xl border border-[#343434] bg-[#1b1b1b] px-3 py-2 text-sm text-white"
+                    ? "ms-auto max-w-[88%] rounded-[1.35rem] rounded-br-md bg-gradient-to-br from-[#ff9a70] to-[#ed7048] px-4 py-3 text-sm leading-6 text-white shadow-md shadow-orange-100"
+                    : "me-auto max-w-[92%] rounded-[1.35rem] rounded-bl-md border border-[#eee2d8] bg-white px-4 py-3 text-sm leading-6 text-[#3a312b] shadow-sm"
                 }
               >
                 <p className="whitespace-pre-line">{message.text}</p>
@@ -694,13 +694,13 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                   </div>
                 )}
                 {message.places && message.places.length > 0 && (
-                  <div className="mt-2 flex flex-col gap-1">
+                  <div className="mt-3 flex flex-col gap-2">
                     {message.places.map((place) => (
                       <button
                         key={place.id}
                         type="button"
                         onClick={() => choosePlace(place)}
-                        className="rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-2 py-1.5 text-start text-xs hover:border-[var(--upk-primary)]"
+                        className="rounded-xl border border-[#eee1d6] bg-[#fffaf6] px-3 py-2.5 text-start text-xs text-[#4d4038] transition hover:border-[#ed906e] hover:bg-[#fff2e9]"
                       >
                         <span className="font-medium">{placeSummaryText(place)}</span>
                         {place.distanceM !== null && (
@@ -717,7 +717,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
           </div>
 
           {status && (
-            <div className="flex items-center gap-2 border-t border-[var(--upk-border)] px-3 py-2 text-xs text-[var(--upk-muted-fg)]">
+            <div className="flex items-center gap-2 border-t border-[#eee3da] bg-white/70 px-5 py-2.5 text-xs text-[#8b7b70]">
               <span
                 className={
                   phase === "listening"
@@ -731,14 +731,14 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
           {voiceNotice && (
             <p
               role="status"
-              className="border-t border-[var(--upk-border)] px-3 py-2 text-xs text-amber-800"
+              className="border-t border-[#f2dfc9] bg-[#fff7eb] px-5 py-2.5 text-xs text-[#9a642d]"
             >
               {voiceNotice}
             </p>
           )}
 
-          <div className="border-t border-[var(--upk-border)] p-3">
-            <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-[11px] text-[var(--upk-muted-fg)]">
+          <div className="border-t border-[#eee3da] bg-white/90 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 sm:px-5">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#8b7b70]">
               <label className="flex items-center gap-1">
                 <input
                   type="checkbox"
@@ -760,7 +760,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 onChange={(event) => setInput(event.target.value)}
                 placeholder={assistantText(language, "assistant.inputPlaceholder")}
                 aria-label={assistantText(language, "assistant.inputPlaceholder")}
-                className="min-w-0 flex-1 rounded-lg border border-[#3b3b3b] bg-[#191919] px-3 py-2 text-sm text-white outline-none placeholder:text-white/45 focus:ring-2 focus:ring-[#ff6b35]"
+                className="min-w-0 flex-1 rounded-full border border-[#eadfd6] bg-[#fffaf6] px-4 py-3 text-sm text-[#332a24] outline-none placeholder:text-[#a99a8f] transition focus:border-[#ed906e] focus:ring-4 focus:ring-[#ed906e]/15"
               />
               <button
                 type="button"
@@ -777,7 +777,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
               </button>
               <button
                 type="submit"
-                className="rounded-lg bg-[var(--upk-primary)] px-3 py-2 text-sm font-medium text-[var(--upk-primary-fg)]"
+                className="rounded-full bg-[#e96b45] px-5 py-3 text-sm font-semibold text-white shadow-md shadow-orange-200 transition hover:-translate-y-0.5 hover:bg-[#d95b37] disabled:opacity-50"
               >
                 {assistantText(language, "assistant.send")}
               </button>
