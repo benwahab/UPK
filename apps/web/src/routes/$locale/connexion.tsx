@@ -200,11 +200,7 @@ function LoginPage() {
         <section className="upk-auth-card">
           <div className="upk-auth-card-top">
             <Link to="/$locale" params={{ locale }} className="upk-auth-logo" aria-label="UPK accueil">UPK<span>.</span></Link>
-            <nav className="upk-auth-language" aria-label={t(locale, "nav.language")}>
-              {(["fr", "en", "ar"] as const).map((lang) => (
-                <Link key={lang} to="/$locale/connexion" params={{ locale: lang }} aria-current={locale === lang ? "page" : undefined}>{lang.toUpperCase()}</Link>
-              ))}
-            </nav>
+      </nav>
           </div>
 
           <div className="upk-auth-heading">
