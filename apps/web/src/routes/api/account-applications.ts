@@ -63,15 +63,17 @@ export const Route = createFileRoute("/api/account-applications")({
         const commune = clean(body.commune, 100);
         const neighborhood = clean(body.neighborhood, 120);
         const interventionSector = clean(body.interventionSector, 160);
-        const latitude = Number(body.latitude);
-        const longitude = Number(body.longitude);
-        const gpsAccuracy = Number(body.gpsAccuracy);
+        const latitude = body.latitude == null ? null : Number(body.latitude);
+        const longitude = body.longitude == null ? null : Number(body.longitude);
+        const gpsAccuracy = body.gpsAccuracy == null ? null : Number(body.gpsAccuracy);
+        const hasValidGps =
+          latitude !== null && Number.isFinite(latitude) && latitude >= -90 && latitude <= 90 &&
+          longitude !== null && Number.isFinite(longitude) && longitude >= -180 && longitude <= 180 &&
+          gpsAccuracy !== null && Number.isFinite(gpsAccuracy) && gpsAccuracy > 0 && gpsAccuracy <= 10000;
 
         if (!accountType || !phone || !city || !commune || !neighborhood ||
-          !Number.isFinite(latitude) || latitude < -90 || latitude > 90 ||
-          !Number.isFinite(longitude) || longitude < -180 || longitude > 180 ||
-          !Number.isFinite(gpsAccuracy) || gpsAccuracy <= 0 || gpsAccuracy > 10000) {
-          return json({ message: "Vérifiez les champs obligatoires et la position GPS." }, 400);
+          (accountType === "professional" && !hasValidGps)) {
+          return json({ message: "Vérifiez les champs obligatoires" + (accountType === "professional" ? " et la position GPS." : "." ) }, 400);
         }
         if (accountType === "moderation" && (!firstName || !lastName)) {
           return json({ message: "Le nom et le prénom sont obligatoires." }, 400);
