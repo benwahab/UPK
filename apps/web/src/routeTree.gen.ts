@@ -195,6 +195,7 @@ export interface FileRoutesById {
   '/$locale/contribuer': typeof LocaleContribuerRoute
   '/api/poc': typeof ApiPocRoute
   '/api/uploads': typeof ApiUploadsRoute
+  '/api/partners': typeof ApiPartnersRoute
   '/places/$id': typeof PlacesIdRoute
   '/$locale/': typeof LocaleIndexRoute
   '/$locale/admin/moderation': typeof LocaleAdminModerationRoute
@@ -262,6 +263,7 @@ export interface FileRouteTypes {
     | '/$locale/contribuer'
     | '/api/poc'
     | '/api/uploads'
+    | '/api/partners'
     | '/places/$id'
     | '/$locale/'
     | '/$locale/admin/moderation'
