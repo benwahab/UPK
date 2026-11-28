@@ -71,7 +71,8 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
   const [needsGesture, setNeedsGesture] = useState(false);
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
   const [lastResult, setLastResult] = useState<SearchResult | null>(null);
-  const [lastIndex, setLastIndex] = useState(0);\n  const [pendingTravelChoice, setPendingTravelChoice] = useState(false);
+  const [lastIndex, setLastIndex] = useState(0);
+  const [pendingTravelChoice, setPendingTravelChoice] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const messageId = useRef(0);
