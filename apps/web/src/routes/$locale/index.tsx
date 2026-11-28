@@ -213,8 +213,8 @@ function Home() {
   const subtitle = t(locale, "home.title");
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 pb-4">
-      <div className="mt-2 flex min-h-11 items-center">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 pb-2">
+      <div className="mt-0 flex min-h-9 items-center">
         <nav
           aria-label={t(locale, "nav.shortcuts")}
           className="flex flex-wrap items-center gap-x-3 pe-11 text-xs font-medium text-[var(--upk-muted-fg)]"
@@ -238,7 +238,7 @@ function Home() {
 
       <header
         className={`flex flex-col items-center justify-center text-center ${
-          hasSearch ? "py-3" : "min-h-[320px] py-4"
+          hasSearch ? "py-3" : "min-h-[260px] py-2"
         }`}
       >
         <img
@@ -246,7 +246,7 @@ function Home() {
           alt="UPK"
           width={432}
           height={183}
-          className={`h-auto ${hasSearch ? "w-20" : "w-28"}`}
+          className={`h-auto ${hasSearch ? "w-20" : "w-24"}`}
         />
         <h1 className={hasSearch ? "sr-only" : "mt-3 text-lg font-semibold leading-snug"}>
           {subtitle}
@@ -259,7 +259,7 @@ function Home() {
         )}
       </header>
 
-      <form method="get" action={`/${locale}`} role="search" onSubmit={submit} className="py-3">
+      <form method="get" action={`/${locale}`} role="search" onSubmit={submit} className="py-2">
         <label htmlFor="recherche" className="sr-only">
           {t(locale, "search.button")}
         </label>
