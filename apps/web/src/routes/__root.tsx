@@ -17,8 +17,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#e8fff5", media: "(prefers-color-scheme: light)" },
-      { name: "theme-color", content: "#0a0a14", media: "(prefers-color-scheme: dark)" },
+      { name: "theme-color", content: "#F5FFFA" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-title", content: "UPK" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
@@ -81,9 +80,15 @@ type BeforeInstallPromptEvent = Event & {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const [updateReady, setUpdateReady] = useState(false);
+  const [showLaunchSplash, setShowLaunchSplash] = useState(true);
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
   const updateRequested = useRef(false);
+
+  useEffect(() => {
+    const splashTimer = window.setTimeout(() => setShowLaunchSplash(false), 1100);
+    return () => window.clearTimeout(splashTimer);
+  }, []);
 
   useEffect(() => {
     if (!import.meta.env.PROD || !("serviceWorker" in navigator)) return;
@@ -160,6 +165,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {showLaunchSplash && <div className="upk-launch-splash" role="status" aria-label="UPK"><img src="/icon-512.png" alt="UPK" /></div>}
       <div className="fixed end-3 top-3 z-40 rounded-full border border-[var(--upk-border)] bg-[var(--upk-card)] shadow-sm">
         <ThemeToggle locale={locale} />
       </div>
