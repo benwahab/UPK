@@ -15,7 +15,7 @@ import { AdCarousel } from "../../components/ad-carousel";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
-import { listCategories, searchPlaces } from "../../server/places";
+import { listCategories } from "../../server/places";
 
 const PlaceMap = lazy(createClientOnlyFn(() => import("../../components/place-map.client")));
 
@@ -52,23 +52,11 @@ export const Route = createFileRoute("/$locale/")({
     lat: search.lat,
     lng: search.lng,
   }),
-  loader: ({ params, deps }) => {
-    const hasQuery = Boolean(deps.q);
-    return Promise.all([
-      hasQuery
-        ? searchPlaces({
-            data: {
-              q: deps.q,
-              categorySlug: deps.category,
-              lat: deps.lat,
-              lng: deps.lng,
-              limit: 20,
-            },
-          })
-        : Promise.resolve(EMPTY_RESULTS),
+  loader: ({ params }) =>
+    Promise.all([
+      Promise.resolve(EMPTY_RESULTS),
       listCategories({ data: localeSchema.parse(params.locale) }),
-    ]);
-  },
+    ]),
   head: ({ params }) => ({
     links: [
       { rel: "canonical", href: absoluteUrl(`/${params.locale}`) },
@@ -90,9 +78,12 @@ function Home() {
   const [input, setInput] = useState(q ?? "");
   const [showMap, setShowMap] = useState(false);
   const [locating, setLocating] = useState(false);
-  const [locationError, setLocationError] = useState(false);
+  const [freshPosition, setFreshPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const [locationBlocked, setLocationBlocked] = useState(false);
+  const [locationFailure, setLocationFailure] = useState<"gps" | "permission" | "unsupported">("gps");
   const [voiceError, setVoiceError] = useState(false);
-  const hasPosition = lat !== undefined && lng !== undefined;
+  const hasPosition =
+    freshPosition !== null && lat === freshPosition.lat && lng === freshPosition.lng;
   // UPK n'affiche aucun résultat tant qu'une recherche textuelle n'a pas été saisie.
   const hasSearch = Boolean(q);
   const results = useQuery({
@@ -107,7 +98,11 @@ function Home() {
       }),
     initialData: initial,
     staleTime: 30_000,
-    enabled: typeof window !== "undefined" && Boolean(q),
+    enabled:
+      typeof window !== "undefined" &&
+      Boolean(q) &&
+      hasPosition &&
+      freshPosition !== null,
   });
 
   const suggestion =
@@ -128,34 +123,50 @@ function Home() {
     });
   }
 
-  function searchWithFreshPosition(next: { q?: string; category?: string }) {
-    if (!hasPosition) {
-      navigateSearch(next);
-      return;
-    }
-    if (!("geolocation" in navigator)) {
-      setLocationError(true);
-      navigateSearch(next);
-      return;
-    }
-    setLocationError(false);
+  function requestFreshPosition(next: { q?: string; category?: string }) {
+    setFreshPosition(null);
     setLocating(true);
+    setLocationBlocked(false);
+
+    if (!("geolocation" in navigator)) {
+      setLocating(false);
+      setLocationFailure("unsupported");
+      setLocationBlocked(true);
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLocating(false);
-        navigateSearch({
-          ...next,
+        const fresh = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
-        });
-      },
-      () => {
+        };
         setLocating(false);
-        setLocationError(true);
-        navigateSearch(next);
+        setFreshPosition(fresh);
+        setLocationBlocked(false);
+        navigateSearch({ ...next, ...fresh });
       },
-      { enableHighAccuracy: true, timeout: 10_000, maximumAge: 0 },
+      (error) => {
+        setLocating(false);
+        setFreshPosition(null);
+        setLocationFailure(error.code === error.PERMISSION_DENIED ? "permission" : "gps");
+        setLocationBlocked(true);
+      },
+      { enableHighAccuracy: true, timeout: 15_000, maximumAge: 0 },
     );
+  }
+
+  useEffect(() => {
+    requestFreshPosition({
+      q: q || undefined,
+      category: category || undefined,
+    });
+    // La position de l'URL n'est jamais considérée comme une position fraîche.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function searchWithFreshPosition(next: { q?: string; category?: string }) {
+    requestFreshPosition(next);
   }
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -173,32 +184,7 @@ function Home() {
   }
 
   function locate() {
-    if (!("geolocation" in navigator)) {
-      setLocationError(true);
-      return;
-    }
-    setLocationError(false);
-    setLocating(true);
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setLocating(false);
-        navigateSearch({
-          q: input.trim() || undefined,
-          category: category || undefined,
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      () => {
-        setLocating(false);
-        setLocationError(true);
-      },
-      { enableHighAccuracy: true, timeout: 10_000, maximumAge: 0 },
-    );
-  }
-
-  function clearPosition() {
-    navigateSearch({
+    requestFreshPosition({
       q: input.trim() || undefined,
       category: category || undefined,
     });
@@ -299,12 +285,7 @@ function Home() {
           </div>
         </div>
         {category && <input type="hidden" name="category" value={category} />}
-        {lat !== undefined && lng !== undefined && (
-          <>
-            <input type="hidden" name="lat" value={lat} />
-            <input type="hidden" name="lng" value={lng} />
-          </>
-        )}
+
         <button type="submit" className="sr-only">
           {t(locale, "search.button")}
         </button>
@@ -354,10 +335,52 @@ function Home() {
         </div>
       )}
 
-      {locationError && (
-        <p role="alert" className="mt-3 text-sm text-[var(--upk-danger)]">
-          {t(locale, "search.locationError")}
+      {locating && (
+        <p role="status" className="mt-3 text-center text-sm text-[var(--upk-muted-fg)]">
+          {t(locale, "search.locating")}
         </p>
+      )}
+      {locationBlocked && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-5"
+          role="presentation"
+        >
+          <section
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="location-blocked-title"
+            aria-describedby="location-blocked-description"
+            className="w-full max-w-sm rounded-2xl bg-[var(--upk-card)] p-6 text-center shadow-2xl"
+          >
+            <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[var(--upk-muted)] text-[var(--upk-primary-text)]">
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2a10 10 0 1 0 10 10" />
+                <path d="M12 6v6l4 2" />
+                <path d="M19 2v6m-3-3h6" />
+              </svg>
+            </div>
+            <h2 id="location-blocked-title" className="text-lg font-semibold">
+              {t(locale, "search.locationBlockedTitle")}
+            </h2>
+            <p id="location-blocked-description" className="mt-2 text-sm text-[var(--upk-muted-fg)]">
+              {t(locale, locationFailure === "permission"
+                ? "search.locationBlockedPermission"
+                : locationFailure === "unsupported"
+                  ? "search.locationBlockedUnsupported"
+                  : "search.locationBlockedGps")}
+            </p>
+            <button
+              type="button"
+              onClick={() => requestFreshPosition({
+                q: input.trim() || undefined,
+                category: category || undefined,
+              })}
+              className="mt-5 h-11 w-full rounded-xl bg-[var(--upk-primary)] px-4 text-sm font-semibold text-[var(--upk-primary-fg)]"
+            >
+              {t(locale, "common.retry")}
+            </button>
+          </section>
+        </div>
       )}
       {voiceError && (
         <p role="alert" className="mt-3 text-sm text-[var(--upk-danger)]">
@@ -365,15 +388,8 @@ function Home() {
         </p>
       )}
       {hasSearch && hasPosition && (
-        <p className="mt-2 flex flex-wrap items-center gap-3 text-sm text-[var(--upk-muted-fg)]">
-          <span>{t(locale, "search.sortedByDistance")}</span>
-          <button
-            type="button"
-            onClick={clearPosition}
-            className="font-medium text-[var(--upk-primary-text)]"
-          >
-            {t(locale, "search.clearPosition")}
-          </button>
+        <p className="mt-2 text-sm text-[var(--upk-muted-fg)]">
+          {t(locale, "search.sortedByDistance")}
         </p>
       )}
 
