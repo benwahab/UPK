@@ -30,7 +30,7 @@ function MediaCard({ item }: { item: AdMedia }) {
     );
 
   return (
-    <div className="h-[88px] w-[210px] shrink-0 overflow-hidden rounded-xl border border-[var(--upk-border)] bg-[var(--upk-card)] sm:w-[240px]">
+    <div className="h-[118px] w-[270px] shrink-0 overflow-hidden rounded-2xl border border-[var(--upk-border)] bg-[var(--upk-card)] sm:h-[132px] sm:w-[310px]">
       {item.href ? (
         <a href={item.href} target="_blank" rel="noreferrer" className="block h-full w-full">
           {content}
@@ -58,12 +58,11 @@ export function AdCarousel() {
   const repeated = [...demoMedia, ...demoMedia];
 
   return (
-    <aside className="mt-auto w-full overflow-hidden pb-3 pt-4" aria-label="Espace publicitaire">
-      <div className="mb-2 flex items-center justify-between">
+    <aside className="mx-auto mt-auto w-full max-w-5xl overflow-hidden px-3 pb-4 pt-5" aria-label="Espace publicitaire">
+      <div className="mb-3 flex items-center justify-center">
         <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--upk-muted-fg)]">
           Espace publicitaire
         </span>
-        <span className="text-[10px] text-[var(--upk-muted-fg)]">Aperçu</span>
       </div>
       <div className="upk-ad-viewport overflow-hidden">
         <div ref={trackRef} className="upk-ad-track flex w-max gap-3">
