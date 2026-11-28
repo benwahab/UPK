@@ -79,6 +79,15 @@ arrêter la voix à tout moment.
 | Haoussa  | `ha-NG`             | Voix système si installée   | Expérimental   |
 | Zarma    | `dje`               | Voix système si installée   | Expérimental   |
 
+Pour la voix de Ben, la sélection privilégie désormais une voix masculine
+lorsque le système expose cette information ou un nom de voix identifiable
+comme masculin. Les voix explicitement féminines sont écartées lorsqu'une
+alternative existe ; le pitch est légèrement abaissé. **Limite :** l'API Web
+Speech ne normalise pas le genre des voix. Si Android ou le navigateur ne
+fournit aucun indice exploitable, UPK ne peut pas garantir à lui seul le genre
+réel de la voix système ; une vérification sur le téléphone cible reste
+nécessaire.
+
 La reconnaissance et la synthèse utilisent uniquement les API du navigateur
 (`SpeechRecognition` / `webkitSpeechRecognition` et `speechSynthesis`). Aucun
 enregistrement audio n'est envoyé à UPK, aucun service tiers n'est ajouté et
