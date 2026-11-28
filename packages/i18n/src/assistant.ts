@@ -256,12 +256,12 @@ const ha: Record<AssistantKey, string> = {
 
 const za: Record<AssistantKey, string> = {
   "assistant.name": "Ben",
-  "assistant.welcome": "Fofo, ay ti Ben. Mate no ay ga war gaa?"
+  "assistant.welcome": "Fofo, ay ti Ben. Mate no ay ga war gaa?",
   "assistant.open": "Sabu UPK deece",
   "assistant.close": "Daŋ deece",
   "assistant.language": "Deece ton",
-  "assistant.greetingMorning": "Fofo, ay ti Ben. Mate no ay ga war gaa?"
-  "assistant.greetingEvening": "Fofo, ay ti Ben. Mate no ay ga war gaa?"
+  "assistant.greetingMorning": "Fofo, ay ti Ben. Mate no ay ga war gaa?",
+  "assistant.greetingEvening": "Fofo, ay ti Ben. Mate no ay ga war gaa?",
   "assistant.ask": "Mee ga ba hina bi?",
   "assistant.listening": "Ay ga maa…",
   "assistant.thinking": "Ay ga ce…",
