@@ -8,6 +8,7 @@ export default defineConfig({
   globalTimeout: process.env.CI ? 12 * 60 * 1000 : 0,
   expect: { timeout: 10_000 },
   fullyParallel: true,
+  workers: process.env.CI ? 2 : undefined,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI
@@ -15,6 +16,7 @@ export default defineConfig({
     : [["list"], ["html", { open: "never" }]],
   use: {
     baseURL,
+    reducedMotion: "reduce",
     trace: "on-first-retry",
     launchOptions: process.env.PLAYWRIGHT_CHROMIUM_PATH
       ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH }
