@@ -1,9 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
+  assistantLanguages,
   assistantSpeechLanguages,
   greetingPeriod,
   hourInTimeZone,
-  parseAssistantQuery,\n  isTravelRequest,\n  travelModeForText,\n  travelSearchIntent,
+  parseAssistantQuery,
+  isTravelRequest,
+  travelModeForText,
+  travelSearchIntent,
 } from "./assistant";
 
 describe("salutation locale", () => {
@@ -190,7 +194,7 @@ describe("compréhension des demandes", () => {
   it("expose les codes de reconnaissance vocale", () => {
     expect(assistantSpeechLanguages.fr).toBe("fr-FR");
     expect(assistantSpeechLanguages.ar).toBe("ar-SA");
-    expect(assistantSpeechLanguages.ha).toBe("ha-NG");
-    expect(assistantSpeechLanguages.za).toBe("dje");
+    expect(assistantLanguages).toEqual(["fr", "en", "ar"]);
+    expect(assistantSpeechLanguages).toEqual({ fr: "fr-FR", en: "en-US", ar: "ar-SA" });
   });
 });
