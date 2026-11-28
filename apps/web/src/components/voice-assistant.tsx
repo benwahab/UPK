@@ -598,7 +598,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
             type="button"
             onClick={() => setOpen(true)}
             aria-label={assistantText(language, "assistant.open")}
-            className="ben-launcher-attention flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#ff6b35] px-4 text-[#0a0a14] shadow-lg transition hover:brightness-110 focus:ring-2 focus:ring-[#ff6b35] focus:ring-offset-2 focus:outline-none motion-reduce:animate-none"
+            className="ben-launcher-attention flex h-14 min-w-14 items-center justify-center gap-2 rounded-full bg-[#ff6b35] px-4 text-[#0b0b0c] shadow-lg transition hover:brightness-110 focus:ring-2 focus:ring-[#ff6b35] focus:ring-offset-2 focus:outline-none motion-reduce:animate-none"
           >
             <span className="text-sm font-semibold">Ben</span>
           </button>
@@ -664,7 +664,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
                 key={message.id}
                 className={
                   message.role === "user"
-                    ? "ms-auto max-w-[90%] rounded-xl bg-[#ff6b35] px-3 py-2 text-sm text-[#0a0a14]"
+                    ? "ms-auto max-w-[90%] rounded-xl bg-[#ff6b35] px-3 py-2 text-sm text-[#0b0b0c]"
                     : "me-auto max-w-[95%] rounded-xl border border-[#343434] bg-[#1b1b1b] px-3 py-2 text-sm text-white"
                 }
               >

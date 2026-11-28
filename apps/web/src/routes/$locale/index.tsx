@@ -271,9 +271,7 @@ function Home() {
           alt="UPK"
           width={432}
           height={183}
-          className={`h-auto dark:drop-shadow-[0_8px_24px_rgba(255,107,53,0.3)] ${
-            hasSearch ? "w-20" : "w-28"
-          }`}
+          className={`h-auto ${hasSearch ? "w-20" : "w-28"}`}
         />
         <h1 className={hasSearch ? "sr-only" : "mt-3 text-lg font-semibold leading-snug"}>
           {subtitle}
@@ -314,7 +312,7 @@ function Home() {
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder={t(locale, "search.placeholder")}
-            className="h-[52px] w-full rounded-xl border border-[var(--upk-input)] bg-[var(--upk-card)] ps-10 pe-12 text-base shadow-sm outline-none placeholder:text-[var(--upk-muted-fg)] focus:ring-2 focus:ring-[var(--upk-ring)] dark:shadow-[0_8px_28px_rgba(255,107,53,0.1)]"
+            className="h-[52px] w-full rounded-xl border border-[var(--upk-input)] bg-[var(--upk-card)] ps-10 pe-12 text-base shadow-sm outline-none placeholder:text-[var(--upk-muted-fg)] focus:ring-2 focus:ring-[var(--upk-ring)]"
           />
           <div className="absolute end-1 top-1">
             <VoiceSearch

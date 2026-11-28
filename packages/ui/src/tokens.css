@@ -1,7 +1,7 @@
 :root {
   /* Palette claire : fond blanc et Candy Red #FF1744. */
   --upk-bg: #ffffff;
-  --upk-fg: #111418;
+  --upk-fg: #0b0b0c;
   --upk-card: #ffffff;
   --upk-muted: #f3f4f6;
   --upk-muted-fg: #5b6470;
@@ -23,16 +23,16 @@
 }
 
 :root[data-theme="dark"] {
-  --upk-bg: #0a0a14;
-  --upk-fg: #f4f4f8;
-  --upk-card: #1a1a2e;
-  --upk-muted: #242440;
-  --upk-muted-fg: #a9a9c2;
+  --upk-bg: #0b0b0c;
+  --upk-fg: #ffffff;
+  --upk-card: #151516;
+  --upk-muted: #1f1f21;
+  --upk-muted-fg: #a1a1a6;
   --upk-primary: #ff6b35;
-  --upk-primary-fg: #0a0a14;
+  --upk-primary-fg: #0b0b0c;
   --upk-primary-text: #ff6b35;
-  --upk-border: #2e2e4a;
-  --upk-input: #3a3a5c;
+  --upk-border: #2a2a2c;
+  --upk-input: #3a3a3d;
   --upk-ring: #ff6b35;
   --upk-danger: oklch(0.704 0.191 22.216);
 }
@@ -40,17 +40,17 @@
 /* Repli sans JavaScript : suivre le réglage du téléphone tant qu'aucun thème n'est choisi. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --upk-bg: #0a0a14;
-    --upk-fg: #f4f4f8;
-    --upk-card: #1a1a2e;
-    --upk-muted: #242440;
-    --upk-muted-fg: #a9a9c2;
+    --upk-bg: #0b0b0c;
+    --upk-fg: #ffffff;
+    --upk-card: #151516;
+    --upk-muted: #1f1f21;
+    --upk-muted-fg: #a1a1a6;
     --upk-primary: #ff6b35;
-    --upk-primary-fg: #0a0a14;
+    --upk-primary-fg: #0b0b0c;
     --upk-primary-text: #ff6b35;
     --upk-primary-text: #ff6b35;
-    --upk-border: #2e2e4a;
-    --upk-input: #3a3a5c;
+    --upk-border: #2a2a2c;
+    --upk-input: #3a3a3d;
     --upk-ring: #ff6b35;
     --upk-danger: oklch(0.704 0.191 22.216);
   }
