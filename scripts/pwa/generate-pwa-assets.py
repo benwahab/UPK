@@ -1,4 +1,4 @@
-"""Génère les icônes PWA et les écrans de lancement iOS à partir du logo UPK.
+"""Génère les icônes PWA, les écrans de lancement iOS et l'image de partage à partir du logo UPK.
 
 Usage : python3 scripts/pwa/generate-pwa-assets.py
 Dépendance : Pillow. Fond blanc, logo centré horizontalement et verticalement.
@@ -35,9 +35,10 @@ IPHONE_SPLASH = [
 ]
 
 
-def canvas(width: int, height: int, logo_share: float) -> Image.Image:
+def canvas(width: int, height: int, logo_share: float, by_width: bool = False) -> Image.Image:
     logo = Image.open(SOURCE).convert("RGBA")
-    target_width = round(min(width, height) * logo_share)
+    reference = width if by_width else min(width, height)
+    target_width = round(reference * logo_share)
     target_height = round(logo.height * target_width / logo.width)
     logo = logo.resize((target_width, target_height), Image.LANCZOS)
     image = Image.new("RGBA", (width, height), WHITE)
@@ -56,6 +57,8 @@ def main() -> None:
     save(canvas(192, 192, LOGO_SHARE_MASKABLE), PUBLIC / "icon-maskable-192.png")
     save(canvas(512, 512, LOGO_SHARE_MASKABLE), PUBLIC / "icon-maskable-512.png")
     save(canvas(180, 180, LOGO_SHARE_ANY), PUBLIC / "apple-touch-icon.png")
+    # Image d'aperçu pour le partage (Open Graph) : logo centré sur fond blanc.
+    save(canvas(1200, 630, 0.42, by_width=True), PUBLIC / "og-default.png")
     splash = PUBLIC / "splash"
     splash.mkdir(exist_ok=True)
     for width, height, *_ in IPHONE_SPLASH:
