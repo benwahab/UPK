@@ -140,7 +140,7 @@ function pickVoice(language: AssistantLanguage): SpeechSynthesisVoice | null {
 export function hasVoiceFor(language: AssistantLanguage): boolean {
   if (!speechSynthesisSupported()) return false;
   const voices = window.speechSynthesis.getVoices();
-  if (voices.length === 0) return language !== "ha" && language !== "za";
+  if (voices.length === 0) return true;
   return Boolean(pickVoice(language));
 }
 
