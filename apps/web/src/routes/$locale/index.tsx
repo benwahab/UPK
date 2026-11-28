@@ -471,31 +471,7 @@ function Home() {
         )}
       </section>
 
-      <nav
-        className="mt-auto flex justify-center gap-5 pt-6 text-sm"
-        aria-label={t(locale, "nav.language")}
-      >
-        {(["fr", "en", "ar"] as const).map((code) => (
-          <Link
-            key={code}
-            to="/$locale"
-            params={{ locale: code }}
-            search={{
-              ...(q ? { q } : {}),
-              ...(category ? { category } : {}),
-              ...(lat !== undefined && lng !== undefined ? { lat, lng } : {}),
-            }}
-            className={
-              code === locale
-                ? "font-semibold text-[var(--upk-primary-text)]"
-                : "text-[var(--upk-muted-fg)]"
-            }
-          >
-            {code.toUpperCase()}
-          </Link>
-        ))}
-      </nav>
-    </main>
+         </main>
   );
 }
 
