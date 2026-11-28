@@ -344,7 +344,10 @@ export function createD1PlaceRepository(db: Database): PlaceRepository {
 
       if (input.categorySlug) {
         categorySlug = input.categorySlug;
-        if (intent === "texte" && !normalizedQuery) intent = "categorie";
+        // Une recherche catégorie + critère descriptif reste une recherche de catégorie :
+        // l'interface assistant doit afficher les lieux trouvés au lieu de les traiter
+        // comme un nom exact introuvable.
+        if (intent === "texte") intent = "categorie";
       }
 
       const baseConditions: SQL[] = [sql`p.statut_publication = ${PUBLISHED}`, sql`p.actif = 1`];
