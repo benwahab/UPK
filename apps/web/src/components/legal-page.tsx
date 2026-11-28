@@ -23,7 +23,7 @@ export function LegalPage({ page, locale }: { page: LegalPageKey; locale: Locale
         <p className="mt-8">
           <a
             href={`mailto:${content.email}`}
-            className="font-medium text-[var(--upk-primary)] break-all"
+            className="font-medium text-[var(--upk-primary-text)] break-all"
           >
             {content.email}
           </a>

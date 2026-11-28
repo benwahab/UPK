@@ -111,7 +111,7 @@ function PlaceDetail() {
         <Link
           to="/$locale"
           params={{ locale }}
-          className="mt-4 inline-block text-[var(--upk-primary)]"
+          className="mt-4 inline-block text-[var(--upk-primary-text)]"
         >
           {t(locale, "nav.search")}
         </Link>
@@ -161,7 +161,7 @@ function PlaceDetail() {
                   href={website}
                   target="_blank"
                   rel="noreferrer"
-                  className="break-all text-[var(--upk-primary)]"
+                  className="break-all text-[var(--upk-primary-text)]"
                 >
                   {website}
                 </a>
@@ -184,7 +184,7 @@ function PlaceDetail() {
             params={{ locale: code, id }}
             className={
               code === locale
-                ? "font-semibold text-[var(--upk-primary)]"
+                ? "font-semibold text-[var(--upk-primary-text)]"
                 : "text-[var(--upk-muted-fg)]"
             }
           >
@@ -193,7 +193,7 @@ function PlaceDetail() {
         ))}
       </nav>
       {place.verifie && (
-        <p className="mt-2 text-sm font-medium text-[var(--upk-primary)]">
+        <p className="mt-2 text-sm font-medium text-[var(--upk-primary-text)]">
           {t(locale, "place.verified")}
         </p>
       )}

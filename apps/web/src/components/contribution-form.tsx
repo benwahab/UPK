@@ -113,7 +113,7 @@ export function ContributionForm({
         <Link
           to="/$locale"
           params={{ locale }}
-          className="mt-4 inline-block font-medium text-[var(--upk-primary)]"
+          className="mt-4 inline-block font-medium text-[var(--upk-primary-text)]"
         >
           {t(locale, "contribute.back")}
         </Link>

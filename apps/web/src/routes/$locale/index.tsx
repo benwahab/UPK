@@ -11,7 +11,6 @@ import {
 } from "@upk/domain";
 import { assistantText, t } from "@upk/i18n";
 import { lazy, Suspense, useEffect, useRef, useState, type FormEvent } from "react";
-import { ThemeToggle } from "../../components/theme-toggle";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
@@ -229,10 +228,7 @@ function Home() {
 
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col px-5 py-8 sm:px-6 sm:py-12">
-      <div className="-mb-4 flex justify-end">
-        <ThemeToggle locale={locale} />
-      </div>
-      <p className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[var(--upk-primary)]">UPK</p>
+      <p className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[var(--upk-primary-text)]">UPK</p>
       <h1 className="mt-8 text-center text-4xl font-extrabold tracking-wide sm:mt-12 sm:text-5xl">UPK</h1>
       <p className="mt-3 text-center text-lg font-semibold">{locale === "fr" ? "Votre guide local" : t(locale, "home.subtitle")}</p><div className="mx-auto mt-3 h-1 w-14 rounded-full bg-[var(--upk-primary)]" />
       <nav className="mt-4 flex justify-center gap-5 text-sm text-[var(--upk-muted-fg)]" aria-label={t(locale, "nav.language")}>
@@ -248,7 +244,7 @@ function Home() {
             }}
             className={
               code === locale
-                ? "font-semibold text-[var(--upk-primary)]"
+                ? "font-semibold text-[var(--upk-primary-text)]"
                 : "text-[var(--upk-muted-fg)]"
             }
           >
@@ -259,7 +255,7 @@ function Home() {
       <Link
         to="/$locale/contribuer"
         params={{ locale }}
-        className="mt-4 text-center text-sm font-medium text-[var(--upk-primary)]"
+        className="mt-4 text-center text-sm font-medium text-[var(--upk-primary-text)]"
       >
         {t(locale, "nav.propose")}
       </Link>
@@ -335,7 +331,7 @@ function Home() {
           <button
             type="button"
             onClick={clearPosition}
-            className="font-medium text-[var(--upk-primary)]"
+            className="font-medium text-[var(--upk-primary-text)]"
           >
             {t(locale, "search.clearPosition")}
           </button>
@@ -361,7 +357,7 @@ function Home() {
               {results.data.total} {t(locale, "search.results")}
             </p>
             {results.data.label && results.data.intent !== "nom" && (
-              <p className="mt-1 text-sm font-medium text-[var(--upk-primary)]">
+              <p className="mt-1 text-sm font-medium text-[var(--upk-primary-text)]">
                 {results.data.intent === "quartier"
                   ? t(locale, "search.intent.quartier").replace("{name}", results.data.label)
                   : results.data.intent === "ville"
@@ -395,7 +391,7 @@ function Home() {
                 <Link
                   to="/$locale/contribuer"
                   params={{ locale }}
-                  className="inline-block font-medium text-[var(--upk-primary)] underline"
+                  className="inline-block font-medium text-[var(--upk-primary-text)] underline"
                 >
                   {assistantText(locale, "assistant.contribute")}
                 </Link>
@@ -461,7 +457,7 @@ function PlaceCard({ place, locale }: { place: PlaceSummary; locale: Locale }) {
       <div className="mt-2 flex flex-wrap items-center gap-4 text-sm">
         {place.distanceM !== null && <span>{formatDistance(place.distanceM)}</span>}
         {place.telephone && (
-          <a href={`tel:${place.telephone}`} className="font-medium text-[var(--upk-primary)]">
+          <a href={`tel:${place.telephone}`} className="font-medium text-[var(--upk-primary-text)]">
             {t(locale, "place.call")}
           </a>
         )}

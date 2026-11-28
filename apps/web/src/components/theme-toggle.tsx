@@ -38,7 +38,7 @@ export function ThemeToggle({ locale }: { locale: Locale }) {
       onClick={toggle}
       aria-label={label}
       title={label}
-      className="flex size-11 items-center justify-center rounded-full text-[var(--upk-muted-fg)] hover:text-[var(--upk-primary)] focus-visible:outline-2 focus-visible:outline-[var(--upk-ring)]"
+      className="flex size-11 items-center justify-center rounded-full text-[var(--upk-muted-fg)] hover:text-[var(--upk-primary-text)] focus-visible:outline-2 focus-visible:outline-[var(--upk-ring)]"
     >
       {dark ? (
         <svg

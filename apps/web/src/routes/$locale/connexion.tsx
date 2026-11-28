@@ -124,7 +124,7 @@ function LoginPage() {
           setMode(mode === "signin" ? "signup" : "signin");
           setError(null);
         }}
-        className="mt-4 text-sm font-medium text-[var(--upk-primary)]"
+        className="mt-4 text-sm font-medium text-[var(--upk-primary-text)]"
       >
         {mode === "signin" ? t(locale, "login.toggleSignUp") : t(locale, "login.toggleSignIn")}
       </button>

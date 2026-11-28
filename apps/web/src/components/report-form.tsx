@@ -105,7 +105,7 @@ export function ReportForm({ placeId, locale }: { placeId: string; locale: Local
             </p>
           )}
           {success && (
-            <p role="status" className="text-sm font-medium text-[var(--upk-primary)]">
+            <p role="status" className="text-sm font-medium text-[var(--upk-primary-text)]">
               {t(locale, "report.success")}
             </p>
           )}

@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SiteFooter } from "../components/site-footer";
+import { ThemeToggle } from "../components/theme-toggle";
 import { absoluteUrl } from "../lib/site";
 import appCss from "../styles.css?inline";
 
@@ -16,7 +17,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#2f8f5b" },
+      { name: "theme-color", content: "#e8fff5", media: "(prefers-color-scheme: light)" },
+      { name: "theme-color", content: "#090909", media: "(prefers-color-scheme: dark)" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-title", content: "UPK" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
@@ -158,6 +160,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <div className="fixed end-3 top-3 z-40 rounded-full border border-[var(--upk-border)] bg-[var(--upk-card)] shadow-sm">
+        <ThemeToggle locale={locale} />
+      </div>
       <Outlet />
       <SiteFooter locale={locale} />
       {updateReady && (

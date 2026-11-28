@@ -1,15 +1,18 @@
 :root {
-  --upk-bg: oklch(1 0 0);
-  --upk-fg: oklch(0.129 0.042 264.695);
-  --upk-card: oklch(1 0 0);
-  --upk-muted: oklch(0.968 0.007 247.896);
-  --upk-muted-fg: oklch(0.554 0.046 257.417);
-  --upk-primary: oklch(0.208 0.042 265.755);
-  --upk-primary-fg: oklch(0.984 0.003 247.858);
-  --upk-border: oklch(0.929 0.013 255.508);
-  --upk-input: oklch(0.929 0.013 255.508);
-  --upk-ring: oklch(0.704 0.04 256.788);
-  --upk-danger: oklch(0.55 0.2 25);
+  /* Palette claire : Mint Cream #E8FFF5 et Candy Red #FF1744. */
+  --upk-bg: #e8fff5;
+  --upk-fg: #14201b;
+  --upk-card: #ffffff;
+  --upk-muted: #d3f5e6;
+  --upk-muted-fg: #46594f;
+  --upk-primary: #ff1744;
+  --upk-primary-fg: #ffffff;
+  /* Rouge plus foncé pour le texte et les liens : le #ff1744 seul est trop pâle sur fond menthe. */
+  --upk-primary-text: #c4002f;
+  --upk-border: #bde7d5;
+  --upk-input: #a6d8c2;
+  --upk-ring: #ff1744;
+  --upk-danger: oklch(0.45 0.2 25);
   --upk-radius: 0.5rem;
   --upk-font-sans: Inter, system-ui, -apple-system, sans-serif;
   --upk-font-arabic: "Noto Naskh Arabic", "IBM Plex Sans Arabic", serif;
@@ -27,6 +30,7 @@
   --upk-muted-fg: oklch(0.716 0.009 56);
   --upk-primary: oklch(0.749 0.173 54);
   --upk-primary-fg: oklch(0.145 0 90);
+  --upk-primary-text: oklch(0.749 0.173 54);
   --upk-border: oklch(0.301 0 90);
   --upk-input: oklch(0.321 0 90);
   --upk-ring: oklch(0.749 0.173 54);
@@ -43,6 +47,8 @@
     --upk-muted-fg: oklch(0.716 0.009 56);
     --upk-primary: oklch(0.749 0.173 54);
     --upk-primary-fg: oklch(0.145 0 90);
+    --upk-primary-text: oklch(0.749 0.173 54);
+    --upk-primary-text: oklch(0.749 0.173 54);
     --upk-border: oklch(0.301 0 90);
     --upk-input: oklch(0.321 0 90);
     --upk-ring: oklch(0.749 0.173 54);
