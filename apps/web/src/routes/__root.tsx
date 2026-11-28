@@ -84,7 +84,6 @@ function RootComponent() {
   const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
   const updateRequested = useRef(false);
 
-
   useEffect(() => {
     if (!import.meta.env.PROD || !("serviceWorker" in navigator)) return;
 

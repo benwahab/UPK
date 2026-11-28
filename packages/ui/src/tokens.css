@@ -1,16 +1,16 @@
 :root {
-  /* Palette claire : Mint Cream #E8FFF5 et Candy Red #FF1744. */
-  --upk-bg: #e8fff5;
-  --upk-fg: #14201b;
+  /* Palette claire : fond blanc et Candy Red #FF1744. */
+  --upk-bg: #ffffff;
+  --upk-fg: #111418;
   --upk-card: #ffffff;
-  --upk-muted: #d3f5e6;
-  --upk-muted-fg: #46594f;
+  --upk-muted: #f3f4f6;
+  --upk-muted-fg: #5b6470;
   --upk-primary: #ff1744;
   --upk-primary-fg: #ffffff;
-  /* Rouge plus foncé pour le texte et les liens : le #ff1744 seul est trop pâle sur fond menthe. */
+  /* Rouge plus foncé pour le texte et les liens : le #ff1744 seul est trop pâle sur fond blanc. */
   --upk-primary-text: #c4002f;
-  --upk-border: #bde7d5;
-  --upk-input: #a6d8c2;
+  --upk-border: #e4e6ea;
+  --upk-input: #cdd1d7;
   --upk-ring: #ff1744;
   --upk-danger: oklch(0.45 0.2 25);
   --upk-radius: 0.5rem;
