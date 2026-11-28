@@ -27,12 +27,12 @@ export const assistantVoiceSupport: Record<AssistantLanguage, "native" | "experi
 
 const fr = {
   "assistant.name": "Ben",
-  "assistant.welcome": "Bonjour, je suis Ben. Que puis-je faire pour vous aujourd’hui ?",
+  "assistant.welcome": "Bonsoir, je suis Ben. Que puis-je faire pour vous ?",
   "assistant.open": "Ouvrir l’assistant vocal",
   "assistant.close": "Fermer l’assistant",
   "assistant.language": "Langue de l’assistant",
-  "assistant.greetingMorning": "Bonjour, je suis Ben. Que puis-je faire pour vous aujourd’hui ?",
-  "assistant.greetingEvening": "Bonsoir, je suis Ben. Que puis-je faire pour vous aujourd’hui ?",
+  "assistant.greetingMorning": "Bonsoir, je suis Ben. Que puis-je faire pour vous ?",
+  "assistant.greetingEvening": "Bonsoir, je suis Ben. Que puis-je faire pour vous ?",
   "assistant.ask": "Que souhaitez-vous rechercher aujourd’hui ?",
   "assistant.listening": "Écoute…",
   "assistant.thinking": "Je cherche…",
@@ -89,12 +89,12 @@ type AssistantKey = keyof typeof fr;
 
 const en: Record<AssistantKey, string> = {
   "assistant.name": "Ben",
-  "assistant.welcome": "Hello, I’m Ben. What can I do for you today?",
+  "assistant.welcome": "Hello, I’m Ben. How can I help you?",
   "assistant.open": "Open the voice assistant",
   "assistant.close": "Close assistant",
   "assistant.language": "Assistant language",
-  "assistant.greetingMorning": "Hello, I’m Ben. What can I do for you today?",
-  "assistant.greetingEvening": "Hello, I’m Ben. What can I do for you today?",
+  "assistant.greetingMorning": "Hello, I’m Ben. How can I help you?",
+  "assistant.greetingEvening": "Hello, I’m Ben. How can I help you?",
   "assistant.ask": "What would you like to search for today?",
   "assistant.listening": "Listening…",
   "assistant.thinking": "Searching…",
@@ -146,12 +146,12 @@ const en: Record<AssistantKey, string> = {
 
 const ar: Record<AssistantKey, string> = {
   "assistant.name": "Ben",
-  "assistant.welcome": "مرحبًا، أنا Ben. ماذا يمكنني أن أفعل من أجلك اليوم؟",
+  "assistant.welcome": "مرحبًا، أنا Ben. كيف يمكنني مساعدتك؟",
   "assistant.open": "فتح المساعد الصوتي",
   "assistant.close": "إغلاق المساعد",
   "assistant.language": "لغة المساعد",
-  "assistant.greetingMorning": "مرحبًا، أنا Ben. ماذا يمكنني أن أفعل من أجلك اليوم؟",
-  "assistant.greetingEvening": "مرحبًا، أنا Ben. ماذا يمكنني أن أفعل من أجلك اليوم؟",
+  "assistant.greetingMorning": "مرحبًا، أنا Ben. كيف يمكنني مساعدتك؟",
+  "assistant.greetingEvening": "مرحبًا، أنا Ben. كيف يمكنني مساعدتك؟",
   "assistant.ask": "ماذا تريد أن تبحث عنه اليوم؟",
   "assistant.listening": "أستمع…",
   "assistant.thinking": "أبحث…",
@@ -200,12 +200,12 @@ const ar: Record<AssistantKey, string> = {
 
 const ha: Record<AssistantKey, string> = {
   "assistant.name": "Ben",
-  "assistant.welcome": "Sannu, ni ne Ben, mataimakinka. Ta yaya zan taimaka maka yau?",
+  "assistant.welcome": "Sannu, ni ne Ben. Ta yaya zan taimaka maka?",
   "assistant.open": "Buɗe mataimakin murya",
   "assistant.close": "Rufe mataimaki",
   "assistant.language": "Harshen mataimaki",
-  "assistant.greetingMorning": "Sannu, ni ne Ben, mataimakinka. Ta yaya zan taimaka maka yau?",
-  "assistant.greetingEvening": "Barka da yamma, ni ne Ben. Ta yaya zan taimaka maka yau?",
+  "assistant.greetingMorning": "Sannu, ni ne Ben. Ta yaya zan taimaka maka?"
+  "assistant.greetingEvening": "Barka da yamma, ni ne Ben. Ta yaya zan taimaka maka?"
   "assistant.ask": "Me kuke nema yau?",
   "assistant.listening": "Ina saurare…",
   "assistant.thinking": "Ina bincike…",
@@ -256,12 +256,12 @@ const ha: Record<AssistantKey, string> = {
 
 const za: Record<AssistantKey, string> = {
   "assistant.name": "Ben",
-  "assistant.welcome": "Fofo, ay ti Ben, ni ga war ga. Mate no ay ga war gaa?",
+  "assistant.welcome": "Fofo, ay ti Ben. Mate no ay ga war gaa?"
   "assistant.open": "Sabu UPK deece",
   "assistant.close": "Daŋ deece",
   "assistant.language": "Deece ton",
-  "assistant.greetingMorning": "Fofo, ay ti Ben, ni ga war ga. Mate no ay ga war gaa?",
-  "assistant.greetingEvening": "Fofo, ay ti Ben, ni ga war ga. Mate no ay ga war gaa?",
+  "assistant.greetingMorning": "Fofo, ay ti Ben. Mate no ay ga war gaa?"
+  "assistant.greetingEvening": "Fofo, ay ti Ben. Mate no ay ga war gaa?"
   "assistant.ask": "Mee ga ba hina bi?",
   "assistant.listening": "Ay ga maa…",
   "assistant.thinking": "Ay ga ce…",
