@@ -1,0 +1,23 @@
+# pnpm
+/adapter-aws-lambda
+/adapter-express
+/adapter-fastify
+/adapter-fetch
+/adapter-standalone
+/auth
+/caching
+/client-setup
+/error-handling
+/links
+/middlewares
+/migrate-from-nextjs
+/non-json-content-types
+/react-start
+/server-setup
+/server-side-calls
+/service-oriented-architecture
+/subscriptions
+/superjson
+/trpc-router
+/validators
+# pnpm end
