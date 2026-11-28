@@ -4,8 +4,6 @@ import {
   isFuzzyMatch,
   normalizeSearch,
   parseAssistantQuery,
-  greetingPeriod,
-  deviceTimeZone,
   type AssistantIntent,
   type PlaceSummary,
   type SearchResult,
@@ -155,11 +153,6 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
   }
 
   function greetingText(): string {
-    const period = greetingPeriod(new Date(), deviceTimeZone());
-    const greeting = assistantText(
-      language,
-      period === "morning" ? "assistant.greetingMorning" : "assistant.greetingEvening",
-    );
     return assistantText(language, "assistant.welcome");
   }
 
