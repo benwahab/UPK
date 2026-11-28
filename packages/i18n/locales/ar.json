@@ -150,5 +150,9 @@
   "place.unverified": "قيد التحقق",
   "place.details": "التفاصيل",
   "footer.copyright": "© {year} UPK — دليلك المحلي",
-  "nav.shortcuts": "روابط سريعة"
+  "nav.shortcuts": "روابط سريعة",
+  "search.locationBlockedTitle": "تحديد الموقع مطلوب",
+  "search.locationBlockedGps": "فعّل GPS من إعدادات هاتفك ثم أعد المحاولة. لا يستطيع UPK البحث دون موقعك الحالي.",
+  "search.locationBlockedPermission": "اسمح لـ UPK بالوصول إلى موقعك من إعدادات المتصفح أو التطبيق ثم أعد المحاولة. لن يبدأ البحث دون هذا الإذن.",
+  "search.locationBlockedUnsupported": "تحديد الموقع غير متاح على هذا الجهاز أو المتصفح. لا يستطيع UPK البحث دون موقع GPS."
 }
