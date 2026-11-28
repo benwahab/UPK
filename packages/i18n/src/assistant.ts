@@ -1,28 +1,22 @@
-export const assistantLanguages = ["fr", "en", "ar", "ha", "za"] as const;
+export const assistantLanguages = ["fr", "en", "ar"] as const;
 export type AssistantLanguage = (typeof assistantLanguages)[number];
 
 export const assistantLanguageLabels: Record<AssistantLanguage, string> = {
   fr: "Français",
   en: "English",
   ar: "العربية",
-  ha: "Hausa",
-  za: "Zarma",
 };
 
 export const assistantLanguageDirections: Record<AssistantLanguage, "ltr" | "rtl"> = {
   fr: "ltr",
   en: "ltr",
   ar: "rtl",
-  ha: "ltr",
-  za: "ltr",
 };
 
 export const assistantVoiceSupport: Record<AssistantLanguage, "native" | "experimental"> = {
   fr: "native",
   en: "native",
   ar: "native",
-  ha: "experimental",
-  za: "experimental",
 };
 
 const fr = {
@@ -312,7 +306,7 @@ const za: Record<AssistantKey, string> = {
   "assistant.voiceError": "Sala man sala. Ni ga tira.",
 };
 
-const catalogs: Record<AssistantLanguage, Record<AssistantKey, string>> = { fr, en, ar, ha, za };
+const catalogs: Record<AssistantLanguage, Record<AssistantKey, string>> = { fr, en, ar };
 
 export type { AssistantKey };
 
