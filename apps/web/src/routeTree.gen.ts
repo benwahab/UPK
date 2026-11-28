@@ -23,6 +23,7 @@ import { Route as LocaleContribuerRouteImport } from './routes/$locale/contribue
 import { Route as ApiPocRouteImport } from './routes/api/poc'
 import { Route as ApiUploadsRouteImport } from './routes/api/uploads'
 import { Route as ApiAccountApplicationsRouteImport } from './routes/api/account-applications'
+import { Route as ApiPartnersRouteImport } from './routes/api/partners'
 import { Route as PlacesIdRouteImport } from './routes/places/$id'
 import { Route as LocaleAdminModerationRouteImport } from './routes/$locale/admin/moderation'
 import { Route as LocalePlacesIdRouteImport } from './routes/$locale/places/$id'
@@ -100,6 +101,11 @@ const ApiAccountApplicationsRoute = ApiAccountApplicationsRouteImport.update({
   path: '/api/account-applications',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPartnersRoute = ApiPartnersRouteImport.update({
+  id: '/api/partners',
+  path: '/api/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlacesIdRoute = PlacesIdRouteImport.update({
   id: '/places/$id',
   path: '/places/$id',
@@ -145,6 +151,7 @@ export interface FileRoutesByFullPath {
   '/api/poc': typeof ApiPocRoute
   '/api/uploads': typeof ApiUploadsRoute
   '/api/account-applications': typeof ApiAccountApplicationsRoute
+  '/api/partners': typeof ApiPartnersRoute
   '/places/$id': typeof PlacesIdRoute
   '/$locale/': typeof LocaleIndexRoute
   '/$locale/admin/moderation': typeof LocaleAdminModerationRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/$locale/contribuer': typeof LocaleContribuerRoute
   '/api/poc': typeof ApiPocRoute
   '/api/uploads': typeof ApiUploadsRoute
+  '/api/partners': typeof ApiPartnersRoute
   '/places/$id': typeof PlacesIdRoute
   '/$locale': typeof LocaleIndexRoute
   '/$locale/admin/moderation': typeof LocaleAdminModerationRoute
@@ -211,6 +219,7 @@ export interface FileRouteTypes {
     | '/api/poc'
     | '/api/uploads'
     | '/api/account-applications'
+    | '/api/partners'
     | '/places/$id'
     | '/$locale/'
     | '/$locale/admin/moderation'
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/$locale/contribuer'
     | '/api/poc'
     | '/api/uploads'
+    | '/api/partners'
     | '/places/$id'
     | '/$locale'
     | '/$locale/admin/moderation'
@@ -269,6 +279,7 @@ export interface RootRouteChildren {
   ApiPocRoute: typeof ApiPocRoute
   ApiUploadsRoute: typeof ApiUploadsRoute
   ApiAccountApplicationsRoute: typeof ApiAccountApplicationsRoute
+  ApiPartnersRoute: typeof ApiPartnersRoute
   PlacesIdRoute: typeof PlacesIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiPhotosSplatRoute: typeof ApiPhotosSplatRoute
@@ -375,6 +386,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAccountApplicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/partners': {
+      id: '/api/partners'
+      path: '/api/partners'
+      fullPath: '/api/partners'
+      preLoaderRoute: typeof ApiPartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/places/$id': {
       id: '/places/$id'
       path: '/places/$id'
@@ -455,6 +473,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPocRoute: ApiPocRoute,
   ApiUploadsRoute: ApiUploadsRoute,
   ApiAccountApplicationsRoute: ApiAccountApplicationsRoute,
+  ApiPartnersRoute: ApiPartnersRoute,
   PlacesIdRoute: PlacesIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiPhotosSplatRoute: ApiPhotosSplatRoute,

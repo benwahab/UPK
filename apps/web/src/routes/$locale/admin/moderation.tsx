@@ -6,6 +6,7 @@ import { formatDate, t, type TranslationKey } from "@upk/i18n";
 import { useState } from "react";
 import { getTrpcClient } from "../../../lib/trpc";
 import { useDocumentTitle } from "../../../lib/use-document-title";
+import { SiteContentAdmin } from "../../../components/site-content-admin";
 
 const REPORT_TYPE_KEYS: Record<string, TranslationKey> = {
   ferme: "report.types.ferme",
@@ -105,6 +106,7 @@ function ModerationPage() {
     <main className="mx-auto max-w-3xl px-6 py-16">
       <h1 className="text-3xl font-bold">{t(locale, "admin.title")}</h1>
       <p className="mt-2 text-[var(--upk-muted-fg)]">{t(locale, "admin.subtitle")}</p>
+      <SiteContentAdmin locale={locale} />
       <button
         type="button"
         onClick={() => {

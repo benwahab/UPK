@@ -92,6 +92,7 @@ function Home() {
   const locale = localeSchema.parse(rawLocale);
   const { q, category, lat, lng } = Route.useSearch();
   const [initial, categories] = Route.useLoaderData();
+  const siteContent = useQuery({ queryKey: ["site-content"], queryFn: async () => { const response = await fetch("/api/partners"); if (!response.ok) throw new Error("Impossible de charger les partenaires."); return response.json() as Promise<{ partners: { id: string; name: string; logoUrl: string; websiteUrl: string }[] }>; }, staleTime: 60_000 });
   const navigate = useNavigate({ from: "/$locale/" });
   const [input, setInput] = useState(q ?? "");
   const inputSuggestion = INPUT_ALIASES[normalizeSearch(input)] ?? null;
@@ -286,6 +287,24 @@ function Home() {
           />
         )}
       </header>
+
+      {(siteContent.data?.partners.length ?? 0) > 0 && (
+        <section aria-label={locale === "ar" ? "شركاؤنا" : locale === "en" ? "Our partners" : "Nos partenaires"} className="mb-5">
+          <h2 className="mb-3 text-center text-xs font-semibold uppercase tracking-wider text-[var(--upk-muted-fg)]">
+            {locale === "ar" ? "شركاؤنا" : locale === "en" ? "Our partners" : "Nos partenaires"}
+          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {siteContent.data?.partners.map((partner) => {
+              const logo = <img src={partner.logoUrl} alt={partner.name} loading="lazy" className="h-14 max-w-32 object-contain" />;
+              return partner.websiteUrl ? (
+                <a key={partner.id} href={partner.websiteUrl} target="_blank" rel="noreferrer" aria-label={partner.name} className="flex h-16 min-w-24 items-center justify-center rounded-xl border border-[var(--upk-border)] bg-[var(--upk-card)] px-3 py-1.5">{logo}</a>
+              ) : (
+                <div key={partner.id} className="flex h-16 min-w-24 items-center justify-center rounded-xl border border-[var(--upk-border)] bg-[var(--upk-card)] px-3 py-1.5">{logo}</div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <form method="get" action={`/${locale}`} role="search" onSubmit={submit} className="py-2">
         <label htmlFor="recherche" className="sr-only">
