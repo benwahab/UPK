@@ -32,6 +32,7 @@ function LoginPage() {
   const [accountType, setAccountType] = useState<AccountType>("professional");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -118,6 +119,10 @@ function LoginPage() {
         setError(t(locale, "login.passwordHint"));
         return;
       }
+      if (password !== confirmPassword) {
+        setError(t(locale, "login.passwordMismatch"));
+        return;
+      }
 
       if (!existingAccountSession) {
         const fullName = accountType === "moderation"
@@ -165,6 +170,7 @@ function LoginPage() {
       setMode("signin");
       setExistingAccountSession(false);
       setPassword("");
+      setConfirmPassword("");
     } catch {
       setError(t(locale, "login.error"));
     } finally {
@@ -270,6 +276,11 @@ function LoginPage() {
               </div>
               {isSignup && <small>{t(locale, "login.passwordHint")}</small>}
             </label>
+            {isSignup && (
+              <label className={labelClass}>{t(locale, "login.confirmPassword")}
+                <input className={inputClass} type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={8} autoComplete="new-password" />
+              </label>
+            )}
 
             {isSignup && (
               <div className="upk-auth-gps">
