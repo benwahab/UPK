@@ -44,10 +44,6 @@ type Phase = "idle" | "listening" | "thinking" | "speaking";
 const GREETING_KEY = "upk-assistant-greeting";
 const LANGUAGE_KEY = "upk-assistant-language";
 
-// Le module persiste pendant une ouverture de l'application : les changements
-// de page ne relancent pas l'accueil, un rechargement complet si.
-const greetedThisOpen = { value: false };
-
 function isAssistantLanguage(value: string | null): value is AssistantLanguage {
   return Boolean(value && (assistantLanguages as readonly string[]).includes(value));
 }
@@ -82,6 +78,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
   const lastIndexRef = useRef(0);
   const lastSpokenRef = useRef("");
   const languageTouched = useRef(false);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
     try {
@@ -163,7 +160,6 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
   }
 
   function deliverGreeting(appendMessage: boolean) {
-    greetedThisOpen.value = true;
     const text = greetingText();
     if (appendMessage) append("assistant", text);
     lastSpokenRef.current = text;
@@ -197,35 +193,29 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
   }
 
   useEffect(() => {
-    if (!preferencesLoaded || !greetingEnabled || greetedThisOpen.value) return;
-    const timer = window.setTimeout(() => {
-      if (greetedThisOpen.value) return;
-      deliverGreeting(true);
-    }, 700);
-    return () => window.clearTimeout(timer);
-  }, [preferencesLoaded, greetingEnabled, language]);
+    const justOpened = open && !wasOpen.current;
+    wasOpen.current = open;
+    if (!preferencesLoaded || !justOpened || !greetingEnabled) return;
+    deliverGreeting(true);
+  }, [open, preferencesLoaded, greetingEnabled]);
 
   useEffect(() => {
     if (!needsGesture) return;
     const activate = () => {
       setNeedsGesture(false);
       setVoiceNotice(null);
-      if (greetedThisOpen.value) {
-        const text = lastSpokenRef.current || greetingText();
-        setPhase("speaking");
-        speakRef.current = speak(text, language, {
-          onStart: () => setPhase("speaking"),
-          onEnd: () => setPhase("idle"),
-          onBlocked: () => {
-            setPhase("idle");
-            setNeedsGesture(true);
-            setVoiceNotice(assistantText(language, "assistant.voiceNotAllowed"));
-          },
-          onError: () => setPhase("idle"),
-        });
-      } else {
-        deliverGreeting(true);
-      }
+      const text = lastSpokenRef.current || greetingText();
+      setPhase("speaking");
+      speakRef.current = speak(text, language, {
+        onStart: () => setPhase("speaking"),
+        onEnd: () => setPhase("idle"),
+        onBlocked: () => {
+          setPhase("idle");
+          setNeedsGesture(true);
+          setVoiceNotice(assistantText(language, "assistant.voiceNotAllowed"));
+        },
+        onError: () => setPhase("idle"),
+      });
     };
     window.addEventListener("pointerdown", activate, { once: true });
     window.addEventListener("keydown", activate, { once: true });
@@ -262,7 +252,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
       return;
     }
     setVoiceNotice(assistantText(language, "assistant.greetingOn"));
-    if (!greetedThisOpen.value) deliverGreeting(true);
+    if (open) deliverGreeting(true);
   }
 
   function navigateSearch(
@@ -596,7 +586,7 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
               type="button"
               onClick={() => {
                 setNeedsGesture(false);
-                deliverGreeting(!greetedThisOpen.value);
+                deliverGreeting(true);
               }}
               className="max-w-[15rem] rounded-full border border-[var(--upk-border)] bg-[var(--upk-bg)] px-3 py-2 text-xs font-medium shadow-lg"
             >
