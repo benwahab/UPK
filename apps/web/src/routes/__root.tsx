@@ -52,9 +52,15 @@ function RootShell({ children }: { children: ReactNode }) {
         ? "ar"
         : "fr";
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              '(function(){try{var t=localStorage.getItem("upk-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.setAttribute("data-theme",t)}catch(e){}})()',
+          }}
+        />
         <style dangerouslySetInnerHTML={{ __html: appCss }} />
       </head>
       <body>

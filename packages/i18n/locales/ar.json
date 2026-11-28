@@ -141,5 +141,7 @@
   "place.website": "الموقع",
   "place.city": "المدينة",
   "place.region": "المنطقة",
-  "place.description": "الوصف"
+  "place.description": "الوصف",
+  "theme.toDark": "التبديل إلى المظهر الداكن",
+  "theme.toLight": "التبديل إلى المظهر الفاتح"
 }

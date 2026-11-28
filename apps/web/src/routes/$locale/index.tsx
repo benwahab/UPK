@@ -11,6 +11,7 @@ import {
 } from "@upk/domain";
 import { assistantText, t } from "@upk/i18n";
 import { lazy, Suspense, useEffect, useRef, useState, type FormEvent } from "react";
+import { ThemeToggle } from "../../components/theme-toggle";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
@@ -228,6 +229,9 @@ function Home() {
 
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col px-5 py-8 sm:px-6 sm:py-12">
+      <div className="-mb-4 flex justify-end">
+        <ThemeToggle locale={locale} />
+      </div>
       <p className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[var(--upk-primary)]">UPK</p>
       <h1 className="mt-8 text-center text-4xl font-extrabold tracking-wide sm:mt-12 sm:text-5xl">UPK</h1>
       <p className="mt-3 text-center text-lg font-semibold">{locale === "fr" ? "Votre guide local" : t(locale, "home.subtitle")}</p><div className="mx-auto mt-3 h-1 w-14 rounded-full bg-[var(--upk-primary)]" />

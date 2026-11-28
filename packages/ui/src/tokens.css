@@ -19,8 +19,23 @@
   --upk-font-sans: var(--upk-font-arabic);
 }
 
+:root[data-theme="dark"] {
+  --upk-bg: oklch(0.145 0 90);
+  --upk-fg: oklch(1 0 90);
+  --upk-card: oklch(0.191 0 90);
+  --upk-muted: oklch(0.239 0 90);
+  --upk-muted-fg: oklch(0.716 0.009 56);
+  --upk-primary: oklch(0.749 0.173 54);
+  --upk-primary-fg: oklch(0.145 0 90);
+  --upk-border: oklch(0.301 0 90);
+  --upk-input: oklch(0.321 0 90);
+  --upk-ring: oklch(0.749 0.173 54);
+  --upk-danger: oklch(0.704 0.191 22.216);
+}
+
+/* Repli sans JavaScript : suivre le réglage du téléphone tant qu'aucun thème n'est choisi. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --upk-bg: oklch(0.145 0 90);
     --upk-fg: oklch(1 0 90);
     --upk-card: oklch(0.191 0 90);

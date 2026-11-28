@@ -141,5 +141,7 @@
   "place.website": "Site web",
   "place.city": "Ville",
   "place.region": "Région",
-  "place.description": "Description"
+  "place.description": "Description",
+  "theme.toDark": "Passer au thème sombre",
+  "theme.toLight": "Passer au thème clair"
 }
