@@ -33,7 +33,6 @@ test("une recherche texte affiche des résultats", async ({ page }) => {
 
 test("le filtre catégorie relance la recherche", async ({ page }) => {
   await page.goto("/fr");
-  await page.waitForLoadState("networkidle");
   await page.locator('select[name="category"]').selectOption("pharmacie");
   await expect(page).toHaveURL(/category=pharmacie/);
 
@@ -56,7 +55,6 @@ test.describe("avec une position autorisée", () => {
     });
 
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await expect(page.getByText("Cherchez un lieu")).toBeVisible();
     await page.getByRole("button", { name: "Autour de moi" }).click();
     await expect(page).toHaveURL(/lat=13\.5158061/);
@@ -77,7 +75,6 @@ test.describe("avec une position autorisée", () => {
 
   test("la position est reprise automatiquement", async ({ page }) => {
     await page.goto("/fr");
-    await page.waitForLoadState("networkidle");
     await expect(page).toHaveURL(/lat=13\.5158061/);
     await expect(page.locator("main section ul li").first()).toBeVisible();
   });
@@ -119,7 +116,6 @@ test("la recherche vocale remplit et lance la requête", async ({ page }) => {
   });
 
   await page.goto("/fr");
-  await page.waitForLoadState("networkidle");
   await page.getByRole("button", { name: "Recherche vocale" }).click();
   await expect(page).toHaveURL(/q=pharmacie/);
 
