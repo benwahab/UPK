@@ -118,9 +118,21 @@ function pickVoice(language: AssistantLanguage): SpeechSynthesisVoice | null {
   const wanted = speechLanguage(language).toLowerCase();
   const base = wanted.split("-")[0];
   const voices = window.speechSynthesis.getVoices();
+  const matching = voices.filter(
+    (voice) =>
+      voice.lang.toLowerCase() === wanted ||
+      voice.lang.toLowerCase().startsWith(`${base}-`),
+  );
+
+  // The Web Speech API has no standard gender field. Prefer an explicit
+  // platform gender hint, then well-known masculine voice labels.
+  const maleLabels = /(?:^|[\s_-])(male|masculin|homme|man|男)(?:$|[\s_-])/i;
+  const femaleLabels = /(?:^|[\s_-])(female|feminin|féminin|femme|woman|女)(?:$|[\s_-])/i;
+  const withGender = matching as Array<SpeechSynthesisVoice & { gender?: string }>;
   return (
-    voices.find((voice) => voice.lang.toLowerCase() === wanted) ??
-    voices.find((voice) => voice.lang.toLowerCase().startsWith(`${base}-`)) ??
+    withGender.find((voice) => voice.gender?.toLowerCase() === "male") ??
+    matching.find((voice) => maleLabels.test(voice.name)) ??
+    matching.find((voice) => !femaleLabels.test(voice.name)) ??
     null
   );
 }
@@ -155,7 +167,7 @@ export function speak(
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = speechLanguage(language);
   utterance.rate = 0.95;
-  utterance.pitch = 1;
+  utterance.pitch = 0.88;
   const voice = pickVoice(language);
   if (voice) utterance.voice = voice;
 
