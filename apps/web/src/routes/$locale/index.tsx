@@ -97,7 +97,8 @@ function Home() {
         limit: 20,
       }),
     initialData: initial,
-    staleTime: 30_000,
+    staleTime: 0,
+    initialDataUpdatedAt: 0,
     enabled:
       typeof window !== "undefined" &&
       Boolean(q) &&
