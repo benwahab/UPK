@@ -1,4 +1,4 @@
-const VERSION = "upk-v4";
+const VERSION = "upk-v5";
 const STATIC_CACHE = `${VERSION}-static`;
 const PAGE_CACHE = `${VERSION}-pages`;
 const OFFLINE_URL = "/offline";
@@ -8,7 +8,7 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(STATIC_CACHE)
-      .then((cache) => cache.addAll([OFFLINE_URL, "/manifest.webmanifest", "/icon-192.png"])),
+      .then((cache) => cache.addAll([OFFLINE_URL, "/manifest.webmanifest", "/icon-192.png", "/icon-512.png", "/apple-touch-icon.png"])),
   );
 });
 
