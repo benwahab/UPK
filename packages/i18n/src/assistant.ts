@@ -261,7 +261,7 @@ const za: Record<AssistantKey, string> = {
   "assistant.close": "Daŋ deece",
   "assistant.language": "Deece ton",
   "assistant.greetingMorning": "Fofo, ay ti Ben, ni ga war ga. Mate no ay ga war gaa?",
-  "assistant.greetingEvening": "Fofo, ay ti Ben, ni ga war ga. Mate no ay ga war gaa?"
+  "assistant.greetingEvening": "Fofo, ay ti Ben, ni ga war ga. Mate no ay ga war gaa?",
   "assistant.ask": "Mee ga ba hina bi?",
   "assistant.listening": "Ay ga maa…",
   "assistant.thinking": "Ay ga ce…",
