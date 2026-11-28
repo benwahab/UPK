@@ -35,7 +35,15 @@ export const Route = createFileRoute("/sitemap.xml")({
         // les 40 000+ identifiants publiés à chaque requête.
         const cache = (caches as CacheStorage & { default: Cache }).default;
         const cached = await cache.match(request);
-        if (cached) return cached;
+        if (cached) {
+          // Les en-têtes d'une réponse mise en cache sont immuables ; le
+          // middleware de sécurité doit pouvoir les compléter.
+          return new Response(cached.body, {
+            status: cached.status,
+            statusText: cached.statusText,
+            headers: new Headers(cached.headers),
+          });
+        }
 
         const origin = new URL(request.url).origin;
         const ids = await getPlaceRepository().listPublishedIds();
