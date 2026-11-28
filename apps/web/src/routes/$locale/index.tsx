@@ -12,6 +12,7 @@ import {
 import { assistantText, t } from "@upk/i18n";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { AdCarousel } from "../../components/ad-carousel";
+import { PartnerCarousel } from "../../components/partner-carousel";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
