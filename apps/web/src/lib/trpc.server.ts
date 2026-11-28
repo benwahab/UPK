@@ -23,11 +23,31 @@ async function sessionUser(request: Request): Promise<Context["user"]> {
     const session = await getAuth().api.getSession({ headers: request.headers });
     if (!session?.user) return null;
     const isAdmin = adminEmails().includes(session.user.email.toLowerCase());
+    if (isAdmin) {
+      return {
+        id: session.user.id,
+        email: session.user.email,
+        roles: ["admin"],
+        permissions: ["moderation:write", "accounts:review"],
+      };
+    }
+
+    const application = await env.DB.prepare(
+      "SELECT status, account_type FROM account_applications WHERE user_id = ? LIMIT 1",
+    ).bind(session.user.id).first<{ status: string; account_type: string }>();
+    if (!application || application.status !== "approved") {
+      return {
+        id: session.user.id,
+        email: session.user.email,
+        roles: ["pending"],
+        permissions: [],
+      };
+    }
     return {
       id: session.user.id,
       email: session.user.email,
-      roles: isAdmin ? ["admin"] : ["user"],
-      permissions: isAdmin ? ["moderation:write"] : [],
+      roles: [application.account_type === "moderation" ? "moderator" : "professional"],
+      permissions: [],
     };
   } catch {
     return null;
