@@ -6,5 +6,60 @@
   "new_ids_sha256": "1fa5cc974539aa7dd9b83d1e8f43d5eac20d72e3110b3b98b103d7a899664806",
   "import_new_sha256": "03d9420fafc327a774de6f30a7839745196177e7937705ace84290828615b66e",
   "enrich_osm_sha256": "60861f980b81d85587c31906e72f6a5cde88f5ebe22cb2883dd70d1ebeeae4b7",
-  "production_executed": false
+  "production_executed": true,
+  "production": {
+    "executed": true,
+    "environment": "production",
+    "worker": "upk",
+    "worker_url": "https://upk.benwahab111.workers.dev",
+    "database": "upk",
+    "database_id": "3b364a13-7620-415d-8b7f-6ec9d79a6d66",
+    "executed_at": "2026-11-28T00:14:52Z",
+    "backup": {
+      "uri": "r2://upk-backups/d1/upk-20261128T001108Z.sql.gz",
+      "sha256": "5b0fac155b9d843659c93a8db267f69613cfb2bb2dd26d584b7281e24c4795bf"
+    },
+    "bookmarks": {
+      "before": "0000001e-00000000-00005131-b7f3bcea0e1b480101776710952c693f",
+      "after_import_new": "0000001f-0000001e-00005131-af131af79cab9673b703ed21c9726365",
+      "after_enrich": "0000001f-00000028-00005131-1e6a7a20a7bf05c133501b5368b68ce0"
+    },
+    "before": {
+      "places": 41566,
+      "places_fts": 41566,
+      "categories": 16,
+      "overture": 0,
+      "osm_overture": 0
+    },
+    "after": {
+      "places": 41592,
+      "places_fts": 41592,
+      "categories": 16,
+      "overture": 26,
+      "osm_overture": 16
+    },
+    "applied": [
+      "import-new.sql",
+      "enrich-osm.sql"
+    ],
+    "verification": {
+      "new_places": 26,
+      "enrichments": 16,
+      "sitemap_overture_urls": 26,
+      "http_checks": [
+        "/fr?q=Noom%20Hotel%20Niamey -> 200",
+        "/fr?q=Clinique%20Les%20Gen%C3%AAtes -> 200",
+        "/en?q=American%20International%20School%20of%20Bamako -> 200",
+        "/fr/places/overture_d4866d10c064cf28 -> 200",
+        "/fr/places/overture_17e5811a6f002656 -> 200",
+        "/fr/places/osm_node_3353667023 -> 200"
+      ],
+      "detail_pages_checked": 26,
+      "detail_pages_ok": 26
+    },
+    "rollback": {
+      "new_places": "docs/overture/rollback-new.sql",
+      "enrichments": "D1 Time Travel bookmark before import"
+    }
+  }
 }

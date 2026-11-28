@@ -7,7 +7,7 @@ Point d'entrée de la reconstruction UPK v2.
 | [`CAHIER_DES_CHARGES.md`](./CAHIER_DES_CHARGES.md) | Ce que le produit doit faire, pour qui, avec quels critères d'acceptation | Commanditaire, équipe           |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md)             | Comment c'est construit : stack, schéma, API, sécurité, CI/CD             | Équipe technique                |
 | [`ASSISTANT.md`](./ASSISTANT.md)                   | Assistant vocal, compréhension des demandes, limites réelles et tests     | Équipe technique, commanditaire |
-| [`OVERTURE-AUDIT.md`](./OVERTURE-AUDIT.md)         | Audit Overture Maps, dédoublonnage OSM, intégration préparée              | Équipe technique, commanditaire |
+| [`OVERTURE-AUDIT.md`](./OVERTURE-AUDIT.md)         | Audit Overture Maps, dédoublonnage OSM, intégration exécutée              | Équipe technique, commanditaire |
 | [`PLAN_DE_TRAVAIL.md`](./PLAN_DE_TRAVAIL.md)       | Quand et dans quel ordre : sprints, jalons, checklists                    | Tous                            |
 | [`RUNBOOK.md`](./RUNBOOK.md)                       | Procédures : local, production, migrations, secrets, incidents            | Équipe technique                |
 | [`PORTABILITY.md`](./PORTABILITY.md)               | Ancienne documentation de portabilité (v1)                                | Archive                         |
@@ -53,7 +53,7 @@ mobile, le Play Store est différé en v1.1. L'assistant vocal et la recherche
 intelligente sont documentés dans `ASSISTANT.md` (ADR-012).
 
 S0 à S3 sont livrés : monorepo, POC D1/FTS5 sur D1 réelle, catalogue Sahel
-de 41 558 lieux dans le seed (41 566 annoncés en production, écart à expliquer), Better Auth, recherche et fiches, PWA, contribution,
+de 41 558 lieux dans le seed et 41 592 en production après l’intégration Overture du 2026-11-28, Better Auth, recherche et fiches, PWA, contribution,
 signalements, modération et journal d'audit. L'accueil reste simple : aucune liste n'est
 chargée sans recherche, la géolocalisation affiche les lieux du plus proche au
 plus éloigné et la recherche vocale est proposée quand le navigateur la

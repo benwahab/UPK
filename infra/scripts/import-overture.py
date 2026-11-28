@@ -217,6 +217,13 @@ def main() -> None:
         encoding="utf-8",
     )
 
+    production_log_path = OUT / "production-integration.json"
+    production = (
+        json.loads(production_log_path.read_text(encoding="utf-8"))
+        if production_log_path.exists()
+        else {"executed": False}
+    )
+
     manifest = {
         "release": RELEASE,
         "audit_date": AUDIT_DATE,
@@ -231,7 +238,8 @@ def main() -> None:
         "enrich_osm_sha256": hashlib.sha256(
             (OUT / "enrich-osm.sql").read_bytes()
         ).hexdigest(),
-        "production_executed": False,
+        "production_executed": bool(production.get("executed")),
+        "production": production,
     }
     (OUT / "import-manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

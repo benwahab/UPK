@@ -48,8 +48,10 @@
   - `docs/overture/validated-new.csv` :
     `bf3e8c2e4b969ae43471eacbc42bfb73e8d5fbcd21142d02c378c59e625a62e2`
 
-Ces fichiers ne sont pas des seeds D1 : ils documentent l’audit. Aucune
-donnée Overture n’est importée en production par le dépôt.
+Ces fichiers ne sont pas des seeds D1 : ils documentent l’audit. L’intégration
+du 2026-11-28 a importé **26 lieux** et enrichi **16 fiches** en production ;
+le journal, les bookmarks et les empreintes sont dans
+`docs/overture/production-integration.json`.
 
 ## Obligations ODbL
 

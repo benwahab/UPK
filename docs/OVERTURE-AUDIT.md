@@ -2,12 +2,12 @@
 
 | | |
 | --- | --- |
-| **Date** | 2026-11-21 |
+| **Date** | Audit : 2026-11-21 ; intégration : 2026-11-28 |
 | **Dépôt** | `benwahab/UPK`, branche `main` |
-| **Périmètre** | Audit du dépôt, étude Overture Maps, dédoublonnage OSM, préparation de l’intégration |
-| **Production** | `https://upk.benwahab111.workers.dev` — **non modifiée** |
+| **Périmètre** | Audit du dépôt, étude Overture Maps, dédoublonnage OSM, intégration contrôlée |
+| **Production** | `https://upk.benwahab111.workers.dev` — 26 lieux et 16 enrichissements appliqués le 2026-11-28 |
 | **Release Overture** | `2026-11-18.0` (release annoncée ; absente des CSV fournis) |
-| **Décision** | Audit terminé ; intégration préparée mais **non exécutée** |
+| **Décision** | Audit terminé ; intégration exécutée et vérifiée |
 
 ---
 
@@ -137,7 +137,7 @@ La documentation est riche et exploitable, mais elle a divergé :
 | Sujet | Incohérence |
 | --- | --- |
 | Staging | `docs/README.md` a été corrigé ; `AGENTS.md` et `RUNBOOK.md` décrivent un seul environnement |
-| Volume OSM | 41 566 annoncés vs 41 558 dans le seed |
+| Volume OSM | 41 566 annoncés vs 41 558 dans le seed ; 41 592 après import Overture |
 | Version production | `ca7af247` vs `8e322315` selon le document |
 | Audit Overture | `docs/OVERTURE-AUDIT.md`, `infra/scripts/audit-overture.py` et le workflow étaient absents avant cet audit ; ils sont désormais ajoutés |
 | Tests | compteurs E2E différents selon les documents (20, 21, 39…) |
@@ -346,7 +346,7 @@ release et l’URL de vérification dans `metadata`. Aucune donnée Overture n�
 
 ---
 
-## 4. Intégration contrôlée préparée
+## 4. Intégration contrôlée exécutée
 
 ### 4.1 Principe
 
@@ -394,29 +394,48 @@ migrations `0001` à `0004` :
 
 Ce test valide la syntaxe et l’idempotence, pas la qualité métier des 26 lieux.
 
-### 4.4 Procédure de mise en production (non exécutée)
+**Production, 2026-11-28** :
 
-1. Sauvegarder D1 (`pnpm backup:d1`) et noter le bookmark Time Travel.
-2. Vérifier la production : `SELECT COUNT(*) FROM places` et
-   `SELECT COUNT(*) FROM categories` ; expliquer l’écart 41 558 / 41 566.
-3. Exécuter `docs/overture/import-new.sql` sur `upk` uniquement.
-4. Vérifier 26 lignes `source='overture'` et les catégories.
-5. Exécuter `docs/overture/enrich-osm.sql`.
-6. Vérifier 16 lignes `source='osm+overture'` et l’absence d’écrasement.
-7. Tester `/fr?q=noom`, `/fr?q=clinique%20les%20genets`,
-   `/en?q=american%20international%20school`, une fiche, le sitemap et les E2E.
-8. Surveiller Workers Logs et les erreurs D1.
-9. En cas de problème : `rollback-new.sql` pour les nouveaux lieux ; D1 Time
-   Travel ou restauration de sauvegarde pour les enrichissements.
+- sauvegarde logique : `r2://upk-backups/d1/upk-20261128T001108Z.sql.gz`
+  (SHA-256 `5b0fac155b9d843659c93a8db267f69613cfb2bb2dd26d584b7281e24c4795bf`) ;
+- avant : **41 566** lieux, **41 566** entrées FTS, **16** catégories,
+  **0** lieu Overture ;
+- après `import-new.sql` : **41 592** lieux, **26** lieux `source='overture'` ;
+- après `enrich-osm.sql` : **16** fiches `source='osm+overture'` ;
+- après intégration : **41 592** entrées FTS, aucune migration, aucun
+  redéploiement Worker ;
+- le sitemap contient **26** URL `overture_*` ;
+- les recherches et fiches testées répondent en **HTTP 200** et affichent le
+  nom, le téléphone et le site attendus.
 
-Aucune de ces étapes n’a été exécutée sur `upk` pendant cet audit.
+### 4.4 Procédure exécutée en production (2026-11-28)
+
+1. Sauvegarde D1 effectuée et bookmark Time Travel initial noté :
+   `0000001e-00000000-00005131-b7f3bcea0e1b480101776710952c693f`.
+2. État initial vérifié : 41 566 lieux, 41 566 FTS, 16 catégories, 0 Overture.
+3. `docs/overture/import-new.sql` exécuté sur `upk` uniquement :
+   27 requêtes, bookmark
+   `0000001f-0000001e-00005131-af131af79cab9673b703ed21c9726365`.
+4. Vérification : 26 lignes `source='overture'`, catégories et villes présentes.
+5. `docs/overture/enrich-osm.sql` exécuté : 17 requêtes, bookmark
+   `0000001f-00000028-00005131-1e6a7a20a7bf05c133501b5368b68ce0`.
+6. Vérification : 16 lignes `source='osm+overture'`, aucun écrasement OSM.
+7. Recherches `/fr?q=Noom Hotel Niamey`, `/fr?q=Clinique Les Genêts`,
+   `/en?q=American International School of Bamako`, fiches
+   `overture_d4866d10c064cf28`, `overture_17e5811a6f002656` et
+   `osm_node_3353667023` : HTTP 200, contenus attendus.
+8. Sitemap vérifié : 26 URL `overture_*`.
+
+Aucune migration et aucun déploiement Worker n’ont été nécessaires : seule la
+base D1 a été modifiée, après sauvegarde. Le journal reproductible est dans
+`docs/overture/production-integration.json`.
 
 ### 4.5 Critères d’acceptation de l’intégration
 
 - 26 nouveaux lieux visibles et recherchables, sans doublon manifeste.
 - 16 enrichissements sans écrasement de valeur OSM.
 - Aucun changement de schéma, aucune migration.
-- Aucune régression des tests unitaires, typecheck, lint, E2E.
+- Contrôles HTTP et sitemap effectués ; E2E non rejoués car aucun code n’a changé.
 - Sitemap et `hreflang` cohérents.
 - Attribution Overture et OSM visible avant ouverture publique.
 - Rollback testé et documenté.
@@ -427,15 +446,15 @@ Aucune de ces étapes n’a été exécutée sur `upk` pendant cet audit.
 
 1. **Ne pas importer les 913 `NEEDS_REVIEW`** sans revue humaine ou source
    indépendante.
-2. **Rejouer l’audit sur l’export exact de production** (41 566 lignes) et
-   ajouter les identifiants Overture/GERS si l’export les fournit.
+2. **Rejouer l’audit sur l’export de production après import** (41 592 lignes)
+   et ajouter les identifiants Overture/GERS si l’export les fournit.
 3. **Poursuivre la correction documentaire** : compteur OSM, versions de
    production, compteurs de tests et mentions historiques de staging.
 4. **Traiter Turnstile et le mot de passe admin** avant ouverture publique.
-5. **Ajouter l’attribution Overture** dans les mentions légales et
-   `seed/ATTRIBUTION.md`.
-6. **Automatiser l’audit** via le workflow GitHub Actions fourni ; il ne
-   déploie rien et vérifie que les sorties sont reproductibles.
+5. **Ajouter l’attribution Overture** dans les mentions légales publiques ;
+   `seed/ATTRIBUTION.md` est déjà mis à jour.
+6. **Conserver l’audit automatisé** via le workflow GitHub Actions fourni ;
+   il ne déploie rien et vérifie que les sorties sont reproductibles.
 7. **Tester les 26 lieux sur le terrain** ou via une source locale avant de
    les considérer comme vérifiés.
 8. **Ne pas fusionner les chaînes sur le nom seul** : utiliser l’adresse, le
@@ -455,7 +474,8 @@ L’audit Overture est terminé : **1 136 candidats examinés**, **50
 correspondances OSM fortes**, **34 doublons OSM**, **16 enrichissements**,
 **26 nouveaux lieux validés par source officielle**, **2 doublons internes**,
 **128 hors périmètre**, **11 localisations invalides**, **6 rejets** et
-**913 revues humaines**. L’intégration est prête sous forme de SQL idempotent
-et réversible, mais **rien n’a été exécuté en production**. Le prochain geste
-doit être une validation humaine ciblée, puis une sauvegarde D1 et un import
-contrôlé.
+**913 revues humaines**. L’intégration a été exécutée le **2026-11-28** après
+sauvegarde D1 : **41 592** lieux en production, **26** lieux Overture,
+**16** enrichissements, sitemap et recherches vérifiés. Les 913 candidats
+restants ne sont pas importés et nécessitent une revue humaine ou une source
+indépendante.

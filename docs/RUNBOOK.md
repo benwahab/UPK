@@ -131,7 +131,10 @@ done
 
 ## 5 bis. Intégration Overture contrôlée
 
-L’audit Overture est préparé mais non exécuté en production.
+L’audit Overture a été exécuté en production le **2026-11-28** après sauvegarde
+D1. État vérifié : **41 592** lieux, **26** `source='overture'`, **16**
+`source='osm+overture'`, **41 592** entrées FTS. Journal :
+`docs/overture/production-integration.json`.
 
 ```bash
 python3 infra/scripts/audit-overture.py
@@ -146,7 +149,8 @@ Procédure :
 
 1. `pnpm backup:d1` et noter le bookmark Time Travel.
 2. Vérifier `SELECT COUNT(*) FROM places` et `SELECT COUNT(*) FROM categories`
-   en production ; expliquer l’écart 41 558 (seed) / 41 566 (annoncé).
+   en production ; l’état attendu après intégration est 41 592 lieux et
+   16 catégories.
 3. Exécuter `import-new.sql`, vérifier 26 lignes `source='overture'`.
 4. Exécuter `enrich-osm.sql`, vérifier 16 lignes `source='osm+overture'`.
 5. Tester les recherches, le sitemap et les E2E.

@@ -224,14 +224,16 @@ infra/wrangler.toml` lit `infra/.dev.vars`. Garder les deux identiques.
   partagés).
 - Les 26 nouveaux lieux ont une page officielle accessible ; ce n'est pas une
   validation terrain. Les 913 autres ne doivent pas être importés sans revue.
-- `docs/overture/import-new.sql` et `enrich-osm.sql` sont testés sur SQLite
-  temporaire (migrations `0001` à `0004`, ré-exécution idempotente, rollback)
-  mais **jamais exécutés sur `upk`**.
+- Intégration exécutée sur `upk` le 2026-11-28 après sauvegarde D1 :
+  **41 592** lieux, **26** `source='overture'`, **16** `source='osm+overture'`.
+  Journal : `docs/overture/production-integration.json`.
+- `docs/overture/import-new.sql` et `enrich-osm.sql` restent idempotents et
+  ont été testés sur SQLite temporaire avant l’exécution production.
 - Workflow `.github/workflows/overture-audit.yml` : audit + vérification de
   reproductibilité, aucun déploiement.
-- Écarts documentaires à corriger : 41 558 lieux dans le seed contre 41 566
-  annoncés, staging encore décrit dans certains textes, versions de production
-  `ca7af247` / `8e322315` non homogènes.
+- Écarts documentaires à corriger : 41 558 lieux dans le seed contre 41 592
+  en production après import, staging encore décrit dans certains historiques,
+  versions de production `ca7af247` / `8e322315` non homogènes.
 
 ## Interdits
 

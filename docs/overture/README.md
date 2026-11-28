@@ -1,7 +1,8 @@
-# Overture Maps — audit et intégration préparée
+# Overture Maps — audit et intégration exécutée
 
 Ce dossier contient l’audit reproductible des 1 136 candidats Overture Maps
-(release `2026-11-18.0`) et les SQL d’une intégration **non exécutée**.
+(release `2026-11-18.0`) et les SQL de l’intégration, **exécutée en production
+le 2026-11-28** après sauvegarde D1.
 
 ## Commandes
 
@@ -20,8 +21,8 @@ touchent ni à D1 ni à Cloudflare.
 
 | Décision | Nombre | Suite |
 | --- | ---: | --- |
-| `VALIDATED_NEW` | 26 | Candidat à l’import après sauvegarde |
-| `VALIDATED_ENRICHMENT` | 16 | Compléter une fiche OSM sans écraser |
+| `VALIDATED_NEW` | 26 | Importés le 2026-11-28 |
+| `VALIDATED_ENRICHMENT` | 16 | Appliqués le 2026-11-28, sans écraser OSM |
 | `DUPLICATE_OSM` | 34 | Ne pas importer |
 | `DUPLICATE_OVERTURE` | 2 | Ne pas importer |
 | `NEEDS_REVIEW` | 913 | Revue humaine, pas d’import automatique |
@@ -47,7 +48,8 @@ touchent ni à D1 ni à Cloudflare.
 | `import-new.sql` | `INSERT` idempotents des 26 nouveaux lieux |
 | `enrich-osm.sql` | `UPDATE` avec `COALESCE`, champs absents uniquement |
 | `rollback-new.sql` | Suppression des seuls lieux `source='overture'` |
-| `import-manifest.json` | Compteurs, empreintes SHA-256, `production_executed=false` |
+| `import-manifest.json` | Compteurs, empreintes SHA-256, état d’exécution |
+| `production-integration.json` | Journal de l’exécution production, bookmarks et vérifications |
 
 ## Règles de sécurité appliquées
 
@@ -63,7 +65,13 @@ touchent ni à D1 ni à Cloudflare.
 
 ## Intégration en production
 
-Ne pas exécuter sans sauvegarde D1 et validation explicite.
+Exécutée le **2026-11-28** après sauvegarde D1. État vérifié :
+**41 592** lieux, **26** `source='overture'`, **16** `source='osm+overture'`,
+**41 592** entrées FTS, sitemap à jour. Le journal complet est dans
+[`production-integration.json`](./production-integration.json).
+
+Les commandes ci-dessous sont conservées pour une ré-exécution idempotente ou
+un environnement restauré. Ne jamais les lancer sans sauvegarde.
 
 ```bash
 # 1. Sauvegarde et bookmark Time Travel
@@ -80,7 +88,7 @@ pnpm -C apps/web exec wrangler d1 execute upk --remote \
   --file=../../docs/overture/enrich-osm.sql -y
 ```
 
-Vérifier ensuite :
+Vérifier ensuite (valeurs attendues après l’intégration) :
 
 ```sql
 SELECT COUNT(*) FROM places WHERE source = 'overture';
