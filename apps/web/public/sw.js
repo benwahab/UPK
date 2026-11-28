@@ -1,4 +1,4 @@
-const VERSION = "upk-v5";
+const VERSION = "upk-v6";
 const STATIC_CACHE = `${VERSION}-static`;
 const PAGE_CACHE = `${VERSION}-pages`;
 const OFFLINE_URL = "/offline";
