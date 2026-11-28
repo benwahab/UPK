@@ -8,6 +8,12 @@ export const publicProcedure = t.procedure;
 
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
   if (!ctx.user) throw new TRPCError({ code: "UNAUTHORIZED" });
+  if (ctx.user.roles.includes("pending")) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Votre compte est en attente de vérification et d'activation.",
+    });
+  }
   return next({ ctx: { ...ctx, user: ctx.user } });
 });
 
