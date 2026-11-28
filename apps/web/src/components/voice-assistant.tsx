@@ -193,9 +193,10 @@ export function VoiceAssistant({ locale }: { locale: "fr" | "en" | "ar" }) {
   }
 
   useEffect(() => {
+    if (!preferencesLoaded) return;
     const justOpened = open && !wasOpen.current;
     wasOpen.current = open;
-    if (!preferencesLoaded || !justOpened || !greetingEnabled) return;
+    if (!justOpened || !greetingEnabled) return;
     deliverGreeting(true);
   }, [open, preferencesLoaded, greetingEnabled]);
 
