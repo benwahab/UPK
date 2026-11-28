@@ -11,6 +11,7 @@ import {
 } from "@upk/domain";
 import { assistantText, t } from "@upk/i18n";
 import { lazy, Suspense, useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { AdCarousel } from "../../components/ad-carousel";
 import { VoiceSearch } from "../../components/voice-search";
 import { absoluteUrl } from "../../lib/site";
 import { getTrpcClient } from "../../lib/trpc";
@@ -471,7 +472,8 @@ function Home() {
         )}
       </section>
 
-         </main>
+      <AdCarousel />
+    </main>
   );
 }
 
