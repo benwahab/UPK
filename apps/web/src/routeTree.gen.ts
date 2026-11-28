@@ -22,6 +22,7 @@ import { Route as LocaleContactRouteImport } from './routes/$locale/contact'
 import { Route as LocaleContribuerRouteImport } from './routes/$locale/contribuer'
 import { Route as ApiPocRouteImport } from './routes/api/poc'
 import { Route as ApiUploadsRouteImport } from './routes/api/uploads'
+import { Route as ApiAccountApplicationsRouteImport } from './routes/api/account-applications'
 import { Route as PlacesIdRouteImport } from './routes/places/$id'
 import { Route as LocaleAdminModerationRouteImport } from './routes/$locale/admin/moderation'
 import { Route as LocalePlacesIdRouteImport } from './routes/$locale/places/$id'
@@ -94,6 +95,11 @@ const ApiUploadsRoute = ApiUploadsRouteImport.update({
   path: '/api/uploads',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAccountApplicationsRoute = ApiAccountApplicationsRouteImport.update({
+  id: '/api/account-applications',
+  path: '/api/account-applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlacesIdRoute = PlacesIdRouteImport.update({
   id: '/places/$id',
   path: '/places/$id',
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/$locale/contribuer': typeof LocaleContribuerRoute
   '/api/poc': typeof ApiPocRoute
   '/api/uploads': typeof ApiUploadsRoute
+  '/api/account-applications': typeof ApiAccountApplicationsRoute
   '/places/$id': typeof PlacesIdRoute
   '/$locale/': typeof LocaleIndexRoute
   '/$locale/admin/moderation': typeof LocaleAdminModerationRoute
@@ -203,6 +210,7 @@ export interface FileRouteTypes {
     | '/$locale/contribuer'
     | '/api/poc'
     | '/api/uploads'
+    | '/api/account-applications'
     | '/places/$id'
     | '/$locale/'
     | '/$locale/admin/moderation'
@@ -260,6 +268,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiPocRoute: typeof ApiPocRoute
   ApiUploadsRoute: typeof ApiUploadsRoute
+  ApiAccountApplicationsRoute: typeof ApiAccountApplicationsRoute
   PlacesIdRoute: typeof PlacesIdRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiPhotosSplatRoute: typeof ApiPhotosSplatRoute
@@ -359,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiUploadsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/account-applications': {
+      id: '/api/account-applications'
+      path: '/api/account-applications'
+      fullPath: '/api/account-applications'
+      preLoaderRoute: typeof ApiAccountApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/places/$id': {
       id: '/places/$id'
       path: '/places/$id'
@@ -438,6 +454,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiPocRoute: ApiPocRoute,
   ApiUploadsRoute: ApiUploadsRoute,
+  ApiAccountApplicationsRoute: ApiAccountApplicationsRoute,
   PlacesIdRoute: PlacesIdRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiPhotosSplatRoute: ApiPhotosSplatRoute,
