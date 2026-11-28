@@ -227,11 +227,11 @@ function Home() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-3xl flex-col px-6 py-16">
-      <p className="text-sm font-medium uppercase tracking-widest text-[var(--upk-primary)]">UPK</p>
-      <h1 className="mt-3 text-4xl font-bold sm:text-5xl">{t(locale, "home.title")}</h1>
-      <p className="mt-4 text-lg text-[var(--upk-muted-fg)]">{t(locale, "home.subtitle")}</p>
-      <nav className="mt-4 flex gap-3 text-sm" aria-label={t(locale, "nav.language")}>
+    <main className="mx-auto flex min-h-screen max-w-3xl flex-col bg-[#090909] px-5 py-8 text-white sm:px-6 sm:py-12">
+      <p className="text-center text-sm font-semibold uppercase tracking-[0.35em] text-[#f28a24]">UPK</p>
+      <h1 className="mt-8 text-center text-4xl font-extrabold tracking-wide sm:mt-12 sm:text-5xl">UPK</h1>
+      <p className="mt-3 text-center text-lg font-semibold text-white">{locale === "fr" ? "Votre guide local" : t(locale, "home.subtitle")}</p><div className="mx-auto mt-3 h-1 w-14 rounded-full bg-[#f28a24]" />
+      <nav className="mt-4 flex justify-center gap-5 text-sm text-white/70" aria-label={t(locale, "nav.language")}>
         {(["fr", "en", "ar"] as const).map((code) => (
           <Link
             key={code}
@@ -255,14 +255,14 @@ function Home() {
       <Link
         to="/$locale/contribuer"
         params={{ locale }}
-        className="mt-4 text-sm font-medium text-[var(--upk-primary)]"
+        className="mt-4 text-center text-sm font-medium text-[#f28a24]"
       >
         {t(locale, "nav.propose")}
       </Link>
       <form
         method="get"
         action={`/${locale}`}
-        className="mt-8 flex flex-col gap-2"
+        className="mt-12 flex flex-col gap-3 rounded-2xl border border-[#292929] bg-[#141414] p-3 shadow-[0_12px_40px_rgba(242,138,36,0.08)] sm:mt-16"
         onSubmit={submit}
       >
         <div className="flex gap-2">
@@ -273,7 +273,7 @@ function Home() {
             onChange={(event) => setInput(event.target.value)}
             aria-label={t(locale, "search.button")}
             placeholder={t(locale, "search.placeholder")}
-            className="min-w-0 flex-1 rounded-lg border border-[var(--upk-border)] bg-[var(--upk-bg)] px-4 py-3 outline-none focus:ring-2 focus:ring-[var(--upk-primary)]"
+            className="min-w-0 flex-1 rounded-xl border border-[#343434] bg-[#1b1b1b] px-4 py-3 text-white outline-none placeholder:text-white/50 focus:ring-2 focus:ring-[#f28a24]"
           />
           <VoiceSearch locale={locale} onResult={voiceResult} onError={() => setVoiceError(true)} />
         </div>
@@ -338,7 +338,7 @@ function Home() {
         </p>
       )}
 
-      <section className="mt-8" aria-live="polite">
+      <section className="mt-8 text-white" aria-live="polite">
         {!hasSearch && (
           <div className="rounded-xl border border-[var(--upk-border)] p-6">
             <h2 className="text-xl font-semibold">{t(locale, "search.startTitle")}</h2>
