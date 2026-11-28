@@ -7,8 +7,8 @@
   "start_url": "/fr",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0f3d2e",
-  "theme_color": "#2f8f5b",
+  "background_color": "#F5FFFA",
+  "theme_color": "#F5FFFA",
   "icons": [
     {
       "src": "/icon-192.png",
