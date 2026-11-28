@@ -108,7 +108,7 @@ function Home() {
     queryFn: () =>
       getTrpcClient().search.places.query({
         q: suggestionQuery,
-        limit: 8,
+        limit: 50,
       }),
     enabled: normalizeSearch(suggestionQuery).length >= 3,
     staleTime: 15_000,
@@ -343,7 +343,7 @@ function Home() {
             </button>
           </p>
         )}
-        {liveSuggestionItems.length > 0 && (
+        {normalizeSearch(input) === normalizeSearch(suggestionQuery) && liveSuggestionItems.length > 0 && (
           <div
             className="mt-2 overflow-hidden rounded-xl border border-[var(--upk-border)] bg-[var(--upk-card)] shadow-sm"
             role="listbox"
