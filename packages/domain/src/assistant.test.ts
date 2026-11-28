@@ -36,7 +36,9 @@ describe("compréhension des demandes", () => {
   it("reconnaît le moyen de transport choisi et prépare la recherche", () => {
     expect(travelModeForText("Par avion")).toBe("plane");
     expect(travelModeForText("Je préfère le bus")).toBe("bus");
-    expect(travelModeForText("Depuis l'auto-gare")).toBe("bus");
+    expect(travelModeForText("Depuis l'auto-gare")).toBe("bus_station");
+    expect(travelModeForText("Je voyage en bus")).toBe("bus");
+    expect(travelSearchIntent("bus_station")).toMatchObject({ query: "gare routiere", categorySlug: "transport" });
     expect(travelModeForText("En train")).toBe("train");
     expect(travelModeForText("Je ne sais pas")).toBe(null);
     expect(travelSearchIntent("bus")).toMatchObject({
