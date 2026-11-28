@@ -198,5 +198,7 @@
   "login.rejected": "Your application was not approved. Please contact the UPK team for next steps.",
   "login.noApplication": "No account application is associated with this address. Create an application to access UPK.",
   "login.submitted": "Your application has been submitted. Your account will remain pending until verified and approved.",
-  "login.applicationError": "Your account was created, but the application could not be saved. Sign in again and contact the UPK team."
+  "login.applicationError": "Your account was created, but the application could not be saved. Sign in again and contact the UPK team.",
+  "login.confirmPassword": "Confirm password",
+  "login.passwordMismatch": "The passwords do not match."
 }
