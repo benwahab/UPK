@@ -53,7 +53,7 @@ export function AdCarousel() {
 
   return (
     <aside
-      className="mx-auto mt-auto w-full max-w-5xl px-3 pb-5 pt-5"
+      className="mx-auto mt-auto mb-14 w-full max-w-5xl px-3 pb-5 pt-5"
       aria-label="Espace publicitaire"
     >
       <div className="mb-3 text-center">
