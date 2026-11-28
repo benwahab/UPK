@@ -55,13 +55,14 @@ body {
 .upk-auth-layout {
   width: min(100%, 1080px);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);
+  grid-template-columns: minmax(0, 440px);
+  justify-content: center;
   align-items: center;
-  gap: clamp(32px, 6vw, 88px);
+  gap: 0;
   position: relative;
   z-index: 1;
 }
-.upk-auth-brand { padding: 28px 0; }
+.upk-auth-brand { display: none; }
 .upk-auth-eyebrow, .upk-auth-kicker {
   color: var(--auth-primary-deep);
   font-size: 11px;
@@ -91,7 +92,7 @@ body {
   box-shadow: 0 0 55px rgb(228 91 53 / 20%);
 }
 .upk-auth-card {
-  width: 100%; max-width: 440px; justify-self: end; padding: 32px;
+  width: 100%; max-width: 440px; justify-self: center; padding: 32px;
   border: 1px solid rgb(255 255 255 / 82%); border-radius: 30px;
   background: rgb(255 255 255 / 78%); backdrop-filter: blur(24px);
   box-shadow: 0 24px 80px rgb(112 54 34 / 17%), inset 0 1px 0 rgb(255 255 255 / 90%);
@@ -138,8 +139,8 @@ body {
 .upk-auth-notice { border: 1px solid #b8e0cb; color: #236b49; background: #effaf3; }
 .upk-auth-error { border: 1px solid #f1c2b6; color: #a13b27; background: #fff2ee; }
 @media (max-width: 760px) {
-  .upk-auth-shell { padding: 20px 14px; align-items: flex-start; }
-  .upk-auth-layout { display: block; width: 100%; max-width: 480px; }
+  .upk-auth-shell { padding: 20px 14px; align-items: center; }
+  .upk-auth-layout { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; max-width: 480px; }
   .upk-auth-brand { display: none; }
   .upk-auth-card { max-width: none; justify-self: auto; margin: 0 auto; padding: 25px 21px; border-radius: 25px; }
   .upk-auth-heading { margin-top: 26px; }
