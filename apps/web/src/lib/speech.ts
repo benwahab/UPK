@@ -167,7 +167,7 @@ export function speak(
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = speechLanguage(language);
   utterance.rate = 0.95;
-  utterance.pitch = language === "ar" ? 0.78 : 0.88;
+  utterance.pitch = 0.65;
   const voice = pickVoice(language);
   if (voice) utterance.voice = voice;
 
