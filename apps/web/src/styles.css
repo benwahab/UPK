@@ -22,4 +22,28 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+@keyframes ben-launcher-attention {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 22px rgb(255 107 53 / 28%);
+  }
+  50% {
+    transform: scale(1.07);
+    box-shadow: 0 0 0 8px rgb(255 107 53 / 13%), 0 10px 28px rgb(255 107 53 / 48%);
+  }
+}
 
+.ben-launcher-attention {
+  animation: ben-launcher-attention 2.2s ease-in-out infinite;
+}
+
+.ben-launcher-attention:hover,
+.ben-launcher-attention:focus-visible {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ben-launcher-attention {
+    animation: none;
+  }
+}
